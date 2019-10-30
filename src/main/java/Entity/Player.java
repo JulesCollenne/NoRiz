@@ -10,8 +10,12 @@ public class Player implements Entity {
     private int x;
     private int y;
 
-    private int speed;
+    /*
+        facing : 0=R, 1=D, 2=L, 3=U
+     */
+    private int facing;
 
+    private int speed;
     private boolean hasBonus;
 
     public Player(int initialX, int initialY, int initialSpeed){

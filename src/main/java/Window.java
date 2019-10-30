@@ -4,25 +4,35 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 public class Window extends JFrame implements ComponentListener {
-    Panel panel = new Panel();
+    GamePanel gamePanel;
     Graphics g;
 
     public Window(){
         firstInit();
 
-        lastInit();
-    }
+         setPanels();
 
-    private void lastInit() {
-        this.setVisible(true);
+        lastInit();
     }
 
     private void firstInit(){
         this.setTitle("NoRiz");
         this.setSize(800, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIgnoreRepaint(true);
+        //pack();
         this.setLocationRelativeTo(null);
         this.setBackground(Color.WHITE);
+    }
+
+    private void setPanels(){
+        gamePanel = new GamePanel();
+        this.getContentPane().add(gamePanel, null);
+    }
+
+    private void lastInit() {
+        this.setVisible(true);
+        getContentPane().addComponentListener(this);
     }
 
     public void componentResized(ComponentEvent componentEvent) {
