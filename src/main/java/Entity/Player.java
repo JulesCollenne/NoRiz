@@ -34,4 +34,8 @@ public class Player implements Entity {
     public void draw(Graphics g) {
         //TODO draw sashimi
     }
+
+    public void move(int facing) {
+
+    }
 }

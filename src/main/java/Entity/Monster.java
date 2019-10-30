@@ -27,4 +27,8 @@ public class Monster implements  Entity{
     public void draw(Graphics g) {
         //TODO draw monster
     }
+
+    public void move(int facing) {
+
+    }
 }

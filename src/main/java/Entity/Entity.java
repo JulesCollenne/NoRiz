@@ -8,5 +8,6 @@ import java.awt.*;
 public interface Entity {
 
     void draw(Graphics g);
+    void move(int facing);
 
 }
