@@ -1,4 +1,13 @@
 package States;
 
-public class PlayState implements GameState {
+import java.awt.*;
+
+public class PlayState extends GameState {
+    public PlayState(GameStateManager gsm) {
+        super(gsm);
+    }
+
+    public void draw(Graphics g) {
+        gsm.player.draw(g);
+    }
 }
