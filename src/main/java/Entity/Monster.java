@@ -1,5 +1,7 @@
 package Entity;
 
+import Strategy.Strategy;
+
 import java.awt.*;
 
 /**
@@ -12,10 +14,13 @@ public class Monster implements  Entity{
 
     private int speed;
 
-    public Monster(int initialX, int initialY, int initialSpeed){
+    Strategy strat;
+
+    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat){
         x = initialX;
         y = initialY;
         speed = initialSpeed;
+        this.strat = strat;
     }
 
 
@@ -31,4 +36,13 @@ public class Monster implements  Entity{
     public void move(int facing) {
 
     }
+
+    /**
+     *
+     * @return la prochaine direction du monstre
+     */
+    public int nextWay(){
+       return strat.nextWay();
+    }
+
 }

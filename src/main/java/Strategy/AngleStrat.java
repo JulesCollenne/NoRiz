@@ -13,7 +13,7 @@ package Strategy;
  *
  */
 public class AngleStrat implements Strategy {
-    public int newWay() {
+    public int nextWay() {
         return 0;
     }
 }

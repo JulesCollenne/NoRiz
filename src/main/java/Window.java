@@ -20,7 +20,6 @@ public class Window extends JFrame implements ComponentListener {
         this.setSize(800, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIgnoreRepaint(true);
-        //pack();
         this.setLocationRelativeTo(null);
         this.setBackground(Color.WHITE);
     }
