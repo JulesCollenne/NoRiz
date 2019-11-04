@@ -1,5 +1,5 @@
-import Input.Keys;
-import Input.Mouse;
+import Input.KeysManager;
+import Input.MouseManager;
 import States.GameStateManager;
 
 import javax.swing.*;
@@ -17,8 +17,8 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage image;
     private Graphics2D g;
 
-    Keys key;
-    Mouse mouse;
+    KeysManager key;
+    MouseManager mouse;
 
 
     public GamePanel(int width, int height){
@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         while(running){
             //TODO Lancer le jeu en fonction du gamestate
+            gsm.input();
 
         }
     }
@@ -41,8 +42,8 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) image.getGraphics();
         gsm = new GameStateManager();
 
-        key = new Keys(gsm);
-        mouse = new Mouse(gsm);
+        key = new KeysManager(gsm);
+        mouse = new MouseManager(gsm);
     }
 
     public void paintComponent(Graphics g){

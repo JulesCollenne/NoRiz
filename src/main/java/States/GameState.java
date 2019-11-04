@@ -9,5 +9,6 @@ public abstract class GameState {
         this.gsm = gsm;
     }
     abstract void draw(Graphics g);
+    abstract void input();
 
 }

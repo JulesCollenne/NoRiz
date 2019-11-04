@@ -6,11 +6,16 @@ import States.GameStateManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Keys implements KeyListener {
+/**
+ * Gestion du clavier.
+ * Quand on appuie sur une touche : change de direction du personnage si la direction est possible.
+ * Pour ce faire, tu peux vérifier les coord de Nori, la matrice etc... Tout est dans gsm
+ */
+public class KeysManager implements KeyListener {
 
     GameStateManager gsm;
 
-    public Keys(GameStateManager gsm){
+    public KeysManager(GameStateManager gsm){
         this.gsm = gsm;
     }
 

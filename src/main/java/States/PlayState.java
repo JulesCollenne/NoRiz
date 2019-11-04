@@ -9,5 +9,6 @@ public class PlayState extends GameState {
 
     public void draw(Graphics g) {
         gsm.player.draw(g);
+        //TODO affiche le monde et tout les composants
     }
 }

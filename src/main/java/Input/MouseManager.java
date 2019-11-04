@@ -6,11 +6,16 @@ import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Mouse implements MouseListener {
+/**
+ * Gestionnaire de la souris
+ * Ce sera peut etre pas nécessaire, mais si on veut faire des boutons, vérifier si on clique su un bouton dans le menu etc...
+ * Tout sera dans gsm.
+ */
+public class MouseManager implements MouseListener {
 
     GameStateManager gsm;
 
-    public Mouse(GameStateManager gsm){
+    public MouseManager(GameStateManager gsm){
         this.gsm = gsm;
     }
 
