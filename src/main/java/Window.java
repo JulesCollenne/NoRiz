@@ -17,7 +17,7 @@ public class Window extends JFrame implements ComponentListener {
     public Window(){
         firstInit();
 
-         setPanels();
+        setPanels();
 
         lastInit();
 

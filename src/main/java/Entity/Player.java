@@ -1,6 +1,7 @@
 package Entity;
 
 import java.awt.*;
+import java.util.Vector;
 
 /**
  * Player is the sashimi
@@ -39,5 +40,13 @@ public class Player implements Entity {
 
     public void move(int facing) {
 
+    }
+
+    public int[] getSquare(){
+        int[] coord = new int[2];
+
+
+
+        return coord;
     }
 }

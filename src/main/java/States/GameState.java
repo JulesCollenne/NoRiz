@@ -11,4 +11,5 @@ public abstract class GameState {
     abstract void draw(Graphics g);
     abstract void input();
 
+    public abstract void nextStep();
 }

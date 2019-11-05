@@ -10,4 +10,8 @@ public class StartMenuState extends GameState {
     void draw(Graphics g) {
 
     }
+
+    void input() {
+
+    }
 }

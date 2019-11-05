@@ -7,6 +7,14 @@ public class PlayState extends GameState {
         super(gsm);
     }
 
+    void input() {
+
+    }
+
+    public void nextStep() {
+
+    }
+
     public void draw(Graphics g) {
         gsm.player.draw(g);
         //TODO affiche le monde et tout les composants

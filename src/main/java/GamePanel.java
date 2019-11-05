@@ -30,9 +30,10 @@ public class GamePanel extends JPanel implements Runnable {
         initialize();
 
         while(running){
-            //TODO Lancer le jeu en fonction du gamestate
+            //TODO Lancer le jeu
             gsm.input();
-
+            gsm.nextStep();
+            gsm.draw(g);
         }
     }
 

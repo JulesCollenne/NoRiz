@@ -24,7 +24,8 @@ public class KeysManager implements KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_D){
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            //gsm.player.
             //TODO On bouge a droite
         }
     }

@@ -10,4 +10,8 @@ public class PauseState extends GameState {
     void draw(Graphics g) {
 
     }
+
+    void input() {
+
+    }
 }
