@@ -5,8 +5,8 @@ import java.awt.event.ComponentListener;
 
 public class Window extends JFrame implements ComponentListener {
 
-    private final int WIDTH = 800;
-    private final int HEIGHT = 800;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 1000;
 
     GamePanel gamePanel;
     Graphics g;

@@ -1,5 +1,7 @@
 package WorldBuilder;
 
+import States.GameStateManager;
+
 /**
  * Cette classe permet de créer les niveaux
  * Les niveaux sont des matrices d'entiers dont les valeurs signifie la présence de vide (0), murs (1) ou consommables (2)
@@ -9,15 +11,22 @@ package WorldBuilder;
  */
 public class WorldBuilder {
 
-    public int[][] build(int l, int h){
+    int l;
+    int h;
+
+    GameStateManager gsm;
+
+    public WorldBuilder(int l, int h, GameStateManager gsm){
+        this.l = l;
+        this.h = h;
+        this.gsm = gsm;
+    }
+
+    public int[][] build(){
         int[][] world = new int[l][h];
 
         //TODO créer le niveau
 
         return world;
-    }
-
-    public int[][] build(){
-        return build(16,16);
     }
 }

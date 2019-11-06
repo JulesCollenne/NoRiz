@@ -1,5 +1,6 @@
 package States;
 
+import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
 import WorldBuilder.WorldBuilder;
@@ -12,20 +13,21 @@ public class GameStateManager {
     final int PLAY  = 1;
     final int PAUSE  = 2;
 
-    int currentState = 0;
+    int currentState = START;
 
-    // 0 = StartMenuState, 1 = PlayState, 2 = PauseState
     GameState gameStates[] = new GameState[3];
 
-    public Player player = new Player(100,100,1);
+    public Player player = new Player(this, 100,100,1);
     public Monster[] monsters = new Monster[4];
 
     public int[][] map;
 
-    WorldBuilder worldBuilder = new WorldBuilder();
+    WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
+
+    public Collider collider = new Collider(this);
 
     public GameStateManager(){
-        gameStates[PLAY] = new PlayState(this);
+        changeState(PLAY);
         map = worldBuilder.build();
     }
 
@@ -41,10 +43,13 @@ public class GameStateManager {
         switch(currentState) {
             case START:
                 gameStates[currentState] = new StartMenuState(this);
+                break;
             case PLAY:
                 gameStates[currentState] = new PlayState(this);
+                break;
             case PAUSE:
                 gameStates[currentState] = new PauseState(this);
+                break;
         }
     }
 

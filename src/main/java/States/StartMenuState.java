@@ -14,4 +14,8 @@ public class StartMenuState extends GameState {
     void input() {
 
     }
+
+    public void nextStep() {
+
+    }
 }

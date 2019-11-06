@@ -14,4 +14,8 @@ public class PauseState extends GameState {
     void input() {
 
     }
+
+    public void nextStep() {
+
+    }
 }

@@ -37,6 +37,10 @@ public class Monster implements  Entity{
 
     }
 
+    public void nextStep() {
+
+    }
+
     /**
      *
      * @return la prochaine direction du monstre

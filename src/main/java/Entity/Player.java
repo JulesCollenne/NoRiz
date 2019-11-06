@@ -1,5 +1,7 @@
 package Entity;
 
+import States.GameStateManager;
+
 import java.awt.*;
 import java.util.Vector;
 
@@ -12,14 +14,23 @@ public class Player implements Entity {
     private int y;
 
     /*
-        facing : 0=R, 1=D, 2=L, 3=U
+        facing : 0 = D, 1 = U, 2 = L, 3 = R
      */
+
+    final int DOWN = 0;
+    final int UP = 1;
+    final int LEFT = 2;
+    final int RIGHT = 3;
+
     private int facing;
 
     private int speed;
     private boolean hasBonus;
 
-    public Player(int initialX, int initialY, int initialSpeed){
+    GameStateManager gsm;
+
+    public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
+        this.gsm = gsm;
         x = initialX;
         y = initialY;
         speed = initialSpeed;
@@ -27,9 +38,11 @@ public class Player implements Entity {
     }
 
 
-    public void move(int x, int y) {
-        this.x += x;
-        this.y += y;
+    public void move(int dx, int dy) {
+        if(!gsm.collider.isPossible(x + dx, y + dy))
+            return;
+        x += dx;
+        y += dy;
     }
 
     public void draw(Graphics g) {
@@ -42,11 +55,20 @@ public class Player implements Entity {
 
     }
 
-    public int[] getSquare(){
-        int[] coord = new int[2];
-
-
-
-        return coord;
+    public void nextStep() {
+        switch(facing){
+            case DOWN:
+                move(0, speed);
+                break;
+            case UP:
+                move(0, -speed);
+                break;
+            case LEFT:
+                move(-speed, 0);
+                break;
+            case RIGHT:
+                move(speed, 0);
+                break;
+        }
     }
 }

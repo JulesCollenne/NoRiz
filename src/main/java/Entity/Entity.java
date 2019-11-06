@@ -9,5 +9,9 @@ public interface Entity {
 
     void draw(Graphics g);
     void move(int facing);
+    void nextStep();
+    int getX();
+    int getY();
+    int getSize();
 
 }
