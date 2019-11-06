@@ -1,3 +1,5 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
@@ -12,7 +14,7 @@ public class Window extends JFrame implements ComponentListener {
     Graphics g;
 
     /**
-     * Lors de la création de la Window, on lance le programme
+     * Lors de la création de la UI.Window, on lance le programme
      */
     public Window(){
         firstInit();
@@ -21,7 +23,7 @@ public class Window extends JFrame implements ComponentListener {
 
         lastInit();
 
-        run();
+        //run();
     }
 
     /**

@@ -1,3 +1,5 @@
+package UI;
+
 import Input.KeysManager;
 import Input.MouseManager;
 import States.GameStateManager;
@@ -24,17 +26,29 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel(int width, int height){
         GamePanel.width = width;
         GamePanel.height = height;
+        setPreferredSize(new Dimension(width, height));
+        setFocusable(true);
+        requestFocus();
+
+        initialize();
+
+        Thread thread = new Thread(this, "GameThread");
+        thread.start();
     }
 
     public void run() {
-        initialize();
 
         while(running){
             //TODO Lancer le jeu
-            gsm.input();
+            gsm.input(key, mouse);
             gsm.nextStep();
             gsm.draw(g);
+            initInput();
         }
+    }
+
+    private void initInput() {
+        key.initKeys();
     }
 
     public void initialize(){
@@ -43,8 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
         g = (Graphics2D) image.getGraphics();
         gsm = new GameStateManager();
 
-        key = new KeysManager(gsm);
-        mouse = new MouseManager(gsm);
+        key = new KeysManager(this);
+        mouse = new MouseManager(this);
     }
 
     public void paintComponent(Graphics g){

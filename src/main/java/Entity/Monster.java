@@ -41,6 +41,18 @@ public class Monster implements  Entity{
 
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getSize() {
+        return 25;
+    }
+
     /**
      *
      * @return la prochaine direction du monstre

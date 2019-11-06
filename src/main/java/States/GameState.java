@@ -1,5 +1,8 @@
 package States;
 
+import Input.KeysManager;
+import Input.MouseManager;
+
 import java.awt.*;
 
 public abstract class GameState {
@@ -9,7 +12,7 @@ public abstract class GameState {
         this.gsm = gsm;
     }
     abstract void draw(Graphics g);
-    abstract void input();
+    abstract void input(KeysManager key, MouseManager mouse);
 
     public abstract void nextStep();
 }

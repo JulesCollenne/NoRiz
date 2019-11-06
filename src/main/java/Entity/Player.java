@@ -23,6 +23,7 @@ public class Player implements Entity {
     final int RIGHT = 3;
 
     private int facing;
+    public int nextFacing;
 
     private int speed;
     private boolean hasBonus;
@@ -38,7 +39,7 @@ public class Player implements Entity {
     }
 
 
-    public void move(int dx, int dy) {
+    public void tryMove(int dx, int dy) {
         if(!gsm.collider.isPossible(x + dx, y + dy))
             return;
         x += dx;
@@ -58,17 +59,33 @@ public class Player implements Entity {
     public void nextStep() {
         switch(facing){
             case DOWN:
-                move(0, speed);
+                tryMove(0, speed);
                 break;
             case UP:
-                move(0, -speed);
+                tryMove(0, -speed);
                 break;
             case LEFT:
-                move(-speed, 0);
+                tryMove(-speed, 0);
                 break;
             case RIGHT:
-                move(speed, 0);
+                tryMove(speed, 0);
                 break;
         }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getSize() {
+        return 25;
+    }
+
+    public void changeFacing(int newFacing){
+        facing = newFacing;
     }
 }

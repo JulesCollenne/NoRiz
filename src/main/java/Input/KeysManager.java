@@ -1,7 +1,6 @@
 package Input;
 
-import States.GameState;
-import States.GameStateManager;
+import UI.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,10 +12,22 @@ import java.awt.event.KeyListener;
  */
 public class KeysManager implements KeyListener {
 
-    GameStateManager gsm;
+    public final int KEY_D = 0;
+    public final int KEY_U = 1;
+    public final int KEY_L = 2;
+    public final int KEY_R = 3;
 
-    public KeysManager(GameStateManager gsm){
-        this.gsm = gsm;
+
+    public boolean[] keys = new boolean[10];
+
+    public KeysManager(GamePanel gamePanel){
+        gamePanel.addKeyListener(this);
+    }
+
+    public void initKeys(){
+        for(boolean key : keys){
+            key = false;
+        }
     }
 
     public void keyTyped(KeyEvent e) {
@@ -28,6 +39,9 @@ public class KeysManager implements KeyListener {
             //gsm.player.
             //TODO On bouge a droite
 
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            keys[KEY_R] = true;
         }
     }
 

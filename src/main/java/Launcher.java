@@ -1,3 +1,5 @@
+import UI.Window;
+
 /**
  * Launching the program.
  */

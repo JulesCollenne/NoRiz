@@ -24,7 +24,7 @@ public class Collider {
     }
 
     public boolean isTouching(Entity e1, Entity e2){
-        if()
+        return Utils.distance(e1.getX(),e1.getY(),e2.getX(),e2.getY()) <= e1.getSize() + e2.getSize();
     }
 
 }

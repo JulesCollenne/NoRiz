@@ -1,5 +1,8 @@
 package States;
 
+import Input.KeysManager;
+import Input.MouseManager;
+
 import java.awt.*;
 
 public class PlayState extends GameState {
@@ -7,8 +10,10 @@ public class PlayState extends GameState {
         super(gsm);
     }
 
-    void input() {
-
+    void input(KeysManager key, MouseManager mouse) {
+        if(key.keys[key.KEY_R]){
+            gsm.player.changeFacing(3);
+        }
     }
 
     public void nextStep() {

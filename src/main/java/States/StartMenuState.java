@@ -1,5 +1,8 @@
 package States;
 
+import Input.KeysManager;
+import Input.MouseManager;
+
 import java.awt.*;
 
 public class StartMenuState extends GameState {
@@ -11,7 +14,7 @@ public class StartMenuState extends GameState {
 
     }
 
-    void input() {
+    void input(KeysManager key, MouseManager mouse) {
 
     }
 

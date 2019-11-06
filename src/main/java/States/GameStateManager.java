@@ -3,6 +3,8 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
+import Input.KeysManager;
+import Input.MouseManager;
 import WorldBuilder.WorldBuilder;
 
 import java.awt.*;
@@ -53,10 +55,10 @@ public class GameStateManager {
         }
     }
 
-    public void input(){
+    public void input(KeysManager key, MouseManager mouse){
         for(int i=0; i<gameStates.length; i++){
             if(gameStates[i] != null){
-                gameStates[i].input();
+                gameStates[i].input(key, mouse);
             }
         }
     }
