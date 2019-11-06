@@ -3,7 +3,6 @@ package Entity;
 import States.GameStateManager;
 
 import java.awt.*;
-import java.util.Vector;
 
 /**
  * Player is the sashimi
@@ -37,7 +36,6 @@ public class Player implements Entity {
         speed = initialSpeed;
         hasBonus = false;
     }
-
 
     public void tryMove(int dx, int dy) {
         if(!gsm.collider.isPossible(x + dx, y + dy))
