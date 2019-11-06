@@ -29,7 +29,7 @@ public class GameStateManager {
     public Collider collider = new Collider(this);
 
     public GameStateManager(){
-        changeState(PLAY);
+        changeState(START);
         map = worldBuilder.build();
     }
 
