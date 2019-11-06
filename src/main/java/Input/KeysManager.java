@@ -12,10 +12,10 @@ import java.awt.event.KeyListener;
  */
 public class KeysManager implements KeyListener {
 
-    public final int KEY_D = 0;
-    public final int KEY_U = 1;
-    public final int KEY_L = 2;
-    public final int KEY_R = 3;
+    public final int KEY_S = 0;
+    public final int KEY_Z = 1;
+    public final int KEY_Q = 2;
+    public final int KEY_D = 3;
 
 
     public boolean[] keys = new boolean[10];
@@ -25,8 +25,8 @@ public class KeysManager implements KeyListener {
     }
 
     public void initKeys(){
-        for(boolean key : keys){
-            key = false;
+        for(int i = 0; i < keys.length; i++){
+            keys[i] = false;
         }
     }
 
@@ -40,9 +40,14 @@ public class KeysManager implements KeyListener {
             //TODO On bouge a droite
 
         }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            keys[KEY_R] = true;
-        }
+        if(e.getKeyCode() == KeyEvent.VK_S)
+            keys[KEY_S] = true;
+        if(e.getKeyCode() == KeyEvent.VK_Z)
+            keys[KEY_Z] = true;
+        if(e.getKeyCode() == KeyEvent.VK_Q)
+            keys[KEY_Q] = true;
+        if(e.getKeyCode() == KeyEvent.VK_D)
+            keys[KEY_D] = true;
     }
 
     public void keyReleased(KeyEvent e) {
