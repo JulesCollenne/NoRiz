@@ -4,6 +4,8 @@ import Entity.Entity;
 import States.GameStateManager;
 import Utils.Utils;
 
+import static java.lang.Thread.sleep;
+
 public class Collider {
 
     GameStateManager gsm;

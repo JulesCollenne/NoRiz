@@ -11,7 +11,7 @@ public class StartMenuState extends GameState {
     }
 
     void draw(Graphics g) {
-        g.drawOval(50,50,50,50);
+        g.fillOval(50,50,400,50);
     }
 
     void input(KeysManager key, MouseManager mouse) {

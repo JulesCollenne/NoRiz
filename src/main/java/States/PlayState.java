@@ -17,7 +17,7 @@ public class PlayState extends GameState {
     }
 
     public void nextStep() {
-
+        gsm.player.nextStep();
     }
 
     public void draw(Graphics g) {

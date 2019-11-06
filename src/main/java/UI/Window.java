@@ -22,16 +22,6 @@ public class Window extends JFrame implements ComponentListener {
         setPanels();
 
         lastInit();
-
-        //run();
-    }
-
-    /**
-     * Lancement du thread gamePanel
-     */
-    private void run(){
-        Thread thread = new Thread(gamePanel);
-        thread.start();
     }
 
     /**

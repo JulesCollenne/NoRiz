@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
 
+    private double updateTime = 10000000;
+
     private boolean running;
 
     public static int width;
@@ -38,11 +40,23 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void run() {
 
+        double now;
+        double lastUpdate = 0;
+
         while(running){
-            //TODO Lancer le jeu
+
+            now = System.nanoTime();
+
+            while(now - lastUpdate < updateTime){
+                now = System.nanoTime();
+            }
+
+            lastUpdate = now;
+
             gsm.input(key, mouse);
             gsm.nextStep();
             gsm.draw(g);
+            repaint();
             initInput();
         }
     }

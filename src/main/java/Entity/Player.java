@@ -22,8 +22,8 @@ public class Player implements Entity {
     final int LEFT = 2;
     final int RIGHT = 3;
 
-    private int facing;
-    public int nextFacing;
+    private int facing = 0;
+    public int nextFacing = -1;
 
     private int speed;
     private boolean hasBonus;

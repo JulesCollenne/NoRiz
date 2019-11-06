@@ -29,7 +29,7 @@ public class GameStateManager {
     public Collider collider = new Collider(this);
 
     public GameStateManager(){
-        changeState(START);
+        changeState(PLAY);
         map = worldBuilder.build();
     }
 
@@ -64,6 +64,8 @@ public class GameStateManager {
     }
 
     public void draw(Graphics g){
+        g.setColor(Color.WHITE);
+        g.fillRect(0,0,1000,1000);
         for(int i = 0; i < gameStates.length; i++)
             if(gameStates[i] != null)
                 gameStates[i].draw(g);
