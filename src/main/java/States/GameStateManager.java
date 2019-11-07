@@ -6,11 +6,14 @@ import Entity.Player;
 import Input.KeysManager;
 import Input.MouseManager;
 import Strategy.*;
+import UI.GamePanel;
 import WorldBuilder.WorldBuilder;
 
 import java.awt.*;
 
 public class GameStateManager {
+
+    GamePanel gamePanel;
 
     final int START  = 0;
     final int PLAY  = 1;
@@ -29,7 +32,8 @@ public class GameStateManager {
 
     public Collider collider = new Collider(this);
 
-    public GameStateManager(){
+    public GameStateManager(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
         changeState(PLAY);
         map = worldBuilder.build();
         createMonster();

@@ -2,6 +2,7 @@ package UI;
 
 import Input.KeysManager;
 import Input.MouseManager;
+import States.GameState;
 import States.GameStateManager;
 
 import javax.swing.*;
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         running = true;
         image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
-        gsm = new GameStateManager();
+        gsm = new GameStateManager(this);
 
         key = new KeysManager(this);
         mouse = new MouseManager(this);
