@@ -39,7 +39,7 @@ public class Window extends Application
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
 
-        Canvas canvas = new Canvas(1000, 1000);
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
 
         theScene.setOnKeyPressed(
@@ -78,9 +78,8 @@ public class Window extends Application
 
                 // render
 
+                gc.clearRect(0, 0, WIDTH,HEIGHT);
                 gsm.render(gc);
-
-                //gc.clearRect(0, 0, 512,512);
 
             }
         }.start();

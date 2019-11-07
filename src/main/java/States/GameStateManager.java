@@ -93,8 +93,6 @@ public class GameStateManager {
     }
 
     public void render(GraphicsContext gc) {
-        gc.setFill(javafx.scene.paint.Paint.valueOf("#FFFFFF"));
-        gc.fillRect(0,0,1000,1000);
         gc.setFill(javafx.scene.paint.Paint.valueOf("#00FF00"));
         gameStates[currentState].render(gc);
     }
