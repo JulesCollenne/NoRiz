@@ -47,6 +47,18 @@ public class Monster implements  Entity{
         this.name = name;
     }
 
+    public int getCollideX(){
+        if(facing == RIGHT)
+            return x + getSize();
+        return x;
+    }
+
+    public int getCollideY(){
+        if(facing == DOWN)
+            return y + getSize();
+        return y;
+    }
+
     public void render(GraphicsContext gc)
     {
         //gc.drawImage( image, positionX, positionY );
@@ -81,7 +93,7 @@ public class Monster implements  Entity{
     }
 
     private void tryMove(int dx, int dy) {
-        if(!gsm.collider.isPossible(x + dx, y + dy))
+        if(!gsm.collider.isPossible(getCollideX() + dx, getCollideY() + dy))
             return;
         x += dx;
         y += dy;

@@ -45,6 +45,18 @@ public class Player implements Entity {
         lastAnim = 0;
     }
 
+    public int getCollideX(){
+        if(facing == RIGHT)
+            return x + getSize();
+        return x;
+    }
+
+    public int getCollideY(){
+        if(facing == DOWN)
+            return y + getSize();
+        return y;
+    }
+
     /**
      * Met en places les images permettant les animations
      */
@@ -98,7 +110,7 @@ public class Player implements Entity {
      * @param dy next y
      */
     private void tryMove(int dx, int dy) {
-        if(!gsm.collider.isPossible(x + dx, y + dy))
+        if(!gsm.collider.isPossible(getCollideX() + dx, getCollideY() + dy))
             return;
         x += dx;
         y += dy;
@@ -133,7 +145,7 @@ public class Player implements Entity {
     }
 
     public int getSize() {
-        return 25;
+        return 50;
     }
 
     /**
