@@ -31,8 +31,6 @@ public class AngleStrat implements Strategy {
         y = gsm.player.getY() - gsm.monsters[0].getY();
         x = gsm.player.getX() - gsm.monsters[0].getX();
 
-        //System.out.println("X : " + x + " Y : " + y);
-
         double angle = Math.atan2(y,x);
         double cos,sin;
         cos = Math.cos(angle);
