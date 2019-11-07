@@ -1,70 +1,94 @@
 package UI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import Input.KeysManager;
+import States.GameStateManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.animation.AnimationTimer;
 
-public class Window extends JFrame implements ComponentListener {
+public class Window extends Application
+{
 
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 1000;
+    final int WIDTH = 1000;
+    final int HEIGHT = 1000;
 
-    GamePanel gamePanel;
-    Graphics g;
+    GameStateManager gsm = new GameStateManager();
 
-    /**
-     * Lors de la création de la UI.Window, on lance le programme
-     */
-    public Window(){
-        firstInit();
+    public KeysManager key = new KeysManager();
 
-        setPanels();
+    long lastNanoTime = System.nanoTime();
 
-        lastInit();
+    public static void main(String[] args)
+    {
+        launch(args);
     }
 
-    /**
-     * Initialisation de la fenetre
-     */
-    private void firstInit(){
-        this.setTitle("NoRiz");
-        this.setSize(WIDTH, HEIGHT);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIgnoreRepaint(true);
-        this.setLocationRelativeTo(null);
-        this.setBackground(Color.WHITE);
+    @Override
+    public void start(Stage theStage)
+    {
+        theStage.setTitle("NoRiz");
+
+        Group root = new Group();
+        Scene theScene = new Scene( root );
+        theStage.setScene( theScene );
+
+        Canvas canvas = new Canvas(1000, 1000);
+        root.getChildren().add(canvas);
+
+        theScene.setOnKeyPressed(
+                e -> gsm.input(e));
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
+        gc.setFont(theFont);
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+
+        /*
+        Sprite briefcase = new Sprite();
+        briefcase.setImage("briefcase.png");
+        briefcase.setPosition(200, 0);
+        */
+
+        lastNanoTime = System.nanoTime();
+
+        int score = 0;
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                // calculate time since last update.
+                double elapsedTime = (currentNanoTime - lastNanoTime) / 1000000000.0;
+                lastNanoTime = currentNanoTime;
+
+                // game logic
+
+                gsm.nextStep();
+                initInput();
+
+                // render
+
+                gsm.render(gc);
+
+                //gc.clearRect(0, 0, 512,512);
+
+            }
+        }.start();
+
+        theStage.show();
     }
 
-    /**
-     * Ajout du panneau dans lequel sera dessiné les éléments du jeu
-     */
-    private void setPanels(){
-        gamePanel = new GamePanel(WIDTH, HEIGHT);
-        this.getContentPane().add(gamePanel, null);
-    }
-
-    /**
-     * On affiche le tout
-     */
-    private void lastInit() {
-        this.setVisible(true);
-        getContentPane().addComponentListener(this);
-    }
-
-    public void componentResized(ComponentEvent componentEvent) {
-
-    }
-
-    public void componentMoved(ComponentEvent componentEvent) {
-
-    }
-
-    public void componentShown(ComponentEvent componentEvent) {
-
-    }
-
-    public void componentHidden(ComponentEvent componentEvent) {
-
+    private void initInput() {
+        key.initKeys();
     }
 }

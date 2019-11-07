@@ -1,5 +1,8 @@
 package Entity;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
 import java.awt.*;
 
 /**
@@ -12,5 +15,6 @@ public interface Entity {
     int getX();
     int getY();
     int getSize();
-
+    void setImage(Image i);
+    void render(GraphicsContext gc);
 }

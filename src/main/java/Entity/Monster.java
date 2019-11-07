@@ -1,6 +1,8 @@
 package Entity;
 
 import Strategy.Strategy;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 
@@ -16,11 +18,25 @@ public class Monster implements  Entity{
 
     Strategy strat;
 
+    private Image image;
+    private double positionX;
+    private double positionY;
+    private double velocityX;
+    private double velocityY;
+    private double width;
+    private double height;
+
+
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat){
         x = initialX;
         y = initialY;
         speed = initialSpeed;
         this.strat = strat;
+    }
+
+    public void render(GraphicsContext gc)
+    {
+        gc.drawImage( image, positionX, positionY );
     }
 
 
@@ -51,6 +67,11 @@ public class Monster implements  Entity{
 
     public int getSize() {
         return 25;
+    }
+
+    @Override
+    public void setImage(Image i) {
+
     }
 
     /**

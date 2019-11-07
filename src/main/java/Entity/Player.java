@@ -3,6 +3,9 @@ package Entity;
 import Input.KeysManager;
 import Input.MouseManager;
 import States.GameStateManager;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 
 import java.awt.*;
 
@@ -31,12 +34,33 @@ public class Player implements Entity {
 
     GameStateManager gsm;
 
+    private Image image;
+    private double positionX;
+    private double positionY;
+    private double velocityX;
+    private double velocityY;
+    private double width;
+    private double height;
+
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
         this.gsm = gsm;
         x = initialX;
         y = initialY;
         speed = initialSpeed;
         hasBonus = false;
+    }
+
+    public void setImage(Image i)
+    {
+        image = i;
+        width = i.getWidth();
+        height = i.getHeight();
+    }
+
+    public void render(GraphicsContext gc)
+    {
+        //gc.drawImage( image, positionX, positionY );
+        gc.fillRoundRect(x,y,50,50,10,10);
     }
 
     public void input(KeysManager key, MouseManager mouse){
@@ -94,5 +118,22 @@ public class Player implements Entity {
 
     public void changeFacing(int newFacing){
         facing = newFacing;
+    }
+
+    public void input(KeyEvent e) {
+        switch (e.getCode()) {
+            case Q:
+                changeFacing(2);
+                break;
+            case D:
+                changeFacing(3);
+                break;
+            case S:
+                changeFacing(0);
+                break;
+            case Z:
+                changeFacing(1);
+                break;
+        }
     }
 }

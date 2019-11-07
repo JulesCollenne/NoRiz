@@ -8,12 +8,12 @@ import Input.MouseManager;
 import Strategy.*;
 import UI.GamePanel;
 import WorldBuilder.WorldBuilder;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 
 import java.awt.*;
 
 public class GameStateManager {
-
-    public GamePanel gamePanel;
 
     final int START  = 0;
     final int PLAY  = 1;
@@ -32,8 +32,7 @@ public class GameStateManager {
 
     public Collider collider = new Collider(this);
 
-    public GameStateManager(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+    public GameStateManager(){
         changeState(PLAY);
         map = worldBuilder.build();
         createMonster();
@@ -87,5 +86,16 @@ public class GameStateManager {
 
     public void nextStep() {
         gameStates[currentState].nextStep();
+    }
+
+    public void input(KeyEvent e) {
+        gameStates[currentState].input(e);
+    }
+
+    public void render(GraphicsContext gc) {
+        gc.setFill(javafx.scene.paint.Paint.valueOf("#FFFFFF"));
+        gc.fillRect(0,0,1000,1000);
+        gc.setFill(javafx.scene.paint.Paint.valueOf("#00FF00"));
+        gameStates[currentState].render(gc);
     }
 }
