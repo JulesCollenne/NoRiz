@@ -6,12 +6,9 @@ import Entity.Player;
 import Input.KeysManager;
 import Input.MouseManager;
 import Strategy.*;
-import UI.GamePanel;
 import WorldBuilder.WorldBuilder;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-
-import java.awt.*;
 
 public class GameStateManager {
 

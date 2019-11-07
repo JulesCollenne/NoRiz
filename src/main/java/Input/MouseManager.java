@@ -1,9 +1,5 @@
 package Input;
 
-import States.GameStateManager;
-import UI.GamePanel;
-
-import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,8 +10,8 @@ import java.awt.event.MouseListener;
  */
 public class MouseManager implements MouseListener {
 
-    public MouseManager(GamePanel gamePanel){
-        gamePanel.addMouseListener(this);
+    public MouseManager(){
+
     }
 
     public void mouseClicked(MouseEvent e) {
