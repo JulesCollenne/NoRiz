@@ -6,11 +6,13 @@ import Input.MouseManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
-import java.awt.*;
-
 public class PlayState extends GameState {
+
+    private boolean firstRender;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
+        firstRender = true;
     }
 
     void input(KeysManager key, MouseManager mouse) {
@@ -28,6 +30,12 @@ public class PlayState extends GameState {
 
     @Override
     public void render(GraphicsContext gc) {
+
+        if(firstRender){
+            //TODO afficher le niveau
+            firstRender = false;
+        }
+
         gsm.player.render(gc);
 
         for(Monster monster : gsm.monsters){
