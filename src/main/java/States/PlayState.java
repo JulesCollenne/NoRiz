@@ -26,7 +26,7 @@ public class PlayState extends GameState {
     public void render(GraphicsContext gc) {
 
         if(firstRender){
-            //TODO afficher le niveau
+            gsm.worldBuilder.render();
             firstRender = false;
         }
 

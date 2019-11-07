@@ -11,15 +11,18 @@ import States.GameStateManager;
  */
 public class WorldBuilder {
 
-    int l;
-    int h;
+    int map[][];
 
-    GameStateManager gsm;
+    private int l;
+    private int h;
+
+    private GameStateManager gsm;
 
     public WorldBuilder(int l, int h, GameStateManager gsm){
         this.l = l;
         this.h = h;
         this.gsm = gsm;
+        map = new int[l][h];
     }
 
     public int[][] build(){
@@ -29,4 +32,9 @@ public class WorldBuilder {
 
         return world;
     }
+
+    public void render(){
+
+    }
+
 }

@@ -23,7 +23,7 @@ public class GameStateManager {
 
     public int[][] map;
 
-    private WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
+    public WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
 
     public Collider collider = new Collider(this);
 
