@@ -15,6 +15,9 @@ public class PlayState extends GameState {
 
     public void nextStep() {
         gsm.player.nextStep();
+        for (Monster monster : gsm.monsters) {
+            monster.nextStep();
+        }
     }
 
     @Override

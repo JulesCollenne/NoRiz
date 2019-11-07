@@ -26,6 +26,11 @@ import States.GameStateManager;
  */
 public class AngleStrat implements Strategy {
 
+    private final int DOWN = 0;
+    private final int UP = 1;
+    private final int LEFT = 2;
+    private final int RIGHT = 3;
+
     private GameStateManager gsm;
     private int x,y;
 
@@ -45,45 +50,45 @@ public class AngleStrat implements Strategy {
 
         if(-0.5 < cos && cos < 0.5) {
             if (sin < 0)
-                return 0;                                                 // Bas
+                return UP;                                                 // Bas
             else if(sin > 0)
-                return 1;                                                 // Haut
+                return DOWN;                                                 // Haut
         }
         else if(-0.5 < sin && sin < 0.5){
             if(cos < 0)
-                return 2;                                                 // Gauche
+                return LEFT;                                                 // Gauche
             else if(cos > 0)
-                return 3;                                                 // Droite
+                return RIGHT;                                                 // Droite
         }
         else if(cos >= 0.5){
             if(sin >= 0.5) {
                 if (sin > cos)
-                    return 1;                                                 // Haut
+                    return DOWN;                                                 // Haut
                 else
-                    return 3;                                                 // Droite
+                    return RIGHT;                                                 // Droite
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if (sin > cos)
-                    return 0;                                                 // Bas
+                    return UP;                                                 // Bas
                 else
-                    return 3;                                                 // Droite
+                    return RIGHT;                                                 // Droite
             }
         }
         else if(cos <= -0.5){
             cos = -cos;
             if(sin >= 0.5){
                 if(sin > cos)
-                    return 1;                                                 // Haut
+                    return DOWN;                                                 // Haut
                 else
-                    return 2;                                                 // Gauche
+                    return LEFT;                                                 // Gauche
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if(sin > cos)
-                    return 0;                                                 // Bas
+                    return UP;                                                 // Bas
                 else
-                    return 2;                                                 // Gauche
+                    return LEFT;                                                 // Gauche
             }
         }
         return facing;

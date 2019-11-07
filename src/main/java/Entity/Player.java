@@ -1,13 +1,10 @@
 package Entity;
 
 import Input.KeysManager;
-import Input.MouseManager;
 import States.GameStateManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-
-import java.awt.*;
 
 /**
  * Player is the sashimi
