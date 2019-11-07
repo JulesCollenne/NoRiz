@@ -1,7 +1,5 @@
 package States;
 
-import Input.KeysManager;
-import Input.MouseManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
@@ -11,8 +9,6 @@ public abstract class GameState {
     GameState(GameStateManager gsm){
         this.gsm = gsm;
     }
-
-    abstract void input(KeysManager key, MouseManager mouse);
 
     public abstract void nextStep();
 

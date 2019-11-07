@@ -19,11 +19,9 @@ public class Window extends Application
     final int WIDTH = 1000;
     final int HEIGHT = 1000;
 
-    GameStateManager gsm = new GameStateManager();
+    private GameStateManager gsm = new GameStateManager();
 
-    public KeysManager key = new KeysManager();
-
-    long lastNanoTime = System.nanoTime();
+    private KeysManager key = new KeysManager();
 
     public static void main(String[] args)
     {
@@ -53,18 +51,10 @@ public class Window extends Application
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        lastNanoTime = System.nanoTime();
-
-        int score = 0;
-
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
-                // calculate time since last update.
-                double elapsedTime = (currentNanoTime - lastNanoTime) / 1000000000.0;
-                lastNanoTime = currentNanoTime;
-
                 // game logic
 
                 gsm.nextStep();

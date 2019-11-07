@@ -1,8 +1,6 @@
 package States;
 
 import Entity.Monster;
-import Input.KeysManager;
-import Input.MouseManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
@@ -10,13 +8,9 @@ public class PlayState extends GameState {
 
     private boolean firstRender;
 
-    public PlayState(GameStateManager gsm) {
+    PlayState(GameStateManager gsm) {
         super(gsm);
         firstRender = true;
-    }
-
-    void input(KeysManager key, MouseManager mouse) {
-        gsm.player.input(key, mouse);
     }
 
     public void nextStep() {

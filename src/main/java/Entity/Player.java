@@ -28,12 +28,12 @@ public class Player implements Entity {
     private int speed;
     private boolean hasBonus;
 
-    GameStateManager gsm;
+    private GameStateManager gsm;
 
     private Image[][] image = new Image[4][2];
 
     private int animTime;
-    public int lastAnim;
+    private int lastAnim;
     private final int animSpeed = 10;
 
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
@@ -65,7 +65,6 @@ public class Player implements Entity {
      */
     public void render(GraphicsContext gc)
     {
-        System.out.println(animTime);
         gc.drawImage( image[facing][animTime], x, y , 50, 50);
 
         if(lastAnim == animSpeed) {
@@ -78,9 +77,8 @@ public class Player implements Entity {
     /**
      * Gere les entrées
      * @param key the pressed keys
-     * @param mouse la souris
      */
-    public void input(KeysManager key, MouseManager mouse){
+    public void input(KeysManager key){
         if(key.keys[key.KEY_Q])
             gsm.player.changeFacing(2);
         if(key.keys[key.KEY_D])
@@ -96,7 +94,7 @@ public class Player implements Entity {
      * @param dx next x
      * @param dy next y
      */
-    public void tryMove(int dx, int dy) {
+    private void tryMove(int dx, int dy) {
         if(!gsm.collider.isPossible(x + dx, y + dy))
             return;
         x += dx;

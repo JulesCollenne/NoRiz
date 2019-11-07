@@ -4,8 +4,6 @@ import Strategy.Strategy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.awt.*;
-
 /**
  * Monsters are the cat trying to eat the player
  */

@@ -19,7 +19,7 @@ import States.GameStateManager;
  */
 public class AngleStrat implements Strategy {
 
-    GameStateManager gsm;
+    private GameStateManager gsm;
     private int x,y;
 
     public AngleStrat(GameStateManager gsm){

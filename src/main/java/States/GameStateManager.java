@@ -3,8 +3,6 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
-import Input.KeysManager;
-import Input.MouseManager;
 import Strategy.*;
 import WorldBuilder.WorldBuilder;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,20 +10,20 @@ import javafx.scene.input.KeyEvent;
 
 public class GameStateManager {
 
-    final int START  = 0;
-    final int PLAY  = 1;
-    final int PAUSE  = 2;
+    private final int START  = 0;
+    private final int PLAY  = 1;
+    private final int PAUSE  = 2;
 
-    int currentState = START;
+    private int currentState = START;
 
-    GameState gameStates[] = new GameState[3];
+    private GameState gameStates[] = new GameState[3];
 
     public Player player = new Player(this, 100,100,1);
     public Monster[] monsters = new Monster[4];
 
     public int[][] map;
 
-    WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
+    private WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
 
     public Collider collider = new Collider(this);
 
@@ -35,7 +33,7 @@ public class GameStateManager {
         createMonster();
     }
 
-    public void createMonster(){
+    private void createMonster(){
         monsters[0] = new Monster(200, 200, 1, new AngleStrat(this));                       //Monstre AngleStrat
         monsters[1] = new Monster(300, 300, 1, new RandomStrat());                               //Monstre RandomStrat
         monsters[2] = new Monster(400, 400, 1, new FollowStrat());                               //Monstre FollowStrat
@@ -47,7 +45,7 @@ public class GameStateManager {
      * Change the currentState
      * @param newState the new state
      */
-    public void changeState(int newState){
+    private void changeState(int newState){
         currentState = newState;
         for(int i=0; i < gameStates.length; i++){
             gameStates[i] = null;
@@ -62,14 +60,6 @@ public class GameStateManager {
             case PAUSE:
                 gameStates[currentState] = new PauseState(this);
                 break;
-        }
-    }
-
-    public void input(KeysManager key, MouseManager mouse){
-        for(int i=0; i<gameStates.length; i++){
-            if(gameStates[i] != null){
-                gameStates[i].input(key, mouse);
-            }
         }
     }
 
