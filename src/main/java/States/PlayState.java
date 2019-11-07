@@ -35,16 +35,4 @@ public class PlayState extends GameState {
         }
 
     }
-
-    public void draw(Graphics g) {
-
-        gsm.player.draw(g);
-
-        for(Monster monster : gsm.monsters){
-            monster.draw(g);
-        }
-
-
-
-    }
 }

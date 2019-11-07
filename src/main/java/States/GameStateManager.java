@@ -76,14 +76,6 @@ public class GameStateManager {
         }
     }
 
-    public void draw(Graphics g){
-        g.setColor(Color.WHITE);
-        g.fillRect(0,0,1000,1000);
-        for(int i = 0; i < gameStates.length; i++)
-            if(gameStates[i] != null)
-                gameStates[i].draw(g);
-    }
-
     public void nextStep() {
         gameStates[currentState].nextStep();
     }

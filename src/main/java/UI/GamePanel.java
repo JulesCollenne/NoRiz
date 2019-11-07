@@ -79,10 +79,4 @@ public class GamePanel extends JPanel implements Runnable {
         //key = new KeysManager(this);
         mouse = new MouseManager(this);
     }
-
-    public void paintComponent(Graphics g){
-        if(gsm == null)
-            return;
-        gsm.draw(g);
-    }
 }
