@@ -4,7 +4,6 @@ package Strategy;
  */
 public class RandomStrat implements Strategy{
     public int nextWay() {
-        int facing = (int) (Math.random() * 4);
-        return facing;
+        return (int) (Math.random() * 4);
     }
 }
