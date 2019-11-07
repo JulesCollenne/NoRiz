@@ -5,6 +5,7 @@ import Entity.Monster;
 import Entity.Player;
 import Input.KeysManager;
 import Input.MouseManager;
+import Strategy.*;
 import WorldBuilder.WorldBuilder;
 
 import java.awt.*;
@@ -31,7 +32,16 @@ public class GameStateManager {
     public GameStateManager(){
         changeState(PLAY);
         map = worldBuilder.build();
+        createMonster();
     }
+
+    public void createMonster(){
+        monsters[0] = new Monster(200, 200, 1, new AngleStrat(this));                       //Monstre AngleStrat
+        monsters[1] = new Monster(300, 300, 1, new RandomStrat());                               //Monstre RandomStrat
+        monsters[2] = new Monster(400, 400, 1, new FollowStrat());                               //Monstre FollowStrat
+        monsters[3] = new Monster(500, 500, 1, new BonusStrat());                                //Monstre BonusStrat
+    }
+
 
     /**
      * Change the currentState

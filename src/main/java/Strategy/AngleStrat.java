@@ -1,9 +1,11 @@
 package Strategy;
 
+
+import States.GameStateManager;
+
 /**
- * NOTE : TODO : pour l'instant il y a que anglestrat, il faut faire toutes les strats
  *
- * Calcule l'angle entre le monstre et le joueur, choisi le chemin possible le plus proche de l'angle.
+ * Calcule l'angle entre le monstre et le joueur, choisit le chemin possible le plus proche de l'angle.
  * 1.Soit x l'angle entre Player et le Monster
  * Et D,R,U,L les directions :
  *
@@ -16,7 +18,69 @@ package Strategy;
  *
  */
 public class AngleStrat implements Strategy {
+
+    GameStateManager gsm;
+    private int x,y;
+
+    public AngleStrat(GameStateManager gsm){
+        this.gsm = gsm;
+    }
+
     public int nextWay() {
-        return 0;
+        int facing = -1;
+        y = gsm.player.getY() - gsm.monsters[0].getY();
+        x = gsm.player.getX() - gsm.monsters[0].getX();
+
+        //System.out.println("X : " + x + " Y : " + y);
+
+        double angle = Math.atan2(y,x);
+        double cos,sin;
+        cos = Math.cos(angle);
+        sin = Math.sin(angle);
+
+        if(-0.5 < cos && cos < 0.5) {
+            if (sin < 0)
+                facing = 0;                                                 // Bas
+            else if(sin > 0)
+                facing = 1;                                                 // Haut
+        }
+        else if(-0.5 < sin && sin < 0.5){
+            if(cos < 0)
+                facing = 2;                                                 // Gauche
+            else if(cos > 0)
+                facing = 3;                                                 // Droite
+        }
+        else if(cos >= 0.5){
+            if(sin >= 0.5) {
+                if (sin > cos)
+                    facing = 1;                                                 // Haut
+                else
+                    facing = 3;                                                 // Droite
+            }
+            else if(sin <= -0.5){
+                sin = -sin;
+                if (sin > cos)
+                    facing = 0;                                                 // Bas
+                else
+                    facing = 3;                                                 // Droite
+            }
+        }
+        else if(cos <= -0.5){
+            cos = -cos;
+            if(sin >= 0.5){
+                if(sin > cos)
+                    facing = 1;                                                 // Haut
+                else
+                    facing = 2;                                                 // Gauche
+            }
+            else if(sin <= -0.5){
+                sin = -sin;
+                if(sin > cos)
+                    facing = 0;                                                 // Bas
+                else
+                    facing = 2;                                                 // Gauche
+            }
+        }
+        return facing;
     }
 }
