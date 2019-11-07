@@ -40,45 +40,45 @@ public class AngleStrat implements Strategy {
 
         if(-0.5 < cos && cos < 0.5) {
             if (sin < 0)
-                facing = 0;                                                 // Bas
+                return 0;                                                 // Bas
             else if(sin > 0)
-                facing = 1;                                                 // Haut
+                return 1;                                                 // Haut
         }
         else if(-0.5 < sin && sin < 0.5){
             if(cos < 0)
-                facing = 2;                                                 // Gauche
+                return 2;                                                 // Gauche
             else if(cos > 0)
-                facing = 3;                                                 // Droite
+                return 3;                                                 // Droite
         }
         else if(cos >= 0.5){
             if(sin >= 0.5) {
                 if (sin > cos)
-                    facing = 1;                                                 // Haut
+                    return 1;                                                 // Haut
                 else
-                    facing = 3;                                                 // Droite
+                    return 3;                                                 // Droite
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if (sin > cos)
-                    facing = 0;                                                 // Bas
+                    return 0;                                                 // Bas
                 else
-                    facing = 3;                                                 // Droite
+                    return 3;                                                 // Droite
             }
         }
         else if(cos <= -0.5){
             cos = -cos;
             if(sin >= 0.5){
                 if(sin > cos)
-                    facing = 1;                                                 // Haut
+                    return 1;                                                 // Haut
                 else
-                    facing = 2;                                                 // Gauche
+                    return 2;                                                 // Gauche
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if(sin > cos)
-                    facing = 0;                                                 // Bas
+                    return 0;                                                 // Bas
                 else
-                    facing = 2;                                                 // Gauche
+                    return 2;                                                 // Gauche
             }
         }
         return facing;
