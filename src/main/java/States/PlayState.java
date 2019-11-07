@@ -34,5 +34,7 @@ public class PlayState extends GameState {
             monster.render(gc);
         }
 
+
+
     }
 }

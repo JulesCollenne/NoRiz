@@ -53,12 +53,6 @@ public class Window extends Application
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        /*
-        Sprite briefcase = new Sprite();
-        briefcase.setImage("briefcase.png");
-        briefcase.setPosition(200, 0);
-        */
-
         lastNanoTime = System.nanoTime();
 
         int score = 0;
