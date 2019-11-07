@@ -15,6 +15,6 @@ public interface Entity {
     int getX();
     int getY();
     int getSize();
-    void setImage(Image i);
+    void setImages();
     void render(GraphicsContext gc);
 }

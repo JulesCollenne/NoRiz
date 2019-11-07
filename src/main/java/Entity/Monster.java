@@ -39,6 +39,9 @@ public class Monster implements  Entity{
         gc.drawImage( image, positionX, positionY );
     }
 
+    public void setImages(){
+
+    }
 
     public void move(int x, int y) {
         this.x += x;
@@ -67,11 +70,6 @@ public class Monster implements  Entity{
 
     public int getSize() {
         return 25;
-    }
-
-    @Override
-    public void setImage(Image i) {
-
     }
 
     /**

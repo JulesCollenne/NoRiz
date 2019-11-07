@@ -34,13 +34,17 @@ public class Player implements Entity {
 
     GameStateManager gsm;
 
-    private Image image;
+    private Image[][] image = new Image[4][2];
     private double positionX;
     private double positionY;
     private double velocityX;
     private double velocityY;
     private double width;
     private double height;
+
+    private int animTime;
+    public int lastAnim;
+    private final int animSpeed = 10;
 
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
         this.gsm = gsm;
@@ -49,26 +53,29 @@ public class Player implements Entity {
         speed = initialSpeed;
         hasBonus = false;
 
-        setImage("nori_droite.png");
-
+        setImages();
+        animTime = 0;
+        lastAnim = 0;
     }
 
-    public void setImage(Image i)
-    {
-        image = i;
-        width = i.getWidth();
-        height = i.getHeight();
-    }
+    public void setImages(){
+        image[LEFT][0] = new Image("nori_droite.png");
+        image[LEFT][1] = new Image("nori_droite2.png");
 
-    public void setImage(String filename)
-    {
-        Image i = new Image(filename);
-        setImage(i);
+        image[RIGHT][0] = new Image("nori_gauche.png");
+        image[RIGHT][1] = new Image("nori_gauche2.png");
     }
 
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image, x, y , 50, 50);
+        System.out.println(animTime);
+        gc.drawImage( image[facing][animTime], x, y , 50, 50);
+
+        if(lastAnim == animSpeed) {
+            animTime = (animTime + 1) % 2;
+            lastAnim = 0;
+        }
+        lastAnim++;
         //gc.fillRoundRect(x,y,50,50,10,10);
     }
 
