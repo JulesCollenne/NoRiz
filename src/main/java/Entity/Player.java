@@ -48,6 +48,9 @@ public class Player implements Entity {
         y = initialY;
         speed = initialSpeed;
         hasBonus = false;
+
+        setImage("nori_droite.png");
+
     }
 
     public void setImage(Image i)
@@ -57,10 +60,16 @@ public class Player implements Entity {
         height = i.getHeight();
     }
 
+    public void setImage(String filename)
+    {
+        Image i = new Image(filename);
+        setImage(i);
+    }
+
     public void render(GraphicsContext gc)
     {
-        //gc.drawImage( image, positionX, positionY );
-        gc.fillRoundRect(x,y,50,50,10,10);
+        gc.drawImage( image, x, y , 50, 50);
+        //gc.fillRoundRect(x,y,50,50,10,10);
     }
 
     public void input(KeysManager key, MouseManager mouse){
