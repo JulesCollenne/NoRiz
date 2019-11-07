@@ -62,7 +62,8 @@ public class Window extends Application
 
                 // render
 
-                gc.clearRect(0, 0, WIDTH,HEIGHT);
+                //Faudra peut etre le garder
+                //gc.clearRect(0, 0, WIDTH,HEIGHT);
                 gsm.render(gc);
 
             }

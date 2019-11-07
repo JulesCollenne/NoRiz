@@ -57,6 +57,12 @@ public class Player implements Entity {
 
         image[RIGHT][0] = new Image("nori_gauche.png");
         image[RIGHT][1] = new Image("nori_gauche2.png");
+
+        image[UP][0] = new Image("nori_gauche.png");
+        image[UP][1] = new Image("nori_gauche2.png");
+
+        image[DOWN][0] = new Image("nori_gauche.png");
+        image[DOWN][1] = new Image("nori_gauche2.png");
     }
 
     /**

@@ -24,7 +24,7 @@ public class GameStateManager {
 
     public WORLDITEM[][] map;
 
-    public WorldBuilder worldBuilder = new WorldBuilder(20,20,this);
+    public WorldBuilder worldBuilder = new WorldBuilder(20,20);
 
     public Collider collider = new Collider(this);
 
@@ -76,7 +76,6 @@ public class GameStateManager {
     }
 
     public void render(GraphicsContext gc) {
-        gc.setFill(javafx.scene.paint.Paint.valueOf("#00FF00"));
         gameStates[currentState].render(gc);
     }
 }

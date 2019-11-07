@@ -17,18 +17,14 @@ import static java.lang.System.exit;
  */
 public class WorldBuilder {
 
-    WORLDITEM map[][];
+    WORLDITEM world[][];
 
     private int l;
     private int h;
 
-    private GameStateManager gsm;
-
-    public WorldBuilder(int l, int h, GameStateManager gsm){
+    public WorldBuilder(int l, int h){
         this.l = l;
         this.h = h;
-        this.gsm = gsm;
-        map = new WORLDITEM[l][h];
     }
 
     /*
@@ -36,7 +32,7 @@ public class WorldBuilder {
      * Retourne la matrice crée
      */
     public WORLDITEM[][] build(){
-        WORLDITEM[][] world = new WORLDITEM[l][h];
+        world = new WORLDITEM[l][h];
 
         //TODO créer le niveau
 
@@ -50,9 +46,9 @@ public class WorldBuilder {
 
         for(int i=0; i<h; i++) { // Censé faire un carré de 21 de coté
             world[i][0] = WALL;
-            world[i][h] = WALL;
+            world[i][h-1] = WALL;
             world[0][i] = WALL;
-            world[h][i] = WALL;
+            world[h-1][i] = WALL;
         }
 
         return world;
@@ -62,34 +58,11 @@ public class WorldBuilder {
      *   Entrée: une matrice représentant la carte
      *   Déssine la carte dans la fenêtre de jeu
      *        */
-    public void renderMap(WORLDITEM [][] map, GraphicsContext gc) {
+    public void renderMap(GraphicsContext gc) {
 
-        for(int posX=0; posX<map.length; posX++) {
-            for (int posY = 0; posY < map[0].length; posY++) {
-                switch (map[posX][posY]){
-
-                    case ROAD:
-                        renderItem(posX,posY, ROAD, gc);
-                        break;
-
-                    case WALL:
-                        renderItem(posX,posY, WALL, gc);
-                        break;
-
-                    case RICE:
-                        renderItem(posX, posY, RICE, gc);
-                        break;
-
-                    case BONUS:
-                        renderItem(posX, posY, BONUS, gc);
-                        break;
-
-                    default:
-                        System.err.println("ITEM NON EXISTANT");
-                        exit(1);
-                        break;
-
-                }
+        for(int posX=0; posX<world.length; posX++) {
+            for (int posY = 0; posY < world[0].length; posY++) {
+                renderItem(posX,posY,world[posX][posY], gc);
             }
         }
     }
