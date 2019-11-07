@@ -2,7 +2,7 @@ package Collider;
 
 import Entity.Entity;
 import States.GameStateManager;
-import Utils.Utils;
+import Utils.*;
 
 public class Collider{
 
@@ -18,7 +18,7 @@ public class Collider{
      */
     public boolean isPossible(int x, int y){
         int[] coord = Utils.getSquare(x,y);
-        return gsm.map[coord[0]][coord[1]] != 1;
+        return gsm.map[coord[0]][coord[1]] != WORLDITEM.WALL;
     }
 
     /**

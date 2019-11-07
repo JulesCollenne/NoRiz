@@ -26,7 +26,7 @@ public class PlayState extends GameState {
     public void render(GraphicsContext gc) {
 
         if(firstRender){
-            gsm.worldBuilder.render();
+            gsm.worldBuilder.renderMap(gsm.worldBuilder.build(), gc);
             firstRender = false;
         }
 

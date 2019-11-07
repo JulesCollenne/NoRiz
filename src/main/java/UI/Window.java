@@ -16,8 +16,8 @@ import javafx.animation.AnimationTimer;
 public class Window extends Application
 {
 
-    final int WIDTH = 1000;
-    final int HEIGHT = 1000;
+    final int WIDTH = 1050;
+    final int HEIGHT = 1050;
 
     private GameStateManager gsm = new GameStateManager();
 
