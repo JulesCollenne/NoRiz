@@ -43,19 +43,6 @@ public class Monster implements  Entity{
 
     }
 
-    public void move(int x, int y) {
-        this.x += x;
-        this.y += y;
-    }
-
-    public void draw(Graphics g) {
-        //TODO draw monster
-    }
-
-    public void move(int facing) {
-
-    }
-
     public void nextStep() {
 
     }

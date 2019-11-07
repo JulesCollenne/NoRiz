@@ -14,17 +14,13 @@ import java.awt.*;
  */
 public class Player implements Entity {
 
+    private final int DOWN = 0;
+    private final int UP = 1;
+    private final int LEFT = 2;
+    private final int RIGHT = 3;
+
     private int x;
     private int y;
-
-    /*
-        facing : 0 = D, 1 = U, 2 = L, 3 = R
-     */
-
-    final int DOWN = 0;
-    final int UP = 1;
-    final int LEFT = 2;
-    final int RIGHT = 3;
 
     private int facing = 0;
     public int nextFacing = -1;
@@ -35,12 +31,6 @@ public class Player implements Entity {
     GameStateManager gsm;
 
     private Image[][] image = new Image[4][2];
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
-    private double width;
-    private double height;
 
     private int animTime;
     public int lastAnim;
@@ -58,6 +48,9 @@ public class Player implements Entity {
         lastAnim = 0;
     }
 
+    /**
+     * Met en places les images permettant les animations
+     */
     public void setImages(){
         image[LEFT][0] = new Image("nori_droite.png");
         image[LEFT][1] = new Image("nori_droite2.png");
@@ -66,6 +59,10 @@ public class Player implements Entity {
         image[RIGHT][1] = new Image("nori_gauche2.png");
     }
 
+    /**
+     * Affiche le player
+     * @param gc le contexte graphique
+     */
     public void render(GraphicsContext gc)
     {
         System.out.println(animTime);
@@ -76,9 +73,13 @@ public class Player implements Entity {
             lastAnim = 0;
         }
         lastAnim++;
-        //gc.fillRoundRect(x,y,50,50,10,10);
     }
 
+    /**
+     * Gere les entrées
+     * @param key the pressed keys
+     * @param mouse la souris
+     */
     public void input(KeysManager key, MouseManager mouse){
         if(key.keys[key.KEY_Q])
             gsm.player.changeFacing(2);
@@ -90,6 +91,11 @@ public class Player implements Entity {
             gsm.player.changeFacing(1);
     }
 
+    /**
+     * move if he can, do nothing otherwise
+     * @param dx next x
+     * @param dy next y
+     */
     public void tryMove(int dx, int dy) {
         if(!gsm.collider.isPossible(x + dx, y + dy))
             return;
@@ -97,12 +103,9 @@ public class Player implements Entity {
         y += dy;
     }
 
-    public void draw(Graphics g) {
-        //TODO draw sashimi
-        g.setColor(Color.decode("#00FF00"));
-        g.fillArc(x, y, 50, 50, 45, 270);
-    }
-
+    /**
+     * Compute the next position
+     */
     public void nextStep() {
         switch(facing){
             case DOWN:
@@ -132,7 +135,11 @@ public class Player implements Entity {
         return 25;
     }
 
-    public void changeFacing(int newFacing){
+    /**
+     * change the direction of the player
+     * @param newFacing the new facing
+     */
+    private void changeFacing(int newFacing){
         facing = newFacing;
     }
 
