@@ -4,15 +4,16 @@ import Entity.Entity;
 import States.GameStateManager;
 import Utils.Utils;
 
-import static java.lang.Thread.sleep;
-
-public class Collider {
+public class Collider{
 
     GameStateManager gsm;
 
     public Collider(GameStateManager gsm) {
         this.gsm = gsm;
     }
+
+    private double updateTime = 10000000;
+    private double lastUpdate = 0;
 
     /**
      *
@@ -28,5 +29,4 @@ public class Collider {
     public boolean isTouching(Entity e1, Entity e2){
         return Utils.distance(e1.getX(),e1.getY(),e2.getX(),e2.getY()) <= e1.getSize() + e2.getSize();
     }
-
 }

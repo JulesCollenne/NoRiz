@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class GameStateManager {
 
-    GamePanel gamePanel;
+    public GamePanel gamePanel;
 
     final int START  = 0;
     final int PLAY  = 1;

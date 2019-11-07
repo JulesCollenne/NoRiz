@@ -1,5 +1,7 @@
 package Entity;
 
+import Input.KeysManager;
+import Input.MouseManager;
 import States.GameStateManager;
 
 import java.awt.*;
@@ -37,6 +39,17 @@ public class Player implements Entity {
         hasBonus = false;
     }
 
+    public void input(KeysManager key, MouseManager mouse){
+        if(key.keys[key.KEY_Q])
+            gsm.player.changeFacing(2);
+        if(key.keys[key.KEY_D])
+            gsm.player.changeFacing(3);
+        if(key.keys[key.KEY_S])
+            gsm.player.changeFacing(0);
+        if(key.keys[key.KEY_Z])
+            gsm.player.changeFacing(1);
+    }
+
     public void tryMove(int dx, int dy) {
         if(!gsm.collider.isPossible(x + dx, y + dy))
             return;
@@ -48,10 +61,6 @@ public class Player implements Entity {
         //TODO draw sashimi
         g.setColor(Color.decode("#00FF00"));
         g.fillArc(x, y, 50, 50, 45, 270);
-    }
-
-    public void move(int facing) {
-
     }
 
     public void nextStep() {

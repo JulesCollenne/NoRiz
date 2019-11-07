@@ -1,5 +1,6 @@
 package UI;
 
+import Collider.Collider;
 import Input.KeysManager;
 import Input.MouseManager;
 import States.GameState;
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
 public class GamePanel extends JPanel implements Runnable {
 
     private double updateTime = 10000000;
+    private double lastUpdate = 0;
 
     private boolean running;
 
@@ -22,8 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage image;
     private Graphics2D g;
 
-    KeysManager key;
-    MouseManager mouse;
+    public KeysManager key;
+    public MouseManager mouse;
 
 
     public GamePanel(int width, int height){
@@ -40,26 +42,28 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
-
-        double now;
-        double lastUpdate = 0;
+        Collider collider = gsm.collider;
 
         while(running){
 
-            now = System.nanoTime();
-
-            while(now - lastUpdate < updateTime){
-                now = System.nanoTime();
-            }
-
-            lastUpdate = now;
+            waitUpdate();
 
             gsm.input(key, mouse);
             gsm.nextStep();
-            gsm.draw(g);
+
             repaint();
             initInput();
         }
+    }
+
+    private void waitUpdate(){
+        double now;
+        now = System.nanoTime();
+        while(now - lastUpdate < updateTime){
+            now = System.nanoTime();
+        }
+
+        lastUpdate = now;
     }
 
     private void initInput() {
