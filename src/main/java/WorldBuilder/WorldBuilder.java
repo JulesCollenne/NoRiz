@@ -102,14 +102,14 @@ public class WorldBuilder {
             case ROAD:
                 gc.setFill(Color.WHITE);
                 gc.fillRect(posX*50, posY*50, 50,50);
-                /*Image road = new Image("dirtTextureLevel1.png");
-                gc.drawImage(road, posX*50, posY*50, 50,50); // mettre 50 en variable globable ?*/
+                /*Image road = new Image("textures/dirtTextureLevel1.png");
+                gc.drawImage(road, posX*50, posY*50, 50,50); // mettre 50 en variable globable accessible a tous ?*/
                 break;
 
             case WALL:
                 gc.setFill(Color.BLACK);
                 gc.fillRect(posX*50, posY*50, 50,50);
-                /*Image wall = new Image("wallTextureLevel1.png");
+                /*Image wall = new Image("textures/wallTextureLevel1.png");
                 gc.drawImage(wall, posX*50, posY*50, 50,50); // mettre 50 en variable globable ?*/
                 break;
 
