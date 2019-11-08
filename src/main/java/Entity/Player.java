@@ -62,7 +62,7 @@ public class Player implements Entity {
             return x + getSize();
         if(facing == LEFT)
             return x;
-        return x;
+        return x + 1;
     }
 
     public int getCollideX2(){
@@ -70,7 +70,7 @@ public class Player implements Entity {
             return x + getSize();
         if(facing == LEFT)
             return x;
-        return x + getSize();
+        return x + getSize() - 1;
     }
 
     public int getCollideY1(){
@@ -78,7 +78,7 @@ public class Player implements Entity {
             return y + getSize();
         if(facing == UP)
             return y;
-        return y;
+        return y + 1;
     }
 
     public int getCollideY2(){
@@ -86,7 +86,7 @@ public class Player implements Entity {
             return y + getSize();
         if(facing == UP)
             return y;
-        return y + getSize();
+        return y + getSize() - 1;
     }
 
     /**
