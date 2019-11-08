@@ -2,6 +2,7 @@ package Strategy;
 
 
 import States.GameStateManager;
+import Utils.DIRECTION;
 
 /**
  *
@@ -26,11 +27,6 @@ import States.GameStateManager;
  */
 public class AngleStrat implements Strategy {
 
-    private final int DOWN = 0;
-    private final int UP = 1;
-    private final int LEFT = 2;
-    private final int RIGHT = 3;
-
     private GameStateManager gsm;
     private int x,y;
 
@@ -38,8 +34,7 @@ public class AngleStrat implements Strategy {
         this.gsm = gsm;
     }
 
-    public int nextWay() {
-        int facing = -1;
+    public DIRECTION nextWay() {
         y = gsm.player.getY() - gsm.monsters[0].getY();
         x = gsm.player.getX() - gsm.monsters[0].getX();
 
@@ -50,47 +45,47 @@ public class AngleStrat implements Strategy {
 
         if(-0.5 < cos && cos < 0.5) {
             if (sin < 0)
-                return UP;                                                 // Bas
+                return DIRECTION.UP;                                         // Bas
             else if(sin > 0)
-                return DOWN;                                                 // Haut
+                return DIRECTION.DOWN;                                                 // Haut
         }
         else if(-0.5 < sin && sin < 0.5){
             if(cos < 0)
-                return LEFT;                                                 // Gauche
+                return DIRECTION.LEFT;                                                 // Gauche
             else if(cos > 0)
-                return RIGHT;                                                 // Droite
+                return DIRECTION.RIGHT;                                                 // Droite
         }
         else if(cos >= 0.5){
             if(sin >= 0.5) {
                 if (sin > cos)
-                    return DOWN;                                                 // Haut
+                    return DIRECTION.DOWN;                                                 // Haut
                 else
-                    return RIGHT;                                                 // Droite
+                    return DIRECTION.RIGHT;                                                 // Droite
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if (sin > cos)
-                    return UP;                                                 // Bas
+                    return DIRECTION.UP;                                                 // Bas
                 else
-                    return RIGHT;                                                 // Droite
+                    return DIRECTION.RIGHT;                                                 // Droite
             }
         }
         else if(cos <= -0.5){
             cos = -cos;
             if(sin >= 0.5){
                 if(sin > cos)
-                    return DOWN;                                                 // Haut
+                    return DIRECTION.DOWN;                                                 // Haut
                 else
-                    return LEFT;                                                 // Gauche
+                    return DIRECTION.LEFT;                                                 // Gauche
             }
             else if(sin <= -0.5){
                 sin = -sin;
                 if(sin > cos)
-                    return UP;                                                 // Bas
+                    return DIRECTION.UP;                                                 // Bas
                 else
-                    return LEFT;                                                 // Gauche
+                    return DIRECTION.LEFT;                                                 // Gauche
             }
         }
-        return facing;
+        return DIRECTION.STOP;
     }
 }

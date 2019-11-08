@@ -13,11 +13,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.animation.AnimationTimer;
 
+import static Utils.Utils.caseDimension;
+
 public class Window extends Application
 {
 
-    final int WIDTH = 1050;
-    final int HEIGHT = 1050;
+    final int WIDTH = 21*caseDimension;
+    final int HEIGHT = 21*caseDimension;
 
     private GameStateManager gsm = new GameStateManager();
 

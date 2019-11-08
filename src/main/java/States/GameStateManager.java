@@ -39,10 +39,11 @@ public class GameStateManager {
      */
 
     private void createMonsters(){
-        monsters[0] = new Monster(200, 200, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
-        monsters[1] = new Monster(300, 300, 1, new RandomStrat(),this, "Hamri");                               //Monstre RandomStrat
-        monsters[2] = new Monster(400, 400, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
-        monsters[3] = new Monster(500, 500, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
+        //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
+        monsters[0] = new Monster(975, 975, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
+        monsters[1] = new Monster(75, 975, 1, new RandomStrat(),this, "Hamri");                               //Monstre RandomStrat
+        monsters[2] = new Monster(975, 75, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
+        monsters[3] = new Monster(500, 475, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
     }
 
     /**

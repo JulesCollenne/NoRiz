@@ -1,12 +1,14 @@
 package WorldBuilder;
 
-import States.GameStateManager;
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+
+import static Utils.Utils.caseDimension;
 import static Utils.WORLDITEM.*;
-import static java.lang.System.exit;
+
+
+
 
 /**
  * Cette classe permet de créer les niveaux
@@ -32,7 +34,7 @@ public class World {
      * Retourne la matrice crée
      */
     public WORLDITEM[][] build(){
-        world = new WORLDITEM[l][h];
+        //world = new WORLDITEM[l][h];
 
         //TODO créer le niveau
 
@@ -40,7 +42,7 @@ public class World {
         Niveau de test en attendant
          */
 
-        for(int i = 0; i<h; i++)
+        /*for(int i = 0; i<h; i++)
             for(int j=0; j<h;j++)
                 world[i][j] = ROAD;
 
@@ -49,7 +51,33 @@ public class World {
             world[i][h-1] = WALL;
             world[0][i] = WALL;
             world[h-1][i] = WALL;
-        }
+        }*/
+
+        // Attention, le haut de la matrice représente la gauche en jeu
+        WORLDITEM[][] tempWorld =  {{WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, ROAD, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, WALL, BONUS, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL},
+                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
+        };
+
+        world = tempWorld;
 
         world[5][5] = WALL;
         world[5][7] = WALL;
@@ -59,7 +87,7 @@ public class World {
 
     /*
      *   Entrée: une matrice représentant la carte
-     *   Déssine la carte dans la fenêtre de jeu
+     *   Dessine la carte dans la fenêtre de jeu
      *        */
     public void renderMap(GraphicsContext gc) {
 
@@ -79,26 +107,27 @@ public class World {
          switch(item){
 
             case ROAD:
-                /*itemImage = ImageIO.read(new File("pathToImageRoad"));
-                g.drawImage(itemImage, posX*50, posY*50);
-                */;
                 gc.setFill(Color.WHITE);
-                gc.fillRect(posX*50, posY*50, 50,50); // mettre 50 en variable gloable ?
+                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension, caseDimension);
+                /*Image road = new Image("textures/dirtTextureLevel1.png");
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
                 break;
 
             case WALL:
                 gc.setFill(Color.BLACK);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension,caseDimension);
+                /*Image wall = new Image("textures/wallTextureLevel1.png");
+                gc.drawImage(wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
                 break;
 
             case RICE:
                 gc.setFill(Color.YELLOW);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;
 
             case BONUS:
                 gc.setFill(Color.GREEN);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;
 
         }
