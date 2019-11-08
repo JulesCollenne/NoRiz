@@ -1,8 +1,8 @@
 package Entity;
 
-import States.GameState;
 import States.GameStateManager;
 import Strategy.Strategy;
+import Utils.DIRECTION;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
@@ -12,22 +12,17 @@ import javafx.scene.paint.Paint;
  */
 public class Monster implements  Entity{
 
-    private final int DOWN = 0;
-    private final int UP = 1;
-    private final int LEFT = 2;
-    private final int RIGHT = 3;
-
     private String name;
 
     private int x;
     private int y;
 
     private int speed;
-    private int facing;
+    private DIRECTION facing;
 
-    Strategy strat;
+    private Strategy strat;
 
-    GameStateManager gsm;
+    private GameStateManager gsm;
 
     private Image image;
     private double positionX;
@@ -48,13 +43,13 @@ public class Monster implements  Entity{
     }
 
     public int getCollideX(){
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return x + getSize();
         return x;
     }
 
     public int getCollideY(){
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return y + getSize();
         return y;
     }
@@ -115,7 +110,7 @@ public class Monster implements  Entity{
      *
      * @return la prochaine direction du monstre
      */
-    public int nextWay(){
+    public DIRECTION nextWay(){
        return strat.nextWay();
     }
 

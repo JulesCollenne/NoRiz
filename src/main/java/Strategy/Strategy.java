@@ -1,5 +1,8 @@
 package Strategy;
 
+import Utils.DIRECTION;
+
 public interface Strategy {
-    int nextWay();
+
+    DIRECTION nextWay();
 }

@@ -32,7 +32,7 @@ public class WorldBuilder {
      * Retourne la matrice crée
      */
     public WORLDITEM[][] build(){
-        world = new WORLDITEM[l][h];
+        //world = new WORLDITEM[l][h];
 
         //TODO créer le niveau
 
@@ -40,7 +40,7 @@ public class WorldBuilder {
         Niveau de test en attendant
          */
 
-        for(int i = 0; i<h; i++)
+        /*for(int i = 0; i<h; i++)
             for(int j=0; j<h;j++)
                 world[i][j] = ROAD;
 
@@ -49,14 +49,40 @@ public class WorldBuilder {
             world[i][h-1] = WALL;
             world[0][i] = WALL;
             world[h-1][i] = WALL;
-        }
+        }*/
+
+        // Attention, le haut de la matrice représente la gauche en jeu
+        WORLDITEM[][] tempWorld =  {{WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, ROAD, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, WALL, BONUS, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL},
+                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
+        };
+
+        world = tempWorld;
 
         return world;
     }
 
     /*
      *   Entrée: une matrice représentant la carte
-     *   Déssine la carte dans la fenêtre de jeu
+     *   Dessine la carte dans la fenêtre de jeu
      *        */
     public void renderMap(GraphicsContext gc) {
 
