@@ -14,23 +14,33 @@ public class Monster implements  Entity{
 
     private String name;
 
+    private final int DOWN = 0;
+    private final int UP = 1;
+    private final int LEFT = 2;
+    private final int RIGHT = 3;
+
     private int x;
     private int y;
 
-    private int speed;
-    private DIRECTION facing;
+    private int facing = 0;
+    public int nextFacing = -1;
 
-    private Strategy strat;
+    private int speed;
+    private boolean hasBonus;
 
     private GameStateManager gsm;
 
-    private Image image;
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
-    private double width;
-    private double height;
+    private int nbImgAnim = 2;
+    private Image[][] image = new Image[4][nbImgAnim];
+
+    private int animTime;
+    private int lastAnim;
+    private final int animSpeed = 10;
+
+    private int timerStrat = 0;
+    private int timeNextStrat = 10;
+
+    private Strategy strat;
 
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, GameStateManager gsm, String name){
@@ -43,13 +53,13 @@ public class Monster implements  Entity{
     }
 
     public int getCollideX(){
-        if(facing == DIRECTION.RIGHT)
+        if(facing == RIGHT)
             return x + getSize();
         return x;
     }
 
     public int getCollideY(){
-        if(facing == DIRECTION.DOWN)
+        if(facing == DOWN)
             return y + getSize();
         return y;
     }
@@ -66,11 +76,33 @@ public class Monster implements  Entity{
     }
 
     public void nextStep() {
+        if(timerStrat > timeNextStrat) {
+            timerStrat = 0;
+            DIRECTION tmp = strat.nextWay();
 
-        facing = strat.nextWay();
+            switch (tmp) {
+                case DOWN:
+                    nextFacing = DOWN;
+                    break;
+                case UP:
+                    nextFacing = UP;
+                    break;
+                case LEFT:
+                    nextFacing = LEFT;
+                    break;
+                case RIGHT:
+                    nextFacing = RIGHT;
+                    break;
+            }
 
-        //System.out.println(name + " " + facing);
+            if (nextFacingPossible(nextFacing)) {
+                facing = nextFacing;
+                nextFacing = -1;
+            }
+            //facing = strat.nextWay();
 
+            //System.out.println(name + " " + facing);
+        }
         switch(facing){
             case DOWN:
                 tryMove(0, speed);
@@ -85,6 +117,7 @@ public class Monster implements  Entity{
                 tryMove(speed, 0);
                 break;
         }
+        timerStrat++;
     }
 
     private void tryMove(int dx, int dy) {
@@ -94,16 +127,8 @@ public class Monster implements  Entity{
         y += dy;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     public int getSize() {
-        return 25;
+        return 50;
     }
 
     /**
@@ -112,6 +137,117 @@ public class Monster implements  Entity{
      */
     public DIRECTION nextWay(){
        return strat.nextWay();
+    }
+
+    /**
+     * change the direction of the player
+     * @param newFacing the new facing
+     */
+    private void setNextFacing(int newFacing){
+        if(nextFacingPossible(newFacing))
+            facing = newFacing;
+        else
+            nextFacing = newFacing;
+    }
+
+    private boolean nextFacingPossible(int nextFacing) {
+        if(nextFacing == -1)
+            return false;
+        if(nextFacing == facing) {
+            this.nextFacing = -1;
+            return false;
+        }
+
+        int tmp = facing;
+        facing = nextFacing;
+
+        int[] coords = getCollideCoords();
+
+        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing),coords[1] + getFacingY(facing),coords[2] + getFacingX(facing),coords[3] + getFacingY(facing))){
+            facing = tmp;
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * ..................COORDINATES AHDEAD
+     */
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    private int getFacingX(int facing){
+        if(facing == UP || facing == DOWN)
+            return 0;
+        if(facing == RIGHT)
+            return getSize()/2;
+        return -getSize()/2;
+    }
+
+    private int getFacingY(int facing) {
+        if(facing == RIGHT || facing == LEFT)
+            return 0;
+        if(facing == DOWN)
+            return getSize()/2;
+        return -getSize()/2;
+    }
+
+    private int getCenterX() {
+        return x + getSize()/2;
+    }
+
+    private int getCenterY() {
+        return y + getSize()/2;
+    }
+
+    private int[] getCollideCoords(){
+        int[] coords = new int[4];
+
+        coords[0] = getCollideX1();
+        coords[1] = getCollideY1();
+        coords[2] = getCollideX2();
+        coords[3] = getCollideY2();
+
+        return coords;
+    }
+
+    public int getCollideX1(){
+        if(facing == RIGHT)
+            return x + getSize();
+        if(facing == LEFT)
+            return x;
+        return x + 1;
+    }
+
+    public int getCollideX2(){
+        if(facing == RIGHT)
+            return x + getSize();
+        if(facing == LEFT)
+            return x;
+        return x + getSize() - 1;
+    }
+
+    public int getCollideY1(){
+        if(facing == DOWN)
+            return y + getSize();
+        if(facing == UP)
+            return y;
+        return y + 1;
+    }
+
+    public int getCollideY2(){
+        if(facing == DOWN)
+            return y + getSize();
+        if(facing == UP)
+            return y;
+        return y + getSize() - 1;
     }
 
 }
