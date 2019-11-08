@@ -15,14 +15,14 @@ import static java.lang.System.exit;
  * NOTE TODO : Tu pourras rajouter un argument, ou d'autres fonctions pour créer des niveaux différents. Soit tu fais création de niveau
  * aléatoire, soit des niveau sur mesure. Comme tu le sens
  */
-public class WorldBuilder {
+public class World {
 
     WORLDITEM world[][];
 
     private int l;
     private int h;
 
-    public WorldBuilder(int l, int h){
+    public World(int l, int h){
         this.l = l;
         this.h = h;
     }
@@ -50,6 +50,9 @@ public class WorldBuilder {
             world[0][i] = WALL;
             world[h-1][i] = WALL;
         }
+
+        world[5][5] = WALL;
+        world[5][7] = WALL;
 
         return world;
     }

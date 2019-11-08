@@ -74,7 +74,7 @@ public class Monster implements  Entity{
 
         facing = strat.nextWay();
 
-        System.out.println(name + " " + facing);
+        //System.out.println(name + " " + facing);
 
         switch(facing){
             case DOWN:

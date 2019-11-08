@@ -27,7 +27,8 @@ public class Player implements Entity {
 
     private GameStateManager gsm;
 
-    private Image[][] image = new Image[4][2];
+    private int nbImgAnim = 2;
+    private Image[][] image = new Image[4][nbImgAnim];
 
     private int animTime;
     private int lastAnim;
@@ -45,33 +46,63 @@ public class Player implements Entity {
         lastAnim = 0;
     }
 
-    public int getCollideX(){
+    private int[] getCollideCoords(){
+        int[] coords = new int[4];
+
+        coords[0] = getCollideX1();
+        coords[1] = getCollideY1();
+        coords[2] = getCollideX2();
+        coords[3] = getCollideY2();
+
+        return coords;
+    }
+
+    public int getCollideX1(){
         if(facing == RIGHT)
             return x + getSize();
+        if(facing == LEFT)
+            return x;
         return x;
     }
 
-    public int getCollideY(){
+    public int getCollideX2(){
+        if(facing == RIGHT)
+            return x + getSize();
+        if(facing == LEFT)
+            return x;
+        return x + getSize();
+    }
+
+    public int getCollideY1(){
         if(facing == DOWN)
             return y + getSize();
+        if(facing == UP)
+            return y;
         return y;
+    }
+
+    public int getCollideY2(){
+        if(facing == DOWN)
+            return y + getSize();
+        if(facing == UP)
+            return y;
+        return y + getSize();
     }
 
     /**
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        image[LEFT][0] = new Image("nori_droite.png");
-        image[LEFT][1] = new Image("nori_droite2.png");
+        makeAnimations(LEFT,"gauche");
+        makeAnimations(RIGHT,"droite");
+        makeAnimations(DOWN,"gauche");
+        makeAnimations(UP,"gauche");
+    }
 
-        image[RIGHT][0] = new Image("nori_gauche.png");
-        image[RIGHT][1] = new Image("nori_gauche2.png");
 
-        image[UP][0] = new Image("nori_gauche.png");
-        image[UP][1] = new Image("nori_gauche2.png");
-
-        image[DOWN][0] = new Image("nori_gauche.png");
-        image[DOWN][1] = new Image("nori_gauche2.png");
+    private void makeAnimations(int direction, String name){
+        for(int i = 0; i < nbImgAnim; i++)
+            image[direction][i] = new Image("nori_" + name + i + ".png");
     }
 
     /**
@@ -95,22 +126,24 @@ public class Player implements Entity {
      */
     public void input(KeysManager key){
         if(key.keys[key.KEY_Q])
-            gsm.player.changeFacing(2);
+            gsm.player.setNextFacing(LEFT);
         if(key.keys[key.KEY_D])
-            gsm.player.changeFacing(3);
+            gsm.player.setNextFacing(RIGHT);
         if(key.keys[key.KEY_S])
-            gsm.player.changeFacing(0);
+            gsm.player.setNextFacing(DOWN);
         if(key.keys[key.KEY_Z])
-            gsm.player.changeFacing(1);
+            gsm.player.setNextFacing(UP);
     }
 
     /**
      * move if he can, do nothing otherwise
      * @param dx next x
      * @param dy next y
+     *
      */
     private void tryMove(int dx, int dy) {
-        if(!gsm.collider.isPossible(getCollideX() + dx, getCollideY() + dy))
+        int[] coords = getCollideCoords();
+        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -120,6 +153,10 @@ public class Player implements Entity {
      * Compute the next position
      */
     public void nextStep() {
+        if(nextFacingPossible(nextFacing)) {
+            facing = nextFacing;
+            nextFacing = -1;
+        }
         switch(facing){
             case DOWN:
                 tryMove(0, speed);
@@ -148,28 +185,71 @@ public class Player implements Entity {
         return 50;
     }
 
-    /**
-     * change the direction of the player
-     * @param newFacing the new facing
-     */
-    private void changeFacing(int newFacing){
-        facing = newFacing;
+    private int getFacingX(int facing){
+        if(facing == UP || facing == DOWN)
+            return 0;
+        if(facing == RIGHT)
+            return getSize()/2;
+        return -getSize()/2;
+    }
+
+    private int getFacingY(int facing) {
+        if(facing == RIGHT || facing == LEFT)
+            return 0;
+        if(facing == DOWN)
+            return getSize()/2;
+        return -getSize()/2;
+    }
+
+    private int getCenterX() {
+        return x + getSize()/2;
+    }
+
+    private int getCenterY() {
+        return y + getSize()/2;
     }
 
     public void input(KeyEvent e) {
         switch (e.getCode()) {
             case Q:
-                changeFacing(2);
+                setNextFacing(2);
                 break;
             case D:
-                changeFacing(3);
+                setNextFacing(3);
                 break;
             case S:
-                changeFacing(0);
+                setNextFacing(0);
                 break;
             case Z:
-                changeFacing(1);
+                setNextFacing(1);
                 break;
         }
+    }
+
+    /**
+     * change the direction of the player
+     * @param newFacing the new facing
+     */
+    private void setNextFacing(int newFacing){
+        if(nextFacingPossible(newFacing))
+            facing = newFacing;
+        else
+            nextFacing = newFacing;
+    }
+
+    private boolean nextFacingPossible(int nextFacing) {
+        if(nextFacing == -1)
+            return false;
+
+        int tmp = facing;
+        facing = nextFacing;
+
+        int[] coords = getCollideCoords();
+
+        if(!gsm.collider.isPossible(coords[0],coords[1],coords[2],coords[3])) {
+            facing = tmp;
+            return false;
+        }
+        return true;
     }
 }

@@ -5,7 +5,7 @@ import Entity.Monster;
 import Entity.Player;
 import Strategy.*;
 import Utils.WORLDITEM;
-import WorldBuilder.WorldBuilder;
+import WorldBuilder.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
@@ -24,13 +24,13 @@ public class GameStateManager {
 
     public WORLDITEM[][] map;
 
-    public WorldBuilder worldBuilder = new WorldBuilder(21,21);
+    public World world = new World(21,21);
 
     public Collider collider = new Collider(this);
 
     public GameStateManager(){
         changeState(PLAY);
-        map = worldBuilder.build();
+        map = world.build();
         createMonsters();
     }
 
