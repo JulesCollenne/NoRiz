@@ -6,6 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
+import static Utils.Utils.caseDimension;
+
 /**
  * Player is the sashimi
  */
@@ -61,17 +63,19 @@ public class Player implements Entity {
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        image[LEFT][0] = new Image("nori_droite.png");
-        image[LEFT][1] = new Image("nori_droite2.png");
+        image[LEFT][0] = new Image("nori_gauche.png");
+        image[LEFT][1] = new Image("nori_gauche2.png");
 
-        image[RIGHT][0] = new Image("nori_gauche.png");
-        image[RIGHT][1] = new Image("nori_gauche2.png");
+        image[RIGHT][0] = new Image("nori_droite.png");
+        image[RIGHT][1] = new Image("nori_droite2.png");
 
         image[UP][0] = new Image("nori_gauche.png");
         image[UP][1] = new Image("nori_gauche2.png");
 
         image[DOWN][0] = new Image("nori_gauche.png");
         image[DOWN][1] = new Image("nori_gauche2.png");
+
+        //quand il stop arrêter le swap ?
     }
 
     /**
@@ -80,7 +84,7 @@ public class Player implements Entity {
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[facing][animTime], x, y , 50, 50);
+        gc.drawImage( image[facing][animTime], x, y , caseDimension, caseDimension);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;
@@ -145,7 +149,7 @@ public class Player implements Entity {
     }
 
     public int getSize() {
-        return 50;
+        return caseDimension;
     }
 
     /**

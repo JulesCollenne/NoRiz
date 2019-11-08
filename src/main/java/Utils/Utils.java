@@ -1,6 +1,10 @@
 package Utils;
 
 public class Utils {
+
+    public static final int caseDimension = 50;
+
+
     /**
      *
      * @param x coordonnée en pixel
@@ -10,8 +14,8 @@ public class Utils {
     public static int[] getSquare(int x, int y){
         int[] coord = new int[2];
 
-        coord[0] = x/50;
-        coord[1] = y/50;
+        coord[0] = x/caseDimension;
+        coord[1] = y/caseDimension;
 
         return coord;
     }

@@ -3,8 +3,12 @@ package WorldBuilder;
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
+
+import static Utils.Utils.caseDimension;
 import static Utils.WORLDITEM.*;
+
+
+
 
 /**
  * Cette classe permet de créer les niveaux
@@ -101,26 +105,26 @@ public class WorldBuilder {
 
             case ROAD:
                 gc.setFill(Color.WHITE);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension, caseDimension);
                 /*Image road = new Image("textures/dirtTextureLevel1.png");
-                gc.drawImage(road, posX*50, posY*50, 50,50); // mettre 50 en variable globable accessible a tous ?*/
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
                 break;
 
             case WALL:
                 gc.setFill(Color.BLACK);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension,caseDimension);
                 /*Image wall = new Image("textures/wallTextureLevel1.png");
-                gc.drawImage(wall, posX*50, posY*50, 50,50); // mettre 50 en variable globable ?*/
+                gc.drawImage(wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
                 break;
 
             case RICE:
                 gc.setFill(Color.YELLOW);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;
 
             case BONUS:
                 gc.setFill(Color.GREEN);
-                gc.fillRect(posX*50, posY*50, 50,50);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;
 
         }
