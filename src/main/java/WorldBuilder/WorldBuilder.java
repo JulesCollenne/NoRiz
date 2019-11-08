@@ -1,12 +1,10 @@
 package WorldBuilder;
 
-import States.GameStateManager;
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.image.Image;
 import static Utils.WORLDITEM.*;
-import static java.lang.System.exit;
 
 /**
  * Cette classe permet de créer les niveaux
@@ -102,16 +100,17 @@ public class WorldBuilder {
          switch(item){
 
             case ROAD:
-                /*itemImage = ImageIO.read(new File("pathToImageRoad"));
-                g.drawImage(itemImage, posX*50, posY*50);
-                */;
                 gc.setFill(Color.WHITE);
-                gc.fillRect(posX*50, posY*50, 50,50); // mettre 50 en variable gloable ?
+                gc.fillRect(posX*50, posY*50, 50,50);
+                /*Image road = new Image("dirtTextureLevel1.png");
+                gc.drawImage(road, posX*50, posY*50, 50,50); // mettre 50 en variable globable ?*/
                 break;
 
             case WALL:
                 gc.setFill(Color.BLACK);
                 gc.fillRect(posX*50, posY*50, 50,50);
+                /*Image wall = new Image("wallTextureLevel1.png");
+                gc.drawImage(wall, posX*50, posY*50, 50,50); // mettre 50 en variable globable ?*/
                 break;
 
             case RICE:
