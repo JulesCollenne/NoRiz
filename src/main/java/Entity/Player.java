@@ -145,7 +145,7 @@ public class Player implements Entity {
 
     private void makeAnimations(int direction, String name){
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("nori_" + name + i + ".png");
+            image[direction][i] = new Image("Player/nori_" + name + i + ".png");
     }
 
     /**

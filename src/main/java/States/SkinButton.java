@@ -10,7 +10,7 @@ public class SkinButton extends Button {
     ImageView skin;
     String label;
 
-    Image currentImage = new Image("nori_droite0.png");
+    Image currentImage = new Image("Player/nori_droite0.png");
     int cmp = 0;
 
     public SkinButton(Image image, String label){
@@ -36,7 +36,7 @@ public class SkinButton extends Button {
             public void handle(MouseEvent mouseEvent) {
                 //Faire une petite animation quand on survole le bouton
                 cmp = cmp % 1;
-                currentImage = new Image("nori_droite"+cmp+".png");
+                currentImage = new Image("Player/nori_droite"+cmp+".png");
                 skin = new ImageView(currentImage);
             }
         });
