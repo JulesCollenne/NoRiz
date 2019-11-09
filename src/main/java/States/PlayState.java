@@ -11,9 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
-
 public class PlayState extends GameState {
 
     private boolean firstRender;
@@ -82,13 +79,11 @@ public class PlayState extends GameState {
     public void render(GraphicsContext gc) {
 
         if(firstRender){
-
-
             firstRender = false;
         }
 
         //if(firstRender){
-            gsm.world.build();
+
             gsm.world.renderMap(gc);
             firstRender = false;
         //}
@@ -98,8 +93,6 @@ public class PlayState extends GameState {
         for(Monster monster : gsm.monsters){
             monster.render(gc);
         }
-
-
 
     }
 }

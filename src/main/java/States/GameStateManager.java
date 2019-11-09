@@ -35,6 +35,12 @@ public class GameStateManager {
 
     private boolean stateChanged = false;
 
+    public enum DIF {EASY, MEDIUM, HARD}
+
+    //public DIF difficulty = DIF.EASY;
+
+    public int difficulty = 0;
+
     public KeysManager key = new KeysManager();
 
     public GameStateManager(Stage theStage){
@@ -45,7 +51,7 @@ public class GameStateManager {
         gameStates[PAUSE] = new PauseState(this);
 
         changeState(START);
-        map = world.build();
+        map = world.build(difficulty);
         createMonsters();
     }
 
@@ -67,6 +73,8 @@ public class GameStateManager {
      */
     public void changeState(int newState){
         currentState = newState;
+        if(currentState == PLAY)
+            world.build(difficulty);
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         stateChanged = true;

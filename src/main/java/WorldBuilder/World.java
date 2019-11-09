@@ -33,7 +33,7 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public WORLDITEM[][] build(){
+    public WORLDITEM[][] build(int difficulty){
         //world = new WORLDITEM[l][h];
 
         //TODO créer le niveau

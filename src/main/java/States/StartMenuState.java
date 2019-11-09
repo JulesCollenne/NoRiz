@@ -32,7 +32,10 @@ public class StartMenuState extends GameState{
         easy.setStyle("-fx-background-color: transparent;");
         easy.setLayoutX(165 - (230 / 2));
         easy.setLayoutY(495 - (87.5 / 2));
-        easy.setOnAction(actionEvent -> gsm.changeState(PLAY));
+        easy.setOnAction(actionEvent -> {
+            gsm.difficulty = 0;
+            gsm.changeState(PLAY);
+        });
 
         Button medium = new ImageButton(new Image("sign_moyen.png"), "Medium");
         medium.setStyle("-fx-background-color:transparent");
