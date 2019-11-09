@@ -1,6 +1,7 @@
 package Entity;
 
 import States.GameStateManager;
+import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -46,7 +47,7 @@ public class Player implements Entity {
     }
 
     public int getSize() {
-        return 50;
+        return Utils.caseDimension;
     }
 
     /**
@@ -122,7 +123,7 @@ public class Player implements Entity {
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[facing][animTime], x, y , 50, 50);
+        gc.drawImage( image[facing][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;

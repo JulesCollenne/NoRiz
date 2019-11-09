@@ -3,6 +3,7 @@ package Entity;
 import States.GameStateManager;
 import Strategy.Strategy;
 import Utils.DIRECTION;
+import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
@@ -128,7 +129,7 @@ public class Monster implements  Entity{
     }
 
     public int getSize() {
-        return 50;
+        return Utils.caseDimension;
     }
 
     /**
@@ -136,7 +137,7 @@ public class Monster implements  Entity{
      * @return la prochaine direction du monstre
      */
     public DIRECTION nextWay(){
-       return strat.nextWay();
+        return strat.nextWay();
     }
 
     /**
