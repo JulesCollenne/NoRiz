@@ -50,18 +50,14 @@ public class StartMenuState extends GameState{
             skin.setLayoutY(800);
             skin.handler(gsm);
 
-            ImageView noriz = new ImageView(new Image("NORIZ.png"));
+            ImageView noriz = new ImageView(new Image("nori_droite0.png"));
             noriz.setX(333);
             noriz.setY(150);
 
             layout.getChildren().addAll(easy, medium, hard, skin, noriz);
 
 
-            Scene scene = new Scene(layout, 1000, 1000);
-
-            gsm.theStage.setScene(scene);
-            gsm.theStage.show();
-            firstRender = false;
+            theScene = new Scene(layout, 1000, 1000);
         }
     }
 

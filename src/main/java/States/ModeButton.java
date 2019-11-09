@@ -24,8 +24,21 @@ public class ModeButton extends Button {
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("Mode " + label);
-                //gsm.changeState(1);
+                //System.out.println("Mode " + label);
+                switch(label) {
+                    case "Facile":
+                        gsm.difficulty = 0;
+                        gsm.changeState(1);
+                        break;
+                    case "Medium":
+                        gsm.difficulty = 1;
+                        gsm.changeState(1);
+                        break;
+                    case "Hard":
+                        gsm.difficulty = 2;
+                        gsm.changeState(1);
+                        break;
+                }
             }
         });
         this.setOnMouseEntered(new EventHandler<MouseEvent>() {

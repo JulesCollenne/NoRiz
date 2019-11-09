@@ -220,7 +220,6 @@ public class Monster implements  Entity{
         return coords;
     }
 
-
     public int getCollideX1(){
         if(facing == RIGHT)
             return x + getSize();
