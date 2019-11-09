@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 
@@ -24,35 +25,44 @@ public class StartMenuState extends GameState{
     }
 
     private void initScene() {
-        Pane layout = new Pane();
+        if(firstRender) {
+            Pane layout = new Pane();
 
-        layout.setStyle("-fx-background-color: darkslategrey;");
+            layout.setStyle("-fx-background-color: darkslategrey;");
 
-        Button easy = new ImageButton(new Image("sign_facile.png"), "Facile");
-        easy.setStyle("-fx-background-color: transparent;");
-        easy.setLayoutX(165 - (230 / 2));
-        easy.setLayoutY(495 - (87.5 / 2));
-        easy.setOnAction(actionEvent -> {
-            gsm.difficulty = 0;
-            gsm.changeState(PLAY);
-        });
+            ModeButton easy = new ModeButton(new Image("sign_facile.png"), "Facile");
+            easy.setLayoutX(166.5-87.5);
+            easy.setLayoutY(600-43.75);
+            easy.handler(gsm);
 
-        Button medium = new ImageButton(new Image("sign_moyen.png"), "Medium");
-        medium.setStyle("-fx-background-color:transparent");
-        medium.setLayoutX(500 - (230 / 2));
-        medium.setLayoutY(495 - (87.5 / 2));
+            ModeButton medium = new ModeButton(new Image("sign_moyen.png"), "Medium");
+            medium.setLayoutX(499.5-87.5);
+            medium.setLayoutY(600-43.75);
+            medium.handler(gsm);
 
-        Button hard = new ImageButton(new Image("sign_difficile.png"), "Hard");
-        hard.setStyle("-fx-background-color: darkslategrey;");
-        hard.setLayoutX(830 - (230 / 2));
-        hard.setLayoutY(495 - (87.5 / 2));
+            ModeButton hard = new ModeButton(new Image("sign_difficile.png"), "Hard");
+            hard.setLayoutX(832.5-87.5);
+            hard.setLayoutY(600-43.75);
+            hard.handler(gsm);
+
+            SkinButton skin = new SkinButton(new Image("nori_droite0.png"), "Skin");
+            skin.setLayoutX(240);
+            skin.setLayoutY(800);
+            skin.handler(gsm);
+
+            ImageView noriz = new ImageView(new Image("NORIZ.png"));
+            noriz.setX(333);
+            noriz.setY(150);
+
+            layout.getChildren().addAll(easy, medium, hard, skin, noriz);
 
 
-        layout.getChildren().addAll(easy, medium, hard);
+            Scene scene = new Scene(layout, 1000, 1000);
 
-        theScene = new Scene(layout, 1000, 1000);
-
-        firstRender = false;
+            gsm.theStage.setScene(scene);
+            gsm.theStage.show();
+            firstRender = false;
+        }
     }
 
     public void nextStep() {
