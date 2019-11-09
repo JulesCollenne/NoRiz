@@ -3,6 +3,7 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
+import Input.KeysManager;
 import Strategy.*;
 import Utils.Utils;
 import Utils.WORLDITEM;
@@ -32,8 +33,17 @@ public class GameStateManager {
 
     public Collider collider = new Collider(this);
 
+    private boolean stateChanged = false;
+
+    public KeysManager key = new KeysManager();
+
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
+
+        gameStates[START] = new StartMenuState(this);
+        gameStates[PLAY] = new PlayState(this);
+        gameStates[PAUSE] = new PauseState(this);
+
         changeState(START);
         map = world.build();
         createMonsters();
@@ -55,22 +65,11 @@ public class GameStateManager {
      * Change the currentState
      * @param newState the new state
      */
-    private void changeState(int newState){
+    public void changeState(int newState){
         currentState = newState;
-        for(int i=0; i < gameStates.length; i++){
-            gameStates[i] = null;
-        }
-        switch(currentState) {
-            case START:
-                gameStates[currentState] = new StartMenuState(this);
-                break;
-            case PLAY:
-                gameStates[currentState] = new PlayState(this);
-                break;
-            case PAUSE:
-                gameStates[currentState] = new PauseState(this);
-                break;
-        }
+        theStage.setScene(gameStates[currentState].theScene);
+        theStage.show();
+        stateChanged = true;
     }
 
     public void nextStep() {
@@ -82,6 +81,10 @@ public class GameStateManager {
     }
 
     public void render(GraphicsContext gc) {
+        if(stateChanged){
+            gc.clearRect(0,0,1000,1000);
+            stateChanged = false;
+        }
         gameStates[currentState].render(gc);
     }
 }
