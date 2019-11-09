@@ -25,6 +25,8 @@ public class World {
     private int l;
     private int h;
 
+    private int difficulty;
+
     private Image road = new Image("textures/roadTextureLevel1.png");
     private Image wall = new Image("textures/wallTextureLevel1.png");
 
@@ -38,6 +40,31 @@ public class World {
      * Retourne la matrice crée
      */
     public WORLDITEM[][] build(int difficulty){
+
+        this.difficulty = difficulty;
+
+        switch(difficulty){
+
+            case 0:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            case 1:
+                road = new Image("textures/roadTextureLevel2.jpg");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            case 2:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            default:
+                break;
+        }
+
+
         //world = new WORLDITEM[l][h];
 
         //TODO créer le niveau
@@ -97,30 +124,7 @@ public class World {
      *   Entrée: une matrice représentant la carte
      *   Dessine la carte dans la fenêtre de jeu
      *        */
-    public void renderMap(GraphicsContext gc, int difficulty) {
-
-        switch(difficulty){
-
-            case 0:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            case 1:
-                road = new Image("textures/roadTextureLevel2.jpg");
-                wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            case 2:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            default:
-                break;
-
-        }
-
+    public void renderMap(GraphicsContext gc) {
         for(int posX=0; posX<world.length; posX++) {
             for (int posY = 0; posY < world[0].length; posY++) {
                 renderItem(posX,posY,world[posX][posY], difficulty, gc);

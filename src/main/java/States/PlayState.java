@@ -85,7 +85,7 @@ public class PlayState extends GameState {
 
         //if(firstRender){
 
-            gsm.world.renderMap(gc, gsm.difficulty);
+            gsm.world.renderMap(gc);
             firstRender = false;
         //}
 
