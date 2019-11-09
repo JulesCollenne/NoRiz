@@ -4,10 +4,12 @@ import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
 import Strategy.*;
+import Utils.Utils;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 public class GameStateManager {
 
@@ -19,17 +21,20 @@ public class GameStateManager {
 
     private GameState gameStates[] = new GameState[3];
 
-    public Player player = new Player(this, 100,100,1);
+    public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
 
     public WORLDITEM[][] map;
 
-    public World world = new World(21,21);
+    public Stage theStage;
+
+    public World world = new World(Utils.mapSize,Utils.mapSize);
 
     public Collider collider = new Collider(this);
 
-    public GameStateManager(){
-        changeState(PLAY);
+    public GameStateManager(Stage theStage){
+        this.theStage = theStage;
+        changeState(START);
         map = world.build();
         createMonsters();
     }
@@ -40,10 +45,10 @@ public class GameStateManager {
 
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(975, 975, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
-        monsters[1] = new Monster(75, 975, 1, new RandomStrat(),this, "Hamri");                               //Monstre RandomStrat
-        monsters[2] = new Monster(975, 75, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
-        monsters[3] = new Monster(500, 475, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
+        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
+        monsters[1] = new Monster(Utils.caseDimension, 10 * Utils.caseDimension, 1, new RandomStrat(),this, "Hamri");                               //Monstre RandomStrat
+        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
+        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
     }
 
     /**

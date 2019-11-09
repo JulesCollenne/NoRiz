@@ -13,15 +13,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.animation.AnimationTimer;
 
-import static Utils.Utils.caseDimension;
+import static Utils.Utils.*;
 
 public class Window extends Application
 {
 
-    final int WIDTH = 21*caseDimension;
-    final int HEIGHT = 21*caseDimension;
+    final int WIDTH = mapSize*caseDimension;
+    final int HEIGHT = mapSize*caseDimension;
 
-    private GameStateManager gsm = new GameStateManager();
+    private GameStateManager gsm;
 
     private KeysManager key = new KeysManager();
 
@@ -38,7 +38,7 @@ public class Window extends Application
         Group root = new Group();
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
-
+        gsm = new GameStateManager(theStage);
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
 
