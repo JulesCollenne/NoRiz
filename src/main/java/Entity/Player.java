@@ -181,7 +181,7 @@ public class Player implements Entity {
 
 
     /**
-     * ..................COORDINATES AHDEAD
+     * ..................COORDINATES AHEAD
      */
 
     public int getX() {

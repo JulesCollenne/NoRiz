@@ -2,6 +2,7 @@ package WorldBuilder;
 
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import static Utils.Utils.caseDimension;
@@ -23,6 +24,8 @@ public class World {
 
     private int l;
     private int h;
+    Image road = new Image("textures/dirtTextureLevel1.png");
+    Image wall = new Image("textures/wallTextureLevel1.png");
 
     public World(int l, int h){
         this.l = l;
@@ -111,17 +114,11 @@ public class World {
          switch(item){
 
             case ROAD:
-                gc.setFill(Color.WHITE);
-                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension, caseDimension);
-                /*Image road = new Image("textures/dirtTextureLevel1.png");
-                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 break;
 
             case WALL:
-                gc.setFill(Color.BLACK);
-                gc.fillRect(posX* caseDimension, posY* caseDimension, caseDimension,caseDimension);
-                /*Image wall = new Image("textures/wallTextureLevel1.png");
-                gc.drawImage(wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);*/
+                gc.drawImage(wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 break;
 
             case RICE:

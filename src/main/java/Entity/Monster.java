@@ -83,27 +83,28 @@ public class Monster implements  Entity{
 
             switch (tmp) {
                 case DOWN:
-                    nextFacing = DOWN;
+                    setNextFacing(DOWN);
                     break;
                 case UP:
-                    nextFacing = UP;
+                    setNextFacing(UP);
                     break;
                 case LEFT:
-                    nextFacing = LEFT;
+                    setNextFacing(LEFT);
                     break;
                 case RIGHT:
-                    nextFacing = RIGHT;
+                    setNextFacing(RIGHT);
                     break;
-            }
-
-            if (nextFacingPossible(nextFacing)) {
-                facing = nextFacing;
-                nextFacing = -1;
             }
             //facing = strat.nextWay();
 
             //System.out.println(name + " " + facing);
         }
+
+        if (nextFacingPossible(nextFacing)) {
+            facing = nextFacing;
+            nextFacing = -1;
+        }
+
         switch(facing){
             case DOWN:
                 tryMove(0, speed);
