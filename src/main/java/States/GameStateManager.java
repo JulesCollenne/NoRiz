@@ -9,6 +9,7 @@ import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 public class GameStateManager {
 
@@ -25,12 +26,15 @@ public class GameStateManager {
 
     public WORLDITEM[][] map;
 
+    public Stage theStage;
+
     public World world = new World(Utils.mapSize,Utils.mapSize);
 
     public Collider collider = new Collider(this);
 
-    public GameStateManager(){
-        changeState(PLAY);
+    public GameStateManager(Stage theStage){
+        this.theStage = theStage;
+        changeState(START);
         map = world.build();
         createMonsters();
     }
