@@ -24,7 +24,8 @@ public class World {
 
     private int l;
     private int h;
-    Image road = new Image("textures/dirtTextureLevel1.png");
+
+    Image road = new Image("textures/roadTextureLevel1.png");
     Image wall = new Image("textures/wallTextureLevel1.png");
 
     public World(int l, int h){
@@ -96,11 +97,30 @@ public class World {
      *   Entrée: une matrice représentant la carte
      *   Dessine la carte dans la fenêtre de jeu
      *        */
-    public void renderMap(GraphicsContext gc) {
+    public void renderMap(GraphicsContext gc, int difficulty) {
+
+        switch(difficulty){
+
+            case 0:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            case 1:
+                road = new Image("textures/roadTextureLevel2.jpg");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            case 2:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+        }
 
         for(int posX=0; posX<world.length; posX++) {
             for (int posY = 0; posY < world[0].length; posY++) {
-                renderItem(posX,posY,world[posX][posY], gc);
+                renderItem(posX,posY,world[posX][posY], difficulty, gc);
             }
         }
     }
@@ -109,7 +129,7 @@ public class World {
      *   Entrée: posX et posY: position de l'item // l'item a dessiner
      *   Dessine l'item a la position demandée
      */
-     public void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
+     public void renderItem(int posX, int posY, WORLDITEM item, int difficulty, GraphicsContext gc) {
 
          switch(item){
 

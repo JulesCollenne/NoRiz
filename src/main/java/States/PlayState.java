@@ -1,6 +1,7 @@
 package States;
 
 import Entity.Monster;
+import Utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ public class PlayState extends GameState {
     private void initScene(){
         Group root = new Group();
         theScene = new Scene( root );
-        Canvas canvas = new Canvas(1000, 1000);
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
         root.getChildren().add(canvas);
 
         theScene.setOnKeyPressed(
@@ -84,7 +85,7 @@ public class PlayState extends GameState {
 
         //if(firstRender){
 
-            gsm.world.renderMap(gc);
+            gsm.world.renderMap(gc, gsm.difficulty);
             firstRender = false;
         //}
 

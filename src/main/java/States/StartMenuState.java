@@ -31,24 +31,29 @@ public class StartMenuState extends GameState{
             layout.setStyle("-fx-background-color: darkslategrey;");
 
             ModeButton easy = new ModeButton(new Image("sign_facile.png"), "Facile");
-            easy.setLayoutX(166.5-87.5);
-            easy.setLayoutY(600-43.75);
+            easy.setLayoutX((3/100.0)*Utils.canvasSize);
+            easy.setLayoutY((40/100.0)*Utils.canvasSize);
+            easy.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
             easy.handler(gsm);
 
-            ModeButton medium = new ModeButton(new Image("sign_moyen.png"), "Medium");
-            medium.setLayoutX(499.5-87.5);
-            medium.setLayoutY(600-43.75);
+
+            Image mediumIm = new Image("sign_moyen.png");
+            ModeButton medium = new ModeButton(mediumIm, "Medium");
+            medium.setLayoutX((36.5/100.0)*Utils.canvasSize);
+            medium.setLayoutY((40/100.0)*Utils.canvasSize);
+            easy.setMaxSize((10 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
             medium.handler(gsm);
 
             ModeButton hard = new ModeButton(new Image("sign_difficile.png"), "Hard");
-            hard.setLayoutX(832.5-87.5);
-            hard.setLayoutY(600-43.75);
+            hard.setLayoutX((70/100.0)*Utils.canvasSize);
+            hard.setLayoutY((40/100.0)*Utils.canvasSize);
             hard.handler(gsm);
 
             SkinButton skin = new SkinButton(new Image("nori_droite0.png"), "Skin");
-            skin.setLayoutX(240);
-            skin.setLayoutY(800);
+            skin.setLayoutX(10);
+            skin.setLayoutY(10);
             skin.handler(gsm);
+
 
             ImageView noriz = new ImageView(new Image("nori_droite0.png"));
             noriz.setX(333);
@@ -57,7 +62,7 @@ public class StartMenuState extends GameState{
             layout.getChildren().addAll(easy, medium, hard, skin, noriz);
 
 
-            theScene = new Scene(layout, 1000, 1000);
+            theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
         }
     }
 

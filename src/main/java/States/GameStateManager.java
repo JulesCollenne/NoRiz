@@ -90,7 +90,7 @@ public class GameStateManager {
 
     public void render(GraphicsContext gc) {
         if(stateChanged){
-            gc.clearRect(0,0,1000,1000);
+            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             stateChanged = false;
         }
         gameStates[currentState].render(gc);
