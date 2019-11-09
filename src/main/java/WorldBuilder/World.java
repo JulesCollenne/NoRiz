@@ -20,13 +20,13 @@ import static Utils.WORLDITEM.*;
  */
 public class World {
 
-    WORLDITEM world[][];
+    private WORLDITEM world[][];
 
     private int l;
     private int h;
 
-    Image road = new Image("textures/roadTextureLevel1.png");
-    Image wall = new Image("textures/wallTextureLevel1.png");
+    private Image road = new Image("textures/roadTextureLevel1.png");
+    private Image wall = new Image("textures/wallTextureLevel1.png");
 
     public World(int l, int h){
         this.l = l;
@@ -114,6 +114,9 @@ public class World {
             case 2:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
+                break;
+
+            default:
                 break;
 
         }

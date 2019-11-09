@@ -59,7 +59,7 @@ public class StartMenuState extends GameState{
             noriz.setX(333);
             noriz.setY(150);
 
-            layout.getChildren().addAll(easy, medium, hard, noriz);
+            layout.getChildren().addAll(easy, medium, hard, skin, noriz);
 
 
             theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
