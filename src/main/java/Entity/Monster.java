@@ -104,7 +104,6 @@ public class Monster implements  Entity{
             facing = nextFacing;
             nextFacing = -1;
         }
-
         switch(facing){
             case DOWN:
                 tryMove(0, speed);
@@ -123,7 +122,8 @@ public class Monster implements  Entity{
     }
 
     private void tryMove(int dx, int dy) {
-        if(!gsm.collider.isPossible(getCollideX() + dx, getCollideY() + dy))
+        int[] coords = getCollideCoords();
+        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -174,7 +174,7 @@ public class Monster implements  Entity{
 
 
     /**
-     * ..................COORDINATES AHDEAD
+     * ..................COORDINATES AHEAD
      */
 
     public int getX() {
