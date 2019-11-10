@@ -20,6 +20,8 @@ public class Player implements Entity {
     public int nbLife = maxLife;
     private int x;
     private int y;
+    private int spawnX;
+    private int spawnY;
 
     private int facing = 0;
     public int nextFacing = -1;
@@ -38,14 +40,25 @@ public class Player implements Entity {
 
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
         this.gsm = gsm;
-        x = initialX;
-        y = initialY;
+        spawnX = initialX;
+        spawnY = initialY;
         speed = initialSpeed;
         hasBonus = false;
 
         setImages();
+
+        init();
+    }
+
+    public void init(){
+        x = spawnX;
+        y = spawnY;
         animTime = 0;
         lastAnim = 0;
+        hasBonus = false;
+        nbLife = maxLife;
+        nextFacing = -1;
+        facing = 0;
     }
 
     public int getSize() {

@@ -22,12 +22,13 @@ public class Monster implements  Entity{
 
     private int x;
     private int y;
+    private int spawnX;
+    private int spawnY;
 
     private int facing = 0;
     public int nextFacing = -1;
 
     private int speed;
-    private boolean hasBonus;
 
     private GameStateManager gsm;
 
@@ -45,12 +46,20 @@ public class Monster implements  Entity{
 
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, GameStateManager gsm, String name){
-        x = initialX;
-        y = initialY;
+        spawnX = initialX;
+        spawnY = initialY;
         speed = initialSpeed;
         this.strat = strat;
         this.gsm = gsm;
         this.name = name;
+        init();
+    }
+
+    public void init(){
+        x = spawnX;
+        y = spawnY;
+        animTime = 0;
+        lastAnim = 0;
     }
 
     public int getCollideX(){

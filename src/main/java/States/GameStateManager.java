@@ -48,13 +48,14 @@ public class GameStateManager {
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
+        map = world.build(difficulty);
+        createMonsters();
+
         gameStates[START] = new StartMenuState(this);
         gameStates[PLAY] = new PlayState(this);
         gameStates[PAUSE] = new PauseState(this);
 
         changeState(START);
-        map = world.build(difficulty);
-        createMonsters();
     }
 
     /**
@@ -77,6 +78,7 @@ public class GameStateManager {
         currentState = newState;
         if(currentState == PLAY)
             world.build(difficulty);
+        gameStates[currentState].initScene();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         stateChanged = true;

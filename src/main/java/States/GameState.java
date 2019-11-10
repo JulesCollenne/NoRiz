@@ -18,4 +18,6 @@ public abstract class GameState {
     public abstract void input(KeyEvent e);
 
     public abstract void render(GraphicsContext gc);
+
+    public abstract void initScene();
 }

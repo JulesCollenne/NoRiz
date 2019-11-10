@@ -21,4 +21,9 @@ public class PauseState extends GameState {
     public void render(GraphicsContext gc) {
 
     }
+
+    @Override
+    public void initScene() {
+
+    }
 }

@@ -21,10 +21,10 @@ public class PlayState extends GameState {
         firstRender = true;
 
         initScene();
-
+        createScene();
     }
 
-    private void initScene(){
+    private void createScene() {
         Group root = new Group();
         theScene = new Scene( root );
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
@@ -58,6 +58,16 @@ public class PlayState extends GameState {
 
             }
         }.start();
+    }
+
+    public void initScene(){
+        firstRender = true;
+        gsm.isGameOver = false;
+        gsm.player.init();
+        for (Monster monster :
+                gsm.monsters) {
+            monster.init();
+        }
     }
 
     private void initInput() {
@@ -103,6 +113,7 @@ public class PlayState extends GameState {
         }
 
         if(firstRender){
+            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
         }
 

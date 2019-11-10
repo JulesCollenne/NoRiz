@@ -13,7 +13,7 @@ import javafx.scene.layout.*;
 
 public class StartMenuState extends GameState{
 
-    boolean firstRender = true;
+    //boolean firstRender = true;
 
     private final int START  = 0;
     private final int PLAY  = 1;
@@ -21,11 +21,10 @@ public class StartMenuState extends GameState{
 
     StartMenuState(GameStateManager gsm) {
         super(gsm);
-        initScene();
+        createScene();
     }
 
-    private void initScene() {
-        if(firstRender) {
+    private void createScene() {
             Pane layout = new Pane();
 
             layout.setStyle("-fx-background-color: darkslategrey;");
@@ -63,7 +62,10 @@ public class StartMenuState extends GameState{
 
 
             theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
-        }
+    }
+
+    public void initScene() {
+
     }
 
     public void nextStep() {
