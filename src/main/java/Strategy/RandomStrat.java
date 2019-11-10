@@ -5,7 +5,10 @@ import Utils.DIRECTION;
 import Utils.Utils;
 
 /**
- * Choisit une direction au hasard lorsqu'il passe sur une intersection
+ * Choisit une nouvelle direction au hasard:
+ * La nouvelle direction ne peut être ni a contre sens (il ne peut pas faire demi tour), ni vers un mur
+ *
+ * TODO: Peut etre ajouté un temps de pause a chaque intersection parce qu'il a tendance a ne pas les prendre car il passe trop vite
  */
 
 
@@ -31,63 +34,60 @@ public class RandomStrat implements Strategy {
         DIRECTION nextWay = currentWay;
         System.out.println("pos: "+x+", "+y);
 
-        if (x % Utils.caseDimension != 0 || y % Utils.caseDimension != 0) { //tant qu'il n'est pas a une intersection il garde son chemin
-            System.out.println("je ne change pas");
-            return currentWay;
-        }
-        else {
 
-            System.out.println("\n\n\nJe suis a l'intersection "+x+", "+y+"\n\n\n");
+        System.out.println("\n\n\nJe suis a l'intersection "+x+", "+y+"\n\n\n");
 
-            while (impossible) {
-                rand = (int) (Math.random() * 4);
+        while (impossible) {
+            rand = (int) (Math.random() * 4);
 
-                switch (rand) {
+            System.out.println("result rand: "+rand);
 
-                    case 0:
-                        if (currentWay != DIRECTION.UP && gsm.collider.isPossible(x, y + Utils.caseDimension)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                            System.out.println("nextWay: " + DIRECTION.DOWN);
-                            nextWay = DIRECTION.DOWN;
-                            impossible = false;
-                        }
-                        break;
+            switch (rand) {
 
-                    case 1:
-                        if (currentWay != DIRECTION.DOWN && gsm.collider.isPossible(x, y - Utils.caseDimension)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                            System.out.println("nextWay: " + DIRECTION.UP);
-                            nextWay = DIRECTION.UP;
-                            impossible = false;
-                        }
-                        break;
+                case 0:
+                    if (currentWay != DIRECTION.UP && gsm.collider.isPossible(x+1, y + Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        System.out.println("nextWay: " + DIRECTION.DOWN);
+                        nextWay = DIRECTION.DOWN;
+                        impossible = false;
+                    }
+                    break;
 
-                    case 2:
-                        if (currentWay != DIRECTION.RIGHT && gsm.collider.isPossible(x - Utils.caseDimension, y)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                            System.out.println("nextWay: " + DIRECTION.LEFT);
-                            nextWay = DIRECTION.LEFT;
-                            impossible = false;
-                        }
-                        break;
+                case 1:
+                    if (currentWay != DIRECTION.DOWN && gsm.collider.isPossible(x+1, y - Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        System.out.println("nextWay: " + DIRECTION.UP);
+                        nextWay = DIRECTION.UP;
+                        impossible = false;
+                    }
+                    break;
 
-                    case 3:
-                        if (currentWay != DIRECTION.LEFT && gsm.collider.isPossible(x + Utils.caseDimension, y)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                            System.out.println("nextWay: " + DIRECTION.RIGHT);
-                            nextWay = DIRECTION.RIGHT;
-                            impossible = false;
-                        }
-                        break;
+                case 2:
+                    if (currentWay != DIRECTION.RIGHT && gsm.collider.isPossible(x - Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        System.out.println("nextWay: " + DIRECTION.LEFT);
+                        nextWay = DIRECTION.LEFT;
+                        impossible = false;
+                    }
+                    break;
 
-                    default:
-                        nextWay = DIRECTION.STOP;
-                        break;
+                case 3:
+                    if (currentWay != DIRECTION.LEFT && gsm.collider.isPossible(x + Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        System.out.println("nextWay: " + DIRECTION.RIGHT);
+                        nextWay = DIRECTION.RIGHT;
+                        impossible = false;
+                    }
+                    break;
 
-                }
+                default:
+                    nextWay = DIRECTION.STOP;
+                    break;
 
             }
 
-            return nextWay;
-
         }
+
+        return nextWay;
+
     }
 }
+
 
 
