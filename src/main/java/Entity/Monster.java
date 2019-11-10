@@ -22,13 +22,12 @@ public class Monster implements  Entity{
 
     private int x;
     private int y;
-    private int spawnX;
-    private int spawnY;
 
     private int facing = 0;
-    public int nextFacing = -1;
+    public int nextFacing = 1;
 
     private int speed;
+    private boolean hasBonus;
 
     private GameStateManager gsm;
 
@@ -46,31 +45,27 @@ public class Monster implements  Entity{
 
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, GameStateManager gsm, String name){
-        spawnX = initialX;
-        spawnY = initialY;
+        x = initialX;
+        y = initialY;
         speed = initialSpeed;
         this.strat = strat;
         this.gsm = gsm;
         this.name = name;
-        init();
-    }
-
-    public void init(){
-        x = spawnX;
-        y = spawnY;
-        animTime = 0;
-        lastAnim = 0;
     }
 
     public int getCollideX(){
-        if(facing == RIGHT)
+        if(facing == RIGHT) {
+            System.out.println("getCollideX: "+x+"+"+getSize());
             return x + getSize();
+        }
         return x;
     }
 
     public int getCollideY(){
-        if(facing == DOWN)
-            return y + getSize();
+        if(facing == DOWN) {
+            System.out.println("getCollideY: " + y + "+" + getSize());
+            return y + getSize()-1;
+        }
         return y;
     }
 
@@ -86,9 +81,11 @@ public class Monster implements  Entity{
     }
 
     public void nextStep() {
+
         if(timerStrat > timeNextStrat) {
             timerStrat = 0;
-            DIRECTION tmp = strat.nextWay();
+
+            DIRECTION tmp = nextWay(facing);
 
             switch (tmp) {
                 case DOWN:
@@ -113,6 +110,7 @@ public class Monster implements  Entity{
             facing = nextFacing;
             nextFacing = -1;
         }
+
         switch(facing){
             case DOWN:
                 tryMove(0, speed);
@@ -131,9 +129,19 @@ public class Monster implements  Entity{
     }
 
     private void tryMove(int dx, int dy) {
-        int[] coords = getCollideCoords();
-        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+
+        if(name.equals("Hamri")) {
+            System.out.println("Hamri: Je suis en " + x + ", " + y + " et je vais vers " +facing);
+            System.out.println("Hamri: Je veux aller en " + (getCollideX() + dx) + ", " + (getCollideY() + dy));
+        }
+
+        if(!gsm.collider.isPossible(getCollideX() + dx, getCollideY() + dy)) {
+            if(name.equals("Hamri"))
+                System.out.println("j'peux pas :-( ");
             return;
+        }
+        if(name.equals("Hamri"))
+            System.out.println("j'peux :-) ");
         x += dx;
         y += dy;
     }
@@ -146,8 +154,26 @@ public class Monster implements  Entity{
      *
      * @return la prochaine direction du monstre
      */
-    public DIRECTION nextWay(){
-        return strat.nextWay();
+    public DIRECTION nextWay(int currentWay){
+
+        switch (currentWay){
+
+            case 0:
+                return strat.nextWay(DIRECTION.DOWN);
+
+            case 1:
+                return strat.nextWay(DIRECTION.DOWN);
+
+            case 2:
+                return strat.nextWay(DIRECTION.DOWN);
+
+            case 3:
+                return strat.nextWay(DIRECTION.DOWN);
+
+            default:
+                return strat.nextWay(DIRECTION.STOP);
+
+        }
     }
 
     /**
@@ -183,7 +209,7 @@ public class Monster implements  Entity{
 
 
     /**
-     * ..................COORDINATES AHEAD
+     * ..................COORDINATES AHDEAD
      */
 
     public int getX() {
@@ -231,7 +257,7 @@ public class Monster implements  Entity{
 
     public int getCollideX1(){
         if(facing == RIGHT)
-            return x + getSize();
+            return x + getSize()-1;
         if(facing == LEFT)
             return x;
         return x + 1;
@@ -239,7 +265,7 @@ public class Monster implements  Entity{
 
     public int getCollideX2(){
         if(facing == RIGHT)
-            return x + getSize();
+            return x + getSize()-1;
         if(facing == LEFT)
             return x;
         return x + getSize() - 1;

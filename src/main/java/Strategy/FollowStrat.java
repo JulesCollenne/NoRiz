@@ -8,7 +8,7 @@ import Utils.DIRECTION;
 
 public class FollowStrat implements Strategy {
 
-    public DIRECTION nextWay() {
+    public DIRECTION nextWay(DIRECTION currentWay) {
         return DIRECTION.STOP;
     }
 }

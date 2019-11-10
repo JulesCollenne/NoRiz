@@ -4,5 +4,5 @@ import Utils.DIRECTION;
 
 public interface Strategy {
 
-    DIRECTION nextWay();
+    DIRECTION nextWay(DIRECTION currentWay);
 }
