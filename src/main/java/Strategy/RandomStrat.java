@@ -32,21 +32,16 @@ public class RandomStrat implements Strategy {
         int rand;
         boolean impossible = true;
         DIRECTION nextWay = currentWay;
-        System.out.println("pos: "+x+", "+y);
 
-
-        System.out.println("\n\n\nJe suis a l'intersection "+x+", "+y+"\n\n\n");
 
         while (impossible) {
             rand = (int) (Math.random() * 4);
 
-            System.out.println("result rand: "+rand);
 
             switch (rand) {
 
                 case 0:
                     if (currentWay != DIRECTION.UP && gsm.collider.isPossible(x+1, y + Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                        System.out.println("nextWay: " + DIRECTION.DOWN);
                         nextWay = DIRECTION.DOWN;
                         impossible = false;
                     }
@@ -54,7 +49,6 @@ public class RandomStrat implements Strategy {
 
                 case 1:
                     if (currentWay != DIRECTION.DOWN && gsm.collider.isPossible(x+1, y - Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                        System.out.println("nextWay: " + DIRECTION.UP);
                         nextWay = DIRECTION.UP;
                         impossible = false;
                     }
@@ -62,7 +56,6 @@ public class RandomStrat implements Strategy {
 
                 case 2:
                     if (currentWay != DIRECTION.RIGHT && gsm.collider.isPossible(x - Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                        System.out.println("nextWay: " + DIRECTION.LEFT);
                         nextWay = DIRECTION.LEFT;
                         impossible = false;
                     }
@@ -70,7 +63,6 @@ public class RandomStrat implements Strategy {
 
                 case 3:
                     if (currentWay != DIRECTION.LEFT && gsm.collider.isPossible(x + Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
-                        System.out.println("nextWay: " + DIRECTION.RIGHT);
                         nextWay = DIRECTION.RIGHT;
                         impossible = false;
                     }
