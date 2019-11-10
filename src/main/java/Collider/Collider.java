@@ -14,7 +14,7 @@ public class Collider{
 
     /**
      *
-     * @return Si un mouvement est possible ( pas dans un mur )
+     * @return true Si un mouvement est possible ( pas dans un mur )
      */
     public boolean isPossible(int x, int y){
         int[] coord = Utils.getSquare(x,y);
@@ -28,7 +28,7 @@ public class Collider{
      * @return true if they touch, false otherwise
      */
     public boolean isTouching(Entity e1, Entity e2){
-        return Utils.distance(e1.getX(),e1.getY(),e2.getX(),e2.getY()) <= e1.getSize() + e2.getSize();
+        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
     public boolean isPossible(int x1, int y1, int x2, int y2) {
@@ -36,4 +36,13 @@ public class Collider{
         int[] coord2 = Utils.getSquare(x2,y2);
         return (gsm.map[coord1[0]][coord1[1]] != WORLDITEM.WALL) && (gsm.map[coord2[0]][coord2[1]] != WORLDITEM.WALL);
     }
+
+    public void nextStep(){
+        for (Entity monster : gsm.monsters) {
+            if(isTouching(gsm.player, monster)){
+                gsm.player.gotHit();
+            }
+        }
+    }
+
 }

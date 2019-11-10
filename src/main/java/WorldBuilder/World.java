@@ -149,11 +149,13 @@ public class World {
                 break;
 
             case RICE:
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 gc.setFill(Color.YELLOW);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension/2.,caseDimension/2.);
                 break;
 
             case BONUS:
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 gc.setFill(Color.GREEN);
                 gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;

@@ -16,6 +16,8 @@ public class Player implements Entity {
     private final int LEFT = 2;
     private final int RIGHT = 3;
 
+    public int maxLife = 5;
+    public int nbLife = maxLife;
     private int x;
     private int y;
 
@@ -48,6 +50,28 @@ public class Player implements Entity {
 
     public int getSize() {
         return Utils.caseDimension;
+    }
+
+    /**
+     * Quand un ennemi nous touche
+     * TODO faire réapparaitre le joueur à un autre endroit
+     */
+    public void gotHit(){
+        System.out.println("Aie");
+        nbLife--;
+        if(nbLife == 0)
+            die();
+
+        //TODO a changer car c'est malpropre de faire ça
+        gsm.player.x = Utils.caseDimension;
+        gsm.player.y = Utils.caseDimension;
+    }
+
+    /**
+     * Quand le joueur n'a plus de vie, c'est le game over
+     */
+    private void die(){
+        gsm.isGameOver = true;
     }
 
     /**
@@ -114,6 +138,38 @@ public class Player implements Entity {
     }
 
     /**
+     * change the direction of the player
+     * @param newFacing the new facing
+     */
+    private void setNextFacing(int newFacing){
+        if(nextFacingPossible(newFacing))
+            facing = newFacing;
+        else
+            nextFacing = newFacing;
+    }
+
+    private boolean nextFacingPossible(int nextFacing) {
+        if(nextFacing == -1)
+            return false;
+        if(nextFacing == facing) {
+            this.nextFacing = -1;
+            return false;
+        }
+
+        int tmp = facing;
+        facing = nextFacing;
+
+        int[] coords = getCollideCoords();
+
+        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing),coords[1] + getFacingY(facing),coords[2] + getFacingX(facing),coords[3] + getFacingY(facing))){
+            facing = tmp;
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
      * ...................VISUALS AHEAD
      */
 
@@ -148,37 +204,6 @@ public class Player implements Entity {
             image[direction][i] = new Image("Player/nori_" + name + i + ".png");
     }
 
-    /**
-     * change the direction of the player
-     * @param newFacing the new facing
-     */
-    private void setNextFacing(int newFacing){
-        if(nextFacingPossible(newFacing))
-            facing = newFacing;
-        else
-            nextFacing = newFacing;
-    }
-
-    private boolean nextFacingPossible(int nextFacing) {
-        if(nextFacing == -1)
-            return false;
-        if(nextFacing == facing) {
-            this.nextFacing = -1;
-            return false;
-        }
-
-        int tmp = facing;
-        facing = nextFacing;
-
-        int[] coords = getCollideCoords();
-
-        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing),coords[1] + getFacingY(facing),coords[2] + getFacingX(facing),coords[3] + getFacingY(facing))){
-            facing = tmp;
-            return false;
-        }
-        return true;
-    }
-
 
     /**
      * ..................COORDINATES AHEAD
@@ -208,11 +233,11 @@ public class Player implements Entity {
         return -getSize()/2;
     }
 
-    private int getCenterX() {
+    public int getCenterX() {
         return x + getSize()/2;
     }
 
-    private int getCenterY() {
+    public int getCenterY() {
         return y + getSize()/2;
     }
 

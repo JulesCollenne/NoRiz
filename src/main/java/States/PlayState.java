@@ -65,6 +65,12 @@ public class PlayState extends GameState {
     }
 
     public void nextStep() {
+
+        if(gsm.isGameOver)
+            return;
+
+        gsm.collider.nextStep();
+
         gsm.player.nextStep();
         for (Monster monster : gsm.monsters) {
             monster.nextStep();
@@ -73,21 +79,34 @@ public class PlayState extends GameState {
 
     @Override
     public void input(KeyEvent e) {
-        gsm.player.input(e);
+        if(!gsm.isGameOver)
+            gsm.player.input(e);
+        else{
+            gameOverInputs(e);
+        }
+    }
+
+    private void gameOverInputs(KeyEvent e){
+        switch (e.getCode()) {
+            case ENTER:
+                gsm.changeState(0);
+                break;
+        }
     }
 
     @Override
     public void render(GraphicsContext gc) {
 
+        if(gsm.isGameOver){
+            gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2, Utils.canvasSize/2);
+            return;
+        }
+
         if(firstRender){
             firstRender = false;
         }
 
-        //if(firstRender){
-
-            gsm.world.renderMap(gc);
-            firstRender = false;
-        //}
+        gsm.world.renderMap(gc);
 
         gsm.player.render(gc);
 

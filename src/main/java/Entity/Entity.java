@@ -9,6 +9,8 @@ public interface Entity {
     void nextStep();
     int getX();
     int getY();
+    int getCenterX();
+    int getCenterY();
     int getSize();
     void setImages();
     void render(GraphicsContext gc);

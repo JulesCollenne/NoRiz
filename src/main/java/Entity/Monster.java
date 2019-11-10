@@ -201,11 +201,11 @@ public class Monster implements  Entity{
         return -getSize()/2;
     }
 
-    private int getCenterX() {
+    public int getCenterX() {
         return x + getSize()/2;
     }
 
-    private int getCenterY() {
+    public int getCenterY() {
         return y + getSize()/2;
     }
 

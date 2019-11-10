@@ -18,9 +18,11 @@ public class GameStateManager {
     private final int PLAY  = 1;
     private final int PAUSE  = 2;
 
-    private int currentState = START;
+    public boolean isGameOver = false;
 
-    private GameState gameStates[] = new GameState[3];
+    public int currentState = START;
+
+    public GameState gameStates[] = new GameState[3];
 
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
