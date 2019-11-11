@@ -17,16 +17,16 @@ public class GameStateManager {
     private final int PAUSE  = 2;
     private final int GAMEOVER = 3;
 
-    public boolean isGameOver = false;
+    boolean isGameOver = false;
 
-    public int currentState = START;
+    private int currentState = START;
 
-    public GameState gameStates[] = new GameState[4];
+    private GameState gameStates[] = new GameState[4];
 
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
 
-    public Stage theStage;
+    private Stage theStage;
 
     public World world = new World(Utils.mapSize,Utils.mapSize);
 
@@ -38,12 +38,11 @@ public class GameStateManager {
 
     //public DIF difficulty = DIF.EASY;
 
-    public int difficulty = 0;
+    int difficulty = 0;
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
-        //map = map.build(difficulty);
         world.build(difficulty);
         createMonsters();
 
@@ -85,7 +84,7 @@ public class GameStateManager {
         gameStates[currentState].nextStep();
     }
 
-    public void input(KeyEvent e) {
+    void input(KeyEvent e) {
         gameStates[currentState].input(e);
     }
 

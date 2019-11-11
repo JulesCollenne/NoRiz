@@ -6,7 +6,7 @@ import javafx.scene.input.KeyEvent;
 
 public abstract class GameState {
     GameStateManager gsm;
-    public Scene theScene;
+    Scene theScene;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;

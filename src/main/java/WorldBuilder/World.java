@@ -6,10 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import static Utils.Utils.caseDimension;
-import static Utils.WORLDITEM.*;
-
-
-
 
 /**
  * Cette classe permet de créer les niveaux
@@ -39,7 +35,7 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public WORLDITEM[][] build(int difficulty){
+    public void build(int difficulty){
 
         this.difficulty = difficulty;
         setDifficulty(difficulty);
@@ -65,15 +61,6 @@ public class World {
                 break;
         }
 
-
-        //map = new WORLDITEM[l][h];
-
-        //TODO créer le niveau
-
-        /*
-        Niveau de test en attendant
-         */
-
         /*for(int i = 0; i<h; i++)
             for(int j=0; j<h;j++)
                 map[i][j] = ROAD;
@@ -86,7 +73,6 @@ public class World {
         }*/
 
         // Attention, le haut de la matrice représente la gauche en jeu
-
 
         switch(difficulty){
 
@@ -105,10 +91,7 @@ public class World {
             default:
                 map = matrixWorld.world1;
                 break;
-
         }
-
-        return map;
     }
 
     /*
@@ -118,7 +101,7 @@ public class World {
     public void renderMap(GraphicsContext gc) {
         for(int posX = 0; posX< map.length; posX++) {
             for (int posY = 0; posY < map[posX].length; posY++) {
-                renderItem(posX,posY, map[posX][posY], difficulty, gc);
+                renderItem(posX,posY, map[posX][posY], gc);
             }
         }
     }
@@ -127,7 +110,7 @@ public class World {
      *   Entrée: posX et posY: position de l'item // l'item a dessiner
      *   Dessine l'item a la position demandée
      */
-     public void renderItem(int posX, int posY, WORLDITEM item, int difficulty, GraphicsContext gc) {
+    private void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
 
          switch(item){
 
@@ -155,7 +138,7 @@ public class World {
 
     }
 
-    public void setDifficulty(int difficulty) {
+    private void setDifficulty(int difficulty) {
         switch(difficulty){
 
             case 0:

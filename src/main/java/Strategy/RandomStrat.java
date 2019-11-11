@@ -21,18 +21,14 @@ public class RandomStrat implements Strategy {
         this.gsm = gsm;
     }
 
-    ;
-
     public DIRECTION nextWay(DIRECTION currentWay) {
 
         y = gsm.monsters[1].getY();
         x = gsm.monsters[1].getX();
 
-
         int rand;
         boolean impossible = true;
         DIRECTION nextWay = currentWay;
-
 
         while (impossible) {
             rand = (int) (Math.random() * 4);
@@ -72,11 +68,8 @@ public class RandomStrat implements Strategy {
                     break;
 
             }
-
         }
-
         return nextWay;
-
     }
 }
 
