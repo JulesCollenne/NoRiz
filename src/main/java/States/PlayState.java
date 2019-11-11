@@ -112,40 +112,45 @@ public class PlayState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
 
-        long timer;
-        long currentTimer;
-
         if(gsm.isGameOver){
             gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2.0, Utils.canvasSize/2.0);
             return;
         }
 
-        currentTimer = System.nanoTime();
-
         if(firstRender){
             startTimer = System.nanoTime();
-            timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
-        }
-        else{
-            timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
-            if(timer > roundTimer)
-                gsm.changeState(3);
         }
 
         gsm.world.renderMap(gc);
 
+        manageTimer(gc);
+
         gsm.player.render(gc);
+
+        for(Monster monster : gsm.monsters){
+            monster.render(gc);
+        }
+
+    }
+
+    public void manageTimer(GraphicsContext gc){
+
+        long timer;
+        long currentTimer;
+
+        currentTimer = System.nanoTime();
+
+        timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
+
+        if(timer > roundTimer)
+            gsm.changeState(3);
 
         if(roundTimer - timer >= 100)
             gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension+ Utils.caseDimension/2.0), 18+((20/100.0)*Utils.caseDimension));
         else
             gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension), 18+((20/100.0)*Utils.caseDimension));
-
-        for(Monster monster : gsm.monsters){
-            monster.render(gc);
-        }
 
     }
 }
