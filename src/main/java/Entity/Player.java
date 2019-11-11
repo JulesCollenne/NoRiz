@@ -70,7 +70,6 @@ public class Player implements Entity {
      * TODO faire réapparaitre le joueur à un autre endroit
      */
     public void gotHit(){
-        System.out.println("Aie");
         nbLife--;
         if(nbLife == 0)
             die();

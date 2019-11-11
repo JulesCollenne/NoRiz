@@ -35,9 +35,9 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public void build(int difficulty){
+    public void build(int difficultyChosen){
 
-        this.difficulty = difficulty;
+        difficulty = difficultyChosen;
         setDifficulty(difficulty);
 
         switch(difficulty){
@@ -48,7 +48,7 @@ public class World {
                 break;
 
             case 1:
-                road = new Image("textures/roadTextureLevel2.jpg");
+                road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
                 break;
 
@@ -146,7 +146,7 @@ public class World {
                 break;
 
             case 1:
-                road = new Image("textures/roadTextureLevel2.png");
+                road = new Image("textures/roadTextureLevel1.png");
                 break;
 
             case 2:
