@@ -42,6 +42,7 @@ public class World {
     public WORLDITEM[][] build(int difficulty){
 
         this.difficulty = difficulty;
+        setDifficulty(difficulty);
 
         switch(difficulty){
 
@@ -85,37 +86,27 @@ public class World {
         }*/
 
         // Attention, le haut de la matrice représente la gauche en jeu
-        WORLDITEM[][] tempWorld =  {{WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, RICE, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, WALL, BONUS, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, WALL, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, WALL, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
-                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL}
-        };
 
-        map = tempWorld;
 
-        map[5][5] = WALL;
-        map[5][7] = WALL;
+        switch(difficulty){
+
+            case 0:
+                map = matrixWorld.world1;
+                break;
+
+            case 1:
+                map = matrixWorld.world2;
+                break;
+
+            case 2:
+                map = matrixWorld.world3;
+                break;
+
+            default:
+                map = matrixWorld.world1;
+                break;
+
+        }
 
         return map;
     }
@@ -162,6 +153,28 @@ public class World {
 
         }
 
+    }
+
+    public void setDifficulty(int difficulty) {
+        switch(difficulty){
+
+            case 0:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+            case 1:
+                road = new Image("textures/roadTextureLevel2.png");
+                break;
+
+            case 2:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+            default:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+        }
     }
 
 }
