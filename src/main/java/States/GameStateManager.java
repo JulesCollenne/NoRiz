@@ -3,10 +3,8 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
-import Input.KeysManager;
 import Strategy.*;
 import Utils.Utils;
-import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -28,8 +26,6 @@ public class GameStateManager {
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
 
-    //public WORLDITEM[][] map;
-
     public Stage theStage;
 
     public World world = new World(Utils.mapSize,Utils.mapSize);
@@ -43,8 +39,6 @@ public class GameStateManager {
     //public DIF difficulty = DIF.EASY;
 
     public int difficulty = 0;
-
-    public KeysManager key = new KeysManager();
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;

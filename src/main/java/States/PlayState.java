@@ -53,7 +53,6 @@ public class PlayState extends GameState {
                 // game logic
 
                 gsm.nextStep();
-                initInput();
 
                 // render
 
@@ -73,10 +72,6 @@ public class PlayState extends GameState {
                 gsm.monsters) {
             monster.init();
         }
-    }
-
-    private void initInput() {
-        gsm.key.initKeys();
     }
 
     public void nextStep() {
