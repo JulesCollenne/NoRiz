@@ -62,3 +62,4 @@ public class GameOverState extends GameState {
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 }
+

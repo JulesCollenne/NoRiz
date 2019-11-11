@@ -6,3 +6,4 @@ public interface Strategy {
 
     DIRECTION nextWay(DIRECTION currentWay);
 }
+

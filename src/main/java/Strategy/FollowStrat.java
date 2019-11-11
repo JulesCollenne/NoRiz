@@ -12,3 +12,4 @@ public class FollowStrat implements Strategy {
         return DIRECTION.STOP;
     }
 }
+

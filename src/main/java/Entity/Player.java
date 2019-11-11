@@ -195,6 +195,8 @@ public class Player implements Entity {
     {
         gc.drawImage( image[facing][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
+        System.out.println(x+", "+y);
+
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;
             lastAnim = 0;

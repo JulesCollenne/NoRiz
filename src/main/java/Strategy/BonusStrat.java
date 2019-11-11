@@ -11,3 +11,4 @@ public class BonusStrat implements Strategy{
         return DIRECTION.STOP;
     }
 }
+

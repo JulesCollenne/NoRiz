@@ -21,6 +21,7 @@ public class Collider{
         return gsm.map[coord[0]][coord[1]] != WORLDITEM.WALL;
     }
 
+
     /**
      *
      * @param e1 entity 1

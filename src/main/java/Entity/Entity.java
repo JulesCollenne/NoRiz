@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Entities are the Player, monsters, rice and bonuses
  */
+
 public interface Entity {
     void nextStep();
     int getX();

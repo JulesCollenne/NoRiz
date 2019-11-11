@@ -21,3 +21,4 @@ public abstract class GameState {
 
     public abstract void initScene();
 }
+
