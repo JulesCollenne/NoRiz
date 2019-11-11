@@ -11,10 +11,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class PlayState extends GameState {
 
     private boolean firstRender;
+
+    private long roundTimer = 105; // en seconde
+    private long startTimer = 0;
+
 
     PlayState(GameStateManager gsm) {
         super(gsm);
@@ -107,19 +112,36 @@ public class PlayState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
 
+        long timer;
+        long currentTimer;
+
         if(gsm.isGameOver){
-            gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2, Utils.canvasSize/2);
+            gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2.0, Utils.canvasSize/2.0);
             return;
         }
 
+        currentTimer = System.nanoTime();
+
         if(firstRender){
+            startTimer = System.nanoTime();
+            timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
+        }
+        else{
+            timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
+            if(timer > roundTimer)
+                gsm.isGameOver = true;
         }
 
         gsm.world.renderMap(gc);
 
         gsm.player.render(gc);
+
+        if(roundTimer - timer >= 100)
+            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension+ Utils.caseDimension/2.0), 18+((20/100.0)*Utils.caseDimension));
+        else
+            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension), 18+((20/100.0)*Utils.caseDimension));
 
         for(Monster monster : gsm.monsters){
             monster.render(gc);

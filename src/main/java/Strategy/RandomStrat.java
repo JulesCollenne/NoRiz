@@ -37,7 +37,6 @@ public class RandomStrat implements Strategy {
         while (impossible) {
             rand = (int) (Math.random() * 4);
 
-
             switch (rand) {
 
                 case 0:

@@ -26,7 +26,7 @@ public class Monster implements  Entity{
     private int spawnY;
 
     private int facing = 0;
-    public int nextFacing = -1;
+    private int nextFacing = -1;
 
     private int speed;
 
