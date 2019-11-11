@@ -20,7 +20,7 @@ import static Utils.WORLDITEM.*;
  */
 public class World {
 
-    private WORLDITEM world[][];
+    public WORLDITEM map[][];
 
     private int l;
     private int h;
@@ -65,7 +65,7 @@ public class World {
         }
 
 
-        //world = new WORLDITEM[l][h];
+        //map = new WORLDITEM[l][h];
 
         //TODO créer le niveau
 
@@ -75,49 +75,49 @@ public class World {
 
         /*for(int i = 0; i<h; i++)
             for(int j=0; j<h;j++)
-                world[i][j] = ROAD;
+                map[i][j] = ROAD;
 
         for(int i=0; i<h; i++) { // Censé faire un carré de 21 de coté
-            world[i][0] = WALL;
-            world[i][h-1] = WALL;
-            world[0][i] = WALL;
-            world[h-1][i] = WALL;
+            map[i][0] = WALL;
+            map[i][h-1] = WALL;
+            map[0][i] = WALL;
+            map[h-1][i] = WALL;
         }*/
 
         // Attention, le haut de la matrice représente la gauche en jeu
         WORLDITEM[][] tempWorld =  {{WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, ROAD, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, WALL, BONUS, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, WALL, RICE, WALL, WALL, RICE, RICE, RICE, WALL, WALL, RICE, WALL, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, WALL, BONUS, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, WALL, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, WALL, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, WALL, WALL, RICE, WALL, RICE, WALL, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
                                     {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
+                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, RICE, RICE, RICE, WALL},
                                     {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL}
         };
 
-        world = tempWorld;
+        map = tempWorld;
 
-        world[5][5] = WALL;
-        world[5][7] = WALL;
+        map[5][5] = WALL;
+        map[5][7] = WALL;
 
-        return world;
+        return map;
     }
 
     /*
@@ -125,9 +125,9 @@ public class World {
      *   Dessine la carte dans la fenêtre de jeu
      *        */
     public void renderMap(GraphicsContext gc) {
-        for(int posX=0; posX<world.length; posX++) {
-            for (int posY = 0; posY < world[0].length; posY++) {
-                renderItem(posX,posY,world[posX][posY], difficulty, gc);
+        for(int posX = 0; posX< map.length; posX++) {
+            for (int posY = 0; posY < map[posX].length; posY++) {
+                renderItem(posX,posY, map[posX][posY], difficulty, gc);
             }
         }
     }

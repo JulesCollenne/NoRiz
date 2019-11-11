@@ -28,7 +28,7 @@ public class GameStateManager {
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
 
-    public WORLDITEM[][] map;
+    //public WORLDITEM[][] map;
 
     public Stage theStage;
 
@@ -49,7 +49,8 @@ public class GameStateManager {
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
-        map = world.build(difficulty);
+        //map = map.build(difficulty);
+        world.build(difficulty);
         createMonsters();
 
         gameStates[START] = new StartMenuState(this);

@@ -120,6 +120,9 @@ public class Player implements Entity {
      */
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
+
+        gsm.collider.takeRice(getCenterX(), getCenterY());
+
         if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
@@ -147,6 +150,9 @@ public class Player implements Entity {
                 break;
             case Z:
                 setNextFacing(1);
+                break;
+            case A:
+                System.out.println(gsm.world.map[x/40][y/40]);
                 break;
         }
     }
@@ -195,7 +201,7 @@ public class Player implements Entity {
     {
         gc.drawImage( image[facing][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
-        System.out.println(x+", "+y);
+        //System.out.println(x+", "+y);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;

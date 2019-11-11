@@ -18,7 +18,7 @@ public class Collider{
      */
     public boolean isPossible(int x, int y){
         int[] coord = Utils.getSquare(x,y);
-        return gsm.map[coord[0]][coord[1]] != WORLDITEM.WALL;
+        return gsm.world.map[coord[0]][coord[1]] != WORLDITEM.WALL;
     }
 
 
@@ -35,7 +35,7 @@ public class Collider{
     public boolean isPossible(int x1, int y1, int x2, int y2) {
         int[] coord1 = Utils.getSquare(x1,y1);
         int[] coord2 = Utils.getSquare(x2,y2);
-        return (gsm.map[coord1[0]][coord1[1]] != WORLDITEM.WALL) && (gsm.map[coord2[0]][coord2[1]] != WORLDITEM.WALL);
+        return (gsm.world.map[coord1[0]][coord1[1]] != WORLDITEM.WALL) && (gsm.world.map[coord2[0]][coord2[1]] != WORLDITEM.WALL);
     }
 
     public void nextStep(){
@@ -46,4 +46,9 @@ public class Collider{
         }
     }
 
+    public void takeRice(int x,int y) {
+        int[] coords = Utils.getSquare(x,y);
+        if(gsm.world.map[coords[0]][coords[1]] == WORLDITEM.RICE)
+            gsm.world.map[coords[0]][coords[1]] = WORLDITEM.ROAD;
+    }
 }
