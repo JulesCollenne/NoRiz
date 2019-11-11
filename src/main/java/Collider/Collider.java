@@ -28,14 +28,14 @@ public class Collider{
      * @param e2 entity 2
      * @return true if they touch, false otherwise
      */
-    public boolean isTouching(Entity e1, Entity e2){
+    private boolean isTouching(Entity e1, Entity e2){
         return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
-    public boolean isPossible(int x1, int y1, int x2, int y2) {
+    public boolean isImpossible(int x1, int y1, int x2, int y2) {
         int[] coord1 = Utils.getSquare(x1,y1);
         int[] coord2 = Utils.getSquare(x2,y2);
-        return (gsm.world.map[coord1[0]][coord1[1]] != WORLDITEM.WALL) && (gsm.world.map[coord2[0]][coord2[1]] != WORLDITEM.WALL);
+        return (gsm.world.map[coord1[0]][coord1[1]] == WORLDITEM.WALL) || (gsm.world.map[coord2[0]][coord2[1]] == WORLDITEM.WALL);
     }
 
     public void nextStep(){

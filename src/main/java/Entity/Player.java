@@ -1,6 +1,5 @@
 package Entity;
 
-import States.GameOverState;
 import States.GameStateManager;
 import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,15 +16,15 @@ public class Player implements Entity {
     private final int LEFT = 2;
     private final int RIGHT = 3;
 
-    public int maxLife = 5;
-    public int nbLife = maxLife;
+    private int maxLife = 5;
+    private int nbLife = maxLife;
     private int x;
     private int y;
     private int spawnX;
     private int spawnY;
 
     private int facing = 0;
-    public int nextFacing = -1;
+    private int nextFacing = -1;
 
     private int speed;
     private boolean hasBonus;
@@ -123,13 +122,13 @@ public class Player implements Entity {
 
         gsm.collider.takeRice(getCenterX(), getCenterY());
 
-        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(gsm.collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
     }
 
-    /**
+    /*
      * .....................INPUTS
      */
 
@@ -162,8 +161,10 @@ public class Player implements Entity {
      * @param newFacing the new facing
      */
     private void setNextFacing(int newFacing){
-        if(nextFacingPossible(newFacing))
+        if(nextFacingPossible(newFacing)) {
             facing = newFacing;
+            nextFacing = -1;
+        }
         else
             nextFacing = newFacing;
     }
@@ -181,7 +182,7 @@ public class Player implements Entity {
 
         int[] coords = getCollideCoords();
 
-        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing),coords[1] + getFacingY(facing),coords[2] + getFacingX(facing),coords[3] + getFacingY(facing))){
+        if(gsm.collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }
@@ -189,7 +190,7 @@ public class Player implements Entity {
     }
 
 
-    /**
+    /*
      * ...................VISUALS AHEAD
      */
 
@@ -274,7 +275,7 @@ public class Player implements Entity {
         return coords;
     }
 
-    public int getCollideX1(){
+    private int getCollideX1(){
         if(facing == RIGHT)
             return x + getSize();
         if(facing == LEFT)
@@ -282,7 +283,7 @@ public class Player implements Entity {
         return x + 1;
     }
 
-    public int getCollideX2(){
+    private int getCollideX2(){
         if(facing == RIGHT)
             return x + getSize();
         if(facing == LEFT)
@@ -290,7 +291,7 @@ public class Player implements Entity {
         return x + getSize() - 1;
     }
 
-    public int getCollideY1(){
+    private int getCollideY1(){
         if(facing == DOWN)
             return y + getSize();
         if(facing == UP)
@@ -298,7 +299,7 @@ public class Player implements Entity {
         return y + 1;
     }
 
-    public int getCollideY2(){
+    private int getCollideY2(){
         if(facing == DOWN)
             return y + getSize();
         if(facing == UP)

@@ -135,7 +135,7 @@ public class PlayState extends GameState {
 
     }
 
-    public void manageTimer(GraphicsContext gc){
+    private void manageTimer(GraphicsContext gc){
 
         long timer;
         long currentTimer;

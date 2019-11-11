@@ -157,7 +157,7 @@ public class Monster implements  Entity{
 
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(gsm.collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -199,7 +199,7 @@ public class Monster implements  Entity{
 
         int[] coords = getCollideCoords();
 
-        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing),coords[1] + getFacingY(facing),coords[2] + getFacingX(facing),coords[3] + getFacingY(facing))){
+        if(gsm.collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }
@@ -254,7 +254,7 @@ public class Monster implements  Entity{
         return coords;
     }
 
-    public int getCollideX1(){
+    private int getCollideX1(){
         if(facing == RIGHT)
             return x + getSize();
         if(facing == LEFT)
@@ -262,7 +262,7 @@ public class Monster implements  Entity{
         return x + 1;
     }
 
-    public int getCollideX2(){
+    private int getCollideX2(){
         if(facing == RIGHT)
             return x + getSize();
         if(facing == LEFT)
@@ -270,7 +270,7 @@ public class Monster implements  Entity{
         return x + getSize() - 1;
     }
 
-    public int getCollideY1(){
+    private int getCollideY1(){
         if(facing == DOWN)
             return y + getSize();
         if(facing == UP)
@@ -278,7 +278,7 @@ public class Monster implements  Entity{
         return y + 1;
     }
 
-    public int getCollideY2(){
+    private int getCollideY2(){
         if(facing == DOWN)
             return y + getSize();
         if(facing == UP)

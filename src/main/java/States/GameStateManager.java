@@ -95,7 +95,7 @@ public class GameStateManager {
         gameStates[currentState].input(e);
     }
 
-    public void render(GraphicsContext gc) {
+    void render(GraphicsContext gc) {
         if(stateChanged){
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             stateChanged = false;
