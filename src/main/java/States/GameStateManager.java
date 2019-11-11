@@ -32,7 +32,7 @@ public class GameStateManager {
 
     public Stage theStage;
 
-    public World world = new World(Utils.mapSize,Utils.mapSize);
+    public World world = new World();
 
     public Collider collider = new Collider(this);
 
@@ -49,6 +49,7 @@ public class GameStateManager {
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
+        world.setDifficulty(difficulty);
         map = world.build(difficulty);
         createMonsters();
 

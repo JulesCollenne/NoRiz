@@ -22,18 +22,12 @@ public class World {
 
     private WORLDITEM world[][];
 
-    private int l;
-    private int h;
-
     private int difficulty;
 
     private Image road = new Image("textures/roadTextureLevel1.png");
     private Image wall = new Image("textures/wallTextureLevel1.png");
 
-    public World(int l, int h){
-        this.l = l;
-        this.h = h;
-    }
+    public World(){}
 
     /*
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
@@ -85,37 +79,27 @@ public class World {
         }*/
 
         // Attention, le haut de la matrice représente la gauche en jeu
-        WORLDITEM[][] tempWorld =  {{WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, ROAD, ROAD, WALL, WALL, ROAD, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, WALL, BONUS, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, WALL, WALL, ROAD, WALL, ROAD, WALL, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, ROAD, WALL, ROAD, ROAD, ROAD, WALL},
-                                    {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL}
-        };
 
-        world = tempWorld;
 
-        world[5][5] = WALL;
-        world[5][7] = WALL;
+        switch(difficulty){
+
+            case 0:
+                world = matrixWorld.world1;
+                break;
+
+            case 1:
+                world = matrixWorld.world2;
+                break;
+
+            case 2:
+                world = matrixWorld.world3;
+                break;
+
+            default:
+                world = matrixWorld.world1;
+                break;
+
+        }
 
         return world;
     }
@@ -164,5 +148,26 @@ public class World {
 
     }
 
+    public void setDifficulty(int difficulty) {
+        switch(difficulty){
+
+            case 0:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+            case 1:
+                road = new Image("textures/roadTextureLevel2.png");
+                break;
+
+            case 2:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+            default:
+                road = new Image("textures/roadTextureLevel1.png");
+                break;
+
+        }
+    }
 }
 
