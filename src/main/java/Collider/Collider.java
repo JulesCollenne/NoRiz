@@ -24,7 +24,7 @@ public class Collider{
 
     /**
      *
-     * @param e1 entity 11
+     * @param e1 entity 1
      * @param e2 entity 2
      * @return true if they touch, false otherwise
      */
