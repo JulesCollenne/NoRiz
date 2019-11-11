@@ -32,15 +32,12 @@ public class StartMenuState extends GameState{
             ModeButton easy = new ModeButton(new Image("Buttons/sign_facile.png"), "Facile");
             easy.setLayoutX((3/100.0)*Utils.canvasSize);
             easy.setLayoutY((40/100.0)*Utils.canvasSize);
-            easy.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
             easy.handler(gsm);
-
 
             Image mediumIm = new Image("Buttons/sign_moyen.png");
             ModeButton medium = new ModeButton(mediumIm, "Medium");
             medium.setLayoutX((36.5/100.0)*Utils.canvasSize);
             medium.setLayoutY((40/100.0)*Utils.canvasSize);
-            easy.setMaxSize((10 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
             medium.handler(gsm);
 
             ModeButton hard = new ModeButton(new Image("Buttons/sign_difficile.png"), "Hard");

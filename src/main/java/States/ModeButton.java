@@ -38,6 +38,13 @@ public class ModeButton extends Button {
                         gsm.difficulty = 2;
                         gsm.changeState(1);
                         break;
+                    case "Rejouer":
+                        gsm.changeState(1);
+                        break;
+                    case "Menu":
+                        gsm.difficulty = 0;
+                        gsm.changeState(0);
+                        break;
                 }
             }
         });

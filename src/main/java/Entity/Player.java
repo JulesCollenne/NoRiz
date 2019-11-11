@@ -1,5 +1,6 @@
 package Entity;
 
+import States.GameOverState;
 import States.GameStateManager;
 import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
@@ -84,7 +85,7 @@ public class Player implements Entity {
      * Quand le joueur n'a plus de vie, c'est le game over
      */
     private void die(){
-        gsm.isGameOver = true;
+        gsm.changeState(3);
     }
 
     /**

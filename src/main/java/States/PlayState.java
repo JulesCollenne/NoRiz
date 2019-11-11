@@ -17,7 +17,7 @@ public class PlayState extends GameState {
 
     private boolean firstRender;
 
-    private long roundTimer = 105; // en seconde
+    private long roundTimer = Utils.roundDuration; // en seconde
     private long startTimer = 0;
 
 
@@ -131,7 +131,7 @@ public class PlayState extends GameState {
         else{
             timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
             if(timer > roundTimer)
-                gsm.isGameOver = true;
+                gsm.changeState(3);
         }
 
         gsm.world.renderMap(gc);
