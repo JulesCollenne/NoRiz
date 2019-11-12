@@ -34,7 +34,7 @@ public class AngleStrat implements Strategy {
         this.gsm = gsm;
     }
 
-    public DIRECTION nextWay(DIRECTION currentWay) {
+    public DIRECTION nextWay() {
         y = gsm.player.getY() - gsm.monsters[0].getY();
         x = gsm.player.getX() - gsm.monsters[0].getX();
 

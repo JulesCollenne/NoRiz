@@ -8,7 +8,7 @@ import Utils.Utils;
  * Choisit une nouvelle direction au hasard:
  * La nouvelle direction ne peut être ni a contre sens (il ne peut pas faire demi tour), ni vers un mur
  *
- * TODO: Peut etre ajouté un temps de pause a chaque intersection parce qu'il a tendance a ne pas les prendre car il passe trop vite
+ * TODO: Peut etre ajouter un temps de pause a chaque intersection parce qu'il a tendance a ne pas les prendre car il passe trop vite
  */
 
 
@@ -16,18 +16,21 @@ public class RandomStrat implements Strategy {
 
     private GameStateManager gsm;
     private int x, y;
+    private int nbMonster;
 
-    public RandomStrat(GameStateManager gsm) {
+    public RandomStrat(GameStateManager gsm, int nbMonster) {
         this.gsm = gsm;
+        this.nbMonster = nbMonster;
     }
 
-    public DIRECTION nextWay(DIRECTION currentWay) {
+    public DIRECTION nextWay() {
 
-        y = gsm.monsters[1].getY();
-        x = gsm.monsters[1].getX();
+        y = gsm.monsters[nbMonster].getY();
+        x = gsm.monsters[nbMonster].getX();
 
         int rand;
         boolean impossible = true;
+        DIRECTION currentWay = gsm.monsters[nbMonster].getFacing();
         DIRECTION nextWay = currentWay;
 
         while (impossible) {

@@ -16,6 +16,7 @@ public class GameStateManager {
     private final int PLAY  = 1;
     private final int PAUSE  = 2;
     private final int GAMEOVER = 3;
+    private final int EDITOR = 3;
 
     boolean isGameOver = false;
 
@@ -61,7 +62,7 @@ public class GameStateManager {
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
         monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
-        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension, 1, new RandomStrat(this),this, "Hamri");                               //Monstre RandomStrat
+        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension, 1, new RandomStrat(this, 1),this, "Hamri");                               //Monstre RandomStrat
         monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
         monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
     }

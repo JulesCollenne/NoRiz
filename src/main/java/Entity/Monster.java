@@ -15,18 +15,13 @@ public class Monster implements  Entity{
 
     private String name;
 
-    private final int DOWN = 0;
-    private final int UP = 1;
-    private final int LEFT = 2;
-    private final int RIGHT = 3;
-
     private int x;
     private int y;
     private int spawnX;
     private int spawnY;
 
-    private int facing = 0;
-    private int nextFacing = -1;
+    private DIRECTION facing = DIRECTION.STOP;
+    private DIRECTION nextFacing = DIRECTION.STOP;
 
     private int speed;
 
@@ -62,18 +57,6 @@ public class Monster implements  Entity{
         lastAnim = 0;
     }
 
-    public int getCollideX(){
-        if(facing == RIGHT)
-            return x + getSize();
-        return x;
-    }
-
-    public int getCollideY(){
-        if(facing == DOWN)
-            return y + getSize();
-        return y;
-    }
-
     public void render(GraphicsContext gc)
     {
         //gc.drawImage( image, positionX, positionY );
@@ -89,54 +72,27 @@ public class Monster implements  Entity{
         if(timerStrat > timeNextStrat) {
             timerStrat = 0;
 
-            DIRECTION tmp;
-
-            switch(facing){
-
-                case 0:
-                    tmp = strat.nextWay(DIRECTION.DOWN);
-                    break;
-
-                case 1:
-                    tmp = strat.nextWay(DIRECTION.UP);
-                    break;
-
-                case 2:
-                    tmp = strat.nextWay(DIRECTION.LEFT);
-                    break;
-
-                case 3:
-                    tmp = strat.nextWay(DIRECTION.RIGHT);
-                    break;
-
-                default:
-                    tmp = strat.nextWay(DIRECTION.STOP);
-                    break;
-            }
-
-
-            switch (tmp) {
+            switch (strat.nextWay()) {
                 case DOWN:
-                    setNextFacing(DOWN);
+                    setNextFacing(DIRECTION.DOWN);
                     break;
                 case UP:
-                    setNextFacing(UP);
+                    setNextFacing(DIRECTION.UP);
                     break;
                 case LEFT:
-                    setNextFacing(LEFT);
+                    setNextFacing(DIRECTION.LEFT);
                     break;
                 case RIGHT:
-                    setNextFacing(RIGHT);
+                    setNextFacing(DIRECTION.RIGHT);
                     break;
             }
-            //facing = strat.nextWay();
 
             //System.out.println(name + " " + facing);
         }
 
         if (nextFacingPossible(nextFacing)) {
             facing = nextFacing;
-            nextFacing = -1;
+            nextFacing = DIRECTION.STOP;
         }
         switch(facing){
             case DOWN:
@@ -168,33 +124,25 @@ public class Monster implements  Entity{
     }
 
     /**
-     *
-     * @return la prochaine direction du monstre
-     */
-    public DIRECTION nextWay(DIRECTION currentDirection){
-        return strat.nextWay(currentDirection);
-    }
-
-    /**
      * change the direction of the player
      * @param newFacing the new facing
      */
-    private void setNextFacing(int newFacing){
+    private void setNextFacing(DIRECTION newFacing){
         if(nextFacingPossible(newFacing))
             facing = newFacing;
         else
             nextFacing = newFacing;
     }
 
-    private boolean nextFacingPossible(int nextFacing) {
-        if(nextFacing == -1)
+    private boolean nextFacingPossible(DIRECTION nextFacing) {
+        if(nextFacing == DIRECTION.STOP)
             return false;
         if(nextFacing == facing) {
-            this.nextFacing = -1;
+            this.nextFacing = DIRECTION.STOP;
             return false;
         }
 
-        int tmp = facing;
+        DIRECTION tmp = facing;
         facing = nextFacing;
 
         int[] coords = getCollideCoords();
@@ -219,18 +167,18 @@ public class Monster implements  Entity{
         return y;
     }
 
-    private int getFacingX(int facing){
-        if(facing == UP || facing == DOWN)
+    private int getFacingX(DIRECTION facing){
+        if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
             return 0;
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return getSize()/2;
         return -getSize()/2;
     }
 
-    private int getFacingY(int facing) {
-        if(facing == RIGHT || facing == LEFT)
+    private int getFacingY(DIRECTION facing) {
+        if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
             return 0;
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return getSize()/2;
         return -getSize()/2;
     }
@@ -255,35 +203,39 @@ public class Monster implements  Entity{
     }
 
     private int getCollideX1(){
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return x + getSize();
-        if(facing == LEFT)
+        if(facing == DIRECTION.LEFT)
             return x;
         return x + 1;
     }
 
     private int getCollideX2(){
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return x + getSize();
-        if(facing == LEFT)
+        if(facing == DIRECTION.LEFT)
             return x;
         return x + getSize() - 1;
     }
 
     private int getCollideY1(){
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return y + getSize();
-        if(facing == UP)
+        if(facing == DIRECTION.UP)
             return y;
         return y + 1;
     }
 
     private int getCollideY2(){
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return y + getSize();
-        if(facing == UP)
+        if(facing == DIRECTION.UP)
             return y;
         return y + getSize() - 1;
+    }
+
+    public DIRECTION getFacing(){
+        return facing;
     }
 
 }

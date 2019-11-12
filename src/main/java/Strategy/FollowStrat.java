@@ -11,5 +11,10 @@ public class FollowStrat implements Strategy {
     public DIRECTION nextWay(DIRECTION currentWay) {
         return DIRECTION.STOP;
     }
+
+    @Override
+    public DIRECTION nextWay() {
+        return DIRECTION.DOWN;
+    }
 }
 

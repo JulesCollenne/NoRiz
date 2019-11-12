@@ -5,16 +5,12 @@ import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import Utils.DIRECTION;
 
 /**
  * Player is the sashimi
  */
 public class Player implements Entity {
-
-    private final int DOWN = 0;
-    private final int UP = 1;
-    private final int LEFT = 2;
-    private final int RIGHT = 3;
 
     private int maxLife = 5;
     private int nbLife = maxLife;
@@ -23,8 +19,8 @@ public class Player implements Entity {
     private int spawnX;
     private int spawnY;
 
-    private int facing = 0;
-    private int nextFacing = -1;
+    private DIRECTION facing = DIRECTION.STOP;
+    private DIRECTION nextFacing = DIRECTION.STOP;
 
     private int speed;
     private boolean hasBonus;
@@ -57,8 +53,8 @@ public class Player implements Entity {
         lastAnim = 0;
         hasBonus = false;
         nbLife = maxLife;
-        nextFacing = -1;
-        facing = 0;
+        nextFacing = DIRECTION.STOP;
+        facing = DIRECTION.STOP;
     }
 
     public int getSize() {
@@ -92,7 +88,7 @@ public class Player implements Entity {
     public void nextStep() {
         if(nextFacingPossible(nextFacing)) {
             facing = nextFacing;
-            nextFacing = -1;
+            nextFacing = DIRECTION.STOP;
         }
         switch(facing){
             case DOWN:
@@ -138,19 +134,19 @@ public class Player implements Entity {
     public void input(KeyEvent e) {
         switch (e.getCode()) {
             case Q:
-                setNextFacing(2);
+                setNextFacing(DIRECTION.LEFT);
                 break;
             case D:
-                setNextFacing(3);
+                setNextFacing(DIRECTION.RIGHT);
                 break;
             case S:
-                setNextFacing(0);
+                setNextFacing(DIRECTION.DOWN);
                 break;
             case Z:
-                setNextFacing(1);
+                setNextFacing(DIRECTION.UP);
                 break;
             case A:
-                System.out.println(gsm.world.map[x/40][y/40]);
+                System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
                 break;
         }
     }
@@ -159,24 +155,24 @@ public class Player implements Entity {
      * change the direction of the player
      * @param newFacing the new facing
      */
-    private void setNextFacing(int newFacing){
+    private void setNextFacing(DIRECTION newFacing){
         if(nextFacingPossible(newFacing)) {
             facing = newFacing;
-            nextFacing = -1;
+            nextFacing = DIRECTION.STOP;
         }
         else
             nextFacing = newFacing;
     }
 
-    private boolean nextFacingPossible(int nextFacing) {
-        if(nextFacing == -1)
+    private boolean nextFacingPossible(DIRECTION nextFacing) {
+        if(nextFacing == DIRECTION.STOP)
             return false;
         if(nextFacing == facing) {
-            this.nextFacing = -1;
+            this.nextFacing = DIRECTION.STOP;
             return false;
         }
 
-        int tmp = facing;
+        DIRECTION tmp = facing;
         facing = nextFacing;
 
         int[] coords = getCollideCoords();
@@ -199,7 +195,7 @@ public class Player implements Entity {
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[facing][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
         //System.out.println(x+", "+y);
 
@@ -214,10 +210,10 @@ public class Player implements Entity {
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        makeAnimations(LEFT,"gauche");
-        makeAnimations(RIGHT,"droite");
-        makeAnimations(DOWN,"gauche");
-        makeAnimations(UP,"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
     }
 
 
@@ -239,18 +235,18 @@ public class Player implements Entity {
         return y;
     }
 
-    private int getFacingX(int facing){
-        if(facing == UP || facing == DOWN)
+    private int getFacingX(DIRECTION facing){
+        if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
             return 0;
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return getSize()/2;
         return -getSize()/2;
     }
 
-    private int getFacingY(int facing) {
-        if(facing == RIGHT || facing == LEFT)
+    private int getFacingY(DIRECTION facing) {
+        if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
             return 0;
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return getSize()/2;
         return -getSize()/2;
     }
@@ -275,33 +271,33 @@ public class Player implements Entity {
     }
 
     private int getCollideX1(){
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return x + getSize();
-        if(facing == LEFT)
+        if(facing == DIRECTION.LEFT)
             return x;
         return x + 1;
     }
 
     private int getCollideX2(){
-        if(facing == RIGHT)
+        if(facing == DIRECTION.RIGHT)
             return x + getSize();
-        if(facing == LEFT)
+        if(facing == DIRECTION.LEFT)
             return x;
         return x + getSize() - 1;
     }
 
     private int getCollideY1(){
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return y + getSize();
-        if(facing == UP)
+        if(facing == DIRECTION.UP)
             return y;
         return y + 1;
     }
 
     private int getCollideY2(){
-        if(facing == DOWN)
+        if(facing == DIRECTION.DOWN)
             return y + getSize();
-        if(facing == UP)
+        if(facing == DIRECTION.UP)
             return y;
         return y + getSize() - 1;
     }

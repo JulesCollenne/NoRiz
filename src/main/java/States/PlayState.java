@@ -50,13 +50,9 @@ public class PlayState extends GameState {
             public void handle(long currentNanoTime)
             {
                 // game logic
-
                 gsm.nextStep();
 
                 // render
-
-                //Faudra peut etre le garder
-                //gc.clearRect(0, 0, WIDTH,HEIGHT);
                 gsm.render(gc);
 
             }

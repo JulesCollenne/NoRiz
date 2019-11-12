@@ -7,7 +7,7 @@ import Utils.DIRECTION;
  */
 public class BonusStrat implements Strategy{
 
-    public DIRECTION nextWay(DIRECTION currentWay) {
+    public DIRECTION nextWay() {
         return DIRECTION.STOP;
     }
 }

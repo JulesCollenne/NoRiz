@@ -1,9 +1,11 @@
 package Utils;
 
+import static Utils.DIRECTION.DOWN;
+
 public class Utils {
 
     public static final int mapSize = 25; // labyrinthe de size*size case
-    public static final int caseDimension = 40; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int caseDimension = 30; // chaque case du labyrinthe fait dimension*dimension pixel
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
 
@@ -35,6 +37,20 @@ public class Utils {
      */
     public static double distance(int x1, int y1, int x2, int y2){
         return Math.sqrt(Math.pow(x2 - x1,2) + Math.pow(y2 - y1,2));
+    }
+
+    public static int toInt(DIRECTION dir){
+        switch (dir) {
+            case DOWN:
+                return 0;
+            case UP:
+                return 1;
+            case LEFT:
+                return 2;
+            case RIGHT:
+                return 3;
+        }
+        return 0;
     }
 }
 
