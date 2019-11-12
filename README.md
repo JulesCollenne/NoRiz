@@ -1,7 +1,6 @@
 # NoRiz
 
 A FAIRE : 
--Faire les maps facile, moyen et difficile.
 -Faire les IAs restantes
 -Graphismes et musique
 -Afficher nombres de vie
