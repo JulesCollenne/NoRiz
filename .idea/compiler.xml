@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NoRiz" />
+        <module name="NoRiz3" />
         <module name="NoRizaaa" />
         <module name="NoRizOUIII" />
       </profile>

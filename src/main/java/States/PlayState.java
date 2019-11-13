@@ -66,7 +66,7 @@ public class PlayState extends GameState {
                 gsm.monsters) {
             monster.init();
         }
-        ui.setNbRice();
+        ui.init();
     }
 
     public void nextStep() {
@@ -121,8 +121,7 @@ public class PlayState extends GameState {
             monster.render(gc);
         }
 
-        ui.renderTimer(gc);
-        ui.renderNbRice(gc);
+        ui.render(gc);
 
     }
 
