@@ -2,6 +2,7 @@ package Collider;
 
 import Entity.Entity;
 import States.GameStateManager;
+import UI.inGameUserInterface;
 import Utils.*;
 
 public class Collider{
@@ -48,7 +49,9 @@ public class Collider{
 
     public void takeRice(int x,int y) {
         int[] coords = Utils.getSquare(x,y);
-        if(gsm.world.map[coords[0]][coords[1]] == WORLDITEM.RICE)
+        if(gsm.world.map[coords[0]][coords[1]] == WORLDITEM.RICE) {
             gsm.world.map[coords[0]][coords[1]] = WORLDITEM.ROAD;
+            inGameUserInterface.currentNbRice -= 1;
+        }
     }
 }

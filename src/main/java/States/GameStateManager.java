@@ -4,6 +4,7 @@ import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
 import Strategy.*;
+import UI.inGameUserInterface;
 import Utils.Utils;
 import WorldBuilder.World;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,9 +21,8 @@ public class GameStateManager {
 
     boolean isGameOver = false;
 
-    private int currentState = START;
-
-    private GameState gameStates[] = new GameState[4];
+    public int currentState = START;
+    public GameState gameStates[] = new GameState[4];
 
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
     public Monster[] monsters = new Monster[4];
@@ -37,9 +37,7 @@ public class GameStateManager {
 
     public enum DIF {EASY, MEDIUM, HARD}
 
-    //public DIF difficulty = DIF.EASY;
-
-    DIF difficulty = DIF.EASY;
+    public DIF difficulty = DIF.EASY;
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
@@ -48,7 +46,8 @@ public class GameStateManager {
         createMonsters();
 
         gameStates[START] = new StartMenuState(this);
-        gameStates[PLAY] = new PlayState(this);
+        inGameUserInterface ui = new inGameUserInterface(this);
+        gameStates[PLAY] = new PlayState(this, ui);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
 

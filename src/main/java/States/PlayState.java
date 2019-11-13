@@ -1,7 +1,9 @@
 package States;
 
 import Entity.Monster;
+import UI.inGameUserInterface;
 import Utils.Utils;
+import WorldBuilder.matrixWorld;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,17 +17,12 @@ import javafx.scene.text.FontWeight;
 public class PlayState extends GameState {
 
     private boolean firstRender;
+    inGameUserInterface ui;
 
-    private long roundTimer = Utils.roundDuration; // en seconde
-    private long startTimer = 0;
-
-    private int currentNbRice = 0;
-
-
-    PlayState(GameStateManager gsm) {
+    PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
         firstRender = true;
-
+        this.ui = ui;
         initScene();
         createScene();
     }
@@ -69,6 +66,7 @@ public class PlayState extends GameState {
                 gsm.monsters) {
             monster.init();
         }
+        ui.setNbRice();
     }
 
     public void nextStep() {
@@ -110,14 +108,12 @@ public class PlayState extends GameState {
         }
 
         if(firstRender){
-            startTimer = System.nanoTime();
+            inGameUserInterface.startTimer = System.nanoTime();
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
         }
 
         gsm.world.renderMap(gc);
-
-        manageTimer(gc);
 
         gsm.player.render(gc);
 
@@ -125,25 +121,10 @@ public class PlayState extends GameState {
             monster.render(gc);
         }
 
-    }
-
-    private void manageTimer(GraphicsContext gc){
-
-        long timer;
-        long currentTimer;
-
-        currentTimer = System.nanoTime();
-
-        timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
-
-        if(timer > roundTimer)
-            gsm.changeState(3);
-
-        if(roundTimer - timer >= 100)
-            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension+ Utils.caseDimension/2.0), 18+((20/100.0)*Utils.caseDimension));
-        else
-            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension), 18+((20/100.0)*Utils.caseDimension));
+        ui.renderTimer(gc);
+        ui.renderNbRice(gc);
 
     }
+
 }
 
