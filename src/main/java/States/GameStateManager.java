@@ -39,7 +39,7 @@ public class GameStateManager {
 
     //public DIF difficulty = DIF.EASY;
 
-    int difficulty = 0;
+    DIF difficulty = DIF.EASY;
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
@@ -73,8 +73,9 @@ public class GameStateManager {
      */
     public void changeState(int newState){
         currentState = newState;
-        if(currentState == PLAY)
+        if(currentState == PLAY) {
             world.build(difficulty);
+        }
         gameStates[currentState].initScene();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();

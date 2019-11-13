@@ -19,6 +19,8 @@ public class PlayState extends GameState {
     private long roundTimer = Utils.roundDuration; // en seconde
     private long startTimer = 0;
 
+    private int currentNbRice = 0;
+
 
     PlayState(GameStateManager gsm) {
         super(gsm);

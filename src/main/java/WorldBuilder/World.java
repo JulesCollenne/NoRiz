@@ -1,5 +1,6 @@
 package WorldBuilder;
 
+import States.GameStateManager.DIF;
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -21,7 +22,7 @@ public class World {
     private int l;
     private int h;
 
-    private int difficulty;
+    DIF difficulty;
 
     private Image road = new Image("textures/roadTextureLevel1.png");
     private Image wall = new Image("textures/wallTextureLevel1.png");
@@ -35,63 +36,37 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public void build(int difficultyChosen){
+    public void build(DIF difficultyChosen){
 
         difficulty = difficultyChosen;
-        setDifficulty(difficulty);
 
         switch(difficulty){
 
-            case 0:
+            case EASY:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            case 1:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            case 2:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
-                break;
-
-            default:
-                break;
-        }
-
-        /*for(int i = 0; i<h; i++)
-            for(int j=0; j<h;j++)
-                map[i][j] = ROAD;
-
-        for(int i=0; i<h; i++) { // Censé faire un carré de 21 de coté
-            map[i][0] = WALL;
-            map[i][h-1] = WALL;
-            map[0][i] = WALL;
-            map[h-1][i] = WALL;
-        }*/
-
-        // Attention, le haut de la matrice représente la gauche en jeu
-
-        switch(difficulty){
-
-            case 0:
                 map = matrixWorld.world1;
                 break;
 
-            case 1:
+            case MEDIUM:
+                road = new Image("textures/roadTextureLevel2.jpg");
+                wall = new Image("textures/wallTextureLevel1.png");
                 map = matrixWorld.world2;
                 break;
 
-            case 2:
+            case HARD:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
                 map = matrixWorld.world3;
                 break;
 
             default:
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
                 map = matrixWorld.world1;
                 break;
         }
+
     }
 
     /*
@@ -112,7 +87,7 @@ public class World {
      */
     private void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
 
-         switch(item){
+        switch(item){
 
             case ROAD:
                 gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
@@ -138,27 +113,4 @@ public class World {
 
     }
 
-    private void setDifficulty(int difficulty) {
-        switch(difficulty){
-
-            case 0:
-                road = new Image("textures/roadTextureLevel1.png");
-                break;
-
-            case 1:
-                road = new Image("textures/roadTextureLevel1.png");
-                break;
-
-            case 2:
-                road = new Image("textures/roadTextureLevel1.png");
-                break;
-
-            default:
-                road = new Image("textures/roadTextureLevel1.png");
-                break;
-
-        }
-    }
-
 }
-
