@@ -1,5 +1,6 @@
 package States;
 
+import Entity.Entity;
 import Entity.Monster;
 import UI.inGameUserInterface;
 import Utils.Utils;
@@ -74,12 +75,30 @@ public class PlayState extends GameState {
         if(gsm.isGameOver)
             return;
 
-        gsm.collider.nextStep();
+        searchCollisions();
 
         gsm.player.nextStep();
         for (Monster monster : gsm.monsters) {
             monster.nextStep();
         }
+    }
+
+    private void searchCollisions() {
+        for (Entity monster : gsm.monsters) {
+            if(isTouching(gsm.player, monster)){
+                gsm.player.gotHit();
+            }
+        }
+    }
+
+    /**
+     *
+     * @param e1 entity 1
+     * @param e2 entity 2
+     * @return true if they touch, false otherwise
+     */
+    private boolean isTouching(Entity e1, Entity e2){
+        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
     @Override

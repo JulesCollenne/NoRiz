@@ -1,5 +1,6 @@
 package Strategy;
 
+import Entity.Monster;
 import Utils.DIRECTION;
 
 /**
@@ -8,13 +9,8 @@ import Utils.DIRECTION;
 
 public class FollowStrat implements Strategy {
 
-    public DIRECTION nextWay(DIRECTION currentWay) {
+    public DIRECTION nextWay(Monster monster) {
         return DIRECTION.STOP;
-    }
-
-    @Override
-    public DIRECTION nextWay() {
-        return DIRECTION.DOWN;
     }
 }
 

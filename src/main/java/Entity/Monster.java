@@ -1,5 +1,6 @@
 package Entity;
 
+import Collider.Collider;
 import States.GameStateManager;
 import Strategy.Strategy;
 import Utils.DIRECTION;
@@ -25,8 +26,6 @@ public class Monster implements  Entity{
 
     private int speed;
 
-    private GameStateManager gsm;
-
     private int nbImgAnim = 2;
     private Image[][] image = new Image[4][nbImgAnim];
 
@@ -38,15 +37,16 @@ public class Monster implements  Entity{
     private int timeNextStrat = 10;
 
     private Strategy strat;
+    public Collider collider;
 
 
-    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, GameStateManager gsm, String name){
+    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         spawnX = initialX;
         spawnY = initialY;
         speed = initialSpeed;
         this.strat = strat;
-        this.gsm = gsm;
         this.name = name;
+        this.collider = collider;
         init();
     }
 
@@ -72,7 +72,7 @@ public class Monster implements  Entity{
         if(timerStrat > timeNextStrat) {
             timerStrat = 0;
 
-            switch (strat.nextWay()) {
+            switch (strat.nextWay(this)) {
                 case DOWN:
                     setNextFacing(DIRECTION.DOWN);
                     break;
@@ -113,7 +113,7 @@ public class Monster implements  Entity{
 
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-        if(gsm.collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -147,7 +147,7 @@ public class Monster implements  Entity{
 
         int[] coords = getCollideCoords();
 
-        if(gsm.collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
+        if(collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }

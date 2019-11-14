@@ -31,7 +31,7 @@ public class GameStateManager {
 
     public World world = new World(Utils.mapSize,Utils.mapSize);
 
-    public Collider collider = new Collider(this);
+    public Collider collider = new Collider(world);
 
     private boolean stateChanged = false;
 
@@ -60,10 +60,10 @@ public class GameStateManager {
 
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new AngleStrat(this),this, "Jean-Luc Massat");                       //Monstre AngleStrat
-        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension, 1, new RandomStrat(this, 1),this, "Hamri");                               //Monstre RandomStrat
-        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension, 1, new FollowStrat(),this, "Mr POC");                               //Monstre FollowStrat
-        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new BonusStrat(),this, "Di Molfetta");                                //Monstre BonusStrat
+        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
+        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension, 1, new RandomStrat( 1), "Hamri", collider);                               //Monstre RandomStrat
+        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension, 1, new FollowStrat(), "Mr POC", collider);                               //Monstre FollowStrat
+        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new BonusStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
     }
 
     /**

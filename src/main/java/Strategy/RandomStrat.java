@@ -1,5 +1,6 @@
 package Strategy;
 
+import Entity.Monster;
 import States.GameStateManager;
 import Utils.DIRECTION;
 import Utils.Utils;
@@ -14,23 +15,18 @@ import Utils.Utils;
 
 public class RandomStrat implements Strategy {
 
-    private GameStateManager gsm;
-    private int x, y;
-    private int nbMonster;
+    public RandomStrat(int nbMonster) {
 
-    public RandomStrat(GameStateManager gsm, int nbMonster) {
-        this.gsm = gsm;
-        this.nbMonster = nbMonster;
     }
 
-    public DIRECTION nextWay() {
+    public DIRECTION nextWay(Monster monster) {
 
-        y = gsm.monsters[nbMonster].getY();
-        x = gsm.monsters[nbMonster].getX();
+        int x = monster.getX();
+        int y = monster.getY();
 
         int rand;
         boolean impossible = true;
-        DIRECTION currentWay = gsm.monsters[nbMonster].getFacing();
+        DIRECTION currentWay = monster.getFacing();
         DIRECTION nextWay = currentWay;
 
         while (impossible) {
@@ -39,28 +35,28 @@ public class RandomStrat implements Strategy {
             switch (rand) {
 
                 case 0:
-                    if (currentWay != DIRECTION.UP && gsm.collider.isPossible(x+1, y + Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                    if (currentWay != DIRECTION.UP && monster.collider.isPossible(x+1, y + Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                         nextWay = DIRECTION.DOWN;
                         impossible = false;
                     }
                     break;
 
                 case 1:
-                    if (currentWay != DIRECTION.DOWN && gsm.collider.isPossible(x+1, y - Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                    if (currentWay != DIRECTION.DOWN && monster.collider.isPossible(x+1, y - Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                         nextWay = DIRECTION.UP;
                         impossible = false;
                     }
                     break;
 
                 case 2:
-                    if (currentWay != DIRECTION.RIGHT && gsm.collider.isPossible(x - Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                    if (currentWay != DIRECTION.RIGHT && monster.collider.isPossible(x - Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                         nextWay = DIRECTION.LEFT;
                         impossible = false;
                     }
                     break;
 
                 case 3:
-                    if (currentWay != DIRECTION.LEFT && gsm.collider.isPossible(x + Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                    if (currentWay != DIRECTION.LEFT && monster.collider.isPossible(x + Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                         nextWay = DIRECTION.RIGHT;
                         impossible = false;
                     }

@@ -1,6 +1,8 @@
 package Strategy;
 
 
+import Entity.Monster;
+import Entity.Player;
 import States.GameStateManager;
 import Utils.DIRECTION;
 
@@ -27,16 +29,16 @@ import Utils.DIRECTION;
  */
 public class AngleStrat implements Strategy {
 
-    private GameStateManager gsm;
-    private int x,y;
+    private Player player;
 
-    public AngleStrat(GameStateManager gsm){
-        this.gsm = gsm;
+    public AngleStrat(Player player){
+        this.player = player;
     }
 
-    public DIRECTION nextWay() {
-        y = gsm.player.getY() - gsm.monsters[0].getY();
-        x = gsm.player.getX() - gsm.monsters[0].getX();
+    public DIRECTION nextWay(Monster monster) {
+
+        int x = player.getX() - monster.getX();
+        int y = player.getY() - monster.getY();
 
         double angle = Math.atan2(y,x);
         double cos,sin;
