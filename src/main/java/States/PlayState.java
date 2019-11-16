@@ -14,11 +14,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class PlayState extends GameState {
 
     private boolean firstRender;
     inGameUserInterface ui;
+
+
+    // Info UI
+    private int maxLife = 5;
+    private int nbLife = maxLife;
+    private int currentNbRice = 0;
+    private static long roundTimer = Utils.roundDuration; // en seconde
+    private static long startTimer = 0;
+    // Info UI
 
     PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
@@ -31,8 +41,11 @@ public class PlayState extends GameState {
     private void createScene() {
         Group root = new Group();
         theScene = new Scene( root );
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
-        root.getChildren().add(canvas);
+        root.setStyle("-fx-background-color: darkslategrey;");
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize + (2*Utils.caseDimension));
+
+
+        root.getChildren().addAll(canvas);
 
         theScene.setOnKeyPressed(
                 gsm::input);
@@ -57,6 +70,35 @@ public class PlayState extends GameState {
 
             }
         }.start();
+
+        initUIInfo();
+
+    }
+
+    private void initUIInfo(){
+
+        startTimer = 0;
+
+        switch(gsm.difficulty){
+
+            case EASY:
+                currentNbRice = matrixWorld.nbRiceWorld1;
+                break;
+
+            case MEDIUM:
+                currentNbRice = matrixWorld.nbRiceWorld2;
+                break;
+
+            case HARD:
+                currentNbRice = matrixWorld.nbRiceWorld3;
+                break;
+
+            default:
+                currentNbRice = matrixWorld.nbRiceWorld1;
+                break;
+
+        }
+
     }
 
     public void initScene(){
@@ -67,7 +109,6 @@ public class PlayState extends GameState {
                 gsm.monsters) {
             monster.init();
         }
-        ui.init();
     }
 
     public void nextStep() {
@@ -75,7 +116,8 @@ public class PlayState extends GameState {
         if(gsm.isGameOver)
             return;
 
-        searchCollisions();
+        searchEntityCollisions();
+        takeRice();
 
         gsm.player.nextStep();
         for (Monster monster : gsm.monsters) {
@@ -83,22 +125,30 @@ public class PlayState extends GameState {
         }
     }
 
-    private void searchCollisions() {
-        for (Entity monster : gsm.monsters) {
-            if(isTouching(gsm.player, monster)){
-                gsm.player.gotHit();
-            }
+    private void takeRice(){
+
+        if(gsm.collider.takeRice(gsm.player.getCenterX(), gsm.player.getCenterY())){
+            currentNbRice -= 1;
         }
+        if(currentNbRice == 0){
+            Text title = new Text();
+            title.setX((20/100.0)*Utils.canvasSize);
+            title.setY((20/100.0)*Utils.canvasSize);
+            title.setFont(new Font(40));
+            title.setText("bien joué frérot");
+        }
+
     }
 
-    /**
-     *
-     * @param e1 entity 1
-     * @param e2 entity 2
-     * @return true if they touch, false otherwise
-     */
-    private boolean isTouching(Entity e1, Entity e2){
-        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
+    private void searchEntityCollisions() {
+        for (Entity monster : gsm.monsters) {
+            if(gsm.collider.isThereEntityCollision(gsm.player, monster)){
+                gsm.player.gotHit();
+                nbLife--;
+                if(nbLife == 0)
+                    gsm.player.die();
+            }
+        }
     }
 
     @Override
@@ -127,7 +177,7 @@ public class PlayState extends GameState {
         }
 
         if(firstRender){
-            inGameUserInterface.startTimer = System.nanoTime();
+            startTimer = System.nanoTime();
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
         }
@@ -140,9 +190,26 @@ public class PlayState extends GameState {
             monster.render(gc);
         }
 
-        ui.render(gc);
+
+
+        long timer = getTimer();
+        if(timer > roundTimer) {
+            gsm.changeState(3);
+        }
+        ui.render(gc, nbLife, currentNbRice, getTimer());
 
     }
+
+    private long getTimer(){
+
+        long timer;
+        long currentTimer;
+        currentTimer = System.nanoTime();
+        timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
+        return roundTimer - timer;
+    }
+
+
 
 }
 

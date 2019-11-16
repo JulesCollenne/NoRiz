@@ -1,5 +1,5 @@
 package Utils;
 
-public enum WORLDITEM {ROAD, WALL, RICE, BONUS}
+public enum WORLDITEM {ROAD, WALL, RICE, BONUS, UI}
 
 

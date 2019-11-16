@@ -4,15 +4,15 @@ import States.GameStateManager;
 import Utils.Utils;
 import WorldBuilder.matrixWorld;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class inGameUserInterface {
 
     private GameStateManager gsm;
-
-    private static long roundTimer = Utils.roundDuration; // en seconde
-    public static long startTimer = 0;
-
-    public static int currentNbRice = 0;
 
     public inGameUserInterface(GameStateManager gsm){
 
@@ -20,63 +20,55 @@ public class inGameUserInterface {
 
     }
 
-    public void init(){
+    private void renderUITimer(GraphicsContext gc, long timer){
 
-        startTimer = 0;
 
-        switch(gsm.difficulty){
+        Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
+        gc.drawImage(UITimer, Utils.canvasSize - 130, 1);
 
-            case EASY:
-                currentNbRice = matrixWorld.nbRiceWorld1;
-                break;
 
-            case MEDIUM:
-                currentNbRice = matrixWorld.nbRiceWorld2;
-                break;
-
-            case HARD:
-                currentNbRice = matrixWorld.nbRiceWorld3;
-                break;
-
-            default:
-                currentNbRice = matrixWorld.nbRiceWorld1;
-                break;
-
+        gc.setFill(Color.WHITE);
+        if(timer >= 100) {
+            gc.fillText(timer + "", Utils.canvasSize - (80), 18 + ((70 / 100.0) * Utils.caseDimension));
+        }
+        else if (timer >= 10) {
+            gc.fillText(timer + "", Utils.canvasSize - (71), 18 + ((70 / 100.0) * Utils.caseDimension));
+        }
+        else{
+            gc.setFill(Color.RED);
+            gc.fillText(timer + "", Utils.canvasSize - (65), 18 + ((70 / 100.0) * Utils.caseDimension));
         }
 
     }
 
-    public void render(GraphicsContext gc){
+    private void renderNbRice(GraphicsContext gc, int nbRice){
 
-        renderTimer(gc);
-        renderNbRice(gc);
+        Image UITimer = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
+
+        gc.drawImage(UITimer, 11, 1);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText(nbRice+"", 60 , 18+((70/100.0)*Utils.caseDimension));
 
     }
 
-    private void renderTimer(GraphicsContext gc){
+    private void renderHeart(GraphicsContext gc, int nbLife){
 
-        long timer;
-        long currentTimer;
+        for(int i = 0; i<nbLife; i++){
 
-        currentTimer = System.nanoTime();
+            Image UIHeart = new Image("UI/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+            gc.drawImage(UIHeart, 200 + (i*70) , (50/100.0) * (Utils.caseDimension/2.0));
 
-        timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
-
-        if(timer > roundTimer) {
-            gsm.changeState(3);
         }
+    }
 
-        if(roundTimer - timer >= 100)
-            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension+ Utils.caseDimension/2.0), 18+((20/100.0)*Utils.caseDimension));
-        else
-            gc.fillText(roundTimer - timer+"",Utils.canvasSize-(Utils.caseDimension), 18+((20/100.0)*Utils.caseDimension));
+    public void render(GraphicsContext gc, int nbLife, int nbRice, long timer){
+
+        renderUITimer(gc, timer);
+        renderNbRice(gc, nbRice);
+        renderHeart(gc, nbLife);
 
     }
 
-    private void renderNbRice(GraphicsContext gc){
-
-        gc.fillText(currentNbRice+"",(10/100.0)*Utils.caseDimension, 18+(10/100.0)*Utils.caseDimension);
-
-    }
 
 }

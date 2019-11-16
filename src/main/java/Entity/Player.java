@@ -12,8 +12,6 @@ import Utils.DIRECTION;
  */
 public class Player implements Entity {
 
-    private int maxLife = 5;
-    private int nbLife = maxLife;
     private int x;
     private int y;
     private int spawnX;
@@ -37,7 +35,7 @@ public class Player implements Entity {
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
         this.gsm = gsm;
         spawnX = initialX;
-        spawnY = initialY;
+        spawnY = initialY + (2*Utils.caseDimension);
         speed = initialSpeed;
         hasBonus = false;
 
@@ -52,7 +50,6 @@ public class Player implements Entity {
         animTime = 0;
         lastAnim = 0;
         hasBonus = false;
-        nbLife = maxLife;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
     }
@@ -66,19 +63,16 @@ public class Player implements Entity {
      * TODO faire réapparaitre le joueur à un autre endroit
      */
     public void gotHit(){
-        nbLife--;
-        if(nbLife == 0)
-            die();
 
         //TODO a changer car c'est malpropre de faire ça
         gsm.player.x = Utils.caseDimension;
-        gsm.player.y = Utils.caseDimension;
+        gsm.player.y = (2*Utils.caseDimension) + Utils.caseDimension;
     }
 
     /**
      * Quand le joueur n'a plus de vie, c'est le game over
      */
-    private void die(){
+    public void die(){
         gsm.changeState(3);
     }
 
@@ -104,6 +98,7 @@ public class Player implements Entity {
                 tryMove(speed, 0);
                 break;
         }
+
     }
 
     /**
@@ -114,8 +109,6 @@ public class Player implements Entity {
      */
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-
-        gsm.collider.takeRice(getCenterX(), getCenterY());
 
         if(gsm.collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;

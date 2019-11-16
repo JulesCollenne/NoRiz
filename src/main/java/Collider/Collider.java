@@ -29,11 +29,23 @@ public class Collider{
         return (world.map[coord1[0]][coord1[1]] == WORLDITEM.WALL) || (world.map[coord2[0]][coord2[1]] == WORLDITEM.WALL);
     }
 
-    public void takeRice(int x,int y) {
+    /**
+     *
+     * @param e1 entity 1
+     * @param e2 entity 2
+     * @return true if they touch, false otherwise
+     */
+    public boolean isThereEntityCollision(Entity e1, Entity e2){
+        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
+    }
+
+
+    public boolean takeRice(int x,int y) {
         int[] coords = Utils.getSquare(x,y);
         if(world.map[coords[0]][coords[1]] == WORLDITEM.RICE) {
             world.map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-            inGameUserInterface.currentNbRice -= 1;
+            return true;
         }
+        return false;
     }
 }

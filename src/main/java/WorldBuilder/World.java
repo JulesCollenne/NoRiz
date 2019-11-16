@@ -5,7 +5,6 @@ import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
 import static Utils.Utils.caseDimension;
 
 /**
@@ -85,7 +84,7 @@ public class World {
      *   Entrée: posX et posY: position de l'item // l'item a dessiner
      *   Dessine l'item a la position demandée
      */
-    private void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
+    public void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
 
         switch(item){
 
@@ -106,6 +105,11 @@ public class World {
             case BONUS:
                 gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 gc.setFill(Color.GREEN);
+                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                break;
+
+            case UI:
+                gc.setFill(Color.DARKGRAY);
                 gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
                 break;
 

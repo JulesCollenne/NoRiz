@@ -17,7 +17,7 @@ public class GameStateManager {
     private final int PLAY  = 1;
     private final int PAUSE  = 2;
     private final int GAMEOVER = 3;
-    private final int EDITOR = 3;
+    private final int EDITOR = 4;
 
     boolean isGameOver = false;
 
@@ -60,10 +60,10 @@ public class GameStateManager {
 
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
-        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension, 1, new RandomStrat( 1), "Hamri", collider);                               //Monstre RandomStrat
-        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension, 1, new FollowStrat(), "Mr POC", collider);                               //Monstre FollowStrat
-        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension, 1, new BonusStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
+        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension + (2*Utils.caseDimension), 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
+        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat( 1), "Hamri", collider);                               //Monstre RandomStrat
+        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension+ (2*Utils.caseDimension), 1, new FollowStrat(), "Mr POC", collider);                               //Monstre FollowStrat
+        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new BonusStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
     }
 
     /**

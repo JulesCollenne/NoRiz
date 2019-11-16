@@ -9,6 +9,7 @@ public class Utils {
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
 
+
     public enum STATE {START, PLAY, PAUSE}
 
 
