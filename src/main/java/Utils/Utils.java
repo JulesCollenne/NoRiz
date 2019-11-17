@@ -1,6 +1,7 @@
 package Utils;
 
 import static Utils.DIRECTION.DOWN;
+import static Utils.WORLDITEM.*;
 
 public class Utils {
 
@@ -12,6 +13,38 @@ public class Utils {
 
     public enum STATE {START, PLAY, PAUSE}
 
+
+    public static int worldItemToInt(WORLDITEM worlditem){
+        switch(worlditem){
+            case ROAD:
+                return 0;
+            case WALL:
+                return 1;
+            case RICE:
+                return 2;
+            case BONUS:
+                return 3;
+            case UI:
+                return 4;
+        }
+        return -1;
+    }
+
+    public static WORLDITEM intToWorldItem(int item){
+        switch(item){
+            case 0:
+                return ROAD;
+            case 1:
+                return WALL;
+            case 2:
+                return RICE;
+            case 3:
+                return BONUS;
+            case 4:
+                return UI;
+        }
+        return ROAD;
+    }
 
     /**
      *

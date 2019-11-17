@@ -21,7 +21,6 @@ public class PlayState extends GameState {
     private boolean firstRender;
     inGameUserInterface ui;
 
-
     // Info UI
     private int maxLife = 5;
     private int nbLife = maxLife;
@@ -34,7 +33,7 @@ public class PlayState extends GameState {
         super(gsm);
         firstRender = true;
         this.ui = ui;
-        initScene();
+        init();
         createScene();
     }
 
@@ -47,8 +46,7 @@ public class PlayState extends GameState {
 
         root.getChildren().addAll(canvas);
 
-        theScene.setOnKeyPressed(
-                gsm::input);
+        theScene.setOnKeyPressed(this::input);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -101,7 +99,7 @@ public class PlayState extends GameState {
 
     }
 
-    public void initScene(){
+    public void init(){
         firstRender = true;
         gsm.isGameOver = false;
         gsm.player.init();
@@ -109,6 +107,8 @@ public class PlayState extends GameState {
                 gsm.monsters) {
             monster.init();
         }
+        initUIInfo();
+        gsm.world.build(gsm.difficulty);
     }
 
     public void nextStep() {

@@ -19,6 +19,6 @@ public abstract class GameState {
 
     public abstract void render(GraphicsContext gc);
 
-    public abstract void initScene();
+    public abstract void init();
 }
 

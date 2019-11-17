@@ -58,7 +58,7 @@ public class StartMenuState extends GameState{
             theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 
-    public void initScene() {
+    public void init() {
 
     }
 

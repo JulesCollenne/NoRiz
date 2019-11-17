@@ -23,7 +23,7 @@ public class PauseState extends GameState {
     }
 
     @Override
-    public void initScene() {
+    public void init() {
 
     }
 }

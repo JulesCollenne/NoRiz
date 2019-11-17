@@ -2,10 +2,16 @@ package WorldBuilder;
 
 import States.GameStateManager.DIF;
 import Utils.WORLDITEM;
+import static Utils.Utils.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
+import java.io.*;
+import java.util.Scanner;
+
 import static Utils.Utils.caseDimension;
+import static Utils.Utils.mapSize;
 
 /**
  * Cette classe permet de créer les niveaux
@@ -22,6 +28,7 @@ public class World {
     private int h;
 
     DIF difficulty;
+    Stage theStage;
 
     private Image road = new Image("textures/roadTextureLevel1.png");
     private Image wall = new Image("textures/wallTextureLevel1.png");
@@ -35,9 +42,10 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public void build(DIF difficultyChosen){
+    public void build(DIF difficultyChosen, Stage theStage){
 
         difficulty = difficultyChosen;
+        this.theStage = theStage;
 
         switch(difficulty){
 
@@ -114,7 +122,61 @@ public class World {
                 break;
 
         }
-
     }
 
+    public void makeCleanMap(){
+        map = new WORLDITEM[mapSize][mapSize];
+    }
+
+    public void saveMap(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger un niveau");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Map Files", "*.map"));
+        File selectedFile = fileChooser.showSaveDialog();
+        if (selectedFile != null) {
+            try {
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(selectedFile)));
+
+                writer.write(getMapString());
+                writer.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String getMapString(){
+        StringBuilder mapString = new StringBuilder();
+        for (int i = 0; i < map.length; i++){
+            for (int j = 0; j < map[i].length; j++){
+                mapString.append(worldItemToInt(map[i][j]));
+                mapString.append('\n');
+            }
+        }
+        return mapString.toString();
+    }
+
+    public void loadMap() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Ouvrir un niveau");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Map Files", "*.map"));
+        File selectedFile = fileChooser.showOpenDialog(theStage);
+        if (selectedFile != null) {
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(selectedFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+            for (int i = 0; i < map.length; i++){
+                for (int j = 0; j < map[i].length; j++){
+                    map[i][j] = intToWorldItem(scanner.nextInt());
+                }
+            }
+        }
+    }
 }

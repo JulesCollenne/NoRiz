@@ -31,7 +31,7 @@ public class GameOverState extends GameState {
     }
 
     @Override
-    public void initScene() {
+    public void init() {
         Pane layout = new Pane();
 
         layout.setStyle("-fx-background-color: darkslategrey;");

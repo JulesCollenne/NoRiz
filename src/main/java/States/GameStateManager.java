@@ -75,7 +75,7 @@ public class GameStateManager {
         if(currentState == PLAY) {
             world.build(difficulty);
         }
-        gameStates[currentState].initScene();
+        gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         stateChanged = true;
