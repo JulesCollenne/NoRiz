@@ -158,7 +158,6 @@ public class PlayState extends GameState {
                     long startBonusEffect = System.nanoTime();
                     long currentTimer = System.nanoTime();
                     while (Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000)) <= 3) {
-                        System.out.println((Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000))));
                         startBonusEffect = System.nanoTime();
                     }
                     for (int i = 0; i < gsm.monsters.length; i++) {
