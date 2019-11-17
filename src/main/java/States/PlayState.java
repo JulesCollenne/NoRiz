@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -153,6 +154,10 @@ public class PlayState extends GameState {
 
     @Override
     public void input(KeyEvent e) {
+        if(e.getCode() == KeyCode.SPACE){
+            System.out.println("PAUSE");
+            gsm.changeState(2);
+        }
         if(!gsm.isGameOver)
             gsm.player.input(e);
         else{
