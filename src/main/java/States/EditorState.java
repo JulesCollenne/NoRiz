@@ -29,7 +29,7 @@ public class EditorState extends GameState {
         Group root = new Group();
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize + (2*Utils.caseDimension));
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
         root.getChildren().addAll(canvas);
 
@@ -38,6 +38,7 @@ public class EditorState extends GameState {
 
         theScene.setOnMousePressed(
                 this::mouseInput);
+
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 

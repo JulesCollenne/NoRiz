@@ -42,6 +42,11 @@ public class StartMenuState extends GameState{
             hard.setLayoutY((40/100.0)*Utils.canvasSize);
             hard.handler(gsm);
 
+            ModeButton editor = new ModeButton(new Image("Buttons/sign_difficile.png"), "Editor");
+            editor.setLayoutX((70/100.0)*Utils.canvasSize);
+            editor.setLayoutY((70/100.0)*Utils.canvasSize);
+            editor.handler(gsm);
+
             SkinButton skin = new SkinButton(new Image("Player/nori_droite0.png"), "Skin");
             skin.setLayoutX(10);
             skin.setLayoutY(10);
@@ -52,7 +57,7 @@ public class StartMenuState extends GameState{
             noriz.setX(333);
             noriz.setY(150);
 
-            layout.getChildren().addAll(easy, medium, hard, skin, noriz);
+            layout.getChildren().addAll(easy, medium, hard, skin, noriz, editor);
 
 
             theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);

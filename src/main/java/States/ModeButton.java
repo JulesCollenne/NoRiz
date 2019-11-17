@@ -42,6 +42,9 @@ class ModeButton extends Button {
                     gsm.difficulty = EASY;
                     gsm.changeState(0);
                     break;
+                case "Editor":
+                    gsm.changeState(4);
+                    break;
             }
         });
         this.setOnMouseEntered((EventHandler) mouseEvent -> {

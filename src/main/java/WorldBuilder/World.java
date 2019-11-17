@@ -128,6 +128,16 @@ public class World {
 
     public void makeCleanMap(){
         map = new WORLDITEM[mapSize][mapSize];
+        for(int i=0; i<mapSize; i++)
+            for(int j=0; j<mapSize; j++)
+                map[i][j] = WORLDITEM.UI;
+
+        for(int i = 0; i<mapSize; i++){
+            map[i][0] = WORLDITEM.WALL;
+            map[i][mapSize-1] = WORLDITEM.WALL;
+            map[0][i] = WORLDITEM.WALL;
+            map[mapSize-1][i] = WORLDITEM.WALL;
+        }
     }
 
     public void saveMap(){
