@@ -51,7 +51,7 @@ public class GameStateManager {
         gameStates[PLAY] = new PlayState(this, ui, theStage);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
-        gameStates[EDITOR] = new EditorState(this);
+        //gameStates[EDITOR] = new EditorState(this);
 
         changeState(START);
     }
