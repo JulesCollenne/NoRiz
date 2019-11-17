@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PlayState extends GameState {
 
@@ -30,12 +31,15 @@ public class PlayState extends GameState {
     private static long startTimer = 0;
     // Info UI
 
-    PlayState(GameStateManager gsm, inGameUserInterface ui) {
+    Stage theStage;
+
+    PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage) {
         super(gsm);
         firstRender = true;
         this.ui = ui;
         init();
         createScene();
+        this.theStage = theStage;
     }
 
     private void createScene() {
@@ -109,7 +113,7 @@ public class PlayState extends GameState {
             monster.init();
         }
         initUIInfo();
-        gsm.world.build(gsm.difficulty);
+        gsm.world.build(gsm.difficulty, theStage);
     }
 
     public void nextStep() {

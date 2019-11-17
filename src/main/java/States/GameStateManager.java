@@ -42,12 +42,12 @@ public class GameStateManager {
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
-        world.build(difficulty);
+        world.build(difficulty, theStage);
         createMonsters();
 
         gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
-        gameStates[PLAY] = new PlayState(this, ui);
+        gameStates[PLAY] = new PlayState(this, ui, theStage);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
 
@@ -73,7 +73,7 @@ public class GameStateManager {
     public void changeState(int newState){
         currentState = newState;
         if(currentState == PLAY) {
-            world.build(difficulty);
+            world.build(difficulty, theStage);
         }
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);

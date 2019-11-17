@@ -6,6 +6,8 @@ import static Utils.Utils.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Scanner;
@@ -132,8 +134,8 @@ public class World {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Charger un niveau");
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Map Files", "*.map"));
-        File selectedFile = fileChooser.showSaveDialog();
+                new FileChooser.ExtensionFilter("Map Files", "*.map"));
+        File selectedFile = fileChooser.showSaveDialog(theStage);
         if (selectedFile != null) {
             try {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(selectedFile)));
@@ -162,7 +164,7 @@ public class World {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir un niveau");
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Map Files", "*.map"));
+                new FileChooser.ExtensionFilter("Map Files", "*.map"));
         File selectedFile = fileChooser.showOpenDialog(theStage);
         if (selectedFile != null) {
             Scanner scanner = null;

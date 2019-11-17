@@ -3,8 +3,17 @@ package States;
 import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
+
+import javafx.animation.AnimationTimer;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class EditorState extends GameState {
 
@@ -29,7 +38,6 @@ public class EditorState extends GameState {
 
         theScene.setOnMousePressed(
                 this::mouseInput);
-        )
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -64,7 +72,6 @@ public class EditorState extends GameState {
 
     }
 
-    @Override
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
             case A:
@@ -90,8 +97,8 @@ public class EditorState extends GameState {
     }
 
     public void mouseInput(MouseEvent e){
-        int x = e.getX();
-        int y = e.getY();
+        int x = (int) e.getX();
+        int y = (int) e.getY();
 
         int coords[] = Utils.getSquare(x,y);
 

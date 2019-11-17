@@ -13,7 +13,6 @@ public class GameOverState extends GameState {
 
     GameOverState(GameStateManager gsm) {
         super(gsm);
-        initScene();
     }
 
     public void nextStep() {
