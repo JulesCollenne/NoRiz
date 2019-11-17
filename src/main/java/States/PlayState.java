@@ -123,6 +123,7 @@ public class PlayState extends GameState {
 
         searchEntityCollisions();
         takeRice();
+        takeItemBonus();
 
         gsm.player.nextStep();
         for (Monster monster : gsm.monsters) {
@@ -143,6 +144,31 @@ public class PlayState extends GameState {
             title.setText("bien joué frérot");
         }
 
+    }
+
+    private void takeItemBonus(){
+        if(gsm.collider.takeItemBonus(gsm.player.getCenterX(), gsm.player.getCenterY())){
+
+            for(int i =0; i< gsm.monsters.length; i++){
+                gsm.monsters[i].frozen = true;
+            }
+
+            Thread durationBonus = new Thread(){
+                public void run() {
+                    long startBonusEffect = System.nanoTime();
+                    long currentTimer = System.nanoTime();
+                    while (Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000)) <= 3) {
+                        System.out.println((Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000))));
+                        startBonusEffect = System.nanoTime();
+                    }
+                    for (int i = 0; i < gsm.monsters.length; i++) {
+                        gsm.monsters[i].frozen = false;
+                    }
+                }
+            };
+            durationBonus.start();
+
+        }
     }
 
     private void searchEntityCollisions() {

@@ -48,4 +48,13 @@ public class Collider{
         }
         return false;
     }
+
+    public boolean takeItemBonus(int x,int y) {
+        int[] coords = Utils.getSquare(x,y);
+        if(world.map[coords[0]][coords[1]] == WORLDITEM.BONUS) {
+            world.map[coords[0]][coords[1]] = WORLDITEM.ROAD;
+            return true;
+        }
+        return false;
+    }
 }

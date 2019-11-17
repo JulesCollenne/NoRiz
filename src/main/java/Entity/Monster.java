@@ -39,6 +39,8 @@ public class Monster implements  Entity{
     private Strategy strat;
     public Collider collider;
 
+    public boolean frozen = false;
+
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         spawnX = initialX;
@@ -69,46 +71,52 @@ public class Monster implements  Entity{
     }
 
     public void nextStep() {
-        if(timerStrat > timeNextStrat) {
-            timerStrat = 0;
+        if(frozen){
+            setNextFacing(DIRECTION.STOP);
+        }
+        else {
+            if (timerStrat > timeNextStrat) {
+                timerStrat = 0;
 
-            switch (strat.nextWay(this)) {
-                case DOWN:
-                    setNextFacing(DIRECTION.DOWN);
-                    break;
-                case UP:
-                    setNextFacing(DIRECTION.UP);
-                    break;
-                case LEFT:
-                    setNextFacing(DIRECTION.LEFT);
-                    break;
-                case RIGHT:
-                    setNextFacing(DIRECTION.RIGHT);
-                    break;
+                switch (strat.nextWay(this)) {
+                    case DOWN:
+                        setNextFacing(DIRECTION.DOWN);
+                        break;
+                    case UP:
+                        setNextFacing(DIRECTION.UP);
+                        break;
+                    case LEFT:
+                        setNextFacing(DIRECTION.LEFT);
+                        break;
+                    case RIGHT:
+                        setNextFacing(DIRECTION.RIGHT);
+                        break;
+                }
+
+                //System.out.println(name + " " + facing);
             }
 
-            //System.out.println(name + " " + facing);
-        }
 
-        if (nextFacingPossible(nextFacing)) {
-            facing = nextFacing;
-            nextFacing = DIRECTION.STOP;
+            if (nextFacingPossible(nextFacing)) {
+                facing = nextFacing;
+                nextFacing = DIRECTION.STOP;
+            }
+            switch(facing){
+                case DOWN:
+                    tryMove(0, speed);
+                    break;
+                case UP:
+                    tryMove(0, -speed);
+                    break;
+                case LEFT:
+                    tryMove(-speed, 0);
+                    break;
+                case RIGHT:
+                    tryMove(speed, 0);
+                    break;
+            }
+            timerStrat++;
         }
-        switch(facing){
-            case DOWN:
-                tryMove(0, speed);
-                break;
-            case UP:
-                tryMove(0, -speed);
-                break;
-            case LEFT:
-                tryMove(-speed, 0);
-                break;
-            case RIGHT:
-                tryMove(speed, 0);
-                break;
-        }
-        timerStrat++;
     }
 
     private void tryMove(int dx, int dy) {
