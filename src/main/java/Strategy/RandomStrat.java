@@ -1,7 +1,6 @@
 package Strategy;
 
 import Entity.Monster;
-import States.GameStateManager;
 import Utils.DIRECTION;
 import Utils.Utils;
 
