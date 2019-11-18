@@ -16,6 +16,7 @@ public class PauseState extends GameState {
     PauseState(GameStateManager gsm) {
         super(gsm);
         init();
+        createAnimTimer();
     }
 
     public void nextStep() {

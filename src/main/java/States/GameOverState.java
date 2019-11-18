@@ -14,6 +14,7 @@ public class GameOverState extends GameState {
 
     GameOverState(GameStateManager gsm) {
         super(gsm);
+        createAnimTimer();
     }
 
     public void nextStep() {
