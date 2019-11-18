@@ -22,6 +22,7 @@ public class Collider{
         return world.map[coord[0]][coord[1]] != WORLDITEM.WALL;
     }
 
+
     /**
      *
      * @param e1 entity 1

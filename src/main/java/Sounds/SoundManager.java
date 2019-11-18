@@ -13,20 +13,29 @@ import java.io.File;
 
 public class SoundManager {
 
-    public SoundManager(){
-    }
+    MediaPlayer backGround;
 
-    public void backGroundMusic(Scene scene){
+    public SoundManager(){
+        /*
         try {
             String musicFile = "src/main/resources/Sounds/music.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.setAutoPlay(true);
-            MediaView mediaView = new MediaView(mediaPlayer);
-            ((Group)scene.getRoot()).getChildren().add(mediaView);
+            backGround = new MediaPlayer(sound);
         }catch (MediaException e){
             e.printStackTrace();
             System.out.println("Ce son n'existe pas !");
         }
+        */
     }
+
+    public void backGroundMusic(Scene scene){
+            backGround.setAutoPlay(true);
+            MediaView mediaView = new MediaView(backGround);
+            ((Group)scene.getRoot()).getChildren().add(mediaView);
+    }
+
+    public void hurtSound(){
+
+    }
+
 }

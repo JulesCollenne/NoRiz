@@ -6,7 +6,7 @@ import static Utils.WORLDITEM.*;
 public class Utils {
 
     public static final int mapSize = 25; // labyrinthe de size*size case
-    public static final int caseDimension = 30; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int caseDimension = 32; // chaque case du labyrinthe fait dimension*dimension pixel
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
 
