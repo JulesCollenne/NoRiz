@@ -60,13 +60,11 @@ public class Player implements Entity {
 
     /**
      * Quand un ennemi nous touche
-     * TODO faire réapparaitre le joueur à un autre endroit
+     *
      */
     public void gotHit(){
-
-        //TODO a changer car c'est malpropre de faire ça
-        gsm.player.x = Utils.caseDimension;
-        gsm.player.y = Utils.caseDimension;
+        gsm.player.x = spawnX;
+        gsm.player.y = spawnY;
     }
 
     /**
