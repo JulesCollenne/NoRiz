@@ -7,14 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NoRiz" />
-        <module name="NoRiz2" />
-        <module name="NoRiz3" />
-        <module name="NoRizaaa" />
-        <module name="NoRizOUIII" />
-        <module name="NoRizPAUSE2" />
-        <module name="NoRizV10" />
         <module name="NoRizV11" />
+        <module name="NoRizV10" />
+        <module name="NoRizPAUSE2" />
         <module name="NoRizV8" />
+        <module name="NoRizV12" />
+        <module name="NoRiz3" />
+        <module name="NoRiz2" />
+        <module name="NoRizOUIII" />
+        <module name="NoRizaaa" />
       </profile>
     </annotationProcessing>
   </component>

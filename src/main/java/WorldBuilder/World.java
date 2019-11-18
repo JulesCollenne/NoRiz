@@ -57,7 +57,7 @@ public class World {
 
             case EASY:
                 road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
+                wall = new Image("textures/texture_rock.png");
                 map = matrixWorld.world1;
                 break;
 
