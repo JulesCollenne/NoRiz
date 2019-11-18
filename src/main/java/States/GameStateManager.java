@@ -3,23 +3,19 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
-import Strategy.*;
+import Strategy.AngleStrat;
+import Strategy.BonusStrat;
+import Strategy.FollowStrat;
+import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.Utils;
 import WorldBuilder.World;
-import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class GameStateManager {
-
 
     private final int START  = 0;
     private final int PLAY  = 1;
@@ -35,10 +31,7 @@ public class GameStateManager {
     public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension*3,1);
     public Monster[] monsters = new Monster[4];
 
-    Group root = new Group();
     private Stage theStage;
-    Scene scene = new Scene(root);
-    Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
     public World world = new World(Utils.mapSize,Utils.mapSize);
 
