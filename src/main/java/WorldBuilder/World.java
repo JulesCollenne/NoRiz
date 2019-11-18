@@ -37,7 +37,7 @@ public class World {
     private Image road = new Image("textures/roadTextureLevel1.png");
     private Image wall = new Image("textures/wallTextureLevel1.png");
 
-    private Image backGroundImage = new Image("textures/porreca.jpg");
+    private Image backGroundImage = new Image("textures/roadTextureLevel1.png");
 
     public World(int l, int h){
         this.l = l;

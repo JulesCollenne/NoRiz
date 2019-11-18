@@ -1,6 +1,7 @@
 package States;
 
 import Utils.Utils;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -57,6 +58,16 @@ public class GameOverState extends GameState {
         layout.getChildren().addAll(rejouer, menu, title);
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+    }
+
+    @Override
+    public void createAnimTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
     }
 }
 

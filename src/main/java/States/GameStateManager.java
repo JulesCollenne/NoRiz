@@ -69,23 +69,6 @@ public class GameStateManager {
     }
 
     private void initScene() {
-
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
-        gc.setFont(theFont);
-        gc.setFill(Color.GREEN);
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(1);
-
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-                nextStep();
-                render(gc);
-            }
-        }.start();
     }
 
     /**
@@ -105,6 +88,7 @@ public class GameStateManager {
      * @param newState the new state
      */
     public void changeState(int newState){
+        gameStates[currentState].animationTimer.stop();
         currentState = newState;
         if(currentState == PLAY) {
             world.build(difficulty, theStage);
@@ -113,6 +97,7 @@ public class GameStateManager {
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         stateChanged = true;
+        gameStates[currentState].animationTimer.start();
     }
 
     public void nextStep() {

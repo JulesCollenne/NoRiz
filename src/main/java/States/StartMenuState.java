@@ -1,6 +1,7 @@
 package States;
 
 import Utils.Utils;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,6 +20,16 @@ public class StartMenuState extends GameState{
     public StartMenuState(GameStateManager gsm) {
         super(gsm);
         createScene();
+        createAnimTimer();
+    }
+
+    public void createAnimTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
     }
 
     private void createScene() {

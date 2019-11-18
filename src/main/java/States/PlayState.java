@@ -60,21 +60,19 @@ public class PlayState extends GameState {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        new AnimationTimer()
+        animationTimer = new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
                 // game logic
-                gsm.nextStep();
+                nextStep();
 
                 // render
-                gsm.render(gc);
+                render(gc);
 
             }
-        }.start();
-
+        };
         initUIInfo();
-
     }
 
     private void initUIInfo(){
@@ -113,6 +111,11 @@ public class PlayState extends GameState {
         }
         initUIInfo();
         gsm.world.build(gsm.difficulty, theStage);
+    }
+
+    @Override
+    public void createAnimTimer() {
+
     }
 
     public void nextStep() {

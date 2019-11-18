@@ -4,11 +4,16 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class EditorState extends GameState {
 
@@ -25,7 +30,30 @@ public class EditorState extends GameState {
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
 
-        root.getChildren().addAll(gsm.canvas);
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+
+        root.getChildren().addAll(canvas);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
+        gc.setFont(theFont);
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+
+        animationTimer = new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                // game logic
+                gsm.nextStep();
+
+                // render
+                gsm.render(gc);
+
+            }
+        };
 
         theScene.setOnKeyPressed(
                 this::keyInput);
@@ -92,6 +120,16 @@ public class EditorState extends GameState {
     public void init() {
         posingBlock = WALL;
         gsm.world.makeCleanMap();
+    }
+
+    @Override
+    public void createAnimTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
     }
 
     public void saveMap(){

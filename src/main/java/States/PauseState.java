@@ -1,6 +1,7 @@
 package States;
 
 import Utils.Utils;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -61,6 +62,16 @@ public class PauseState extends GameState {
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
 
+    }
+
+    @Override
+    public void createAnimTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
     }
 }
 
