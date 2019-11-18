@@ -1,5 +1,3 @@
-package UI;
-
 import States.GameStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;

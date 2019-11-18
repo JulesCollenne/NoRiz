@@ -35,7 +35,7 @@ public class Player implements Entity {
     public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
         this.gsm = gsm;
         spawnX = initialX;
-        spawnY = initialY + (2*Utils.caseDimension);
+        spawnY = initialY;
         speed = initialSpeed;
         hasBonus = false;
 
@@ -66,7 +66,7 @@ public class Player implements Entity {
 
         //TODO a changer car c'est malpropre de faire ça
         gsm.player.x = Utils.caseDimension;
-        gsm.player.y = (2*Utils.caseDimension) + Utils.caseDimension;
+        gsm.player.y = Utils.caseDimension;
     }
 
     /**

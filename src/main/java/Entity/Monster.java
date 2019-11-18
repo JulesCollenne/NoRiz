@@ -1,7 +1,6 @@
 package Entity;
 
 import Collider.Collider;
-import States.GameStateManager;
 import Strategy.Strategy;
 import Utils.DIRECTION;
 import Utils.Utils;
@@ -26,6 +25,8 @@ public class Monster implements  Entity{
 
     private int speed;
 
+    public Collider collider;
+
     private int nbImgAnim = 2;
     private Image[][] image = new Image[4][nbImgAnim];
 
@@ -37,7 +38,6 @@ public class Monster implements  Entity{
     private int timeNextStrat = 10;
 
     private Strategy strat;
-    public Collider collider;
 
     public boolean frozen = false;
 
@@ -47,8 +47,8 @@ public class Monster implements  Entity{
         spawnY = initialY;
         speed = initialSpeed;
         this.strat = strat;
-        this.name = name;
         this.collider = collider;
+        this.name = name;
         init();
     }
 

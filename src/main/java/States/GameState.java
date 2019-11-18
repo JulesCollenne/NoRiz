@@ -5,12 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
 public abstract class GameState {
-    GameStateManager gsm;
     Scene theScene;
+    GameStateManager gsm;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;
-
     }
 
     public abstract void nextStep();

@@ -1,7 +1,6 @@
 package Collider;
 
 import Entity.Entity;
-import States.GameStateManager;
 import UI.inGameUserInterface;
 import Utils.*;
 import WorldBuilder.World;
@@ -21,6 +20,16 @@ public class Collider{
     public boolean isPossible(int x, int y){
         int[] coord = Utils.getSquare(x,y);
         return world.map[coord[0]][coord[1]] != WORLDITEM.WALL;
+    }
+
+    /**
+     *
+     * @param e1 entity 1
+     * @param e2 entity 2
+     * @return true if they touch, false otherwise
+     */
+    public boolean isTouching(Entity e1, Entity e2){
+        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
     public boolean isImpossible(int x1, int y1, int x2, int y2) {

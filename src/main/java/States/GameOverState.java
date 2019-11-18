@@ -56,7 +56,6 @@ public class GameOverState extends GameState {
 
         layout.getChildren().addAll(rejouer, menu, title);
 
-
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 }

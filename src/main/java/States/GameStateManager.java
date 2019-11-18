@@ -7,8 +7,15 @@ import Strategy.*;
 import UI.inGameUserInterface;
 import Utils.Utils;
 import WorldBuilder.World;
+import javafx.animation.AnimationTimer;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class GameStateManager {
@@ -25,10 +32,13 @@ public class GameStateManager {
     public int currentState = START;
     public GameState gameStates[] = new GameState[5];
 
-    public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension,1);
+    public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension*3,1);
     public Monster[] monsters = new Monster[4];
 
+    Group root = new Group();
     private Stage theStage;
+    Scene scene = new Scene(root);
+    Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
     public World world = new World(Utils.mapSize,Utils.mapSize);
 
@@ -43,6 +53,8 @@ public class GameStateManager {
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
 
+        initScene();
+
         world.build(difficulty, theStage);
         createMonsters();
 
@@ -51,9 +63,29 @@ public class GameStateManager {
         gameStates[PLAY] = new PlayState(this, ui, theStage);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
-        //gameStates[EDITOR] = new EditorState(this);
+        gameStates[EDITOR] = new EditorState(this);
 
         changeState(START);
+    }
+
+    private void initScene() {
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
+        gc.setFont(theFont);
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                nextStep();
+                render(gc);
+            }
+        }.start();
     }
 
     /**

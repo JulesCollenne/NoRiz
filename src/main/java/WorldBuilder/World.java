@@ -2,6 +2,7 @@ package WorldBuilder;
 
 import States.GameStateManager.DIF;
 import Utils.WORLDITEM;
+import static Utils.WORLDITEM.*;
 import static Utils.Utils.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -128,15 +129,25 @@ public class World {
 
     public void makeCleanMap(){
         map = new WORLDITEM[mapSize][mapSize];
-        for(int i=0; i<mapSize; i++)
-            for(int j=0; j<mapSize; j++)
-                map[i][j] = WORLDITEM.UI;
+
+        for(int i=0; i <2; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                map[i][j] = UI;
+                map[mapSize-i-1][j] = UI;
+            }
+        }
+
+        for(int i=0; i< mapSize; i++){
+            for(int j=0; j < mapSize; j++){
+                map[i][j] = RICE;
+            }
+        }
 
         for(int i = 0; i<mapSize; i++){
-            map[i][0] = WORLDITEM.WALL;
-            map[i][mapSize-1] = WORLDITEM.WALL;
+            map[i][0] = WALL;
+            map[i][mapSize-1] = WALL;
             map[0][i] = WORLDITEM.WALL;
-            map[mapSize-1][i] = WORLDITEM.WALL;
+            map[mapSize-1][i] = WALL;
         }
     }
 
