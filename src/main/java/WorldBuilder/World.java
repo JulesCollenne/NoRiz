@@ -87,7 +87,7 @@ public class World {
      *   Dessine la carte dans la fenêtre de jeu
      *        */
     public void renderMap(GraphicsContext gc) {
-        gc.drawImage(backGroundImage,0,0,Utils.canvasSize, Utils.canvasSize);
+        //gc.drawImage(backGroundImage,0,0,Utils.canvasSize, Utils.canvasSize);
         for(int posX = 0; posX< map.length; posX++) {
             for (int posY = 0; posY < map[posX].length; posY++) {
                 renderItem(posX,posY, map[posX][posY], gc);
@@ -104,7 +104,7 @@ public class World {
         switch(item){
 
             case ROAD:
-                //gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 break;
 
             case WALL:
@@ -112,7 +112,7 @@ public class World {
                 break;
 
             case RICE:
-                //gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
+                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 gc.setFill(Color.YELLOW);
                 gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension/2.,caseDimension/2.);
                 break;

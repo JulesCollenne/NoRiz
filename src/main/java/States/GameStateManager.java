@@ -70,7 +70,7 @@ public class GameStateManager {
 
     private void initScene() {
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
 
         Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
         gc.setFont(theFont);
