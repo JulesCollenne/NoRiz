@@ -46,7 +46,7 @@ public class PlayState extends GameState {
         Group root = new Group();
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize+2*(Utils.caseDimension));
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize + 2*Utils.caseDimension);
 
         root.getChildren().addAll(canvas);
 
@@ -186,7 +186,6 @@ public class PlayState extends GameState {
     @Override
     public void input(KeyEvent e) {
         if(e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ESCAPE){
-            System.out.println("PAUSE");
             gsm.changeState(2);
         }
         if(!gsm.isGameOver)

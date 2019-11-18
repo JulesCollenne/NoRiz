@@ -47,10 +47,10 @@ public class EditorState extends GameState {
             public void handle(long currentNanoTime)
             {
                 // game logic
-                gsm.nextStep();
+                nextStep();
 
                 // render
-                gsm.render(gc);
+                render(gc);
 
             }
         };

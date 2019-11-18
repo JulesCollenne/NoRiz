@@ -79,7 +79,6 @@ public class World {
                 map = matrixWorld.world1;
                 break;
         }
-
     }
 
     /*

@@ -24,7 +24,7 @@ public class inGameUserInterface {
 
 
         Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
-        gc.drawImage(UITimer, Utils.canvasSize - 130, 1);
+        gc.drawImage(UITimer, Utils.canvasSize - 130, 0);
 
 
         gc.setFill(Color.WHITE);
@@ -45,7 +45,7 @@ public class inGameUserInterface {
 
         Image UITimer = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
 
-        gc.drawImage(UITimer, 11, 1);
+        gc.drawImage(UITimer, 11, 0);
 
         gc.setFill(Color.WHITE);
         gc.fillText(nbRice+"", 60 , 18+((70/100.0)*Utils.caseDimension));
