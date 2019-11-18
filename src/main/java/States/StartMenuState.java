@@ -38,18 +38,18 @@ public class StartMenuState extends GameState{
         layout.setStyle("-fx-background-color: darkslategrey;");
 
         ModeButton easy = new ModeButton(new Image("Buttons/sign_facile.png"), "Facile");
-        easy.setLayoutX((3/100.0)*Utils.canvasSize);
+        easy.setLayoutX(((Utils.canvasSize/3)/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
         easy.setLayoutY((40/100.0)*Utils.canvasSize);
         easy.handler(gsm);
 
         Image mediumIm = new Image("Buttons/sign_moyen.png");
         ModeButton medium = new ModeButton(mediumIm, "Medium");
-        medium.setLayoutX((36.5/100.0)*Utils.canvasSize);
+        medium.setLayoutX( ((((2*Utils.canvasSize)/3) + (Utils.canvasSize/3))/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
         medium.setLayoutY((40/100.0)*Utils.canvasSize);
         medium.handler(gsm);
 
         ModeButton hard = new ModeButton(new Image("Buttons/sign_difficile.png"), "Hard");
-        hard.setLayoutX((70/100.0)*Utils.canvasSize);
+        hard.setLayoutX( (((2*Utils.canvasSize)/3) + Utils.canvasSize)/2 - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
         hard.setLayoutY((40/100.0)*Utils.canvasSize);
         hard.handler(gsm);
 
@@ -59,14 +59,15 @@ public class StartMenuState extends GameState{
         editor.handler(gsm);
 
         SkinButton skin = new SkinButton(new Image("Player/nori_droite0.png"), "Skin");
-        skin.setLayoutX(10);
-        skin.setLayoutY(10);
+        skin.setLayoutX(((Utils.canvasSize/3)/2) - 45);
+        skin.setLayoutY((70/100.0)*Utils.canvasSize - 45);
         skin.handler(gsm);
-
+        skin.setStyle("-fx-background-color: transparent;");
 
         ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
-        noriz.setX(333);
+        noriz.setX(350);
         noriz.setY(150);
+
 
         layout.getChildren().addAll(easy, medium, hard, skin, noriz, editor);
 
