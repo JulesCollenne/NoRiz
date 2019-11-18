@@ -46,7 +46,7 @@ public class PlayState extends GameState {
         Group root = new Group();
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize+2*(Utils.caseDimension));
 
         root.getChildren().addAll(canvas);
 
