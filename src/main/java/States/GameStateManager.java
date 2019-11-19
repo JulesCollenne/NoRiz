@@ -14,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import Utils.myGameData;
 
 public class GameStateManager {
 

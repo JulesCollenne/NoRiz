@@ -97,7 +97,7 @@ public class PlayState extends GameState {
     public void initMyData(){
 
         map = Utils.copyMap(gsm.world.build(gsm.difficulty));
-        myData = new myGameData(map, gsm.monsters, gsm.player);
+        myData = new myGameData(map);
 
         switch(gsm.difficulty){
 
@@ -145,8 +145,8 @@ public class PlayState extends GameState {
 
     private void takeRice(){
 
-        int coords[] = Utils.getSquare(myData.player.getCenterX(), myData.player.getCenterY());
-        if(gsm.collider.takeRice(myData.player.getCenterX(), myData.player.getCenterY())){
+        int coords[] = Utils.getSquare(gsm.player.getCenterX(), gsm.player.getCenterY());
+        if(gsm.collider.takeRice(gsm.player.getCenterX(), gsm.player.getCenterY())){
             myData.nbRiz -= 1;
             map[coords[0]][coords[1]] = WORLDITEM.ROAD;
         }
