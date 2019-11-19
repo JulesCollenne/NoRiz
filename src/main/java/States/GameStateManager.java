@@ -71,8 +71,8 @@ public class GameStateManager {
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
         monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension + (2*Utils.caseDimension), 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
         monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat( 1), "Hamri", collider);                               //Monstre RandomStrat
-        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension+ (2*Utils.caseDimension), 1, new FollowStrat(), "Mr POC", collider);                               //Monstre FollowStrat
-        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new BonusStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
+        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat(1), "Mr POC", collider);                               //Monstre FollowStrat
+        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat(1), "Di Molfetta", collider);                                //Monstre BonusStrat
     }
 
     /**
