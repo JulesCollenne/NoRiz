@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import Utils.myGameData;
 
 public class GameStateManager {
 
@@ -22,8 +23,6 @@ public class GameStateManager {
     private final int PAUSE  = 2;
     private final int GAMEOVER = 3;
     private final int EDITOR = 4;
-
-    boolean isGameOver = false;
 
     public int currentState = START;
     public GameState gameStates[] = new GameState[5];
@@ -48,13 +47,13 @@ public class GameStateManager {
 
         initScene();
 
-        world.build(difficulty, theStage);
+        world.build(difficulty);
         createMonsters();
 
         gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
         gameStates[PLAY] = new PlayState(this, ui, theStage);
-        gameStates[PAUSE] = new PauseState(this);
+        gameStates[PAUSE] = new PauseState(this, null);
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
 
@@ -84,13 +83,24 @@ public class GameStateManager {
         gameStates[currentState].animationTimer.stop();
         currentState = newState;
         if(currentState == PLAY) {
-            world.build(difficulty, theStage);
+            world.build(difficulty);
         }
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         stateChanged = true;
         gameStates[currentState].animationTimer.start();
+    }
+
+    public void reprendreJeu(){
+
+        gameStates[currentState].animationTimer.stop();
+        currentState = PLAY;
+        theStage.setScene(gameStates[currentState].theScene);
+        theStage.show();
+        stateChanged = true;
+        gameStates[currentState].animationTimer.start();
+
     }
 
     public void nextStep() {

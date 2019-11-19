@@ -4,6 +4,7 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
 
+import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.scene.text.FontWeight;
 public class EditorState extends GameState {
 
     private WORLDITEM posingBlock = WALL;
+    private WORLDITEM[][] buildingMap;
 
     EditorState(GameStateManager gsm) {
         super(gsm);
@@ -108,18 +110,18 @@ public class EditorState extends GameState {
 
         int coords[] = Utils.getSquare(x,y);
 
-        gsm.world.map[coords[0]][coords[1]] = posingBlock;
+        buildingMap[coords[0]][coords[1]] = posingBlock;
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        gsm.world.renderMap(gc);
+        worldRender.renderMap(gc, buildingMap);
     }
 
     @Override
     public void init() {
         posingBlock = WALL;
-        gsm.world.makeCleanMap();
+        buildingMap = gsm.world.makeCleanMap();
     }
 
     @Override
@@ -133,10 +135,10 @@ public class EditorState extends GameState {
     }
 
     public void saveMap(){
-        gsm.world.saveMap();
+        gsm.world.saveMap(buildingMap);
     }
 
     public void loadMap(){
-        gsm.world.loadMap();
+        buildingMap = gsm.world.loadMap();
     }
 }

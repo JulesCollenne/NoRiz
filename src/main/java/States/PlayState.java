@@ -4,7 +4,10 @@ import Entity.Entity;
 import Entity.Monster;
 import UI.inGameUserInterface;
 import Utils.Utils;
+import Utils.myGameData;
+import Utils.WORLDITEM;
 import WorldBuilder.matrixWorld;
+import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,21 +24,28 @@ import javafx.stage.Stage;
 public class PlayState extends GameState {
 
     private boolean firstRender;
-    inGameUserInterface ui;
+    private inGameUserInterface ui;
 
-    // Info UI
-    private int maxLife = 5;
-    private int nbLife = maxLife;
-    private int currentNbRice = 0;
-    private static long roundTimer = Utils.roundDuration; // en seconde
-    private static long startTimer = 0;
-    // Info UI
+    private myGameData myData;
+    private long startTimer;
 
-    Stage theStage;
+    public WORLDITEM[][] map;
+
+    private Stage theStage;
 
     PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage) {
         super(gsm);
         firstRender = true;
+        this.ui = ui;
+        init();
+        createScene();
+        this.theStage = theStage;
+    }
+
+    PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage, myGameData myData) {
+        super(gsm);
+        firstRender = true;
+        this.myData = myData;
         this.ui = ui;
         init();
         createScene();
@@ -72,45 +82,45 @@ public class PlayState extends GameState {
 
             }
         };
-        initUIInfo();
-    }
-
-    private void initUIInfo(){
-
-        startTimer = 0;
-
-        switch(gsm.difficulty){
-
-            case EASY:
-                currentNbRice = matrixWorld.nbRiceWorld1;
-                break;
-
-            case MEDIUM:
-                currentNbRice = matrixWorld.nbRiceWorld2;
-                break;
-
-            case HARD:
-                currentNbRice = matrixWorld.nbRiceWorld3;
-                break;
-
-            default:
-                currentNbRice = matrixWorld.nbRiceWorld1;
-                break;
-
-        }
-
     }
 
     public void init(){
         firstRender = true;
-        gsm.isGameOver = false;
         gsm.player.init();
         for (Monster monster :
                 gsm.monsters) {
             monster.init();
         }
-        initUIInfo();
-        gsm.world.build(gsm.difficulty, theStage);
+        initMyData();
+    }
+
+    public void initMyData(){
+
+        map = Utils.copyMap(gsm.world.build(gsm.difficulty));
+        myData = new myGameData(map, gsm.monsters, gsm.player);
+
+        switch(gsm.difficulty){
+
+            case EASY:
+                myData.nbRiz = matrixWorld.nbRiceWorld1;
+                break;
+
+            case MEDIUM:
+                myData.nbRiz = matrixWorld.nbRiceWorld2;
+                break;
+
+            case HARD:
+                myData.nbRiz = matrixWorld.nbRiceWorld3;
+                break;
+
+            default:
+                myData.nbRiz = matrixWorld.nbRiceWorld1;
+                break;
+
+        }
+
+        startTimer = 0;
+
     }
 
     @Override
@@ -120,7 +130,7 @@ public class PlayState extends GameState {
 
     public void nextStep() {
 
-        if(gsm.isGameOver)
+        if(myData.nbLife <= 0)
             return;
 
         searchEntityCollisions();
@@ -135,10 +145,12 @@ public class PlayState extends GameState {
 
     private void takeRice(){
 
-        if(gsm.collider.takeRice(gsm.player.getCenterX(), gsm.player.getCenterY())){
-            currentNbRice -= 1;
+        int coords[] = Utils.getSquare(myData.player.getCenterX(), myData.player.getCenterY());
+        if(gsm.collider.takeRice(myData.player.getCenterX(), myData.player.getCenterY())){
+            myData.nbRiz -= 1;
+            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
         }
-        if(currentNbRice == 0){
+        if(myData.nbRiz == 0){
             Text title = new Text();
             title.setX((20/100.0)*Utils.canvasSize);
             title.setY((20/100.0)*Utils.canvasSize);
@@ -176,8 +188,8 @@ public class PlayState extends GameState {
         for (Entity monster : gsm.monsters) {
             if(gsm.collider.isThereEntityCollision(gsm.player, monster)){
                 gsm.player.gotHit();
-                nbLife--;
-                if(nbLife == 0)
+                myData.nbLife--;
+                if(myData.nbLife == 0)
                     gsm.player.die();
             }
         }
@@ -188,7 +200,7 @@ public class PlayState extends GameState {
         if(e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ESCAPE){
             gsm.changeState(2);
         }
-        if(!gsm.isGameOver)
+        if(myData.nbLife > 0)
             gsm.player.input(e);
         else{
             gameOverInputs(e);
@@ -206,7 +218,7 @@ public class PlayState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
 
-        if(gsm.isGameOver){
+        if(myData.nbLife <= 0){
             gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2.0, Utils.canvasSize/2.0);
             return;
         }
@@ -217,7 +229,7 @@ public class PlayState extends GameState {
             firstRender = false;
         }
 
-        gsm.world.renderMap(gc);
+        worldRender.renderMap(gc, map);
 
         gsm.player.render(gc);
 
@@ -228,10 +240,10 @@ public class PlayState extends GameState {
 
 
         long timer = getTimer();
-        if(timer > roundTimer) {
+        if(timer > myData.leftTime) {
             gsm.changeState(3);
         }
-        ui.render(gc, nbLife, currentNbRice, getTimer());
+        ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
     }
 
@@ -241,7 +253,7 @@ public class PlayState extends GameState {
         long currentTimer;
         currentTimer = System.nanoTime();
         timer = Math.abs((currentTimer/1000000000) - (startTimer/1000000000));
-        return roundTimer - timer;
+        return myData.leftTime - timer;
     }
 
 

@@ -86,5 +86,16 @@ public class Utils {
         }
         return 0;
     }
+
+    public static WORLDITEM[][] copyMap (WORLDITEM[][] map){
+
+        WORLDITEM[][] tempMap = new WORLDITEM[map.length][map[0].length];
+
+        for(int i = 0; i<map.length; i++)
+            for(int j = 0; j<map[0].length; j++)
+                tempMap[i][j] = map[i][j];
+
+        return tempMap;
+    }
 }
 

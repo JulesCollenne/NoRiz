@@ -26,16 +26,15 @@ import static Utils.Utils.mapSize;
  */
 public class World {
 
-    public WORLDITEM map[][];
-
     private int l;
     private int h;
 
     DIF difficulty;
     Stage theStage;
+    public WORLDITEM[][] map;
 
-    private Image road = new Image("textures/roadTextureLevel1.png");
-    private Image wall = new Image("textures/wallTextureLevel1.png");
+    public static Image road = new Image("textures/roadTextureLevel1.png");
+    public static Image wall = new Image("textures/wallTextureLevel1.png");
 
     private Image backGroundImage = new Image("textures/roadTextureLevel1.png");
 
@@ -48,112 +47,66 @@ public class World {
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * Retourne la matrice crée
      */
-    public void build(DIF difficultyChosen, Stage theStage){
+    public WORLDITEM[][] build(DIF difficultyChosen){
 
         difficulty = difficultyChosen;
-        this.theStage = theStage;
 
         switch(difficulty){
 
             case EASY:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = matrixWorld.world1;
+                map = copyMap(matrixWorld.world1);
                 break;
 
             case MEDIUM:
                 road = new Image("textures/roadTextureLevel2.jpg");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = matrixWorld.world2;
+                map = copyMap(matrixWorld.world2);
                 break;
 
             case HARD:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = matrixWorld.world3;
+                map = copyMap(matrixWorld.world3);
                 break;
 
             default:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = matrixWorld.world1;
+                map = copyMap(matrixWorld.world1);
                 break;
         }
+
+        return map;
     }
 
-    /*
-     *   Entrée: une matrice représentant la carte
-     *   Dessine la carte dans la fenêtre de jeu
-     *        */
-    public void renderMap(GraphicsContext gc) {
-        //gc.drawImage(backGroundImage,0,0,Utils.canvasSize, Utils.canvasSize);
-        for(int posX = 0; posX< map.length; posX++) {
-            for (int posY = 0; posY < map[posX].length; posY++) {
-                renderItem(posX,posY, map[posX][posY], gc);
-            }
-        }
-    }
-
-    /*
-     *   Entrée: posX et posY: position de l'item // l'item a dessiner
-     *   Dessine l'item a la position demandée
-     */
-    public void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
-
-        switch(item){
-
-            case ROAD:
-                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                break;
-
-            case WALL:
-                gc.drawImage(wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                break;
-
-            case RICE:
-                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.setFill(Color.YELLOW);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension/2.,caseDimension/2.);
-                break;
-
-            case BONUS:
-                gc.drawImage(road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.setFill(Color.GREEN);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
-                break;
-
-            case UI:
-                gc.setFill(Color.DARKGRAY);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
-                break;
-
-        }
-    }
-
-    public void makeCleanMap(){
-        map = new WORLDITEM[mapSize][mapSize];
+    public WORLDITEM[][] makeCleanMap(){
+        WORLDITEM[][] tempMap = new WORLDITEM[mapSize][mapSize];
 
         for(int i=0; i< mapSize; i++){
             for(int j=0; j < mapSize; j++){
-                map[i][j] = RICE;
+                tempMap[i][j] = RICE;
             }
         }
 
         for(int i = 0; i<mapSize; i++){
-            map[i][2] = WALL;
-            map[i][mapSize-1] = WALL;
-            map[0][i] = WORLDITEM.WALL;
-            map[mapSize-1][i] = WALL;
+            tempMap[i][2] = WALL;
+            tempMap[i][mapSize-1] = WALL;
+            tempMap[0][i] = WORLDITEM.WALL;
+            tempMap[mapSize-1][i] = WALL;
         }
 
         for(int i=0; i <mapSize; i++) {
             for (int j = 0; j < 2; j++) {
-                map[i][j] = UI;
+                tempMap[i][j] = UI;
             }
         }
+
+        return tempMap;
     }
 
-    public void saveMap(){
+    public void saveMap(WORLDITEM[][] tempMap){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Charger un niveau");
         fileChooser.getExtensionFilters().addAll(
@@ -163,7 +116,7 @@ public class World {
             try {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(selectedFile)));
 
-                writer.write(getMapString());
+                writer.write(getMapString(tempMap));
                 writer.close();
             }
             catch (Exception e) {
@@ -172,18 +125,19 @@ public class World {
         }
     }
 
-    private String getMapString(){
+    private String getMapString(WORLDITEM[][] tempMap){
         StringBuilder mapString = new StringBuilder();
-        for (int i = 0; i < map.length; i++){
-            for (int j = 0; j < map[i].length; j++){
-                mapString.append(worldItemToInt(map[i][j]));
+        for (int i = 0; i < tempMap.length; i++){
+            for (int j = 0; j < tempMap[i].length; j++){
+                mapString.append(worldItemToInt(tempMap[i][j]));
                 mapString.append('\n');
             }
         }
         return mapString.toString();
     }
 
-    public void loadMap() {
+    public WORLDITEM[][] loadMap() {
+        WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir un niveau");
         fileChooser.getExtensionFilters().addAll(
@@ -195,13 +149,14 @@ public class World {
                 scanner = new Scanner(selectedFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                return;
+                return null;
             }
-            for (int i = 0; i < map.length; i++){
-                for (int j = 0; j < map[i].length; j++){ //
-                    map[i][j] = intToWorldItem(scanner.nextInt());
+            for (int i = 0; i < Utils.mapSize; i++){
+                for (int j = 0; j < Utils.mapSize; j++){ //
+                    tempMap[i][j] = intToWorldItem(scanner.nextInt());
                 }
             }
         }
+        return tempMap;
     }
 }

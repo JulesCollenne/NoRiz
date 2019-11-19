@@ -1,5 +1,6 @@
 package States;
 
+import Utils.myGameData;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -37,6 +38,9 @@ class ModeButton extends Button {
                     break;
                 case "Rejouer":
                     gsm.changeState(1);
+                    break;
+                case "Reprendre":
+                    gsm.reprendreJeu();
                     break;
                 case "Menu":
                     gsm.difficulty = EASY;
