@@ -35,6 +35,8 @@ public class PlayState extends GameState {
     private Player player;
     private Monster monsters[];
 
+    long lastTime = System.nanoTime();
+
     PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
         firstRender = true;
@@ -62,18 +64,7 @@ public class PlayState extends GameState {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
-        animationTimer = new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-                // game logic
-                nextStep();
-
-                // render
-                render(gc);
-
-            }
-        };
+        createAnimTimer(gc);
     }
 
     public void init(){
@@ -117,9 +108,25 @@ public class PlayState extends GameState {
 
     }
 
-    @Override
-    public void createAnimTimer() {
 
+    public void createAnimTimer(GraphicsContext gc) {
+        animationTimer = new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+
+                long elapsedNanos = currentNanoTime - lastTime ;
+                System.out.println("FPS : " + 1000000000. / elapsedNanos);
+
+                // game logic
+                nextStep();
+
+                // render
+                render(gc);
+
+                lastTime = currentNanoTime;
+            }
+        };
     }
 
     public void nextStep() {

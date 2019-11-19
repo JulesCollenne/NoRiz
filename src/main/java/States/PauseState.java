@@ -114,7 +114,6 @@ public class PauseState extends GameState {
 
     }
 
-    @Override
     public void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override

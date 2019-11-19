@@ -25,7 +25,5 @@ public abstract class GameState {
     public abstract void render(GraphicsContext gc);
 
     public abstract void init();
-
-    public abstract void createAnimTimer();
 }
 

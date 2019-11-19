@@ -61,7 +61,6 @@ public class GameOverState extends GameState {
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 
-    @Override
     public void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
