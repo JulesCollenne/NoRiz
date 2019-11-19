@@ -5,6 +5,8 @@ import Entity.Monster;
 import Entity.Player;
 import Sounds.SoundManager;
 import Strategy.AngleStrat;
+import Strategy.BonusStrat;
+import Strategy.FollowStrat;
 import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import WorldBuilder.World;
@@ -33,11 +35,11 @@ public class GameStateManager {
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
-        createMonsters();
-
         initScene();
 
         world.build(difficulty);
+
+        createMonsters();
 
         gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
@@ -84,10 +86,10 @@ public class GameStateManager {
 
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
-        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Hamri", collider);                               //Monstre RandomStrat
-        monsters[2] = new Monster(10 * caseDimension, caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Mr POC", collider);                               //Monstre FollowStrat
-        monsters[3] = new Monster(10 * caseDimension, 10 * caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "AngleStrat", collider);                       //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "RandomStrat", collider);                           //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "BonusStrat", collider);                        //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseDimension, caseDimension + (2*caseDimension), 1, new FollowStrat(), "", collider);                                //Monstre BonusStrat
     }
 
 }
