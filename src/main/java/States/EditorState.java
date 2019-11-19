@@ -137,7 +137,6 @@ public class EditorState extends GameState {
         buildingMap = gsm.world.makeCleanMap();
     }
 
-    @Override
     public void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
