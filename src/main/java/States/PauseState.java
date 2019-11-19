@@ -61,7 +61,6 @@ public class PauseState extends GameState {
         commandeP.relocate(Utils.canvasSize/4.0, Utils.canvasSize/5.0);
         commandeP.setStyle("-fx-background-color: rgba(95, 158, 160, 0.1);");
 
-
         Text title = new Text("Pause");
         title.setX(Utils.canvasSize/2.0- 75);
         title.setY(90);
@@ -74,29 +73,24 @@ public class PauseState extends GameState {
         commande.setFont(new Font(20));
         commandeP.getChildren().addAll(commande);
 
-        ModeButton reprendre = new ModeButton(new Image("Buttons/sign_rejouer.png"), "Reprendre");
+        ModeButton reprendre = new ModeButton(new Image("Buttons/sign_reprendre.png"), "Reprendre");
         reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
         reprendre.setLayoutY((2*Utils.canvasSize)/3.0);
         reprendre.handler(gsm);
-
-        ModeButton menu = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
-        menu.setLayoutX( ((((2*Utils.canvasSize)/3.0) + (Utils.canvasSize/3.0))/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
-        menu.setLayoutY((2*Utils.canvasSize)/3.0);
-        menu.handler(gsm);
 
         /**
          * TODO: Faire le skin des boutons restant et corriger le bouton retour au jeu en cours
          */
 
-        ModeButton retour = new ModeButton(new Image("Buttons/sign_facile.png"), "Rejouer");
+        ModeButton retour = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
         retour.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
         retour.setLayoutY((2*Utils.canvasSize)/3.0);
+        retour.handler(gsm);
 
-        ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
-        noriz.setX((((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2);
-        noriz.setY(Utils.canvasSize/3.0);
+        root.getChildren().addAll(canvas, title, reprendre, retour, commandeP);
 
-        root.getChildren().addAll(canvas, title, reprendre, menu, retour, noriz, commandeP);
+
+
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         worldRender.renderMap(gc, gsm.world.map);
@@ -116,12 +110,8 @@ public class PauseState extends GameState {
         gc.fillRect(Utils.canvasSize/4.0, Utils.canvasSize/5.0, Utils.canvasSize/2.0, Utils.canvasSize/3.0);
 
 
-
-
         theScene.setOnKeyPressed(
                 this::input);
-
-
 
     }
 
