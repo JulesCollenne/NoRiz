@@ -1,7 +1,5 @@
 package Sounds;
 
-import States.GameState;
-import States.GameStateManager;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -14,9 +12,16 @@ import java.io.File;
 public class SoundManager {
 
     public MediaPlayer backGround;
+    public MediaPlayer hurt;
 
     public SoundManager(){
+        loadSounds();
+    }
 
+    /**
+     * Load the sounds we'll be using
+     */
+    private void loadSounds(){
         try {
             String musicFile = "src/main/resources/Sounds/music.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
@@ -25,9 +30,13 @@ public class SoundManager {
             e.printStackTrace();
             System.out.println("Ce son n'existe pas !");
         }
-
     }
 
+    /**
+     * Deprecated function. Should not be used anymore except if there's bug about it
+     * @param scene currentScene
+     * @param play do we play or stop the song
+     */
     public void backGroundMusic(Scene scene, boolean play){
         if(play) {
             backGround.setAutoPlay(true);

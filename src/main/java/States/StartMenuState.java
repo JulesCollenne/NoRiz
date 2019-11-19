@@ -84,7 +84,7 @@ public class StartMenuState extends GameState{
     }
 
     @Override
-    public void input(KeyEvent e) {
+    public void keyInput(KeyEvent e) {
 
     }
 

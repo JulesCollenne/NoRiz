@@ -3,13 +3,10 @@ package States;
 import Entity.Entity;
 import Entity.Monster;
 import Entity.Player;
-import Sounds.SoundManager;
-import Strategy.AngleStrat;
-import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.Utils;
-import Utils.myGameData;
 import Utils.WORLDITEM;
+import Utils.myGameData;
 import WorldBuilder.matrixWorld;
 import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
@@ -17,12 +14,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
 import static Utils.DIRECTION.*;
 
 public class PlayState extends GameState {
@@ -55,7 +52,7 @@ public class PlayState extends GameState {
 
         root.getChildren().addAll(canvas);
 
-        theScene.setOnKeyPressed(this::input);
+        theScene.setOnKeyPressed(this::keyInput);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -205,7 +202,7 @@ public class PlayState extends GameState {
     }
 
     private void playerDie(){
-        gsm.changeState(3);
+        gameOver();
     }
 
     private void resetPosition(){
@@ -218,22 +215,7 @@ public class PlayState extends GameState {
     }
 
     @Override
-    public void input(KeyEvent e) {
-        if(e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ESCAPE){
-            pause();
-        }
-        if(myData.nbLife > 0)
-            playingInputs(e);
-        else{
-            gameOverInputs(e);
-        }
-    }
-
-    /**
-     * Gere les entrées
-     * @param e the pressed keys
-     */
-    private void playingInputs(KeyEvent e){
+    public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
             case Q:
                 player.setNextFacing(LEFT);
@@ -247,16 +229,14 @@ public class PlayState extends GameState {
             case Z:
                 player.setNextFacing(UP);
                 break;
+            case SPACE:
+                pause();
+                break;
+            case ESCAPE:
+                pause();
+                break;
             case A:
                 System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
-                break;
-        }
-    }
-
-    private void gameOverInputs(KeyEvent e){
-        switch (e.getCode()) {
-            case ENTER:
-                retourMenu();
                 break;
         }
     }
@@ -286,7 +266,7 @@ public class PlayState extends GameState {
         long timer = getTimer();
 
         if(timer <= 0) {
-            gsm.changeState(3);
+            gameOver();
         }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
@@ -307,6 +287,11 @@ public class PlayState extends GameState {
 
     private void pause(){
         gsm.changeState(2);
+    }
+
+    private void gameOver(){
+        gsm.changeState(3);
+        gsm.sm.backGround.stop();
     }
 
 }

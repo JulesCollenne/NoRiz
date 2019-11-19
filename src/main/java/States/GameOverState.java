@@ -22,7 +22,7 @@ public class GameOverState extends GameState {
     }
 
     @Override
-    public void input(KeyEvent e) {
+    public void keyInput(KeyEvent e) {
 
     }
 

@@ -52,6 +52,9 @@ public class Monster implements  Entity{
         init();
     }
 
+    /**
+     * Initialize the variables
+     */
     public void init(){
         x = spawnX;
         y = spawnY;
@@ -59,13 +62,20 @@ public class Monster implements  Entity{
         lastAnim = 0;
     }
 
+    /**
+     * Draw the monster on the screen
+     * @param gc the graphic context
+     */
     public void render(GraphicsContext gc)
     {
         //gc.drawImage( image, positionX, positionY );
-        gc.setFill(Paint.valueOf("#FF0000"));
+        gc.setFill(Paint.valueOf("#FF2244"));
         gc.fillRect(x,y,getSize(),getSize());
     }
 
+    /**
+     *
+     */
     public void setImages(){
 
     }
@@ -206,7 +216,7 @@ public class Monster implements  Entity{
         return y + getSize()/2;
     }
 
-    public int[] getCollideCoords(){
+    private int[] getCollideCoords(){
         int[] coords = new int[4];
 
         coords[0] = getCollideX1();

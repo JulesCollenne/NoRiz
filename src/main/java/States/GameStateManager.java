@@ -16,22 +16,22 @@ import static Utils.Utils.*;
 
 public class GameStateManager {
 
-    public int currentState = START;
-    public GameState gameStates[] = new GameState[5];
+    private int currentState = START;
+    private GameState gameStates[] = new GameState[5];
 
     private Stage theStage;
 
-    public World world = new World(mapSize,mapSize);
+    World world = new World();
 
-    public Collider collider = new Collider(world);
+    Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
-    public Monster[] monsters = new Monster[4];
+    Monster[] monsters = new Monster[4];
 
     SoundManager sm = new SoundManager();
 
     public enum DIF {EASY, MEDIUM, HARD}
 
-    public DIF difficulty = DIF.EASY;
+    DIF difficulty = DIF.EASY;
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
@@ -59,7 +59,7 @@ public class GameStateManager {
      * Change the currentState
      * @param newState the new state
      */
-    public void changeState(int newState){
+    void changeState(int newState){
         gameStates[currentState].animationTimer.stop();
         currentState = newState;
         if(currentState == PLAY) {
@@ -71,7 +71,7 @@ public class GameStateManager {
         gameStates[currentState].animationTimer.start();
     }
 
-    public void reprendreJeu(){
+    void reprendreJeu(){
         gameStates[currentState].animationTimer.stop();
         currentState = PLAY;
         theStage.setScene(gameStates[currentState].theScene);

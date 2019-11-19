@@ -74,11 +74,6 @@ public class EditorState extends GameState {
     }
 
     @Override
-    public void input(KeyEvent e) {
-
-    }
-
-
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
             case A:
@@ -105,17 +100,26 @@ public class EditorState extends GameState {
         }
     }
 
+    /**
+     *
+     * @param posingBlock set this block as the current Posing block
+     */
     private void setPosingBlock(WORLDITEM posingBlock) {
         this.posingBlock = posingBlock;
     }
 
-    public void mouseInput(MouseEvent e){
+    private void mouseInput(MouseEvent e){
         int x = (int) e.getX();
         int y = (int) e.getY();
 
         int coords[] = Utils.getSquare(x,y);
 
-        buildingMap[coords[0]][coords[1]] = posingBlock;
+        if(isCorrect(coords))
+            buildingMap[coords[0]][coords[1]] = posingBlock;
+    }
+
+    private boolean isCorrect(int[] coords) {
+        return coords[1] > 1;
     }
 
     @Override
@@ -143,11 +147,17 @@ public class EditorState extends GameState {
         };
     }
 
-    public void saveMap(){
+    /**
+     * Save the current map in a file
+     */
+    private void saveMap(){
         gsm.world.saveMap(buildingMap);
     }
 
-    public void loadMap(){
+    /**
+     * Load a map from a file to the current map
+     */
+    private void loadMap(){
         buildingMap = gsm.world.loadMap();
     }
 }
