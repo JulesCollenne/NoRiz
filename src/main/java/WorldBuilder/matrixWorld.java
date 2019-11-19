@@ -6,7 +6,7 @@ import static Utils.WORLDITEM.*;
 
 public class matrixWorld {
 
-    public final static int nbRiceWorld1 = 271;
+    public final static int nbRiceWorld1 = 270;
     static final WORLDITEM[][] world1 = {
             {UI, UI, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
             {UI, UI, WALL, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, RICE, WALL},
