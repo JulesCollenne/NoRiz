@@ -2,6 +2,7 @@ package States;
 
 import Entity.Entity;
 import Entity.Monster;
+import Sounds.SoundManager;
 import UI.inGameUserInterface;
 import Utils.Utils;
 import Utils.myGameData;
@@ -33,21 +34,12 @@ public class PlayState extends GameState {
 
     private Stage theStage;
 
+    SoundManager sm = new SoundManager();
+
     PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage) {
         super(gsm);
         firstRender = true;
         this.ui = ui;
-        init();
-        createScene();
-        this.theStage = theStage;
-    }
-
-    PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage, myGameData myData) {
-        super(gsm);
-        firstRender = true;
-        this.myData = myData;
-        this.ui = ui;
-        init();
         createScene();
         this.theStage = theStage;
     }
@@ -55,6 +47,7 @@ public class PlayState extends GameState {
     private void createScene() {
         Group root = new Group();
         theScene = new Scene( root );
+        System.out.println(theScene);
         root.setStyle("-fx-background-color: darkslategrey;");
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
@@ -92,6 +85,8 @@ public class PlayState extends GameState {
             monster.init();
         }
         initMyData();
+
+        sm.backGroundMusic(theScene, true);
     }
 
     public void initMyData(){
@@ -146,10 +141,12 @@ public class PlayState extends GameState {
     private void takeRice(){
 
         int coords[] = Utils.getSquare(gsm.player.getCenterX(), gsm.player.getCenterY());
-        if(gsm.collider.takeRice(gsm.player.getCenterX(), gsm.player.getCenterY())){
+
+        if(map[coords[0]][coords[1]] == WORLDITEM.RICE){
             myData.nbRiz -= 1;
             map[coords[0]][coords[1]] = WORLDITEM.ROAD;
         }
+
         if(myData.nbRiz == 0){
             Text title = new Text();
             title.setX((20/100.0)*Utils.canvasSize);
@@ -186,7 +183,7 @@ public class PlayState extends GameState {
 
     private void searchEntityCollisions() {
         for (Entity monster : gsm.monsters) {
-            if(gsm.collider.isThereEntityCollision(gsm.player, monster)){
+            if(gsm.collider.isTouching(gsm.player, monster)){
                 resetPosition();
                 myData.nbLife--;
                 if(myData.nbLife == 0)

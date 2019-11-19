@@ -14,19 +14,15 @@ import Utils.Utils;
 
 public class RandomStrat implements Strategy {
 
-    public RandomStrat(int nbMonster) {
-
-    }
-
     public DIRECTION nextWay(Monster monster) {
-
-        int x = monster.getX();
-        int y = monster.getY();
 
         int rand;
         boolean impossible = true;
         DIRECTION currentWay = monster.getFacing();
         DIRECTION nextWay = currentWay;
+
+        int x = monster.getX();
+        int y = monster.getY();
 
         while (impossible) {
             rand = (int) (Math.random() * 4);

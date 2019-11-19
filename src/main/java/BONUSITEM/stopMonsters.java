@@ -3,7 +3,7 @@ package BONUSITEM;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
-public class stopMonsters implements ItemBonus {
+public class stopMonsters implements BonusItem {
 
     int x, y;
     TYPEBONUS type =  TYPEBONUS.BONUS;

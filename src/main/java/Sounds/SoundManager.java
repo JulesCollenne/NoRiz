@@ -16,7 +16,7 @@ public class SoundManager {
     MediaPlayer backGround;
 
     public SoundManager(){
-        /*
+
         try {
             String musicFile = "src/main/resources/Sounds/music.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
@@ -25,13 +25,18 @@ public class SoundManager {
             e.printStackTrace();
             System.out.println("Ce son n'existe pas !");
         }
-        */
+
     }
 
-    public void backGroundMusic(Scene scene){
+    public void backGroundMusic(Scene scene, boolean play){
+        if(play) {
             backGround.setAutoPlay(true);
             MediaView mediaView = new MediaView(backGround);
-            ((Group)scene.getRoot()).getChildren().add(mediaView);
+            ((Group) scene.getRoot()).getChildren().add(mediaView);
+        }
+        else{
+            backGround.stop();
+        }
     }
 
     public void hurtSound(){

@@ -128,7 +128,7 @@ public class Monster implements  Entity{
 
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-        if(collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -162,7 +162,7 @@ public class Monster implements  Entity{
 
         int[] coords = getCollideCoords();
 
-        if(collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
+        if(!collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }
@@ -206,7 +206,7 @@ public class Monster implements  Entity{
         return y + getSize()/2;
     }
 
-    private int[] getCollideCoords(){
+    public int[] getCollideCoords(){
         int[] coords = new int[4];
 
         coords[0] = getCollideX1();

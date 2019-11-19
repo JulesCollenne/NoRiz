@@ -92,8 +92,7 @@ public class Player implements Entity {
      */
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-
-        if(gsm.collider.isImpossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -153,7 +152,7 @@ public class Player implements Entity {
 
         int[] coords = getCollideCoords();
 
-        if(gsm.collider.isImpossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
+        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }

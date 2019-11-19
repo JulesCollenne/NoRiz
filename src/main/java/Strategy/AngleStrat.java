@@ -37,13 +37,13 @@ public class AngleStrat implements Strategy {
 
     public DIRECTION nextWay(Monster monster) {
 
-        int x2 = player.getX() - monster.getX();
-        int y2 = player.getY() - monster.getY();
+        int vectorX = player.getX() - monster.getX();
+        int vectorY = player.getY() - monster.getY();
 
         int x = monster.getX();
         int y = monster.getY();
 
-        double angle = Math.atan2(y2,x2);
+        double angle = Math.atan2(vectorY,vectorX);
         double cos,sin;
         cos = Math.cos(angle);
         sin = Math.sin(angle);
