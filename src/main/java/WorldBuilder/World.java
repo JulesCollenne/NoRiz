@@ -133,13 +133,6 @@ public class World {
     public void makeCleanMap(){
         map = new WORLDITEM[mapSize][mapSize];
 
-        for(int i=0; i <2; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                map[i][j] = UI;
-                map[mapSize-i-1][j] = UI;
-            }
-        }
-
         for(int i=0; i< mapSize; i++){
             for(int j=0; j < mapSize; j++){
                 map[i][j] = RICE;
@@ -147,10 +140,16 @@ public class World {
         }
 
         for(int i = 0; i<mapSize; i++){
-            map[i][0] = WALL;
+            map[i][2] = WALL;
             map[i][mapSize-1] = WALL;
             map[0][i] = WORLDITEM.WALL;
             map[mapSize-1][i] = WALL;
+        }
+
+        for(int i=0; i <mapSize; i++) {
+            for (int j = 0; j < 2; j++) {
+                map[i][j] = UI;
+            }
         }
     }
 
