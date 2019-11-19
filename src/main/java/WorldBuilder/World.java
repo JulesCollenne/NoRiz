@@ -21,38 +21,25 @@ import static Utils.Utils.mapSize;
  * Cette classe permet de créer les niveaux
  * Les niveaux sont des matrices d'entiers dont les valeurs signifie la présence de vide (0), murs (1) ou consommables (2)
  *
- * NOTE TODO : Tu pourras rajouter un argument, ou d'autres fonctions pour créer des niveaux différents. Soit tu fais création de niveau
  * aléatoire, soit des niveau sur mesure. Comme tu le sens
  */
 public class World {
 
-    private int l;
-    private int h;
-
-    DIF difficulty;
-    Stage theStage;
+    private Stage theStage;
     public WORLDITEM[][] map;
 
-    public static Image road = new Image("textures/roadTextureLevel1.png");
-    public static Image wall = new Image("textures/wallTextureLevel1.png");
+    static Image road = new Image("textures/roadTextureLevel1.png");
+    static Image wall = new Image("textures/wallTextureLevel1.png");
 
     private Image backGroundImage = new Image("textures/roadTextureLevel1.png");
 
-    public World(int l, int h){
-        this.l = l;
-        this.h = h;
-    }
-
-    /*
+    /**
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
-     * Retourne la matrice crée
+     * @param chosenDifficulty la difficultée du niveau
+     * @return la matrice crée
      */
-    public WORLDITEM[][] build(DIF difficultyChosen){
-
-        difficulty = difficultyChosen;
-
-        switch(difficulty){
-
+    public WORLDITEM[][] build(DIF chosenDifficulty){
+        switch(chosenDifficulty){
             case EASY:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
@@ -77,10 +64,13 @@ public class World {
                 map = copyMap(matrixWorld.world1);
                 break;
         }
-
         return map;
     }
 
+    /**
+     *
+     * @return une map sans les murs sauf les contours et l'UI
+     */
     public WORLDITEM[][] makeCleanMap(){
         WORLDITEM[][] tempMap = new WORLDITEM[mapSize][mapSize];
 
@@ -144,7 +134,7 @@ public class World {
                 new FileChooser.ExtensionFilter("Map Files", "*.map"));
         File selectedFile = fileChooser.showOpenDialog(theStage);
         if (selectedFile != null) {
-            Scanner scanner = null;
+            Scanner scanner;
             try {
                 scanner = new Scanner(selectedFile);
             } catch (FileNotFoundException e) {

@@ -19,7 +19,7 @@ public class GameStateManager {
 
     private Stage theStage;
 
-    World world = new World(mapSize,mapSize);
+    World world = new World();
 
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);

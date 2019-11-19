@@ -1,6 +1,5 @@
 package Utils;
 
-import static Utils.DIRECTION.DOWN;
 import static Utils.WORLDITEM.*;
 
 public class Utils {
@@ -15,10 +14,6 @@ public class Utils {
     public static final int PAUSE  = 2;
     public static final int GAMEOVER = 3;
     public static final int EDITOR = 4;
-
-
-    public enum STATE {START, PLAY, PAUSE}
-
 
     public static int worldItemToInt(WORLDITEM worlditem){
         switch(worlditem){
@@ -93,14 +88,15 @@ public class Utils {
         return 0;
     }
 
+    /**
+     *
+     * @param map the map we want to copy
+     * @return the copy of the map
+     */
     public static WORLDITEM[][] copyMap (WORLDITEM[][] map){
-
         WORLDITEM[][] tempMap = new WORLDITEM[map.length][map[0].length];
-
         for(int i = 0; i<map.length; i++)
-            for(int j = 0; j<map[0].length; j++)
-                tempMap[i][j] = map[i][j];
-
+            System.arraycopy(map[i], 0, tempMap[i], 0, map[0].length);
         return tempMap;
     }
 }

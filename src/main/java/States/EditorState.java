@@ -114,7 +114,12 @@ public class EditorState extends GameState {
 
         int coords[] = Utils.getSquare(x,y);
 
-        buildingMap[coords[0]][coords[1]] = posingBlock;
+        if(isCorrect(coords))
+            buildingMap[coords[0]][coords[1]] = posingBlock;
+    }
+
+    private boolean isCorrect(int[] coords) {
+        return coords[1] > 1;
     }
 
     @Override
