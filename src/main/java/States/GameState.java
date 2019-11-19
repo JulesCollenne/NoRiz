@@ -16,7 +16,11 @@ public abstract class GameState {
 
     public abstract void nextStep();
 
-    public abstract void input(KeyEvent e);
+    /**
+     * Gere les entrées au clavier lorsqu'une touche est appuyée
+     * @param e the pressed keys
+     */
+    public abstract void keyInput(KeyEvent e);
 
     public abstract void render(GraphicsContext gc);
 

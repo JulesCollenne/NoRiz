@@ -34,7 +34,7 @@ public class PauseState extends GameState {
     }
 
     @Override
-    public void input(KeyEvent e) {
+    public void keyInput(KeyEvent e) {
 
         if(e.getCode() == KeyCode.ESCAPE || e.getCode() == KeyCode.SPACE){
             gsm.reprendreJeu();
@@ -110,7 +110,7 @@ public class PauseState extends GameState {
 
 
         theScene.setOnKeyPressed(
-                this::input);
+                this::keyInput);
 
     }
 
