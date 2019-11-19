@@ -249,7 +249,8 @@ public class PlayState extends GameState {
 
 
         long timer = getTimer();
-        if(timer > myData.leftTime) {
+
+        if(timer <= 0) {
             gsm.changeState(3);
         }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());

@@ -54,6 +54,8 @@ public class PauseState extends GameState {
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
 
+        Color color;
+
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
         StackPane commandeP = new StackPane();
@@ -64,7 +66,9 @@ public class PauseState extends GameState {
         Text title = new Text("Pause");
         title.setX(Utils.canvasSize/2.0- 75);
         title.setY(90);
-        title.setFont(new Font(40));
+        title.setFont(new Font(45));
+        color = Color.WHITE;
+        title.setFill(color);
         title.setStyle("-fx-font-weight: bold");
 
         Text commande = new Text("Commandes : ");
@@ -98,8 +102,6 @@ public class PauseState extends GameState {
         for (Monster monster : gsm.monsters) {
             monster.render(gc);
         }
-
-        Color color;
 
         color = Color.rgb(0,0,0,0.7);
         gc.setFill(color);
