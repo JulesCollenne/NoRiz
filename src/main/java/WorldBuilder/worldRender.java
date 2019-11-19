@@ -41,7 +41,7 @@ public class worldRender {
             case RICE:
                 gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
                 gc.setFill(Color.YELLOW);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension/2.,caseDimension/2.);
+                gc.fillRect(posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
                 break;
 
             case BONUS:

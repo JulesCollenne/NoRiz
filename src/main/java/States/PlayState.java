@@ -29,7 +29,7 @@ public class PlayState extends GameState {
     private myGameData myData;
     private long startTimer;
 
-    public WORLDITEM[][] map;
+    private WORLDITEM[][] map;
 
     private Stage theStage;
 
@@ -187,12 +187,21 @@ public class PlayState extends GameState {
     private void searchEntityCollisions() {
         for (Entity monster : gsm.monsters) {
             if(gsm.collider.isThereEntityCollision(gsm.player, monster)){
-                gsm.player.gotHit();
+                resetPosition();
                 myData.nbLife--;
                 if(myData.nbLife == 0)
-                    gsm.player.die();
+                    gsm.changeState(3);
             }
         }
+    }
+
+    private void resetPosition(){
+
+        gsm.player.resetPosition();
+        for (Entity monster : gsm.monsters) {
+            monster.resetPosition();
+        }
+
     }
 
     @Override

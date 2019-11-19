@@ -15,4 +15,5 @@ public interface Entity {
     int getSize();
     void setImages();
     void render(GraphicsContext gc);
+    void resetPosition();
 }

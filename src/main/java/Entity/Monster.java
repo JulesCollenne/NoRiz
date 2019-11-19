@@ -70,6 +70,13 @@ public class Monster implements  Entity{
 
     }
 
+    public void resetPosition(){
+
+        x = spawnX;
+        y = spawnY;
+
+    }
+
     public void nextStep() {
         if(frozen){
             setNextFacing(DIRECTION.STOP);

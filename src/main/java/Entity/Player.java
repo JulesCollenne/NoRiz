@@ -58,21 +58,6 @@ public class Player implements Entity {
         return Utils.caseDimension;
     }
 
-    /**
-     * Quand un ennemi nous touche
-     *
-     */
-    public void gotHit(){
-        gsm.player.x = spawnX;
-        gsm.player.y = spawnY;
-    }
-
-    /**
-     * Quand le joueur n'a plus de vie, c'est le game over
-     */
-    public void die(){
-        gsm.changeState(3);
-    }
 
     /**
      * Compute the next position
@@ -207,6 +192,14 @@ public class Player implements Entity {
         makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
     }
 
+
+    /**
+     * Quand un ennemi nous touche
+     */
+    public void resetPosition(){
+        gsm.player.x = spawnX;
+        gsm.player.y = spawnY;
+    }
 
     private void makeAnimations(int direction, String name){
         for(int i = 0; i < nbImgAnim; i++)
