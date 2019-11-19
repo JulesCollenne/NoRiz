@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -88,6 +89,9 @@ public class EditorState extends GameState {
             case E:
                 setPosingBlock(BONUS);
                 break;
+            case R:
+                setPosingBlock(RICE);
+                break;
             case S:
                 saveMap();
                 break;
@@ -115,7 +119,11 @@ public class EditorState extends GameState {
 
     @Override
     public void render(GraphicsContext gc) {
+
         worldRender.renderMap(gc, buildingMap);
+        Image Header = new Image("UI/headerEditor.png", 800, 64, true, false);
+        gc.drawImage(Header, 0, 0);
+
     }
 
     @Override
