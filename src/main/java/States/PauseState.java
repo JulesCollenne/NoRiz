@@ -1,6 +1,8 @@
 package States;
 
+import Entity.Monster;
 import Utils.Utils;
+import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -13,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -20,11 +23,8 @@ import Utils.myGameData;
 
 public class PauseState extends GameState {
 
-    myGameData myData;
-
-    PauseState(GameStateManager gsm, myGameData myData) {
+    PauseState(GameStateManager gsm) {
         super(gsm);
-        this.myData = myData;
         init();
         createAnimTimer();
     }
@@ -49,9 +49,12 @@ public class PauseState extends GameState {
 
     @Override
     public void init() {
-        Pane layout = new Pane();
 
-        layout.setStyle("-fx-background-color: darkslategrey;");
+        Group root = new Group();
+        theScene = new Scene( root );
+        root.setStyle("-fx-background-color: darkslategrey;");
+
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
         StackPane commandeP = new StackPane();
         commandeP.setPrefSize(Utils.canvasSize/2.0, Utils.canvasSize/3.0);
@@ -93,10 +96,31 @@ public class PauseState extends GameState {
         noriz.setX((((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2);
         noriz.setY(Utils.canvasSize/3.0);
 
-        layout.getChildren().addAll(title, commandeP, reprendre, menu, retour, noriz);
-        theScene = new Scene(layout);
+        root.getChildren().addAll(canvas, title, reprendre, menu, retour, noriz, commandeP);
 
-        theScene.setOnKeyPressed(this::input);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        worldRender.renderMap(gc, gsm.world.map);
+        gsm.player.render(gc);
+        for (Monster monster : gsm.monsters) {
+            monster.render(gc);
+        }
+
+        Color color;
+
+        color = Color.rgb(0,0,0,0.7);
+        gc.setFill(color);
+        gc.fillRect(0, 0, Utils.canvasSize, Utils.canvasSize + (2*Utils.caseDimension));
+
+        color = Color.DARKGRAY;
+        gc.setFill(color);
+        gc.fillRect(Utils.canvasSize/4.0, Utils.canvasSize/5.0, Utils.canvasSize/2.0, Utils.canvasSize/3.0);
+
+
+
+
+        theScene.setOnKeyPressed(
+                this::input);
+
 
 
     }

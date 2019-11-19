@@ -9,6 +9,7 @@ import Strategy.FollowStrat;
 import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.Utils;
+import Utils.myGameData;
 import WorldBuilder.World;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -52,7 +53,7 @@ public class GameStateManager {
         gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
         gameStates[PLAY] = new PlayState(this, ui, theStage);
-        gameStates[PAUSE] = new PauseState(this, null);
+        gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
 
