@@ -93,9 +93,6 @@ public class PauseState extends GameState {
 
         root.getChildren().addAll(canvas, title, reprendre, retour, commandeP);
 
-
-
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
         worldRender.renderMap(gc, gsm.world.map);
         gsm.player.render(gc);

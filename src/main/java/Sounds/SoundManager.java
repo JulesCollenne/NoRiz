@@ -13,7 +13,7 @@ import java.io.File;
 
 public class SoundManager {
 
-    MediaPlayer backGround;
+    public MediaPlayer backGround;
 
     public SoundManager(){
 

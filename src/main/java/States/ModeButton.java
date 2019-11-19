@@ -44,6 +44,7 @@ class ModeButton extends Button {
                     break;
                 case "Menu":
                     gsm.difficulty = EASY;
+                    gsm.sm.backGround.stop();
                     gsm.changeState(0);
                     break;
                 case "Editor":

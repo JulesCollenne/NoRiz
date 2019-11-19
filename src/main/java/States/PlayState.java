@@ -2,7 +2,10 @@ package States;
 
 import Entity.Entity;
 import Entity.Monster;
+import Entity.Player;
 import Sounds.SoundManager;
+import Strategy.AngleStrat;
+import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.Utils;
 import Utils.myGameData;
@@ -20,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import static Utils.DIRECTION.*;
 
 public class PlayState extends GameState {
 
@@ -32,22 +35,21 @@ public class PlayState extends GameState {
 
     private WORLDITEM[][] map;
 
-    private Stage theStage;
+    private Player player;
+    private Monster monsters[];
 
-    SoundManager sm = new SoundManager();
-
-    PlayState(GameStateManager gsm, inGameUserInterface ui, Stage theStage) {
+    PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
         firstRender = true;
         this.ui = ui;
         createScene();
-        this.theStage = theStage;
+        player = gsm.player;
+        monsters = gsm.monsters;
     }
 
     private void createScene() {
         Group root = new Group();
         theScene = new Scene( root );
-        System.out.println(theScene);
         root.setStyle("-fx-background-color: darkslategrey;");
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
@@ -79,14 +81,14 @@ public class PlayState extends GameState {
 
     public void init(){
         firstRender = true;
-        gsm.player.init();
+        player.init();
         for (Monster monster :
-                gsm.monsters) {
+                monsters) {
             monster.init();
         }
         initMyData();
 
-        sm.backGroundMusic(theScene, true);
+        gsm.sm.backGround.play();
     }
 
     public void initMyData(){
@@ -128,19 +130,25 @@ public class PlayState extends GameState {
         if(myData.nbLife <= 0)
             return;
 
-        searchEntityCollisions();
-        takeRice();
-        takeItemBonus();
+        checkCollisions();
 
-        gsm.player.nextStep();
-        for (Monster monster : gsm.monsters) {
+        player.nextStep();
+        for (Monster monster : monsters) {
             monster.nextStep();
         }
     }
 
+    private void checkCollisions() {
+        if(isPlayerTouched())
+            playerTouched();
+
+        takeRice();
+        takeItemBonus();
+    }
+
     private void takeRice(){
 
-        int coords[] = Utils.getSquare(gsm.player.getCenterX(), gsm.player.getCenterY());
+        int coords[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
 
         if(map[coords[0]][coords[1]] == WORLDITEM.RICE){
             myData.nbRiz -= 1;
@@ -158,10 +166,10 @@ public class PlayState extends GameState {
     }
 
     private void takeItemBonus(){
-        if(gsm.collider.takeItemBonus(gsm.player.getCenterX(), gsm.player.getCenterY())){
+        if(gsm.collider.takeItemBonus(player.getCenterX(), player.getCenterY())){
 
-            for(int i =0; i< gsm.monsters.length; i++){
-                gsm.monsters[i].frozen = true;
+            for(int i =0; i< monsters.length; i++){
+                monsters[i].frozen = true;
             }
 
             Thread durationBonus = new Thread(){
@@ -171,8 +179,8 @@ public class PlayState extends GameState {
                     while (Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000)) <= 3) {
                         startBonusEffect = System.nanoTime();
                     }
-                    for (int i = 0; i < gsm.monsters.length; i++) {
-                        gsm.monsters[i].frozen = false;
+                    for (int i = 0; i < monsters.length; i++) {
+                        monsters[i].frozen = false;
                     }
                 }
             };
@@ -181,21 +189,29 @@ public class PlayState extends GameState {
         }
     }
 
-    private void searchEntityCollisions() {
-        for (Entity monster : gsm.monsters) {
-            if(gsm.collider.isTouching(gsm.player, monster)){
-                resetPosition();
-                myData.nbLife--;
-                if(myData.nbLife == 0)
-                    gsm.changeState(3);
-            }
+    private boolean isPlayerTouched() {
+        for (Entity monster : monsters) {
+            if(gsm.collider.isTouching(player, monster))
+               return true;
         }
+        return false;
+    }
+
+    public void playerTouched(){
+        resetPosition();
+        myData.nbLife--;
+        if(myData.nbLife == 0)
+            playerDie();
+    }
+
+    private void playerDie(){
+        gsm.changeState(3);
     }
 
     private void resetPosition(){
 
-        gsm.player.resetPosition();
-        for (Entity monster : gsm.monsters) {
+        player.resetPosition();
+        for (Entity monster : monsters) {
             monster.resetPosition();
         }
 
@@ -204,19 +220,43 @@ public class PlayState extends GameState {
     @Override
     public void input(KeyEvent e) {
         if(e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ESCAPE){
-            gsm.changeState(2);
+            pause();
         }
         if(myData.nbLife > 0)
-            gsm.player.input(e);
+            playingInputs(e);
         else{
             gameOverInputs(e);
+        }
+    }
+
+    /**
+     * Gere les entrées
+     * @param e the pressed keys
+     */
+    private void playingInputs(KeyEvent e){
+        switch (e.getCode()) {
+            case Q:
+                player.setNextFacing(LEFT);
+                break;
+            case D:
+                player.setNextFacing(RIGHT);
+                break;
+            case S:
+                player.setNextFacing(DOWN);
+                break;
+            case Z:
+                player.setNextFacing(UP);
+                break;
+            case A:
+                System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
+                break;
         }
     }
 
     private void gameOverInputs(KeyEvent e){
         switch (e.getCode()) {
             case ENTER:
-                gsm.changeState(0);
+                retourMenu();
                 break;
         }
     }
@@ -237,13 +277,11 @@ public class PlayState extends GameState {
 
         worldRender.renderMap(gc, map);
 
-        gsm.player.render(gc);
+        player.render(gc);
 
-        for(Monster monster : gsm.monsters){
+        for(Monster monster : monsters){
             monster.render(gc);
         }
-
-
 
         long timer = getTimer();
 
@@ -263,7 +301,13 @@ public class PlayState extends GameState {
         return myData.leftTime - timer;
     }
 
+    private void retourMenu(){
+        gsm.changeState(0);
+    }
 
+    private void pause(){
+        gsm.changeState(2);
+    }
 
 }
 

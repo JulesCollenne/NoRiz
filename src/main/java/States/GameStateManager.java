@@ -3,40 +3,29 @@ package States;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
+import Sounds.SoundManager;
 import Strategy.AngleStrat;
-import Strategy.BonusStrat;
-import Strategy.FollowStrat;
 import Strategy.RandomStrat;
 import UI.inGameUserInterface;
-import Utils.Utils;
-import Utils.myGameData;
 import WorldBuilder.World;
-import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-public class GameStateManager {
+import static Utils.Utils.*;
 
-    private final int START  = 0;
-    private final int PLAY  = 1;
-    private final int PAUSE  = 2;
-    private final int GAMEOVER = 3;
-    private final int EDITOR = 4;
+public class GameStateManager {
 
     public int currentState = START;
     public GameState gameStates[] = new GameState[5];
 
-    public Player player = new Player(this, Utils.caseDimension,Utils.caseDimension*3,1);
-    public Monster[] monsters = new Monster[4];
-
     private Stage theStage;
 
-    public World world = new World(Utils.mapSize,Utils.mapSize);
+    public World world = new World(mapSize,mapSize);
 
     public Collider collider = new Collider(world);
+    public Player player = new Player(collider, caseDimension,caseDimension*3,1);
+    public Monster[] monsters = new Monster[4];
 
-    private boolean stateChanged = false;
+    SoundManager sm = new SoundManager();
 
     public enum DIF {EASY, MEDIUM, HARD}
 
@@ -44,15 +33,15 @@ public class GameStateManager {
 
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
+        createMonsters();
 
         initScene();
 
         world.build(difficulty);
-        createMonsters();
 
         gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
-        gameStates[PLAY] = new PlayState(this, ui, theStage);
+        gameStates[PLAY] = new PlayState(this, ui);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
@@ -63,17 +52,6 @@ public class GameStateManager {
     private void initScene() {
     }
 
-    /**
-     * Create 4 monsters
-     */
-
-    private void createMonsters(){
-        //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension + (2*Utils.caseDimension), 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
-        monsters[1] = new Monster(10 * Utils.caseDimension, 11 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat(), "Hamri", collider);                               //Monstre RandomStrat
-        monsters[2] = new Monster(10 * Utils.caseDimension, Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat(), "Mr POC", collider);                               //Monstre FollowStrat
-        monsters[3] = new Monster(10 * Utils.caseDimension, 10 * Utils.caseDimension+ (2*Utils.caseDimension), 1, new RandomStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
-    }
 
     /**
      * Change the currentState
@@ -88,35 +66,29 @@ public class GameStateManager {
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
-        stateChanged = true;
         gameStates[currentState].animationTimer.start();
     }
 
     public void reprendreJeu(){
-
         gameStates[currentState].animationTimer.stop();
         currentState = PLAY;
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
-        stateChanged = true;
         gameStates[currentState].animationTimer.start();
 
     }
 
-    public void nextStep() {
-        gameStates[currentState].nextStep();
+    /**
+     * Create 4 monsters
+     */
+
+    private void createMonsters(){
+        //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Jean-Luc Massat", collider);                       //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Hamri", collider);                               //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Mr POC", collider);                               //Monstre FollowStrat
+        monsters[3] = new Monster(10 * caseDimension, 10 * caseDimension+ (2*caseDimension), 1, new RandomStrat(), "Di Molfetta", collider);                                //Monstre BonusStrat
     }
 
-    void input(KeyEvent e) {
-        gameStates[currentState].input(e);
-    }
-
-    void render(GraphicsContext gc) {
-        if(stateChanged){
-            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
-            stateChanged = false;
-        }
-        gameStates[currentState].render(gc);
-    }
 }
 

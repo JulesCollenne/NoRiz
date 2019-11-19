@@ -1,5 +1,6 @@
 package Entity;
 
+import Collider.Collider;
 import States.GameStateManager;
 import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,10 +13,10 @@ import Utils.DIRECTION;
  */
 public class Player implements Entity {
 
-    private int x;
-    private int y;
     private int spawnX;
     private int spawnY;
+    private int x;
+    private int y;
 
     private DIRECTION facing = DIRECTION.STOP;
     private DIRECTION nextFacing = DIRECTION.STOP;
@@ -23,7 +24,7 @@ public class Player implements Entity {
     private int speed;
     private boolean hasBonus;
 
-    private GameStateManager gsm;
+    private Collider collider;
 
     private int nbImgAnim = 2;
     private Image[][] image = new Image[4][nbImgAnim];
@@ -32,8 +33,8 @@ public class Player implements Entity {
     private int lastAnim;
     private final int animSpeed = 10;
 
-    public Player(GameStateManager gsm, int initialX, int initialY, int initialSpeed){
-        this.gsm = gsm;
+    public Player(Collider collider, int initialX, int initialY, int initialSpeed){
+        this.collider = collider;
         spawnX = initialX;
         spawnY = initialY;
         speed = initialSpeed;
@@ -44,6 +45,9 @@ public class Player implements Entity {
         init();
     }
 
+    /**
+     * Initialise les variables
+     */
     public void init(){
         x = spawnX;
         y = spawnY;
@@ -52,10 +56,6 @@ public class Player implements Entity {
         hasBonus = false;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
-    }
-
-    public int getSize() {
-        return Utils.caseDimension;
     }
 
 
@@ -81,7 +81,6 @@ public class Player implements Entity {
                 tryMove(speed, 0);
                 break;
         }
-
     }
 
     /**
@@ -92,7 +91,7 @@ public class Player implements Entity {
      */
     private void tryMove(int dx, int dy) {
         int[] coords = getCollideCoords();
-        if(!gsm.collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
+        if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x += dx;
         y += dy;
@@ -103,34 +102,10 @@ public class Player implements Entity {
      */
 
     /**
-     * Gere les entrées
-     * @param e the pressed keys
-     */
-    public void input(KeyEvent e) {
-        switch (e.getCode()) {
-            case Q:
-                setNextFacing(DIRECTION.LEFT);
-                break;
-            case D:
-                setNextFacing(DIRECTION.RIGHT);
-                break;
-            case S:
-                setNextFacing(DIRECTION.DOWN);
-                break;
-            case Z:
-                setNextFacing(DIRECTION.UP);
-                break;
-            case A:
-                System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
-                break;
-        }
-    }
-
-    /**
      * change the direction of the player
      * @param newFacing the new facing
      */
-    private void setNextFacing(DIRECTION newFacing){
+    public void setNextFacing(DIRECTION newFacing){
         if(nextFacingPossible(newFacing)) {
             facing = newFacing;
             nextFacing = DIRECTION.STOP;
@@ -152,7 +127,7 @@ public class Player implements Entity {
 
         int[] coords = getCollideCoords();
 
-        if(!gsm.collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
+        if(!collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }
@@ -196,8 +171,8 @@ public class Player implements Entity {
      * Quand un ennemi nous touche
      */
     public void resetPosition(){
-        gsm.player.x = spawnX;
-        gsm.player.y = spawnY;
+        x = spawnX;
+        y = spawnY;
     }
 
     private void makeAnimations(int direction, String name){
@@ -283,6 +258,10 @@ public class Player implements Entity {
         if(facing == DIRECTION.UP)
             return y;
         return y + getSize() - 1;
+    }
+
+    public int getSize() {
+        return Utils.caseDimension;
     }
 
 }
