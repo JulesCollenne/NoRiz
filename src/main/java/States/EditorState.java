@@ -4,6 +4,7 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
 
+import WorldBuilder.World;
 import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -123,32 +124,44 @@ public class EditorState extends GameState {
         int coords[] = Utils.getSquare(x,y);
 
         if(isCorrect(coords)) {
-            if(buildingMap[coords[0]][coords[1]] == SPAWN_MONSTER){
-                nbSpawnMonster--;
+            if(manageSpawn(coords)) {
+                System.out.println(nbSpawnMonster + ", " + nbSpawnPlayer);
+                buildingMap[coords[0]][coords[1]] = posingBlock;
             }
-            if(buildingMap[coords[0]][coords[1]] == SPAWN_PLAYER){
-                nbSpawnPlayer--;
-            }
-
-            if(posingBlock == SPAWN_MONSTER){
-                if(nbSpawnMonster < 4)
-                    nbSpawnMonster++;
-                else
-                    return;
-            }
-            if(posingBlock == SPAWN_PLAYER){
-                if(nbSpawnPlayer < 1)
-                    nbSpawnPlayer++;
-                else
-                    return;
-            }
-            System.out.println(nbSpawnMonster +", "+nbSpawnPlayer);
-            buildingMap[coords[0]][coords[1]] = posingBlock;
         }
     }
 
     private boolean isCorrect(int[] coords) {
         return coords[1] > 1;
+    }
+
+    private boolean manageSpawn(int[] coords){
+
+        WORLDITEM item = buildingMap[coords[0]][coords[1]];
+
+        if(posingBlock == SPAWN_MONSTER){
+            if(nbSpawnMonster < 4)
+                nbSpawnMonster++;
+            else
+                return false;
+        }
+        if(posingBlock == SPAWN_PLAYER){
+            if(nbSpawnPlayer < 1)
+                nbSpawnPlayer++;
+            else
+                return false;
+        }
+
+        if(item == SPAWN_MONSTER){
+            nbSpawnMonster--;
+        }
+        if(item == SPAWN_PLAYER){
+            nbSpawnPlayer--;
+        }
+
+        return true;
+
+
     }
 
     @Override
@@ -164,6 +177,8 @@ public class EditorState extends GameState {
     public void init() {
         posingBlock = WALL;
         buildingMap = gsm.world.makeCleanMap();
+        nbSpawnMonster = 0;
+        nbSpawnPlayer = 0;
     }
 
     public void createAnimTimer() {

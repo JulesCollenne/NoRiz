@@ -16,7 +16,7 @@ public class SoundManager {
     public MediaPlayer hurt;
 
     public SoundManager(){
-        loadSounds();
+        //loadSounds();
     }
 
     /**
