@@ -1,5 +1,6 @@
 package BONUSITEM;
 
+import Entity.Monster;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
@@ -9,18 +10,16 @@ public class BcanEatMonsters implements BonusItem {
 
     TYPEBONUS type = TYPEBONUS.BONUSEAT;
 
-    public BcanEatMonsters(int x, int y){
-        this.x = x;
-        this.y = y;
+    public BcanEatMonsters(){
     }
 
     @Override
     public void effect(Player p) {
-
+        p.setInvulnerable(500);
     }
 
     @Override
-    public void effect() {
-
+    public void effect(Monster[] monsters) {
+        //System.out.println("FDFDFDF");
     }
 }

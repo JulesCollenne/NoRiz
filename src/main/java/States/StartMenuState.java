@@ -37,45 +37,58 @@ public class StartMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        //layout.setStyle("-fx-background-color: darkslategrey;");
+        //layout.setStyle("-fx-background-color: darkslategrey;");+++
 
         BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
 
+        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
+
         ModeButton easy = new ModeButton(new Image("Buttons/sign_facile.png"), "Facile");
-        easy.setLayoutX(((Utils.canvasSize/3)/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
-        easy.setLayoutY((40/100.0)*Utils.canvasSize);
+        easy.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
+        easy.setLayoutY((60/100.0)*Utils.canvasSize);
         easy.handler(gsm);
 
         Image mediumIm = new Image("Buttons/sign_moyen.png");
         ModeButton medium = new ModeButton(mediumIm, "Medium");
-        medium.setLayoutX( ((((2*Utils.canvasSize)/3) + (Utils.canvasSize/3))/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
-        medium.setLayoutY((40/100.0)*Utils.canvasSize);
+        medium.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
+        medium.setLayoutY((60/100.0)*Utils.canvasSize);
         medium.handler(gsm);
 
         ModeButton hard = new ModeButton(new Image("Buttons/sign_difficile.png"), "Hard");
-        hard.setLayoutX( (((2*Utils.canvasSize)/3) + Utils.canvasSize)/2 - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
-        hard.setLayoutY((40/100.0)*Utils.canvasSize);
+        hard.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
+        hard.setLayoutY((60/100.0)*Utils.canvasSize);
         hard.handler(gsm);
 
-        ModeButton editor = new ModeButton(new Image("Buttons/sign_editor.png"), "Editor");
-        editor.setLayoutX((70/100.0)*Utils.canvasSize);
-        editor.setLayoutY((70/100.0)*Utils.canvasSize);
-        editor.handler(gsm);
-
         SkinButton skin = new SkinButton(new Image("Player/nori_droite0.png"), "Skin");
-        skin.setLayoutX(((Utils.canvasSize/3)/2) - 45);
-        skin.setLayoutY((70/100.0)*Utils.canvasSize - 45);
+        skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
+        skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
         skin.handler(gsm);
         skin.setStyle("-fx-background-color: transparent;");
 
+        ModeButton arcade = new ModeButton(new Image("Buttons/sign_arcade.png"), "Arcade");
+        arcade.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
+        arcade.setLayoutY((80/100.0)*Utils.canvasSize);
+        arcade.handler(gsm);
+
+        ModeButton editor = new ModeButton(new Image("Buttons/sign_editor.png"), "Editor");
+        editor.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
+        editor.setLayoutY((80/100.0)*Utils.canvasSize);
+        editor.handler(gsm);
+
+
+        ModeButton options = new ModeButton(new Image("Buttons/sign_options.png"), "Options");
+        options.setLayoutX(Utils.canvasSize - 2.4*(new Image("Buttons/sign_options.png").getWidth()));
+        options.setLayoutY(-15);
+        options.handler(gsm);
+
+      /*  ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
         /*ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
         noriz.setX(350);
         noriz.setY(150);*/
 
-
-        layout.getChildren().addAll(easy, medium, hard, skin, editor);
+        layout.getChildren().addAll(options, easy, medium, hard, skin, editor, arcade);
 
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
