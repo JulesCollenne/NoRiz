@@ -115,7 +115,10 @@ public class PlayState extends GameState {
 
     }
 
-
+    /**
+     *
+     * @param gc
+     */
     public void createAnimTimer(GraphicsContext gc) {
         animationTimer = new AnimationTimer()
         {
