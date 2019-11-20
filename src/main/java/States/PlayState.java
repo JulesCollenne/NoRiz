@@ -1,7 +1,5 @@
 package States;
 
-import BONUSITEM.BonusItem;
-import BONUSITEM.BstopMonsters;
 import Entity.Entity;
 import Entity.Monster;
 import Entity.Player;
@@ -11,7 +9,9 @@ import Utils.WORLDITEM;
 import Utils.myGameData;
 import WorldBuilder.matrixWorld;
 import WorldBuilder.worldRender;
-import javafx.animation.AnimationTimer;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -120,13 +121,14 @@ public class PlayState extends GameState {
      * @param gc
      */
     public void createAnimTimer(GraphicsContext gc) {
+        /*
         animationTimer = new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
 
                 long elapsedNanos = currentNanoTime - lastTime ;
-                //System.out.println("FPS : " + 1000000000. / elapsedNanos);
+                System.out.println("FPS : " + 1000000000. / elapsedNanos);
 
                 // game logic
                 nextStep();
@@ -137,6 +139,18 @@ public class PlayState extends GameState {
                 lastTime = currentNanoTime;
             }
         };
+*/
+    animationTimer2 = new Timeline(new KeyFrame(Duration.seconds(0.0135), event -> {
+
+        // game logic
+        nextStep();
+
+        // render
+        render(gc);
+
+    }));
+
+    animationTimer2.setCycleCount(Animation.INDEFINITE);
     }
 
     public void nextStep() {
@@ -204,7 +218,7 @@ public class PlayState extends GameState {
 
         if(checkBonus(coords[0],coords[1])){
             map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-            if(rand.nextBoolean()==true)
+            if(rand.nextBoolean())
                 gsm.bonuses[0].effect(monsters);
             else
                 gsm.bonuses[1].effect(player);
@@ -294,15 +308,13 @@ public class PlayState extends GameState {
             startTimer = System.nanoTime();
             gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
             firstRender = false;
+            worldRender.renderMap(gc, map, false);
         }
 
         worldRender.renderMap(gc, map, false);
+        //worldRender.renderItems(gc, map, false);
 
-        player.render(gc);
-
-        for(Monster monster : monsters){
-            monster.render(gc);
-        }
+        renderEntities(gc);
 
         long timer = getTimer();
 
@@ -311,6 +323,27 @@ public class PlayState extends GameState {
         }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
+    }
+
+    private void renderEntities(GraphicsContext gc){
+
+        /*
+        int square[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
+        worldRender.renderSquare(gc, map, square[0], square[1]);
+        square = Utils.getSquare(player.getCenterX()-player.getFacingX(player.getFacing()), player.getCenterY()-player.getFacingY(player.getFacing()));
+        worldRender.renderSquare(gc, map, square[0], square[1]);
+        */
+        player.render(gc);
+
+        for(Monster monster : monsters){
+            /*
+            square = Utils.getSquare(monster.getCenterX(), monster.getCenterY());
+            worldRender.renderSquare(gc, map, square[0], square[1]);
+            square = Utils.getSquare(monster.getCenterX()-monster.getFacingX(monster.getFacing()), monster.getCenterY()-monster.getFacingY(monster.getFacing()));
+            worldRender.renderSquare(gc, map, square[0], square[1]);
+            */
+            monster.render(gc);
+        }
     }
 
     private long getTimer(){
@@ -332,7 +365,7 @@ public class PlayState extends GameState {
 
     private void gameOver(){
         gsm.changeState(3);
-        //gsm.sm.backGround.stop();
+        gsm.sm.backGround.stop();
     }
 
 }

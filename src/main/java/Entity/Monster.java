@@ -203,7 +203,7 @@ public class Monster implements  Entity{
         return y;
     }
 
-    private int getFacingX(DIRECTION facing){
+    public int getFacingX(DIRECTION facing){
         if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
             return 0;
         if(facing == DIRECTION.RIGHT)
@@ -211,7 +211,7 @@ public class Monster implements  Entity{
         return -getSize()/2;
     }
 
-    private int getFacingY(DIRECTION facing) {
+    public int getFacingY(DIRECTION facing) {
         if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
             return 0;
         if(facing == DIRECTION.DOWN)

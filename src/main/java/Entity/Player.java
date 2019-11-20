@@ -196,7 +196,7 @@ public class Player implements Entity {
         return y;
     }
 
-    private int getFacingX(DIRECTION facing){
+    public int getFacingX(DIRECTION facing){
         if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
             return 0;
         if(facing == DIRECTION.RIGHT)
@@ -204,12 +204,16 @@ public class Player implements Entity {
         return -getSize()/2;
     }
 
-    private int getFacingY(DIRECTION facing) {
+    public int getFacingY(DIRECTION facing) {
         if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
             return 0;
         if(facing == DIRECTION.DOWN)
             return getSize()/2;
         return -getSize()/2;
+    }
+
+    public DIRECTION getFacing(){
+        return facing;
     }
 
     public int getCenterX() {

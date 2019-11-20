@@ -5,10 +5,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-import static Utils.Utils.caseDimension;
-import Utils.WORLDITEM.*;
+import static Utils.Utils.*;
+import static Utils.WORLDITEM.*;
+import Utils.Utils.*;
 
 public class worldRender {
+
     /*
      *   Entrée: une matrice représentant la carte
      *   Dessine la carte dans la fenêtre de jeu
@@ -16,9 +18,25 @@ public class worldRender {
     public static void renderMap(GraphicsContext gc, WORLDITEM[][] map, boolean isEditor) {
         for(int posX = 0; posX< map.length; posX++) {
             for (int posY = 0; posY < map[posX].length; posY++) {
-                renderItem(posX,posY, map[posX][posY], gc, isEditor);
+                //if(isStatic(map[posX][posY]))
+                    renderItem(posX,posY, map[posX][posY], gc, isEditor);
             }
         }
+    }
+
+    public static void renderItems(GraphicsContext gc, WORLDITEM[][] map, boolean isEditor){
+        for(int posX = 0; posX< map.length; posX++) {
+            for (int posY = 0; posY < map[posX].length; posY++) {
+                if(!isStatic(map[posX][posY]))
+                    renderItem(posX,posY, map[posX][posY], gc, isEditor);
+            }
+        }
+    }
+
+    private static boolean isStatic(WORLDITEM item){
+        if(item == WALL || item == ROAD || item == SPAWN_MONSTER || item == SPAWN_PLAYER || item == UI)
+            return true;
+        return false;
     }
 
     /*
@@ -76,4 +94,7 @@ public class worldRender {
         }
     }
 
+    public static void renderSquare(GraphicsContext gc, WORLDITEM[][] map, int x, int y) {
+        renderItem(x, y, map[x][y],gc,false);
+    }
 }

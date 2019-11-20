@@ -1,6 +1,7 @@
 package States;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -9,6 +10,7 @@ public abstract class GameState {
     Scene theScene;
     GameStateManager gsm;
     AnimationTimer animationTimer;
+    Timeline animationTimer2;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;
