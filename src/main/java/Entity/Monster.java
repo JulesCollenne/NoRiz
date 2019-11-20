@@ -279,5 +279,8 @@ public class Monster implements  Entity{
             image[direction][i] = new Image("monsters/catastrophe" + i + ".png");
     }
 
+    public void die() {
+        resetPosition();
+    }
 }
 

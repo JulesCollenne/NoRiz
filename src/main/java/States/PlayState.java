@@ -10,6 +10,7 @@ import Utils.myGameData;
 import WorldBuilder.matrixWorld;
 import WorldBuilder.worldRender;
 import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -121,26 +122,28 @@ public class PlayState extends GameState {
      * @param gc
      */
     public void createAnimTimer(GraphicsContext gc) {
-        /*
+
         animationTimer = new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
 
+                /*
                 long elapsedNanos = currentNanoTime - lastTime ;
                 System.out.println("FPS : " + 1000000000. / elapsedNanos);
-
+*/
                 // game logic
                 nextStep();
 
                 // render
                 render(gc);
 
-                lastTime = currentNanoTime;
+                //lastTime = currentNanoTime;
             }
         };
-*/
-    animationTimer2 = new Timeline(new KeyFrame(Duration.seconds(0.0135), event -> {
+
+        /*
+    animationTimer2 = new Timeline(new KeyFrame(Duration.seconds(1/80.), event -> {
 
         // game logic
         nextStep();
@@ -149,8 +152,9 @@ public class PlayState extends GameState {
         render(gc);
 
     }));
+    */
 
-    animationTimer2.setCycleCount(Animation.INDEFINITE);
+    //animationTimer2.setCycleCount(Animation.INDEFINITE);
     }
 
     public void nextStep() {
@@ -167,62 +171,54 @@ public class PlayState extends GameState {
     }
 
     private void checkCollisions() {
-        if(player.getInvulnerable() > 0){
-            Entity monster;
-            if((monster = monsterTouched()) != null)
-                monsterDie(monster);
-        }
-        else{
-            if(isPlayerTouched())
-                playerTouched();
-                //gsm.sm.hurt.play();
-        }
-        takeRice();
-        takeItemBonus();
+        checkEntityCollisions();
+        checkSquare();
     }
 
-    //TODO fsionner avec takeitem
-    private void takeRice(){
+    private void checkEntityCollisions() {
+        for (Monster monster : monsters) {
+            if(gsm.collider.isTouching(player, monster)) {
+                if(player.getInvulnerable() > 0){
+                    monster.die();
+                }
+                else{
+                    playerTouched();
+                }
+            }
+        }
+    }
 
+    private void checkSquare(){
         int coords[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
-
-        if(map[coords[0]][coords[1]] == WORLDITEM.RICE){
-            myData.nbRiz -= 1;
-            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-        }
-
-        if(myData.nbRiz == 0){
-            Text title = new Text();
-            title.setX((20/100.0)*Utils.canvasSize);
-            title.setY((20/100.0)*Utils.canvasSize);
-            title.setFont(new Font(40));
-            title.setText("bien joué frérot");
-        }
+        WORLDITEM item = map[coords[0]][coords[1]];
+        if(item == WORLDITEM.RICE)
+            takeRice(coords[0], coords[1]);
+        if(item == WORLDITEM.BONUS)
+            takeBonus(coords[0], coords[1]);
 
     }
+    private void takeRice(int x, int y){
+        myData.nbRiz -= 1;
+        map[x][y] = WORLDITEM.ROAD;
 
-    /**
-     * Check if x,y is on a bonus and take the bonus ( it should probably just check and not take it )
-     * @param x coord
-     * @param y coord
-     * @return true if x,y is on a bonus
-     */
-    public boolean checkBonus(int x,int y) {
-        if(map[x][y] == WORLDITEM.BONUS) return true;
-        return false;
+        if(myData.nbRiz == 0)
+            win();
     }
 
-    private void takeItemBonus(){
+    private void win() {
+        Text title = new Text();
+        title.setX((20/100.0)*Utils.canvasSize);
+        title.setY((20/100.0)*Utils.canvasSize);
+        title.setFont(new Font(40));
+        title.setText("bien joué frérot");
+    }
 
-        int[] coords = Utils.getSquare(player.getCenterX(), player.getCenterY());
-
-        if(checkBonus(coords[0],coords[1])){
-            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-            if(rand.nextBoolean())
-                gsm.bonuses[0].effect(monsters);
-            else
-                gsm.bonuses[1].effect(player);
-        }
+    private void takeBonus(int x, int y){
+        map[x][y] = WORLDITEM.ROAD;
+        if(rand.nextBoolean())
+            gsm.bonuses[0].effect(monsters);
+        else
+            gsm.bonuses[1].effect(player);
     }
 
     private boolean isPlayerTouched() {

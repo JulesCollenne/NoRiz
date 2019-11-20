@@ -69,10 +69,10 @@ public class GameStateManager{
      * @param newState the new state
      */
     void changeState(int newState){
-        if(currentState != PLAY)
+        //if(currentState != PLAY)
         gameStates[currentState].animationTimer.stop();
-        else
-            gameStates[currentState].animationTimer2.stop();
+        //else
+            //gameStates[currentState].animationTimer2.stop();
         currentState = newState;
         if(currentState == PLAY) {
             world.build(difficulty);
@@ -80,10 +80,10 @@ public class GameStateManager{
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
-        if(currentState != PLAY)
-            gameStates[currentState].animationTimer.start();
-        else
-            gameStates[currentState].animationTimer2.play();
+        //if(currentState != PLAY)
+        gameStates[currentState].animationTimer.start();
+        //else
+            //gameStates[currentState].animationTimer2.play();
     }
 
     void reprendreJeu(){
