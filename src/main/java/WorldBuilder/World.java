@@ -43,25 +43,25 @@ public class World {
             case EASY:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = copyMap(matrixWorld.world1);
+                map = loadMap("src/main/resources/Maps/worldEasy.map");
                 break;
 
             case MEDIUM:
                 road = new Image("textures/roadTextureLevel2.jpg");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = copyMap(matrixWorld.world2);
+                map = loadMap("src/main/resources/Maps/worldMedium.map");
                 break;
 
             case HARD:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = copyMap(matrixWorld.world3);
+                map = loadMap("src/main/resources/Maps/worldHard.map");
                 break;
 
             default:
                 road = new Image("textures/roadTextureLevel1.png");
                 wall = new Image("textures/wallTextureLevel1.png");
-                map = copyMap(matrixWorld.world1);
+                map = loadMap("src/main/resources/Maps/worldEasy.map");
                 break;
         }
         return map;
@@ -139,6 +139,27 @@ public class World {
             Scanner scanner;
             try {
                 scanner = new Scanner(selectedFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+            for (int i = 0; i < Utils.mapSize; i++){
+                for (int j = 0; j < Utils.mapSize; j++){ //
+                    tempMap[i][j] = intToWorldItem(scanner.nextInt());
+                }
+            }
+            return tempMap;
+        }
+        return null;
+    }
+
+    public WORLDITEM[][] loadMap(String path) {
+        WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
+        File file = new File(path);
+        if (file != null) {
+            Scanner scanner;
+            try {
+                scanner = new Scanner(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return null;

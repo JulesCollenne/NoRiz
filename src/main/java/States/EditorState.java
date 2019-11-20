@@ -157,6 +157,9 @@ public class EditorState extends GameState {
      * Load a map from a file to the current map
      */
     private void loadMap(){
-        buildingMap = gsm.world.loadMap();
+        WORLDITEM[][] tempMap = gsm.world.loadMap();
+        if(tempMap != null){
+            buildingMap = tempMap;
+        }
     }
 }
