@@ -16,4 +16,5 @@ public interface Entity {
     void setImages();
     void render(GraphicsContext gc);
     void resetPosition();
+    void makeAnimations(int direction, String name);
 }

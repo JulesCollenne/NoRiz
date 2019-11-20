@@ -83,10 +83,10 @@ public class GameStateManager {
 
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "AngleStrat", collider);                                               //Monstre AngleStrat
-        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "RandomStrat", collider);                                                   //Monstre RandomStrat
-        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "BonusStrat", collider);                                                //Monstre BonusStrat
-        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "Half RandomStrat Half AngleStrat", collider);       //Monstre BonusStrat
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Cat hamaran", collider);                                               //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "Cat holik", collider);                                                   //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "Cat o'dick", collider);                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "Cat reuh", collider);       //Monstre BonusStrat
     }
 
 }

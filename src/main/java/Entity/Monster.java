@@ -48,6 +48,7 @@ public class Monster implements  Entity{
         this.strat = strat;
         this.collider = collider;
         this.name = name;
+        setImages();
         init();
     }
 
@@ -67,15 +68,25 @@ public class Monster implements  Entity{
      */
     public void render(GraphicsContext gc)
     {
-        //gc.drawImage( image, positionX, positionY );
-        gc.setFill(Paint.valueOf("#FF2244"));
-        gc.fillRect(x,y,getSize(),getSize());
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
+
+        //System.out.println(x+", "+y);
+
+        if(lastAnim == animSpeed) {
+            animTime = (animTime + 1) % 2;
+            lastAnim = 0;
+        }
+        lastAnim++;
     }
 
     /**
      *
      */
     public void setImages(){
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"droite");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
 
     }
 
@@ -260,6 +271,11 @@ public class Monster implements  Entity{
 
     public DIRECTION getFacing(){
         return facing;
+    }
+
+    public void makeAnimations(int direction, String name) {
+        for(int i = 0; i < nbImgAnim; i++)
+            image[direction][i] = new Image("monsters/catastrophe" + i + ".png");
     }
 
 }
