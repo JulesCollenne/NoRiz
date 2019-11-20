@@ -64,7 +64,6 @@ public class GameStateManager{
     private void initScene() {
     }
 
-
     /**
      * Change the currentState
      * @param newState the new state
