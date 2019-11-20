@@ -38,8 +38,8 @@ public class GameStateManager {
 
         createMonsters();
 
-        gameStates[START] = new StartMenuState(this);
         inGameUserInterface ui = new inGameUserInterface(this);
+        gameStates[START] = new StartMenuState(this);
         gameStates[PLAY] = new PlayState(this, ui);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);

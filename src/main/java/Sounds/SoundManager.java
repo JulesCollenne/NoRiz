@@ -15,7 +15,7 @@ public class SoundManager {
     public MediaPlayer hurt;
 
     public SoundManager(){
-        loadSounds();
+        //loadSounds();
     }
 
     /**
@@ -23,7 +23,7 @@ public class SoundManager {
      */
     private void loadSounds(){
         try {
-            String musicFile = "src/main/resources/Sounds/music.mp3";
+            String musicFile = "Sounds/music.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
             backGround = new MediaPlayer(sound);
         }catch (MediaException e){

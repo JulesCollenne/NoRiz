@@ -76,7 +76,7 @@ public class PlayState extends GameState {
         }
         initMyData();
 
-        gsm.sm.backGround.play();
+        //gsm.sm.backGround.play();
     }
 
     public void initMyData(){

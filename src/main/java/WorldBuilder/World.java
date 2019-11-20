@@ -98,6 +98,7 @@ public class World {
 
     public void saveMap(WORLDITEM[][] tempMap){
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory( new File("src/main/resources/Maps"));
         fileChooser.setTitle("Charger un niveau");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Map Files", "*.map"));
@@ -129,6 +130,7 @@ public class World {
     public WORLDITEM[][] loadMap() {
         WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory( new File("src/main/resources/Maps"));
         fileChooser.setTitle("Ouvrir un niveau");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Map Files", "*.map"));
