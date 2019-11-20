@@ -13,10 +13,10 @@ public class worldRender {
      *   Entrée: une matrice représentant la carte
      *   Dessine la carte dans la fenêtre de jeu
      *        */
-    public static void renderMap(GraphicsContext gc, WORLDITEM[][] map) {
+    public static void renderMap(GraphicsContext gc, WORLDITEM[][] map, boolean isEditor) {
         for(int posX = 0; posX< map.length; posX++) {
             for (int posY = 0; posY < map[posX].length; posY++) {
-                renderItem(posX,posY, map[posX][posY], gc);
+                renderItem(posX,posY, map[posX][posY], gc, isEditor);
             }
         }
     }
@@ -25,7 +25,7 @@ public class worldRender {
      *   Entrée: posX et posY: position de l'item // l'item a dessiner
      *   Dessine l'item a la position demandée
      */
-    public static void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc) {
+    public static void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc, boolean isEditor) {
 
         switch(item){
 
@@ -51,6 +51,26 @@ public class worldRender {
             case UI:
                 gc.setFill(Color.DARKGRAY);
                 gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                break;
+
+            case SPAWN_MONSTER:
+                if(isEditor){
+                    gc.setFill(Color.RED);
+                    gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                }
+                else{
+                    gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
+                }
+                break;
+
+            case SPAWN_PLAYER:
+                if(isEditor){
+                    gc.setFill(Color.BLUE);
+                    gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                }
+                else{
+                    gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
+                }
                 break;
 
         }

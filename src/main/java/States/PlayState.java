@@ -295,7 +295,7 @@ public class PlayState extends GameState {
             firstRender = false;
         }
 
-        worldRender.renderMap(gc, map);
+        worldRender.renderMap(gc, map, false);
 
         player.render(gc);
 

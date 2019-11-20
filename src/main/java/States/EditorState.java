@@ -21,6 +21,8 @@ public class EditorState extends GameState {
 
     private WORLDITEM posingBlock = WALL;
     private WORLDITEM[][] buildingMap;
+    private int nbSpawnPlayer = 0;
+    private int nbSpawnMonster = 0;
 
     EditorState(GameStateManager gsm) {
         super(gsm);
@@ -88,6 +90,12 @@ public class EditorState extends GameState {
             case R:
                 setPosingBlock(RICE);
                 break;
+            case P:
+                setPosingBlock(SPAWN_PLAYER);
+                break;
+            case M:
+                setPosingBlock(SPAWN_MONSTER);
+                break;
             case S:
                 saveMap();
                 break;
@@ -114,8 +122,28 @@ public class EditorState extends GameState {
 
         int coords[] = Utils.getSquare(x,y);
 
-        if(isCorrect(coords))
+        if(isCorrect(coords)) {
+            if(buildingMap[coords[0]][coords[1]] == SPAWN_MONSTER){
+                nbSpawnMonster--;
+            }
+            if(buildingMap[coords[0]][coords[1]] == SPAWN_PLAYER){
+                nbSpawnPlayer--;
+            }
+            if(posingBlock == SPAWN_MONSTER){
+                if(nbSpawnMonster < 4)
+                    nbSpawnMonster++;
+                else
+                    return;
+            }
+            if(posingBlock == SPAWN_PLAYER){
+                if(nbSpawnPlayer < 1)
+                    nbSpawnPlayer++;
+                else
+                    return;
+            }
+            System.out.println(nbSpawnMonster +", "+nbSpawnPlayer);
             buildingMap[coords[0]][coords[1]] = posingBlock;
+        }
     }
 
     private boolean isCorrect(int[] coords) {
@@ -125,7 +153,7 @@ public class EditorState extends GameState {
     @Override
     public void render(GraphicsContext gc) {
 
-        worldRender.renderMap(gc, buildingMap);
+        worldRender.renderMap(gc, buildingMap, true);
         Image Header = new Image("UI/headerEditor.png", 800, 64, true, false);
         gc.drawImage(Header, 0, 0);
 
