@@ -129,6 +129,7 @@ public class EditorState extends GameState {
             if(buildingMap[coords[0]][coords[1]] == SPAWN_PLAYER){
                 nbSpawnPlayer--;
             }
+
             if(posingBlock == SPAWN_MONSTER){
                 if(nbSpawnMonster < 4)
                     nbSpawnMonster++;
