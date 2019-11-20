@@ -5,16 +5,14 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
 import static Utils.Utils.*;
-import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Scanner;
 
-import static Utils.Utils.caseDimension;
 import static Utils.Utils.mapSize;
 
 /**
@@ -30,6 +28,7 @@ public class World {
 
     static Image road = new Image("textures/roadTextureLevel1.png");
     static Image wall = new Image("textures/wallTextureLevel1.png");
+    static Image rice = new Image("collectable/GrainDeRiz.png");
 
     private Image backGroundImage = new Image("textures/roadTextureLevel1.png");
 
