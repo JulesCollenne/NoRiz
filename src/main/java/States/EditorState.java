@@ -132,7 +132,7 @@ public class EditorState extends GameState {
     }
 
     private boolean isCorrect(int[] coords) {
-        return coords[1] > 1;
+        return coords[0] >= 0 && coords[1] >= 2 && coords[0] < Utils.mapSize && coords[1] < Utils.mapSize;
     }
 
     private boolean manageSpawn(int[] coords){

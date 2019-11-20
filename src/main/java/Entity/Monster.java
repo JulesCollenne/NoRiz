@@ -120,11 +120,7 @@ public class Monster implements  Entity{
                         setNextFacing(DIRECTION.RIGHT);
                         break;
                 }
-
-                //System.out.println(name + " " + facing);
             }
-
-
             if (nextFacingPossible(nextFacing)) {
                 facing = nextFacing;
                 nextFacing = DIRECTION.STOP;
