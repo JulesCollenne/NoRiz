@@ -143,9 +143,15 @@ public class PlayState extends GameState {
     }
 
     private void checkCollisions() {
-        if(isPlayerTouched())
-            playerTouched();
-
+        if(player.getInvulnerable()){
+            Entity monster;
+            if((monster = isMonsterTouched()) != null)
+                monstersTouched(monster);
+        }
+        else{
+            if(isPlayerTouched())
+                playerTouched();
+        }
         takeRice();
         takeItemBonus();
     }
@@ -169,13 +175,28 @@ public class PlayState extends GameState {
 
     }
 
+    /**
+     * Check if x,y is on a bonus and take the bonus ( it should probably just check and not take it )
+     * @param x coord
+     * @param y coord
+     * @return true if x,y is on a bonus
+     */
+    public boolean takeItemBonus(int x,int y) {
+        int[] coords = Utils.getSquare(x,y);
+        if(map[coords[0]][coords[1]] == WORLDITEM.BONUS) {
+            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
+            return true;
+        }
+        return false;
+    }
+
     private void takeItemBonus(){
-        if(gsm.collider.takeItemBonus(player.getCenterX(), player.getCenterY())){
+        if(takeItemBonus(player.getCenterX(), player.getCenterY())){
+
 
             for(int i =0; i< monsters.length; i++){
                 monsters[i].frozen = true;
             }
-
             Thread durationBonus = new Thread(){
                 public void run() {
                     long startBonusEffect = System.nanoTime();
@@ -189,7 +210,6 @@ public class PlayState extends GameState {
                 }
             };
             durationBonus.start();
-
         }
     }
 
@@ -201,11 +221,23 @@ public class PlayState extends GameState {
         return false;
     }
 
+    private Entity isMonsterTouched(){
+        for (Entity monster : monsters) {
+            if(gsm.collider.isTouching(player, monster))
+                return monster;
+        }
+        return null;
+    }
+
     public void playerTouched(){
         resetPosition();
         myData.nbLife--;
         if(myData.nbLife == 0)
             playerDie();
+    }
+
+    public void monstersTouched(Entity monster){
+        monster.resetPosition();
     }
 
     private void playerDie(){

@@ -41,7 +41,6 @@ public class Monster implements  Entity{
 
     public boolean frozen = false;
 
-
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         spawnX = initialX;
         spawnY = initialY;

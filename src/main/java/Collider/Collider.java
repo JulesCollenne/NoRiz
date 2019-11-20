@@ -47,18 +47,4 @@ public class Collider{
         return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
-    /**
-     * Check if x,y is on a bonus and take the bonus ( it should probably just check and not take it )
-     * @param x coord
-     * @param y coord
-     * @return true if x,y is on a bonus
-     */
-    public boolean takeItemBonus(int x,int y) {
-        int[] coords = Utils.getSquare(x,y);
-        if(world.map[coords[0]][coords[1]] == WORLDITEM.BONUS) {
-            world.map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-            return true;
-        }
-        return false;
-    }
 }

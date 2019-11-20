@@ -22,7 +22,7 @@ public class Player implements Entity {
     private DIRECTION nextFacing = DIRECTION.STOP;
 
     private int speed;
-    private boolean hasBonus;
+    private boolean invulnerable;
 
     private Collider collider;
 
@@ -38,7 +38,7 @@ public class Player implements Entity {
         spawnX = initialX;
         spawnY = initialY;
         speed = initialSpeed;
-        hasBonus = false;
+        invulnerable = false;
 
         setImages();
 
@@ -53,7 +53,7 @@ public class Player implements Entity {
         y = spawnY;
         animTime = 0;
         lastAnim = 0;
-        hasBonus = false;
+        invulnerable = false;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
     }
@@ -262,6 +262,10 @@ public class Player implements Entity {
 
     public int getSize() {
         return Utils.caseDimension;
+    }
+
+    public boolean getInvulnerable(){
+        return invulnerable;
     }
 
 }

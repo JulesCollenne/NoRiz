@@ -3,12 +3,12 @@ package BONUSITEM;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
-public class stopMonsters implements BonusItem {
+public class BstopMonsters implements BonusItem {
 
     int x, y;
-    TYPEBONUS type =  TYPEBONUS.BONUS;
+    TYPEBONUS type =  TYPEBONUS.BONUSFREEZE;
 
-    public stopMonsters(int x, int y) {
+    public BstopMonsters(int x, int y) {
         this.x = x;
         this.y = y;
     }
