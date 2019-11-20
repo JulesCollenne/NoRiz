@@ -2,6 +2,8 @@ package States;
 
 import Utils.Utils;
 import Utils.WORLDITEM;
+
+import static Utils.Utils.copyMap;
 import static Utils.WORLDITEM.*;
 
 import WorldBuilder.World;
@@ -222,6 +224,8 @@ public class EditorState extends GameState {
         WORLDITEM[][] tempMap = gsm.world.loadMap();
         if(tempMap != null){
             buildingMap = tempMap;
+            nbSpawnPlayer = 0;
+            nbSpawnMonster = 0;
         }
     }
 
@@ -239,18 +243,6 @@ public class EditorState extends GameState {
         int nbRice = 0;
         int nbSpP = 0;
         int nbSpM = 0;
-
-        if(!testRice()){
-
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Votre carte n'est pas valide");
-            alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !!");
-            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-            alert.getButtonTypes().addAll(btnOk);
-            alert.showAndWait();
-
-        }
 
         for(int i=0; i<Utils.mapSize; i++){
             for(int j=0; j<Utils.mapSize; j++){
@@ -302,24 +294,122 @@ public class EditorState extends GameState {
             ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
             alert.getButtonTypes().addAll(btnOk);
             alert.showAndWait();
+            return;
 
         }
-        else{
 
-            /*
+        if(!testRice()){
 
-                Jouer sur les maps :^)
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Votre carte n'est pas valide");
+            alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !! Il faut aussi que les monstres puissent accéder au joueur !!");
+            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+            alert.getButtonTypes().addAll(btnOk);
+            alert.showAndWait();
 
+            return;
 
-             */
         }
+
+        System.out.println("It's good!");
+
+        //TODO Jouer sur la map
 
     }
 
     private boolean testRice(){
 
-        //TODO Verif que tout les grains de riz song accessibles (au secour)
+        WORLDITEM[][] tempMap = copyMap(buildingMap);
+
+        for(int i=0; i<Utils.mapSize; i++) {
+            for (int j = 0; j < Utils.mapSize; j++) {
+
+                if(tempMap[i][j] == SPAWN_PLAYER){
+
+                    tempMap[i][j] = WALL;
+
+                    if(tempMap[i][j+1] != WALL)
+                        tryDown(tempMap, i, j+1);
+                    if(tempMap[i][j-1] != WALL)
+                        tryUp(tempMap, i, j-1);
+                    if(tempMap[i-1][j] != WALL)
+                        tryLeft(tempMap, i-1, j);
+                    if(tempMap[i+1][j] != WALL)
+                        tryRight(tempMap, i+1, j);
+                }
+            }
+        }
+
+        for(int i=0; i<Utils.mapSize; i++) {
+            for (int j = 0; j < Utils.mapSize; j++) {
+                if(tempMap[i][j] == RICE || tempMap[i][j] == SPAWN_MONSTER){
+                    return false;
+                }
+            }
+        }
 
         return true;
+    }
+
+    private void tryDown(WORLDITEM[][] tempMap, int i, int j){
+
+        tempMap[i][j] = WALL;
+
+        if(tempMap[i][j+1] != WALL)
+            tryDown(tempMap, i, j+1);
+        if(tempMap[i][j-1] != WALL)
+            tryUp(tempMap, i, j-1);
+        if(tempMap[i-1][j] != WALL)
+            tryLeft(tempMap, i-1, j);
+        if(tempMap[i+1][j] != WALL)
+            tryRight(tempMap, i+1, j);
+
+
+    }
+
+    private void tryUp(WORLDITEM[][] tempMap, int i, int j){
+
+        tempMap[i][j] = WALL;
+
+        if(tempMap[i][j+1] != WALL)
+            tryDown(tempMap, i, j+1);
+        if(tempMap[i][j-1] != WALL)
+            tryUp(tempMap, i, j-1);
+        if(tempMap[i-1][j] != WALL)
+            tryLeft(tempMap, i-1, j);
+        if(tempMap[i+1][j] != WALL)
+            tryRight(tempMap, i+1, j);
+
+    }
+
+    private void tryLeft(WORLDITEM[][] tempMap, int i, int j){
+
+        tempMap[i][j] = WALL;
+
+        if(tempMap[i][j+1] != WALL)
+            tryDown(tempMap, i, j+1);
+        if(tempMap[i][j-1] != WALL)
+            tryUp(tempMap, i, j-1);
+        if(tempMap[i-1][j] != WALL)
+            tryLeft(tempMap, i-1, j);
+        if(tempMap[i+1][j] != WALL)
+            tryRight(tempMap, i+1, j);
+
+    }
+
+    private void tryRight(WORLDITEM[][] tempMap, int i, int j){
+
+        tempMap[i][j] = WALL;
+
+        if(tempMap[i][j+1] != WALL)
+            tryDown(tempMap, i, j+1);
+        if(tempMap[i][j-1] != WALL)
+            tryUp(tempMap, i, j-1);
+        if(tempMap[i-1][j] != WALL)
+            tryLeft(tempMap, i-1, j);
+        if(tempMap[i+1][j] != WALL)
+            tryRight(tempMap, i+1, j);
+
     }
 }
