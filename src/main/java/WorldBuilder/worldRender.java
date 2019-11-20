@@ -2,19 +2,18 @@ package WorldBuilder;
 
 import Utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import static Utils.Utils.caseDimension;
 import Utils.WORLDITEM.*;
 
 public class worldRender {
-
     /*
      *   Entrée: une matrice représentant la carte
      *   Dessine la carte dans la fenêtre de jeu
      *        */
     public static void renderMap(GraphicsContext gc, WORLDITEM[][] map) {
-        //gc.drawImage(backGroundImage,0,0,Utils.canvasSize, Utils.canvasSize);
         for(int posX = 0; posX< map.length; posX++) {
             for (int posY = 0; posY < map[posX].length; posY++) {
                 renderItem(posX,posY, map[posX][posY], gc);
