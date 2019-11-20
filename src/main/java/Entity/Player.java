@@ -22,7 +22,7 @@ public class Player implements Entity {
     private DIRECTION nextFacing = DIRECTION.STOP;
 
     private int speed;
-    private boolean invulnerable;
+    private int invulnerable;
 
     private Collider collider;
 
@@ -38,7 +38,7 @@ public class Player implements Entity {
         spawnX = initialX;
         spawnY = initialY;
         speed = initialSpeed;
-        invulnerable = false;
+        invulnerable = 0;
 
         setImages();
 
@@ -53,7 +53,7 @@ public class Player implements Entity {
         y = spawnY;
         animTime = 0;
         lastAnim = 0;
-        invulnerable = false;
+        invulnerable = 0;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
     }
@@ -63,6 +63,9 @@ public class Player implements Entity {
      * Compute the next position
      */
     public void nextStep() {
+        if(invulnerable > 0){
+            invulnerable --;
+        }
         if(nextFacingPossible(nextFacing)) {
             facing = nextFacing;
             nextFacing = DIRECTION.STOP;
@@ -264,8 +267,9 @@ public class Player implements Entity {
         return Utils.caseDimension;
     }
 
-    public boolean getInvulnerable(){
+    public int getInvulnerable(){
         return invulnerable;
     }
+    public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
 
 }

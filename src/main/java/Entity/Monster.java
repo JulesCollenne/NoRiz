@@ -39,7 +39,7 @@ public class Monster implements  Entity{
 
     private Strategy strat;
 
-    public boolean frozen = false;
+    public int frozen = 0;
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         spawnX = initialX;
@@ -98,8 +98,9 @@ public class Monster implements  Entity{
     }
 
     public void nextStep() {
-        if(frozen){
+        if(frozen > 0){
             setNextFacing(DIRECTION.STOP);
+            frozen --;
         }
         else {
             if (timerStrat > timeNextStrat) {

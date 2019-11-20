@@ -1,5 +1,7 @@
 package States;
 
+import BONUSITEM.BonusItem;
+import BONUSITEM.BstopMonsters;
 import Entity.Entity;
 import Entity.Monster;
 import Entity.Player;
@@ -20,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.Random;
+
 import static Utils.DIRECTION.*;
 
 public class PlayState extends GameState {
@@ -36,6 +40,8 @@ public class PlayState extends GameState {
     private Monster monsters[];
 
     long lastTime = System.nanoTime();
+
+    Random rand = new Random();
 
     PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
@@ -74,7 +80,8 @@ public class PlayState extends GameState {
                 monsters) {
             monster.init();
         }
-        initMyData();
+
+            initMyData();
 
         //gsm.sm.backGround.play();
     }
@@ -143,10 +150,10 @@ public class PlayState extends GameState {
     }
 
     private void checkCollisions() {
-        if(player.getInvulnerable()){
+        if(player.getInvulnerable() > 0){
             Entity monster;
-            if((monster = isMonsterTouched()) != null)
-                monstersTouched(monster);
+            if((monster = monsterTouched()) != null)
+                monsterDie(monster);
         }
         else{
             if(isPlayerTouched())
@@ -182,35 +189,21 @@ public class PlayState extends GameState {
      * @param y coord
      * @return true if x,y is on a bonus
      */
-    public boolean takeItemBonus(int x,int y) {
-        int[] coords = Utils.getSquare(x,y);
-        if(map[coords[0]][coords[1]] == WORLDITEM.BONUS) {
-            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
-            return true;
-        }
+    public boolean checkBonus(int x,int y) {
+        if(map[x][y] == WORLDITEM.BONUS) return true;
         return false;
     }
 
     private void takeItemBonus(){
-        if(takeItemBonus(player.getCenterX(), player.getCenterY())){
 
+        int[] coords = Utils.getSquare(player.getCenterX(), player.getCenterY());
 
-            for(int i =0; i< monsters.length; i++){
-                monsters[i].frozen = true;
-            }
-            Thread durationBonus = new Thread(){
-                public void run() {
-                    long startBonusEffect = System.nanoTime();
-                    long currentTimer = System.nanoTime();
-                    while (Math.abs((currentTimer / 1000000000) - (startBonusEffect / 1000000000)) <= 3) {
-                        startBonusEffect = System.nanoTime();
-                    }
-                    for (int i = 0; i < monsters.length; i++) {
-                        monsters[i].frozen = false;
-                    }
-                }
-            };
-            durationBonus.start();
+        if(checkBonus(coords[0],coords[1])){
+            map[coords[0]][coords[1]] = WORLDITEM.ROAD;
+            if(rand.nextBoolean()==true)
+                gsm.bonuses[0].effect(monsters);
+            else
+                gsm.bonuses[1].effect(player);
         }
     }
 
@@ -222,12 +215,16 @@ public class PlayState extends GameState {
         return false;
     }
 
-    private Entity isMonsterTouched(){
+    private Entity monsterTouched(){
         for (Entity monster : monsters) {
             if(gsm.collider.isTouching(player, monster))
                 return monster;
         }
         return null;
+    }
+
+    public void monsterDie(Entity monster){
+        monster.resetPosition();
     }
 
     public void playerTouched(){
