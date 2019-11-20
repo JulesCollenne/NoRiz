@@ -30,8 +30,6 @@ public class World {
     static Image wall = new Image("textures/wallTextureLevel1.png");
     static Image rice = new Image("collectable/GrainDeRiz.png");
 
-    private Image backGroundImage = new Image("textures/roadTextureLevel1.png");
-
     /**
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
      * @param chosenDifficulty la difficultée du niveau

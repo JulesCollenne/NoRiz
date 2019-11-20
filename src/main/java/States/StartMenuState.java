@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 
 public class StartMenuState extends GameState{
 
@@ -16,6 +16,8 @@ public class StartMenuState extends GameState{
     private final int START  = 0;
     private final int PLAY  = 1;
     private final int PAUSE  = 2;
+
+    static Image backGroundImage = new Image("textures/noriz01.jpg");
 
     public StartMenuState(GameStateManager gsm) {
         super(gsm);
@@ -35,7 +37,11 @@ public class StartMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        layout.setStyle("-fx-background-color: darkslategrey;");
+        //layout.setStyle("-fx-background-color: darkslategrey;");
+
+        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        layout.setBackground(new Background(backgroundImage));
 
         double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
 

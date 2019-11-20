@@ -156,6 +156,7 @@ public class PlayState extends GameState {
         takeItemBonus();
     }
 
+    //TODO fsionner avec takeitem
     private void takeRice(){
 
         int coords[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
