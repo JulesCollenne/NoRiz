@@ -116,7 +116,7 @@ public class PlayState extends GameState {
             {
 
                 long elapsedNanos = currentNanoTime - lastTime ;
-                System.out.println("FPS : " + 1000000000. / elapsedNanos);
+                //System.out.println("FPS : " + 1000000000. / elapsedNanos);
 
                 // game logic
                 nextStep();
@@ -330,7 +330,7 @@ public class PlayState extends GameState {
 
     private void gameOver(){
         gsm.changeState(3);
-        gsm.sm.backGround.stop();
+        //gsm.sm.backGround.stop();
     }
 
 }
