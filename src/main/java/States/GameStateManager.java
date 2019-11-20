@@ -1,5 +1,8 @@
 package States;
 
+import BONUSITEM.BcanEatMonsters;
+import BONUSITEM.BonusItem;
+import BONUSITEM.BstopMonsters;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
@@ -23,6 +26,7 @@ public class GameStateManager {
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
     Monster[] monsters = new Monster[4];
+    public BonusItem[] bonuses = new BonusItem[2];
 
     SoundManager sm = new SoundManager();
 
@@ -37,6 +41,7 @@ public class GameStateManager {
         world.build(difficulty);
 
         createMonsters();
+        createBonuses();
 
         inGameUserInterface ui = new inGameUserInterface(this);
         gameStates[START] = new StartMenuState(this);
@@ -46,6 +51,11 @@ public class GameStateManager {
         gameStates[EDITOR] = new EditorState(this);
 
         changeState(START);
+    }
+
+    private void createBonuses() {
+        bonuses[0] = new BstopMonsters();
+        bonuses[1] = new BcanEatMonsters();
     }
 
     private void initScene() {
