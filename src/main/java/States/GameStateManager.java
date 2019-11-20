@@ -7,7 +7,11 @@ import Sounds.SoundManager;
 import Strategy.*;
 import UI.inGameUserInterface;
 import WorldBuilder.World;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 import static Utils.Utils.*;
 
@@ -37,7 +41,6 @@ public class GameStateManager {
         world.build(difficulty);
 
         createMonsters();
-
         inGameUserInterface ui = new inGameUserInterface(this);
         gameStates[START] = new StartMenuState(this);
         gameStates[PLAY] = new PlayState(this, ui);

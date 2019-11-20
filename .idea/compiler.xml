@@ -10,6 +10,8 @@
         <module name="NoRizV11" />
         <module name="NoRizV10" />
         <module name="NoRizV15" />
+        <module name="NoRizSOUND" />
+        <module name="NoRizV15" />
         <module name="NoRizPAUSE2" />
         <module name="NoRizV8" />
         <module name="NoRizV" />

@@ -70,19 +70,18 @@ public class StartMenuState extends GameState{
         skin.handler(gsm);
         skin.setStyle("-fx-background-color: transparent;");
 
-        ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
+        /*ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
         noriz.setX(350);
-        noriz.setY(150);
+        noriz.setY(150);*/
 
 
-        layout.getChildren().addAll(easy, medium, hard, skin, noriz, editor);
+        layout.getChildren().addAll(easy, medium, hard, skin, editor);
 
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 
     public void init() {
-
     }
 
     public void nextStep() {

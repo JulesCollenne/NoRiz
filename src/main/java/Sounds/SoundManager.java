@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -15,7 +16,7 @@ public class SoundManager {
     public MediaPlayer hurt;
 
     public SoundManager(){
-        //loadSounds();
+        loadSounds();
     }
 
     /**
@@ -26,6 +27,9 @@ public class SoundManager {
             String musicFile = "src/main/resources/sounds/music.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
             backGround = new MediaPlayer(sound);
+            Media hurtSound = new Media(new File("src/main/resources/sounds/hooo.mp3").toURI().toString());
+            hurt = new MediaPlayer(hurtSound);
+            hurt.setStopTime(new Duration(1000));
         }catch (MediaException e){
             e.printStackTrace();
             System.out.println("Ce son n'existe pas !");
@@ -48,8 +52,10 @@ public class SoundManager {
         }
     }
 
-    public void hurtSound(){
-
+    public void hurtSound(Scene scene){
+        hurt.setAutoPlay(true);
+        MediaView hMediaView = new MediaView(hurt);
+        ((Group) scene.getRoot()).getChildren().add(hMediaView);
     }
 
 }

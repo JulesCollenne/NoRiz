@@ -76,7 +76,7 @@ public class PlayState extends GameState {
         }
         initMyData();
 
-        //gsm.sm.backGround.play();
+        gsm.sm.backGround.play();
     }
 
     public void initMyData(){
@@ -116,7 +116,7 @@ public class PlayState extends GameState {
             {
 
                 long elapsedNanos = currentNanoTime - lastTime ;
-                System.out.println("FPS : " + 1000000000. / elapsedNanos);
+                //System.out.println("FPS : " + 1000000000. / elapsedNanos);
 
                 // game logic
                 nextStep();
@@ -151,6 +151,7 @@ public class PlayState extends GameState {
         else{
             if(isPlayerTouched())
                 playerTouched();
+                gsm.sm.hurt.play();
         }
         takeRice();
         takeItemBonus();
@@ -331,7 +332,7 @@ public class PlayState extends GameState {
 
     private void gameOver(){
         gsm.changeState(3);
-        //gsm.sm.backGround.stop();
+        gsm.sm.backGround.stop();
     }
 
 }
