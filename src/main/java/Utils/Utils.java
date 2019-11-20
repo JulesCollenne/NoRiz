@@ -27,6 +27,10 @@ public class Utils {
                 return 3;
             case UI:
                 return 4;
+            case SPAWN_PLAYER:
+                return 5;
+            case SPAWN_MONSTER:
+                return 6;
         }
         return -1;
     }
@@ -43,6 +47,10 @@ public class Utils {
                 return BONUS;
             case 4:
                 return UI;
+            case 5:
+                return SPAWN_PLAYER;
+            case 6:
+                return SPAWN_MONSTER;
         }
         return ROAD;
     }

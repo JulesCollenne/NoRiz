@@ -7,11 +7,17 @@ import static Utils.WORLDITEM.*;
 import WorldBuilder.World;
 import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -48,6 +54,18 @@ public class EditorState extends GameState {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
 
+
+        Image im = new Image("Buttons/sign_test.png");
+        Button test = new Button();
+        test.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
+        test.setLayoutX(Utils.canvasSize - im.getWidth()- 16);
+        test.setLayoutY(Utils.caseDimension+10);
+        test.setGraphic(new ImageView(im));
+        test.setOnAction(e -> testCurrentMap());
+
+
+        root.getChildren().addAll(test);
+
         animationTimer = new AnimationTimer()
         {
             public void handle(long currentNanoTime)
@@ -68,6 +86,7 @@ public class EditorState extends GameState {
                 this::mouseInput);
 
         theScene.setOnMouseDragged(this::mouseInput);
+
 
     }
 
@@ -125,7 +144,6 @@ public class EditorState extends GameState {
 
         if(isCorrect(coords)) {
             if(manageSpawn(coords)) {
-                System.out.println(nbSpawnMonster + ", " + nbSpawnPlayer);
                 buildingMap[coords[0]][coords[1]] = posingBlock;
             }
         }
@@ -205,5 +223,103 @@ public class EditorState extends GameState {
         if(tempMap != null){
             buildingMap = tempMap;
         }
+    }
+
+    private boolean checkCorridor(int i, int j){
+
+        if(buildingMap[i+1][j] != WALL && buildingMap[i][j+1] != WALL && buildingMap[i+1][j+1] != WALL) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void testCurrentMap(){
+
+        int nbRice = 0;
+        int nbSpP = 0;
+        int nbSpM = 0;
+
+        if(!testRice()){
+
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Votre carte n'est pas valide");
+            alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !!");
+            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+            alert.getButtonTypes().addAll(btnOk);
+            alert.showAndWait();
+
+        }
+
+        for(int i=0; i<Utils.mapSize; i++){
+            for(int j=0; j<Utils.mapSize; j++){
+
+                if(j > 1 && i < 24 && buildingMap[i][j] != WALL){
+                    if(!checkCorridor(i, j)){
+
+                        Alert alert = new Alert(Alert.AlertType.NONE);
+                        alert.setTitle("Erreur");
+                        alert.setHeaderText("Votre carte n'est pas valide");
+                        alert.setContentText("Votre carte ne doit être composé que de couloir !! Ce n'est pas le cas en "+(i+1) +", "+(j-1));
+
+                        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+                        alert.getButtonTypes().addAll(btnOk);
+                        alert.showAndWait();
+
+                        return;
+                    }
+                }
+
+                switch(buildingMap[i][j]){
+
+                    case RICE:
+                        nbRice++;
+                        break;
+                    case SPAWN_PLAYER:
+                        nbSpP++;
+                        break;
+                    case SPAWN_MONSTER:
+                        nbSpM++;
+                        break;
+                    case BONUS:
+
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        }
+
+        if(nbSpP != 1 || nbSpM != 4){
+
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Votre carte n'est pas valide");
+            alert.setContentText("Il doit y avoir un spaw (bleu) pour le joueur, et 4 spawn (rouge) pour les monstres !");
+
+            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+            alert.getButtonTypes().addAll(btnOk);
+            alert.showAndWait();
+
+        }
+        else{
+
+            /*
+
+                Jouer sur les maps :^)
+
+
+             */
+        }
+
+    }
+
+    private boolean testRice(){
+
+        //TODO Verif que tout les grains de riz song accessibles (au secour)
+
+        return true;
     }
 }
