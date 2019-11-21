@@ -14,6 +14,7 @@ public class Utils {
     public static final int PAUSE  = 2;
     public static final int GAMEOVER = 3;
     public static final int EDITOR = 4;
+    public static final int OPTIONS = 5;
 
     public static int worldItemToInt(WORLDITEM worlditem){
         switch(worlditem){

@@ -51,6 +51,9 @@ class ModeButton extends Button {
                 case "Editor":
                     gsm.changeState(4);
                     break;
+                case "Options":
+                    gsm.changeState(5);
+                    break;
             }
         });
         this.setOnMouseEntered((EventHandler) mouseEvent -> {

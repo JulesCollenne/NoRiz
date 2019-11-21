@@ -60,7 +60,7 @@ public class EditorState extends GameState {
         Image im = new Image("Buttons/sign_test.png");
         Button test = new Button();
         test.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
-        test.setLayoutX(Utils.canvasSize - im.getWidth()- 16);
+        test.setLayoutX(Utils.canvasSize - im.getWidth()- 20);
         test.setLayoutY(Utils.caseDimension+10);
         test.setGraphic(new ImageView(im));
         test.setOnAction(e -> playOnCurrentMap());
@@ -123,6 +123,8 @@ public class EditorState extends GameState {
                 break;
             case L:
                 loadMap();
+                nbSpawnMonster = 4;
+                nbSpawnPlayer = 1;
                 break;
             case ESCAPE:
                 gsm.changeState(0);
@@ -296,6 +298,18 @@ public class EditorState extends GameState {
 
                 }
             }
+        }
+
+        if(nbRice <= 0){
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Votre carte n'est pas valide");
+            alert.setContentText("Il doit y avoir au moins un grain de riz sur la map!");
+
+            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+            alert.getButtonTypes().addAll(btnOk);
+            alert.showAndWait();
+            return false;
         }
 
         if(nbSpP != 1 || nbSpM != 4){

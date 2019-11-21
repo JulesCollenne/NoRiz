@@ -18,7 +18,7 @@ import static Utils.Utils.*;
 public class GameStateManager{
 
     private int currentState = START;
-    private GameState gameStates[] = new GameState[5];
+    private GameState gameStates[] = new GameState[6];
 
     private Stage theStage;
 
@@ -55,6 +55,7 @@ public class GameStateManager{
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
+        gameStates[OPTIONS] = new OptionsState(this);
 
         changeState(START);
     }

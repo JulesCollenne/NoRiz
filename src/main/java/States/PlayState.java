@@ -267,7 +267,10 @@ public class PlayState extends GameState {
     }
 
     private void playerDie(){
-        gameOver();
+        if(!gsm.isEditorTest)
+            gameOver();
+        else
+            gsm.returnToEditor();
     }
 
     private void resetPosition(){
@@ -335,7 +338,10 @@ public class PlayState extends GameState {
         long timer = getTimer();
 
         if(timer <= 0) {
-            gameOver();
+            if(!gsm.isEditorTest)
+                gameOver();
+            else
+                gsm.returnToEditor();
         }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
