@@ -77,13 +77,12 @@ public class PlayState extends GameState {
 
     public void init(){
         firstRender = true;
+        initMyData();
         player.init();
         for (Monster monster :
                 monsters) {
             monster.init();
         }
-
-            initMyData();
 
         //gsm.sm.backGround.play();
     }
@@ -93,24 +92,32 @@ public class PlayState extends GameState {
         map = Utils.copyMap(gsm.world.build(gsm.difficulty));
         myData = new myGameData(map);
 
-        switch(gsm.difficulty){
+        int nbRice = 0;
 
-            case EASY:
-                myData.nbRiz = matrixWorld.nbRiceWorld1;
-                break;
+        for (int i = 0; i < Utils.mapSize; i++){
+            for (int j = 0; j < Utils.mapSize; j++){ //
+                if(myData.map[i][j] == WORLDITEM.RICE)
+                    nbRice++;
+                if(myData.map[i][j] == WORLDITEM.SPAWN_PLAYER) {
+                    gsm.player.setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
+                }
+            }
+        }
 
-            case MEDIUM:
-                myData.nbRiz = matrixWorld.nbRiceWorld2;
-                break;
+        myData.nbRiz = nbRice;
 
-            case HARD:
-                myData.nbRiz = matrixWorld.nbRiceWorld3;
-                break;
+        System.out.println(myData.nbRiz);
 
-            default:
-                myData.nbRiz = matrixWorld.nbRiceWorld1;
-                break;
-
+        int k = 0;
+        while(k<monsters.length){
+            for (int i = 0; i < Utils.mapSize; i++) {
+                for (int j = 0; j < Utils.mapSize; j++) { //
+                    if (myData.map[i][j] == WORLDITEM.SPAWN_MONSTER) {
+                        gsm.monsters[k].setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
+                        k++;
+                    }
+                }
+            }
         }
 
         startTimer = 0;
@@ -361,7 +368,7 @@ public class PlayState extends GameState {
 
     private void gameOver(){
         gsm.changeState(3);
-        gsm.sm.backGround.stop();
+        //gsm.sm.backGround.stop();
     }
 
 }

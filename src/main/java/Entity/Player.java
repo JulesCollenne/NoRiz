@@ -51,6 +51,7 @@ public class Player implements Entity {
     public void init(){
         x = spawnX;
         y = spawnY;
+
         animTime = 0;
         lastAnim = 0;
         invulnerable = 0;
@@ -98,6 +99,11 @@ public class Player implements Entity {
             return;
         x += dx;
         y += dy;
+    }
+
+    public void setSpawn(int x, int y){
+        spawnX = x;
+        spawnY = y;
     }
 
     /*

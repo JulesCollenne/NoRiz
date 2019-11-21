@@ -187,6 +187,11 @@ public class Monster implements  Entity{
     }
 
 
+    public void setSpawn(int x, int y){
+        spawnX = x;
+        spawnY = y;
+    }
+
     /**
      * ..................COORDINATES AHEAD
      */
