@@ -63,7 +63,7 @@ public class EditorState extends GameState {
         test.setLayoutX(Utils.canvasSize - im.getWidth()- 16);
         test.setLayoutY(Utils.caseDimension+10);
         test.setGraphic(new ImageView(im));
-        test.setOnAction(e -> testCurrentMap());
+        test.setOnAction(e -> playOnCurrentMap());
 
 
         root.getChildren().addAll(test);
@@ -136,6 +136,19 @@ public class EditorState extends GameState {
      */
     private void setPosingBlock(WORLDITEM posingBlock) {
         this.posingBlock = posingBlock;
+    }
+
+    private void playOnCurrentMap(){
+
+        if(testCurrentMap()){
+
+            //TODO Jouer sur la map
+
+            return;
+        }
+        else{
+            return;
+        }
     }
 
     private void mouseInput(MouseEvent e){
@@ -214,7 +227,10 @@ public class EditorState extends GameState {
      * Save the current map in a file
      */
     private void saveMap(){
-        gsm.world.saveMap(buildingMap);
+
+        if(testCurrentMap()) {
+            gsm.world.saveMap(buildingMap);
+        }
     }
 
     /**
@@ -238,7 +254,7 @@ public class EditorState extends GameState {
         return true;
     }
 
-    private void testCurrentMap(){
+    private boolean testCurrentMap(){
 
         int nbRice = 0;
         int nbSpP = 0;
@@ -259,7 +275,7 @@ public class EditorState extends GameState {
                         alert.getButtonTypes().addAll(btnOk);
                         alert.showAndWait();
 
-                        return;
+                        return false;
                     }
                 }
 
@@ -294,7 +310,7 @@ public class EditorState extends GameState {
             ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
             alert.getButtonTypes().addAll(btnOk);
             alert.showAndWait();
-            return;
+            return false;
 
         }
 
@@ -308,13 +324,11 @@ public class EditorState extends GameState {
             alert.getButtonTypes().addAll(btnOk);
             alert.showAndWait();
 
-            return;
+            return false;
 
         }
 
-        System.out.println("It's good!");
-
-        //TODO Jouer sur la map
+        return true;
 
     }
 
