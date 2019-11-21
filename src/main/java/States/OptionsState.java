@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 
+import static Utils.WORLDITEM.ROAD;
+
 public class OptionsState extends GameState{
 
 
@@ -38,6 +40,9 @@ public class OptionsState extends GameState{
         layout.getChildren().addAll();
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+
+        theScene.setOnKeyPressed(
+                this::keyInput);
     }
 
     public void init() {
@@ -49,7 +54,11 @@ public class OptionsState extends GameState{
 
     @Override
     public void keyInput(KeyEvent e) {
-
+        switch (e.getCode()) {
+            case ESCAPE:
+                gsm.changeState(0);
+                break;
+        }
     }
 
     @Override
