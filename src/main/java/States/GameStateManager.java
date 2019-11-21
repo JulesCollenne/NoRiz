@@ -9,6 +9,7 @@ import Entity.Player;
 import Sounds.SoundManager;
 import Strategy.*;
 import UI.inGameUserInterface;
+import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.stage.Stage;
 
@@ -27,6 +28,8 @@ public class GameStateManager{
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
     public BonusItem[] bonuses = new BonusItem[2];
 
+
+    public boolean isEditorTest = false;
     SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
     private ThreadMonsters threadMonsters;
@@ -86,6 +89,25 @@ public class GameStateManager{
             //gameStates[currentState].animationTimer2.play();
     }
 
+    void changeToEditorTest(WORLDITEM[][] map){
+        isEditorTest = true;
+        gameStates[currentState].animationTimer.stop();
+        currentState = PLAY;
+        world.build(map);
+        gameStates[currentState].init();
+        theStage.setScene(gameStates[currentState].theScene);
+        theStage.show();
+        gameStates[currentState].animationTimer.start();
+    }
+    void returnToEditor(){
+        isEditorTest = false;
+        gameStates[currentState].animationTimer.stop();
+        currentState = EDITOR;
+        theStage.setScene(gameStates[currentState].theScene);
+        theStage.show();
+        gameStates[currentState].animationTimer.start();
+    }
+
     void reprendreJeu(){
         gameStates[currentState].animationTimer.stop();
         currentState = PLAY;
@@ -94,6 +116,7 @@ public class GameStateManager{
         gameStates[currentState].animationTimer.start();
 
     }
+
 
     static class ThreadMonsters extends Thread{
         Monster[] monsters;

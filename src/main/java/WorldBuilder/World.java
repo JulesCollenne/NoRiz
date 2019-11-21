@@ -64,6 +64,11 @@ public class World {
         return map;
     }
 
+    public WORLDITEM[][] build(WORLDITEM[][] map){
+        this.map = map;
+        return map;
+    }
+
     /**
      *
      * @return une map sans les murs sauf les contours et l'UI

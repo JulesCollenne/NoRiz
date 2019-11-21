@@ -141,9 +141,7 @@ public class EditorState extends GameState {
     private void playOnCurrentMap(){
 
         if(testCurrentMap()){
-
-            //TODO Jouer sur la map
-
+            gsm.changeToEditorTest(buildingMap);
             return;
         }
         else{

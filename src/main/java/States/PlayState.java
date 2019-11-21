@@ -17,6 +17,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -89,7 +92,7 @@ public class PlayState extends GameState {
 
     public void initMyData(){
 
-        map = Utils.copyMap(gsm.world.build(gsm.difficulty));
+        map = Utils.copyMap(gsm.world.map);
         myData = new myGameData(map);
 
         int nbRice = 0;
@@ -106,8 +109,6 @@ public class PlayState extends GameState {
 
         myData.nbRiz = nbRice;
 
-        System.out.println(myData.nbRiz);
-
         int k = 0;
         while(k<monsters.length){
             for (int i = 0; i < Utils.mapSize; i++) {
@@ -121,6 +122,12 @@ public class PlayState extends GameState {
         }
 
         startTimer = 0;
+
+    }
+
+    private void returnToEditor(){
+
+        gsm.returnToEditor();
 
     }
 
@@ -288,10 +295,16 @@ public class PlayState extends GameState {
                 player.setNextFacing(UP);
                 break;
             case SPACE:
-                pause();
+                if(!gsm.isEditorTest)
+                    pause();
+                else
+                    returnToEditor();
                 break;
             case ESCAPE:
-                pause();
+                if(!gsm.isEditorTest)
+                    pause();
+                else
+                    returnToEditor();
                 break;
             case A:
                 System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
@@ -325,6 +338,7 @@ public class PlayState extends GameState {
             gameOver();
         }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
+
 
     }
 
