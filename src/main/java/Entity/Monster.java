@@ -39,7 +39,7 @@ public class Monster implements  Entity{
 
     private Strategy strat;
 
-    public int frozen = 0;
+    public int frozen;
 
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         spawnX = initialX;
@@ -48,6 +48,7 @@ public class Monster implements  Entity{
         this.strat = strat;
         this.collider = collider;
         this.name = name;
+        frozen = 0;
         setImages();
         init();
     }

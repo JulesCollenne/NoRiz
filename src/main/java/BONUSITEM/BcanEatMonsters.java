@@ -4,7 +4,7 @@ import Entity.Monster;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
-public class BcanEatMonsters implements BonusItem {
+public class BcanEatMonsters implements CollectableItem {
 
     int x, y;
 

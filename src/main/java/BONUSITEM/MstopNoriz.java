@@ -4,23 +4,23 @@ import Entity.Monster;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
-public class BstopMonsters implements CollectableItem {
+public class MstopNoriz implements CollectableItem{
 
     int x, y;
-    TYPEBONUS type =  TYPEBONUS.BONUSFREEZE;
 
-    public BstopMonsters() {
+    TYPEBONUS type = TYPEBONUS.MALUSFREEZE;
+
+    public MstopNoriz(){
+
     }
 
     @Override
     public void effect(Player p) {
-
+        p.frozen = 500;
     }
 
     @Override
     public void effect(Monster[] monsters) {
-        for(int i =0; i< monsters.length; i++){
-            monsters[i].frozen = 500;
-        }
+
     }
 }

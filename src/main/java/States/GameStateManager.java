@@ -1,8 +1,9 @@
 package States;
 
 import BONUSITEM.BcanEatMonsters;
-import BONUSITEM.BonusItem;
+import BONUSITEM.CollectableItem;
 import BONUSITEM.BstopMonsters;
+import BONUSITEM.MstopNoriz;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
@@ -26,7 +27,8 @@ public class GameStateManager{
 
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
-    public BonusItem[] bonuses = new BonusItem[2];
+    public CollectableItem[] collectableItems = new CollectableItem[2];
+    //public CollectableItem[] maluses = new CollectableItem[2];
 
 
     public boolean isEditorTest = false;
@@ -48,6 +50,7 @@ public class GameStateManager{
         threadMonsters = new ThreadMonsters(player,collider,world,monsters);
         threadMonsters.start();
         createBonuses();
+        //createMaluses();
 
         inGameUserInterface ui = new inGameUserInterface(this);
         gameStates[START] = new StartMenuState(this);
@@ -61,9 +64,17 @@ public class GameStateManager{
     }
 
     private void createBonuses() {
-        bonuses[0] = new BstopMonsters();
-        bonuses[1] = new BcanEatMonsters();
+       // bonuses[0] = new BstopMonsters();
+       // bonuses[1] = new BcanEatMonsters();
+        collectableItems[0] = new MstopNoriz();
+        collectableItems[1] = new MstopNoriz();
+
     }
+
+ /*   private void createMaluses(){
+        maluses[0] = new MstopNoriz();
+        maluses[1] = new MstopNoriz();
+    }*/
 
     private void initScene() {
     }

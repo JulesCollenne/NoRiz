@@ -227,12 +227,12 @@ public class PlayState extends GameState {
         title.setText("bien joué frérot");
     }
 
-    private void takeBonus(int x, int y){
+    private void takeBonus(int x, int y){ /////////////////////////////////////////////
         map[x][y] = WORLDITEM.ROAD;
         if(rand.nextBoolean())
-            gsm.bonuses[0].effect(monsters);
+            gsm.collectableItems[0].effect(monsters);
         else
-            gsm.bonuses[1].effect(player);
+            gsm.collectableItems[1].effect(player);
     }
 
     private boolean isPlayerTouched() {
@@ -257,9 +257,14 @@ public class PlayState extends GameState {
 
     public void playerTouched(){
         resetPosition();
+        resetFrozen();
         myData.nbLife--;
         if(myData.nbLife == 0)
             playerDie();
+    }
+
+    public void resetFrozen(){
+        player.frozen = 0;
     }
 
     public void monstersTouched(Entity monster){

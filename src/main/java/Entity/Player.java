@@ -33,12 +33,15 @@ public class Player implements Entity {
     private int lastAnim;
     private final int animSpeed = 10;
 
+    public int frozen;
+
     public Player(Collider collider, int initialX, int initialY, int initialSpeed){
         this.collider = collider;
         spawnX = initialX;
         spawnY = initialY;
         speed = initialSpeed;
         invulnerable = 0;
+        frozen = 0;
 
         setImages();
 
@@ -57,6 +60,7 @@ public class Player implements Entity {
         invulnerable = 0;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
+
     }
 
 
@@ -64,26 +68,32 @@ public class Player implements Entity {
      * Compute the next position
      */
     public void nextStep() {
-        if(invulnerable > 0){
-            invulnerable --;
+        if(frozen > 0){
+            setNextFacing(DIRECTION.STOP);
+            frozen --;
         }
-        if(nextFacingPossible(nextFacing)) {
-            facing = nextFacing;
-            nextFacing = DIRECTION.STOP;
-        }
-        switch(facing){
-            case DOWN:
-                tryMove(0, speed);
-                break;
-            case UP:
-                tryMove(0, -speed);
-                break;
-            case LEFT:
-                tryMove(-speed, 0);
-                break;
-            case RIGHT:
-                tryMove(speed, 0);
-                break;
+        else {
+            if (invulnerable > 0) {
+                invulnerable--;
+            }
+            if (nextFacingPossible(nextFacing)) {
+                facing = nextFacing;
+                nextFacing = DIRECTION.STOP;
+            }
+            switch (facing) {
+                case DOWN:
+                    tryMove(0, speed);
+                    break;
+                case UP:
+                    tryMove(0, -speed);
+                    break;
+                case LEFT:
+                    tryMove(-speed, 0);
+                    break;
+                case RIGHT:
+                    tryMove(speed, 0);
+                    break;
+            }
         }
     }
 
