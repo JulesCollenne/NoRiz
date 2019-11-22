@@ -19,7 +19,7 @@ public class MstopNoriz implements CollectableItem{
 
     @Override
     public void effect(Player p) {
-        p.frozen = 500;
+        p.frozen = 300;
     }
 
     @Override

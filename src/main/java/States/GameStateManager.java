@@ -20,7 +20,7 @@ import static Utils.Utils.*;
 public class GameStateManager{
 
     private int currentState = START;
-    private GameState gameStates[] = new GameState[6];
+    private GameState gameStates[] = new GameState[nbStates];
 
     private Stage theStage;
 
@@ -57,7 +57,7 @@ public class GameStateManager{
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
         gameStates[OPTIONS] = new OptionsState(this);
-        //gameStates[ARCADE] = new ArcadeState(this,ui);
+        gameStates[ARCADE] = new ArcadeState(this,ui);
 
         changeState(START);
     }

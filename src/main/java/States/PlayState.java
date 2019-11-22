@@ -220,29 +220,9 @@ public class PlayState extends GameState {
     private void takeBonus(int x, int y){ /////////////////////////////////////////////
         map[x][y] = WORLDITEM.ROAD;
         if(rand.nextBoolean())
-            gsm.collectableItems[0].effect(monsters);
+            gsm.collectableItems[1].effect(player);
         else
             gsm.collectableItems[1].effect(player);
-    }
-
-    private boolean isPlayerTouched() {
-        for (Entity monster : monsters) {
-            if(gsm.collider.isTouching(player, monster))
-               return true;
-        }
-        return false;
-    }
-
-    private Entity monsterTouched(){
-        for (Entity monster : monsters) {
-            if(gsm.collider.isTouching(player, monster))
-                return monster;
-        }
-        return null;
-    }
-
-    public void monsterDie(Entity monster){
-        monster.resetPosition();
     }
 
     public void playerTouched(){
