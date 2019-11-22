@@ -6,11 +6,8 @@ import Utils.WORLDITEM;
 import static Utils.Utils.copyMap;
 import static Utils.WORLDITEM.*;
 
-import WorldBuilder.World;
 import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -168,6 +165,12 @@ public class EditorState extends GameState {
         return coords[0] >= 0 && coords[1] >= 2 && coords[0] < Utils.mapSize && coords[1] < Utils.mapSize;
     }
 
+
+    /**
+     *
+     * Cette méthode permet de s'assurer qu'on ne puisse pas poser plus d'un spawn pour le joueur, et 4 spawns pour les monstres
+     *
+     */
     private boolean manageSpawn(int[] coords){
 
         WORLDITEM item = buildingMap[coords[0]][coords[1]];
@@ -245,6 +248,13 @@ public class EditorState extends GameState {
         }
     }
 
+
+    /**
+     *
+     * Entrée: Positon d'un item ROAD dans la matrice
+     * S'assure que cet item fait partit d'un couloir
+     *
+     */
     private boolean checkCorridor(int i, int j){
 
         if(buildingMap[i+1][j] != WALL && buildingMap[i][j+1] != WALL && buildingMap[i+1][j+1] != WALL) {
@@ -254,6 +264,12 @@ public class EditorState extends GameState {
         return true;
     }
 
+
+    /**
+     *
+     * Gère tout les tests liés à la validité de la map
+     *
+     */
     private boolean testCurrentMap(){
 
         int nbRice = 0;
@@ -326,7 +342,7 @@ public class EditorState extends GameState {
 
         }
 
-        if(!testRice()){
+        if(!testPossible()){
 
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Erreur");
@@ -344,7 +360,15 @@ public class EditorState extends GameState {
 
     }
 
-    private boolean testRice(){
+
+    /**
+     *
+     * Test que tous les grains de riz et les spawns de monstres sont accessibles depuis le spawn du joueur:
+     *      -   Parcour récursivement la carte en remplacant les routes parcourus par des WALL
+     *      -   S'il reste des grains de riz/spawn de monstres à la fin, la map n'est pas valide
+     *
+     */
+    private boolean testPossible(){
 
         WORLDITEM[][] tempMap = copyMap(buildingMap);
 
@@ -356,13 +380,13 @@ public class EditorState extends GameState {
                     tempMap[i][j] = WALL;
 
                     if(tempMap[i][j+1] != WALL)
-                        tryDown(tempMap, i, j+1);
+                        goToDown(tempMap, i, j+1);
                     if(tempMap[i][j-1] != WALL)
-                        tryUp(tempMap, i, j-1);
+                        goToUp(tempMap, i, j-1);
                     if(tempMap[i-1][j] != WALL)
-                        tryLeft(tempMap, i-1, j);
+                        goToLeft(tempMap, i-1, j);
                     if(tempMap[i+1][j] != WALL)
-                        tryRight(tempMap, i+1, j);
+                        goToRight(tempMap, i+1, j);
                 }
             }
         }
@@ -378,64 +402,72 @@ public class EditorState extends GameState {
         return true;
     }
 
-    private void tryDown(WORLDITEM[][] tempMap, int i, int j){
+
+    /**
+     *  Pour les 4 fonctions goTo:
+     *     permet de parcourir récursivement la map
+     */
+
+    private void goToDown(WORLDITEM[][] tempMap, int i, int j){
 
         tempMap[i][j] = WALL;
 
         if(tempMap[i][j+1] != WALL)
-            tryDown(tempMap, i, j+1);
+            goToDown(tempMap, i, j+1);
         if(tempMap[i][j-1] != WALL)
-            tryUp(tempMap, i, j-1);
+            goToUp(tempMap, i, j-1);
         if(tempMap[i-1][j] != WALL)
-            tryLeft(tempMap, i-1, j);
+            goToLeft(tempMap, i-1, j);
         if(tempMap[i+1][j] != WALL)
-            tryRight(tempMap, i+1, j);
+            goToRight(tempMap, i+1, j);
 
 
     }
 
-    private void tryUp(WORLDITEM[][] tempMap, int i, int j){
+
+
+    private void goToUp(WORLDITEM[][] tempMap, int i, int j){
 
         tempMap[i][j] = WALL;
 
         if(tempMap[i][j+1] != WALL)
-            tryDown(tempMap, i, j+1);
+            goToDown(tempMap, i, j+1);
         if(tempMap[i][j-1] != WALL)
-            tryUp(tempMap, i, j-1);
+            goToUp(tempMap, i, j-1);
         if(tempMap[i-1][j] != WALL)
-            tryLeft(tempMap, i-1, j);
+            goToLeft(tempMap, i-1, j);
         if(tempMap[i+1][j] != WALL)
-            tryRight(tempMap, i+1, j);
+            goToRight(tempMap, i+1, j);
 
     }
 
-    private void tryLeft(WORLDITEM[][] tempMap, int i, int j){
+    private void goToLeft(WORLDITEM[][] tempMap, int i, int j){
 
         tempMap[i][j] = WALL;
 
         if(tempMap[i][j+1] != WALL)
-            tryDown(tempMap, i, j+1);
+            goToDown(tempMap, i, j+1);
         if(tempMap[i][j-1] != WALL)
-            tryUp(tempMap, i, j-1);
+            goToUp(tempMap, i, j-1);
         if(tempMap[i-1][j] != WALL)
-            tryLeft(tempMap, i-1, j);
+            goToLeft(tempMap, i-1, j);
         if(tempMap[i+1][j] != WALL)
-            tryRight(tempMap, i+1, j);
+            goToRight(tempMap, i+1, j);
 
     }
 
-    private void tryRight(WORLDITEM[][] tempMap, int i, int j){
+    private void goToRight(WORLDITEM[][] tempMap, int i, int j){
 
         tempMap[i][j] = WALL;
 
         if(tempMap[i][j+1] != WALL)
-            tryDown(tempMap, i, j+1);
+            goToDown(tempMap, i, j+1);
         if(tempMap[i][j-1] != WALL)
-            tryUp(tempMap, i, j-1);
+            goToUp(tempMap, i, j-1);
         if(tempMap[i-1][j] != WALL)
-            tryLeft(tempMap, i-1, j);
+            goToLeft(tempMap, i-1, j);
         if(tempMap[i+1][j] != WALL)
-            tryRight(tempMap, i+1, j);
+            goToRight(tempMap, i+1, j);
 
     }
 }
