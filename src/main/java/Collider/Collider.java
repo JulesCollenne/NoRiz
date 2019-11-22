@@ -5,6 +5,9 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
 
+/**
+ * The collider manages the collisions
+ */
 public class Collider{
 
     private World world;
@@ -14,7 +17,7 @@ public class Collider{
     }
 
     /**
-     *
+     * p1 and p2 is a line, we check if it's in a wall
      * @param x1 P1
      * @param y1 P1
      * @param x2 P2
@@ -37,6 +40,7 @@ public class Collider{
         int coords[] = Utils.getSquare(x,y);
         return world.map[coords[0]][coords[1]] != WORLDITEM.WALL;
     }
+
 
     /**
      * @param e1 entity 1

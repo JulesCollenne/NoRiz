@@ -4,6 +4,9 @@ import Entity.Monster;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
+/**
+ * This bonus freeze the enemies
+ */
 public class BstopMonsters implements CollectableItem {
 
     int x, y;

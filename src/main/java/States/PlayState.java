@@ -7,25 +7,17 @@ import UI.inGameUserInterface;
 import Utils.Utils;
 import Utils.WORLDITEM;
 import Utils.myGameData;
-import WorldBuilder.matrixWorld;
 import WorldBuilder.worldRender;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -126,9 +118,7 @@ public class PlayState extends GameState {
     }
 
     private void returnToEditor(){
-
         gsm.returnToEditor();
-
     }
 
     /**

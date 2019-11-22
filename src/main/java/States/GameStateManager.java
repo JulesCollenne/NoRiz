@@ -1,14 +1,15 @@
 package States;
 
-import BONUSITEM.BcanEatMonsters;
 import BONUSITEM.CollectableItem;
-import BONUSITEM.BstopMonsters;
 import BONUSITEM.MstopNoriz;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
 import Sounds.SoundManager;
-import Strategy.*;
+import Strategy.AngleStrat;
+import Strategy.BonusStrat;
+import Strategy.HalfRandomStratHalfAngleStrat;
+import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
@@ -34,7 +35,6 @@ public class GameStateManager{
     public boolean isEditorTest = false;
     SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
-    private ThreadMonsters threadMonsters;
 
     public enum DIF {EASY, MEDIUM, HARD}
 
@@ -46,9 +46,7 @@ public class GameStateManager{
 
         world.build(difficulty);
 
-        //createMonsters();
-        threadMonsters = new ThreadMonsters(player,collider,world,monsters);
-        threadMonsters.start();
+        createMonsters();
         createBonuses();
         //createMaluses();
 
@@ -59,6 +57,7 @@ public class GameStateManager{
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
         gameStates[OPTIONS] = new OptionsState(this);
+        //gameStates[ARCADE] = new ArcadeState(this,ui);
 
         changeState(START);
     }
@@ -129,35 +128,15 @@ public class GameStateManager{
 
     }
 
-
-    static class ThreadMonsters extends Thread{
-        Monster[] monsters;
-        Player player;
-        Collider collider;
-        World world;
-
-        public ThreadMonsters(Player player, Collider collider, World world, Monster[] monsters){
-            this.player = player;
-            this.collider = collider;
-            this.world = world;
-            this.monsters = monsters;
-        }
-
-        /**
-         * Create 4 monsters
-         */
-
-        private void createMonsters(){
-            //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
-            monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Cat hamaran", collider);                                              //Monstre AngleStrat
-            monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "Cat holik", collider);                                                     //Monstre RandomStrat
-            monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "Cat o'dick", collider);                                                //Monstre BonusStrat
-            monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "Cat reuh", collider);                               //Monstre Half
-        }
-
-        public void run(){
-            createMonsters();
-        }
+    /**
+     * Create 4 monsters
+     */
+    private void createMonsters(){
+        //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Cat hamaran", collider);                                              //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "Cat holik", collider);                                                     //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "Cat o'dick", collider);                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "Cat reuh", collider);                               //Monstre Half
     }
 }
 

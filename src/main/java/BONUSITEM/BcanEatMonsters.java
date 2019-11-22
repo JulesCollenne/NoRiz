@@ -4,6 +4,9 @@ import Entity.Monster;
 import Entity.Player;
 import Utils.TYPEBONUS;
 
+/**
+ * This bonus allow Nori to eat the enemies
+ */
 public class BcanEatMonsters implements CollectableItem {
 
     int x, y;

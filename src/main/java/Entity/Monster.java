@@ -11,27 +11,14 @@ import javafx.scene.paint.Paint;
 /**
  * Monsters are the cat trying to eat the player
  */
-public class Monster implements  Entity{
+public class Monster extends Entity{
 
     private String name;
-
-    private int x;
-    private int y;
-    private int spawnX;
-    private int spawnY;
-
-    private DIRECTION facing = DIRECTION.STOP;
-    private DIRECTION nextFacing = DIRECTION.STOP;
-
     private int speed;
-
-    public Collider collider;
 
     private int nbImgAnim = 2;
     private Image[][] image = new Image[4][nbImgAnim];
 
-    private int animTime;
-    private int lastAnim;
     private final int animSpeed = 10;
 
     private int timerStrat = 0;
@@ -39,16 +26,13 @@ public class Monster implements  Entity{
 
     private Strategy strat;
 
-    public int frozen;
-
     public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
-        spawnX = initialX;
-        spawnY = initialY;
+        super(collider, initialX, initialY);
+
         speed = initialSpeed;
         this.strat = strat;
-        this.collider = collider;
         this.name = name;
-        frozen = 0;
+
         setImages();
         init();
     }
@@ -88,13 +72,6 @@ public class Monster implements  Entity{
         makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
         makeAnimations(Utils.toInt(DIRECTION.DOWN),"droite");
         makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
-
-    }
-
-    public void resetPosition(){
-
-        x = spawnX;
-        y = spawnY;
 
     }
 
@@ -144,138 +121,6 @@ public class Monster implements  Entity{
         }
     }
 
-    private void tryMove(int dx, int dy) {
-        int[] coords = getCollideCoords();
-        if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
-            return;
-        x += dx;
-        y += dy;
-    }
-
-    public int getSize() {
-        return Utils.caseDimension;
-    }
-
-    /**
-     * change the direction of the player
-     * @param newFacing the new facing
-     */
-    private void setNextFacing(DIRECTION newFacing){
-        if(nextFacingPossible(newFacing))
-            facing = newFacing;
-        else
-            nextFacing = newFacing;
-    }
-
-    private boolean nextFacingPossible(DIRECTION nextFacing) {
-        if(nextFacing == DIRECTION.STOP)
-            return false;
-        if(nextFacing == facing) {
-            this.nextFacing = DIRECTION.STOP;
-            return false;
-        }
-
-        DIRECTION tmp = facing;
-        facing = nextFacing;
-
-        int[] coords = getCollideCoords();
-
-        if(!collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
-            facing = tmp;
-            return false;
-        }
-        return true;
-    }
-
-
-    public void setSpawn(int x, int y){
-        spawnX = x;
-        spawnY = y;
-    }
-
-    /**
-     * ..................COORDINATES AHEAD
-     */
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getFacingX(DIRECTION facing){
-        if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
-            return 0;
-        if(facing == DIRECTION.RIGHT)
-            return getSize()/2;
-        return -getSize()/2;
-    }
-
-    public int getFacingY(DIRECTION facing) {
-        if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
-            return 0;
-        if(facing == DIRECTION.DOWN)
-            return getSize()/2;
-        return -getSize()/2;
-    }
-
-    public int getCenterX() {
-        return x + getSize()/2;
-    }
-
-    public int getCenterY() {
-        return y + getSize()/2;
-    }
-
-    private int[] getCollideCoords(){
-        int[] coords = new int[4];
-
-        coords[0] = getCollideX1();
-        coords[1] = getCollideY1();
-        coords[2] = getCollideX2();
-        coords[3] = getCollideY2();
-
-        return coords;
-    }
-
-    private int getCollideX1(){
-        if(facing == DIRECTION.RIGHT)
-            return x + getSize();
-        if(facing == DIRECTION.LEFT)
-            return x;
-        return x + 1;
-    }
-
-    private int getCollideX2(){
-        if(facing == DIRECTION.RIGHT)
-            return x + getSize();
-        if(facing == DIRECTION.LEFT)
-            return x;
-        return x + getSize() - 1;
-    }
-
-    private int getCollideY1(){
-        if(facing == DIRECTION.DOWN)
-            return y + getSize();
-        if(facing == DIRECTION.UP)
-            return y;
-        return y + 1;
-    }
-
-    private int getCollideY2(){
-        if(facing == DIRECTION.DOWN)
-            return y + getSize();
-        if(facing == DIRECTION.UP)
-            return y;
-        return y + getSize() - 1;
-    }
-
-    public DIRECTION getFacing(){
-        return facing;
-    }
-
     public void makeAnimations(int direction, String name) {
         for(int i = 0; i < nbImgAnim; i++)
             image[direction][i] = new Image("monsters/catastrophe" + i + ".png");
@@ -283,6 +128,10 @@ public class Monster implements  Entity{
 
     public void die() {
         resetPosition();
+    }
+
+    public int getSize() {
+        return Utils.caseDimension;
     }
 }
 

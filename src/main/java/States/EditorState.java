@@ -138,14 +138,8 @@ public class EditorState extends GameState {
     }
 
     private void playOnCurrentMap(){
-
-        if(testCurrentMap()){
+        if(testCurrentMap())
             gsm.changeToEditorTest(buildingMap);
-            return;
-        }
-        else{
-            return;
-        }
     }
 
     private void mouseInput(MouseEvent e){
