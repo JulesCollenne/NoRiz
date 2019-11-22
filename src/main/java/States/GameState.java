@@ -10,7 +10,7 @@ public abstract class GameState {
     Scene theScene;
     GameStateManager gsm;
     AnimationTimer animationTimer;
-    Timeline animationTimer2;
+    //Timeline animationTimer2;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;

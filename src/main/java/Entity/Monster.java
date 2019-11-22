@@ -6,7 +6,6 @@ import Utils.DIRECTION;
 import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Paint;
 
 /**
  * Monsters are the cat trying to eat the player
@@ -14,12 +13,6 @@ import javafx.scene.paint.Paint;
 public class Monster extends Entity{
 
     private String name;
-    private int speed;
-
-    private int nbImgAnim = 2;
-    private Image[][] image = new Image[4][nbImgAnim];
-
-    private final int animSpeed = 10;
 
     private int timerStrat = 0;
     private int timeNextStrat = 10;
@@ -33,6 +26,9 @@ public class Monster extends Entity{
         this.strat = strat;
         this.name = name;
 
+        nbImgAnim = 2;
+        image = new Image[4][nbImgAnim];
+        animSpeed = 10;
         setImages();
         init();
     }

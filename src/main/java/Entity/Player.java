@@ -9,18 +9,15 @@ import javafx.scene.input.KeyEvent;
 import Utils.DIRECTION;
 
 /**
- * Player is the sashimi
+ * The player is the sashimi Nori
  */
 public class Player extends Entity {
 
-    private int speed;
     private int invulnerable;
 
-    private int nbImgAnim = 2;
-    private Image[][] image = new Image[4][nbImgAnim];
-
-    private final int animSpeed = 10;
-
+    /**
+     * Constructor
+     */
     public Player(Collider collider, int initialX, int initialY, int initialSpeed){
         super(collider, initialX, initialY);
 
@@ -28,13 +25,17 @@ public class Player extends Entity {
         invulnerable = 0;
         frozen = 0;
 
+        nbImgAnim = 2;
+        animSpeed = 10;
+        image = new Image[4][nbImgAnim];
+
         setImages();
 
         init();
     }
 
     /**
-     * Initialise les variables
+     * Initialise les variables. Used when the game starts
      */
     public void init(){
         x = spawnX;
@@ -106,6 +107,9 @@ public class Player extends Entity {
         makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
     }
 
+    /**
+     * Puts the images at the right place in the variable "image"
+     */
     public void makeAnimations(int direction, String name){
         for(int i = 0; i < nbImgAnim; i++)
             image[direction][i] = new Image("Player/nori_" + name + i + ".png");

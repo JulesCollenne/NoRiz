@@ -30,12 +30,18 @@ public class EditorState extends GameState {
     private int nbSpawnPlayer = 0;
     private int nbSpawnMonster = 0;
 
+    /**
+     * Constructor
+     */
     EditorState(GameStateManager gsm) {
         super(gsm);
         createScene();
         init();
     }
 
+    /**
+     * Create the scene, used in the constructor
+     */
     private void createScene() {
         Group root = new Group();
         theScene = new Scene( root );
@@ -71,10 +77,8 @@ public class EditorState extends GameState {
             {
                 // game logic
                 nextStep();
-
                 // render
                 render(gc);
-
             }
         };
 
@@ -85,7 +89,6 @@ public class EditorState extends GameState {
                 this::mouseInput);
 
         theScene.setOnMouseDragged(this::mouseInput);
-
 
     }
 
@@ -137,11 +140,17 @@ public class EditorState extends GameState {
         this.posingBlock = posingBlock;
     }
 
+    /**
+     * Allow player to play on the map created
+     */
     private void playOnCurrentMap(){
         if(testCurrentMap())
             gsm.changeToEditorTest(buildingMap);
     }
 
+    /**
+     * Manage input of the mouse
+     */
     private void mouseInput(MouseEvent e){
         int x = (int) e.getX();
         int y = (int) e.getY();
@@ -155,6 +164,9 @@ public class EditorState extends GameState {
         }
     }
 
+    /**
+     * Check if the coords of the mouse are not outside the window
+     */
     private boolean isCorrect(int[] coords) {
         return coords[0] >= 0 && coords[1] >= 2 && coords[0] < Utils.mapSize && coords[1] < Utils.mapSize;
     }
@@ -311,47 +323,63 @@ public class EditorState extends GameState {
         }
 
         if(nbRice <= 0){
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Votre carte n'est pas valide");
-            alert.setContentText("Il doit y avoir au moins un grain de riz sur la map!");
-
-            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-            alert.getButtonTypes().addAll(btnOk);
-            alert.showAndWait();
+            alertNbRice();
             return false;
         }
 
         if(nbSpP != 1 || nbSpM != 4){
-
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Votre carte n'est pas valide");
-            alert.setContentText("Il doit y avoir un spaw (bleu) pour le joueur, et 4 spawn (rouge) pour les monstres !");
-
-            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-            alert.getButtonTypes().addAll(btnOk);
-            alert.showAndWait();
+            alertSpawn();
             return false;
-
         }
 
         if(!testPossible()){
-
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Votre carte n'est pas valide");
-            alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !! Il faut aussi que les monstres puissent accéder au joueur !!");
-            ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-            alert.getButtonTypes().addAll(btnOk);
-            alert.showAndWait();
-
+            alertIncorrectMap();
             return false;
-
         }
 
         return true;
 
+    }
+
+    /**
+     * Show an alert if the map is incorrect : If the player can't take all the rice, or if monsters can't get the player
+     */
+    private void alertIncorrectMap() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !! Il faut aussi que les monstres puissent accéder au joueur !!");
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show an alert if the spawns on the map are incorrect
+     */
+    private void alertSpawn() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Il doit y avoir un spaw (bleu) pour le joueur, et 4 spawn (rouge) pour les monstres !");
+
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show an alert if the number of rice in the map is = 0
+     */
+    private void alertNbRice() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Il doit y avoir au moins un grain de riz sur la map!");
+
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
     }
 
 
