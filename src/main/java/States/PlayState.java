@@ -171,6 +171,8 @@ public class PlayState extends GameState {
         player.nextStep();
         for (Monster monster : monsters) {
             monster.nextStep();
+            //if(monster.getFacing() == STOP)
+                //System.out.println(monster.name + " : " + monster.getFacing());
         }
     }
 

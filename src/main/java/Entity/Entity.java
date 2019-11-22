@@ -153,7 +153,7 @@ public abstract class Entity {
      * The hitbox of the entity is a line : the side of its box that it's facing
      * @return the coordinates of the line
      */
-    private int[] getCollideCoords(){
+    public int[] getCollideCoords(){
         int[] coords = new int[4];
 
         coords[0] = getCollideX1();

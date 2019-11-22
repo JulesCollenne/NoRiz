@@ -26,6 +26,9 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
         int x = monster.getX();
         int y = monster.getY();
 
+        int coords[];
+        DIRECTION facingTmp = monster.getFacing();
+
         if(random <= taux){ //RandomStrat
             int rand;
             boolean impossible = true;
@@ -34,30 +37,38 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
                 rand = (int) (Math.random() * 4);
 
                 switch (rand) {
-
                     case 0:
-                        if (currentWay != DIRECTION.UP && monster.collider.isPossible(x+1, y + Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        monster.setFacing(DIRECTION.DOWN);
+                        coords = monster.getCollideCoords();
+                        if (currentWay != DIRECTION.UP && monster.collider.isPossible(coords[0], coords[1] + 1, coords[2], coords[3]+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                             nextWay = DIRECTION.DOWN;
                             impossible = false;
                         }
+                        monster.setFacing(facingTmp);
                         break;
 
                     case 1:
-                        if (currentWay != DIRECTION.DOWN && monster.collider.isPossible(x+1, y - Utils.caseDimension+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        monster.setFacing(DIRECTION.UP);
+                        coords = monster.getCollideCoords();
+                        if (currentWay != DIRECTION.DOWN && monster.collider.isPossible(coords[0], coords[1] - 1, coords[2], coords[3] - 1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                             nextWay = DIRECTION.UP;
                             impossible = false;
                         }
                         break;
 
                     case 2:
-                        if (currentWay != DIRECTION.RIGHT && monster.collider.isPossible(x - Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        monster.setFacing(DIRECTION.LEFT);
+                        coords = monster.getCollideCoords();
+                        if (currentWay != DIRECTION.RIGHT && monster.collider.isPossible(coords[0] - 1, coords[1], coords[2] - 1, coords[3])) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                             nextWay = DIRECTION.LEFT;
                             impossible = false;
                         }
                         break;
 
                     case 3:
-                        if (currentWay != DIRECTION.LEFT && monster.collider.isPossible(x + Utils.caseDimension+1, y+1)) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
+                        monster.setFacing(DIRECTION.RIGHT);
+                        coords = monster.getCollideCoords();
+                        if (currentWay != DIRECTION.LEFT && monster.collider.isPossible(coords[0] + 1, coords[1], coords[2] + 1, coords[3])) {  // il ne peut pas faire demi tour/choisir une direction vers un mur
                             nextWay = DIRECTION.RIGHT;
                             impossible = false;
                         }

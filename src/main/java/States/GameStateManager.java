@@ -133,6 +133,7 @@ public class GameStateManager{
      */
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
+
         monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "Cat hamaran", collider);                                              //Monstre AngleStrat
         monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "Cat holik", collider);                                                     //Monstre RandomStrat
         monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "Cat o'dick", collider);                                                //Monstre BonusStrat

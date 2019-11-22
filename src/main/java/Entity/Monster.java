@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
  */
 public class Monster extends Entity{
 
-    private String name;
+    public String name;
 
     private int timerStrat = 0;
     private int timeNextStrat = 10;
@@ -26,7 +26,7 @@ public class Monster extends Entity{
         this.strat = strat;
         this.name = name;
 
-        nbImgAnim = 2;
+        nbImgAnim = 1;
         image = new Image[4][nbImgAnim];
         animSpeed = 10;
         setImages();
@@ -51,24 +51,11 @@ public class Monster extends Entity{
     {
         gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
-        //System.out.println(x+", "+y);
-
         if(lastAnim == animSpeed) {
-            animTime = (animTime + 1) % 2;
+            animTime = (animTime + 1) % nbImgAnim;
             lastAnim = 0;
         }
         lastAnim++;
-    }
-
-    /**
-     *
-     */
-    public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"droite");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
-
     }
 
     public void nextStep() {
@@ -117,9 +104,22 @@ public class Monster extends Entity{
         }
     }
 
-    public void makeAnimations(int direction, String name) {
+    public void setImages(){
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
+    }
+
+    /**
+     * Puts the images at the right place in the variable "image"
+     */
+    public void makeAnimations(int direction, String name){
+        //for(int i = 0; i < nbImgAnim; i++)
+          //  image[direction][i] = new Image("monsters/"+ name +"_" + name + i + ".png");
+
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("monsters/catastrophe" + i + ".png");
+            image[direction][i] = new Image("monsters/catastrophe_" + name + i + ".png");
     }
 
     public void die() {
@@ -128,6 +128,10 @@ public class Monster extends Entity{
 
     public int getSize() {
         return Utils.caseDimension;
+    }
+
+    public void setFacing(DIRECTION dir){
+        this.facing = dir;
     }
 }
 
