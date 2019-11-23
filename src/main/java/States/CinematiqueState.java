@@ -28,22 +28,24 @@ import java.util.Scanner;
 public class CinematiqueState extends GameState{
 
 
-    Image backGroundImage;
-    ArrayList<String> dialogList = new ArrayList<>();
+    private Image backGroundImage;
+    private ArrayList<String> dialogList = new ArrayList<>();
 
-    Image currentTalker = new Image("monsters/catastrophe_droite0.png");
-    String currentDialog;
+    private Image currentTalker = new Image("monsters/catastrophe_droite0.png");
 
-    double posXDialog;
-    double posYDialog;
+    private double posXDialog;
+    private double posYDialog;
 
-    public CinematiqueState(GameStateManager gsm) {
+    private double posXTalker;
+    private double posYTalker;
+
+    CinematiqueState(GameStateManager gsm) {
         super(gsm);
         init();
         createAnimTimer();
     }
 
-    public void createAnimTimer() {
+    private void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -70,6 +72,9 @@ public class CinematiqueState extends GameState{
         cadreTalking.setWidth(currentTalker.getWidth()+10);
         cadreTalking.setHeight(currentTalker.getHeight()+10);
         cadreTalking.setFill(Color.WHITE);
+
+        posXTalker = talker.getX();
+        posYTalker = talker.getY();
 
         Rectangle borderCadreTalking = new Rectangle();
         borderCadreTalking.setX(cadreTalking.getX()-5);
@@ -109,7 +114,7 @@ public class CinematiqueState extends GameState{
         HBox hbox = new HBox();
         hbox.setLayoutX((30/100.)*Utils.canvasSize);
         hbox.setLayoutY((95/100.)*Utils.canvasSize);
-        Text skipInstructions = new Text("Appuyez sur la touche espace pour passer le dialogue");
+        Text skipInstructions = new Text("Appuyez sur la touche échape pour passer le dialogue");
         skipInstructions.setFont(new Font(15));
         skipInstructions.setFill(Color.BLACK);
         skipInstructions.setStyle("-fx-font-weight: bold;");
@@ -120,7 +125,7 @@ public class CinematiqueState extends GameState{
         posYDialog = cadreDialog.getY() + 28;
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
-        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, talker, hbox, canvas, nextDialogButton);
+        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, hbox, canvas, nextDialogButton);
 
 
         theScene.setOnKeyPressed(
@@ -229,16 +234,16 @@ public class CinematiqueState extends GameState{
      * Affiche le prochain dialogue
      *
      */
-    public void nextDialog(GraphicsContext gc){
+    private void nextDialog(GraphicsContext gc){
 
         if(!dialogList.isEmpty()) {
             String temp = dialogList.get(0);
             dialogList.remove(0);
 
-            switch (temp.substring(0, 1)){
+            switch (temp.substring(0, 2)){
 
                 case "N ":
-                    currentTalker = new Image("monsters/catastrophe_droite0.png");      // Image de noriz a termes
+                    currentTalker = new Image("monsters/catastrophe_droite0.png");      // Image de noriz a terme
                     break;
 
                 case "M ":
@@ -247,15 +252,16 @@ public class CinematiqueState extends GameState{
 
             }
 
-            currentDialog = temp.substring(2);
+            String currentDialog = temp.substring(2);
 
             gc.setFill(Color.WHITE);
             gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
 
-
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(20));
             gc.fillText(currentDialog,posXDialog, posYDialog);
+
+            gc.drawImage(currentTalker, posXTalker, posYTalker);
 
         }
         else{
@@ -278,9 +284,6 @@ public class CinematiqueState extends GameState{
 
         switch (e.getCode()) {
             case ESCAPE:
-                gsm.changeState(1);
-                break;
-            case SPACE:
                 gsm.changeState(1);
                 break;
         }
