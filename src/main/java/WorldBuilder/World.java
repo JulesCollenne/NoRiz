@@ -27,7 +27,7 @@ public class World {
     public WORLDITEM[][] map;
 
     static Image road = new Image("textures/roadTextureLevel1.png");
-    static Image wall = new Image("textures/wallTextureLevel1.png");
+    static Image wall = new Image("textures/wallTexture.png");
     static Image rice = new Image("collectable/GrainDeRiz.png");
 
     /**
@@ -45,19 +45,19 @@ public class World {
 
             case MEDIUM:
                 road = new Image("textures/roadTextureLevel2.jpg");
-                wall = new Image("textures/wallTextureLevel1.png");
+                wall = new Image("textures/wallTexture.png");
                 map = loadMap("src/main/resources/Maps/worldMedium.map");
                 break;
 
             case HARD:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
+                road = new Image("textures/roadTexture1.png");
+                wall = new Image("textures/wallTexture.png");
                 map = loadMap("src/main/resources/Maps/worldHard.map");
                 break;
 
             default:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
+                road = new Image("textures/roadTexture1.png");
+                wall = new Image("textures/wallTexture.png");
                 map = loadMap("src/main/resources/Maps/worldEasy.map");
                 break;
         }
