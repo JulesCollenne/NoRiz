@@ -12,20 +12,18 @@ import javafx.scene.text.Text;
 
 public class inGameUserInterface {
 
-    private GameStateManager gsm;
+    Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
+    Image UIRiceTemp = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
+    Image UIHeart = new Image("UI/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+    Image grainDeRiz = new Image("collectable/GrainDeRiz.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
 
-    public inGameUserInterface(GameStateManager gsm){
-
-        this.gsm = gsm;
+    public inGameUserInterface(){
 
     }
 
     private void renderUITimer(GraphicsContext gc, long timer){
 
-
-        Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
         gc.drawImage(UITimer, Utils.canvasSize - 130, 0);
-
 
         gc.setFill(Color.WHITE);
         if(timer >= 100) {
@@ -42,10 +40,8 @@ public class inGameUserInterface {
     }
 
     private void renderNbRice(GraphicsContext gc, int nbRice){
-
-        Image UITimer = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
-
-        gc.drawImage(UITimer, 11, 0);
+        gc.drawImage(UIRiceTemp, 11, 0);
+        gc.drawImage(grainDeRiz, 12,8);
 
         gc.setFill(Color.WHITE);
         gc.fillText(nbRice+"", 60 , 18+((70/100.0)*Utils.caseDimension));
@@ -53,12 +49,8 @@ public class inGameUserInterface {
     }
 
     private void renderHeart(GraphicsContext gc, int nbLife){
-
         for(int i = 0; i<nbLife; i++){
-
-            Image UIHeart = new Image("UI/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
             gc.drawImage(UIHeart, 200 + (i*70) , (50/100.0) * (Utils.caseDimension/2.0));
-
         }
     }
 

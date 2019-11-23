@@ -51,7 +51,7 @@ public class GameStateManager{
         createBonuses();
         //createMaluses();
 
-        inGameUserInterface ui = new inGameUserInterface(this);
+        inGameUserInterface ui = new inGameUserInterface();
         gameStates[START] = new StartMenuState(this);
         gameStates[PLAY] = new PlayState(this, ui);
         gameStates[PAUSE] = new PauseState(this);

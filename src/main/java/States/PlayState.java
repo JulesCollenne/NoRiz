@@ -167,6 +167,16 @@ public class PlayState extends GameState {
         if(myData.nbLife <= 0)
             return;
 
+        long timer = getTimer();
+
+
+        if(timer <= 0 && !firstRender) {
+            if(!gsm.isEditorTest)
+                gameOver();
+            else
+                gsm.returnToEditor();
+        }
+
         checkCollisions();
 
         player.nextStep();
@@ -323,14 +333,6 @@ public class PlayState extends GameState {
 
         renderEntities(gc);
 
-        long timer = getTimer();
-
-        if(timer <= 0) {
-            if(!gsm.isEditorTest)
-                gameOver();
-            else
-                gsm.returnToEditor();
-        }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
 
