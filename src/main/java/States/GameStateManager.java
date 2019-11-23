@@ -13,6 +13,7 @@ import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
+import javafx.scene.control.Skin;
 import javafx.stage.Stage;
 
 import static Utils.Utils.*;
@@ -58,6 +59,7 @@ public class GameStateManager{
         gameStates[EDITOR] = new EditorState(this);
         gameStates[OPTIONS] = new OptionsState(this);
         gameStates[ARCADE] = new ArcadeState(this,ui);
+        gameStates[SKIN] = new SkinState(this);
 
         changeState(START);
     }

@@ -6,20 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="NoRizOUIII" />
+        <module name="NoRizIZZ" />
         <module name="NoRiz3" />
         <module name="NoRizV8" />
         <module name="NoRizSOUND" />
         <module name="NoRizaaa" />
-        <module name="NoRizIZZ" />
         <module name="NoRiz2" />
-        <module name="NoRizV" />
         <module name="NoRizV19" />
+        <module name="NoRizOUIII" />
         <module name="NoRizV15" />
         <module name="NoRiz" />
         <module name="NoRizV12" />
         <module name="NoRizV11" />
         <module name="NoRizV10" />
+        <module name="NoRizV" />
         <module name="NoRizPAUSE2" />
       </profile>
     </annotationProcessing>

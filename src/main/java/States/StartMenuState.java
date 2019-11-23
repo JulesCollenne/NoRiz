@@ -67,6 +67,7 @@ public class StartMenuState extends GameState{
         skin.handler(gsm);
         skin.setStyle("-fx-background-color: transparent;");
 
+
         ModeButton arcade = new ModeButton(new Image("Buttons/sign_arcade.png"), "Arcade");
         arcade.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
         arcade.setLayoutY((80/100.0)*Utils.canvasSize);
@@ -82,11 +83,6 @@ public class StartMenuState extends GameState{
         options.setLayoutX(Utils.canvasSize - 2.4*(new Image("Buttons/sign_options.png").getWidth()));
         options.setLayoutY(-15);
         options.handler(gsm);
-
-      /*  ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
-        /*ImageView noriz = new ImageView(new Image("Player/nori_droite0.png"));
-        noriz.setX(350);
-        noriz.setY(150);*/
 
         layout.getChildren().addAll(options, easy, medium, hard, skin, editor, arcade);
 

@@ -23,8 +23,7 @@ class SkinButton extends Button {
 
     void handler(GameStateManager gsm) {
         this.setOnMousePressed(mouseEvent -> {
-            System.out.println("Mode " + label);
-            //gsm.changeState(1);
+            gsm.changeState(7);
         });
         this.setOnMouseEntered(mouseEvent -> {
             //Faire une petite animation quand on survole le bouton
