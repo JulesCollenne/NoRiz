@@ -50,6 +50,7 @@ public class PlayState extends GameState {
     }
 
     private void createScene() {
+
         Group root = new Group();
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
@@ -207,10 +208,18 @@ public class PlayState extends GameState {
         myData.nbRiz -= 1;
         map[x][y] = WORLDITEM.ROAD;
 
-        if(myData.nbRiz == 0)
-            win();
+        if(myData.nbRiz <= 0) {
+            if (!gsm.isEditorTest)
+                win();
+            else
+                gsm.returnToEditor();
+        }
     }
 
+
+    /**
+     * TODO
+     */
     private void win() {
         Text title = new Text();
         title.setX((20/100.0)*Utils.canvasSize);
@@ -225,6 +234,8 @@ public class PlayState extends GameState {
             gsm.collectableItems[1].effect(player);
         else
             gsm.collectableItems[1].effect(player);
+
+
     }
 
     public void playerTouched(){

@@ -26,15 +26,15 @@ class ModeButton extends Button {
             switch(label) {
                 case "Facile":
                     gsm.difficulty = EASY;
-                    gsm.changeState(1);
+                    gsm.changeState(8);
                     break;
                 case "Medium":
                     gsm.difficulty = MEDIUM;
-                    gsm.changeState(1);
+                    gsm.changeState(8);
                     break;
                 case "Hard":
                     gsm.difficulty = HARD;
-                    gsm.changeState(1);
+                    gsm.changeState(8);
                     break;
                 case "Rejouer":
                     gsm.changeState(1);

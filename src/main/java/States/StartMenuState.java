@@ -37,7 +37,7 @@ public class StartMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        //layout.setStyle("-fx-background-color: darkslategrey;");+++
+        //layout.setStyle("-fx-background-color: darkslategrey;");
 
         BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);

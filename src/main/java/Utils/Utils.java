@@ -9,7 +9,7 @@ public class Utils {
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
 
-    public static int nbStates = 8;
+    public static int nbStates = 9;
     public static final int START  = 0;
     public static final int PLAY  = 1;
     public static final int PAUSE  = 2;
@@ -18,6 +18,7 @@ public class Utils {
     public static final int OPTIONS = 5;
     public static final int ARCADE = 6;
     public static final int SKIN = 7;
+    public static final int CINEMATIQUE = 8;
 
     
     public static int worldItemToInt(WORLDITEM worlditem){

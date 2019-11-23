@@ -60,6 +60,7 @@ public class GameStateManager{
         gameStates[OPTIONS] = new OptionsState(this);
         gameStates[ARCADE] = new ArcadeState(this,ui);
         gameStates[SKIN] = new SkinState(this);
+        gameStates[CINEMATIQUE] = new CinematiqueState(this);
 
         changeState(START);
     }
