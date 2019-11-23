@@ -3,7 +3,9 @@ package States;
 import Utils.Utils;
 import Utils.WORLDITEM;
 
+import static Utils.Utils.canvasSize;
 import static Utils.Utils.copyMap;
+import static Utils.Utils.mapSize;
 import static Utils.WORLDITEM.*;
 
 import WorldBuilder.worldRender;
@@ -202,8 +204,6 @@ public class EditorState extends GameState {
         }
 
         return true;
-
-
     }
 
     @Override
@@ -253,12 +253,7 @@ public class EditorState extends GameState {
      *
      */
     private boolean checkCorridor(int i, int j){
-
-        if(buildingMap[i+1][j] != WALL && buildingMap[i][j+1] != WALL && buildingMap[i+1][j+1] != WALL) {
-            return false;
-        }
-
-        return true;
+        return buildingMap[i + 1][j] == WALL || buildingMap[i][j + 1] == WALL || buildingMap[i + 1][j + 1] == WALL;
     }
 
 
@@ -276,7 +271,7 @@ public class EditorState extends GameState {
         for(int i=0; i<Utils.mapSize; i++){
             for(int j=0; j<Utils.mapSize; j++){
 
-                if(j > 1 && i < 24 && buildingMap[i][j] != WALL){
+                if(j > 1 && i < mapSize-1 && buildingMap[i][j] != WALL){
                     if(!checkCorridor(i, j)){
 
                         Alert alert = new Alert(Alert.AlertType.NONE);
@@ -390,16 +385,7 @@ public class EditorState extends GameState {
 
                 if(tempMap[i][j] == SPAWN_PLAYER){
 
-                    tempMap[i][j] = WALL;
-
-                    if(tempMap[i][j+1] != WALL)
-                        goToDown(tempMap, i, j+1);
-                    if(tempMap[i][j-1] != WALL)
-                        goToUp(tempMap, i, j-1);
-                    if(tempMap[i-1][j] != WALL)
-                        goToLeft(tempMap, i-1, j);
-                    if(tempMap[i+1][j] != WALL)
-                        goToRight(tempMap, i+1, j);
+                    search(tempMap, i, j);
                 }
             }
         }
@@ -420,67 +406,18 @@ public class EditorState extends GameState {
      *  Pour les 4 fonctions goTo:
      *     permet de parcourir récursivement la map
      */
-
-    private void goToDown(WORLDITEM[][] tempMap, int i, int j){
-
-        tempMap[i][j] = WALL;
-
-        if(tempMap[i][j+1] != WALL)
-            goToDown(tempMap, i, j+1);
-        if(tempMap[i][j-1] != WALL)
-            goToUp(tempMap, i, j-1);
-        if(tempMap[i-1][j] != WALL)
-            goToLeft(tempMap, i-1, j);
-        if(tempMap[i+1][j] != WALL)
-            goToRight(tempMap, i+1, j);
-
-
-    }
-
-
-
-    private void goToUp(WORLDITEM[][] tempMap, int i, int j){
+    private void search(WORLDITEM[][] tempMap, int i, int j){
 
         tempMap[i][j] = WALL;
 
-        if(tempMap[i][j+1] != WALL)
-            goToDown(tempMap, i, j+1);
-        if(tempMap[i][j-1] != WALL)
-            goToUp(tempMap, i, j-1);
-        if(tempMap[i-1][j] != WALL)
-            goToLeft(tempMap, i-1, j);
-        if(tempMap[i+1][j] != WALL)
-            goToRight(tempMap, i+1, j);
-
-    }
-
-    private void goToLeft(WORLDITEM[][] tempMap, int i, int j){
-
-        tempMap[i][j] = WALL;
-
-        if(tempMap[i][j+1] != WALL)
-            goToDown(tempMap, i, j+1);
-        if(tempMap[i][j-1] != WALL)
-            goToUp(tempMap, i, j-1);
-        if(tempMap[i-1][j] != WALL)
-            goToLeft(tempMap, i-1, j);
-        if(tempMap[i+1][j] != WALL)
-            goToRight(tempMap, i+1, j);
-
-    }
-
-    private void goToRight(WORLDITEM[][] tempMap, int i, int j){
-
-        tempMap[i][j] = WALL;
-
-        if(tempMap[i][j+1] != WALL)
-            goToDown(tempMap, i, j+1);
-        if(tempMap[i][j-1] != WALL)
-            goToUp(tempMap, i, j-1);
-        if(tempMap[i-1][j] != WALL)
-            goToLeft(tempMap, i-1, j);
-        if(tempMap[i+1][j] != WALL)
-            goToRight(tempMap, i+1, j);
+        if(tempMap[i][(j+1) % mapSize] != WALL)
+            search(tempMap, i, (j+1) % mapSize);
+        if(tempMap[i][(((j-1) % mapSize) + mapSize) % mapSize] != WALL)
+            search(tempMap, i, (((j-1) % mapSize) + mapSize) % mapSize);
+        if(tempMap[(((i-1) % mapSize) + mapSize) % mapSize][j] != WALL)
+            search(tempMap, (((i-1) % mapSize) + mapSize) % mapSize, j);
+        if(tempMap[(i+1) % mapSize][j] != WALL)
+            search(tempMap, (i+1) % mapSize, j);
 
     }
 }

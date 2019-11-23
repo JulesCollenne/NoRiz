@@ -72,8 +72,13 @@ public class Utils {
     public static int[] getSquare(int x, int y){
         int[] coord = new int[2];
 
-        coord[0] = x/caseDimension;
-        coord[1] = y/caseDimension;
+        coord[0] = x/caseDimension % mapSize;
+        coord[1] = y/caseDimension % mapSize;
+
+        if(coord[0] < 0)
+            coord[0] = mapSize-1;
+        if(coord[1] < 0)
+            coord[1] = mapSize-1;
 
         return coord;
     }
