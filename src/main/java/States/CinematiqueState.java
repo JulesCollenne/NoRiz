@@ -3,8 +3,8 @@ package States;
 import Utils.Utils;
 import javafx.animation.AnimationTimer;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -15,12 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static Utils.WORLDITEM.ROAD;
 
 /**
  *
@@ -32,8 +29,13 @@ public class CinematiqueState extends GameState{
 
 
     Image backGroundImage;
-    Image currentTalker = new Image("monsters/catastrophe_droite0.png");;
     ArrayList<String> dialogList = new ArrayList<>();
+
+    Image currentTalker = new Image("monsters/catastrophe_droite0.png");
+    String currentDialog;
+
+    double posXDialog;
+    double posYDialog;
 
     public CinematiqueState(GameStateManager gsm) {
         super(gsm);
@@ -51,6 +53,7 @@ public class CinematiqueState extends GameState{
     }
 
     private void createScene() {
+
         Pane layout = new Pane();
 
         BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
@@ -90,13 +93,17 @@ public class CinematiqueState extends GameState{
         borderCadreDialog.setFill(Color.BLACK);
 
 
+        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        nextDialog(gc);
+
         Image arrow = new Image("cinematiques/arrow.png");
-        Button nextDialog = new Button();
-        nextDialog.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
-        nextDialog.setLayoutX(cadreDialog.getX() + cadreDialog.getWidth() - arrow.getWidth()*1.4);
-        nextDialog.setLayoutY(cadreDialog.getY() + cadreDialog.getHeight() - arrow.getHeight());
-        nextDialog.setGraphic(new ImageView(arrow));
-        nextDialog.setOnAction(e -> nextDialog());
+        Button nextDialogButton = new Button();
+        nextDialogButton.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
+        nextDialogButton.setLayoutX(cadreDialog.getX() + cadreDialog.getWidth() - arrow.getWidth()*1.4);
+        nextDialogButton.setLayoutY(cadreDialog.getY() + cadreDialog.getHeight() - arrow.getHeight());
+        nextDialogButton.setGraphic(new ImageView(arrow));
+        nextDialogButton.setOnAction(e -> nextDialog(gc));
 
 
         HBox hbox = new HBox();
@@ -109,9 +116,12 @@ public class CinematiqueState extends GameState{
         hbox.getChildren().add(skipInstructions);
         hbox.setStyle("-fx-border-color: red; -fx-background-color: white;");
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        posXDialog = cadreDialog.getX() + 30;
+        posYDialog = cadreDialog.getY() + 28;
 
-        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, talker, nextDialog, hbox);
+        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, talker, hbox, canvas, nextDialogButton);
+
 
         theScene.setOnKeyPressed(
                 this::keyInput);
@@ -120,13 +130,6 @@ public class CinematiqueState extends GameState{
     public void init() {
         getCinematiqueData();
         createScene();
-    }
-
-    private Node createBorderedText(String text) {
-        final HBox hbox = new HBox();
-        hbox.getChildren().add(new Text(text));
-        hbox.setStyle("-fx-border-color: red;");
-        return hbox ;
     }
 
 
@@ -158,12 +161,11 @@ public class CinematiqueState extends GameState{
                 break;
 
             case MEDIUM:
-                System.out.println("ici");
                 backGroundImage = new Image("cinematiques/background_MEDIUM.jpg");
                 break;
 
             case HARD:
-                backGroundImage = new Image("cinematiques/background_EASY.jpg");
+                backGroundImage = new Image("cinematiques/background_HARD.jpg");
                 break;
 
             default:
@@ -183,22 +185,26 @@ public class CinematiqueState extends GameState{
      */
     private void getDialog() {
 
-        File tmpFile = new File("C:\\Users\\Anthony\\IdeaProjects\\NoRiz4\\src\\main\\resources\\cinematiques\\dialog_EASY.txt");
+        dialogList.clear();
 
         try {
-            FileInputStream file = new FileInputStream(tmpFile);
+            FileInputStream file;
             switch (gsm.difficulty) {
 
                 case EASY:
-                    file = new FileInputStream(tmpFile);                    break;
+                    file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
+                    break;
 
                 case MEDIUM:
-                    file = new FileInputStream(tmpFile);                    break;
+                    file = new FileInputStream("src/main/resources/cinematiques/dialog_MEDIUM.txt");
+                    break;
 
                 case HARD:
-                    file = new FileInputStream(tmpFile);                    break;
+                    file = new FileInputStream("src/main/resources/cinematiques/dialog_HARD.txt");
+                    break;
 
                 default:
+                    file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
                     gsm.changeState(1);
                     break;
             }
@@ -217,10 +223,40 @@ public class CinematiqueState extends GameState{
 
     }
 
-    public void nextDialog(){
+
+    /**
+     *
+     * Affiche le prochain dialogue
+     *
+     */
+    public void nextDialog(GraphicsContext gc){
 
         if(!dialogList.isEmpty()) {
-            System.out.println("Next sentence");
+            String temp = dialogList.get(0);
+            dialogList.remove(0);
+
+            switch (temp.substring(0, 1)){
+
+                case "N ":
+                    currentTalker = new Image("monsters/catastrophe_droite0.png");      // Image de noriz a termes
+                    break;
+
+                case "M ":
+                    currentTalker = new Image("monsters/catastrophe_gauche0.png");      // Meilleur image de monstre a terme
+                    break;
+
+            }
+
+            currentDialog = temp.substring(2);
+
+            gc.setFill(Color.WHITE);
+            gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
+
+
+            gc.setFill(Color.BLACK);
+            gc.setFont(new Font(20));
+            gc.fillText(currentDialog,posXDialog, posYDialog);
+
         }
         else{
             gsm.changeState(1);
@@ -228,9 +264,14 @@ public class CinematiqueState extends GameState{
 
     }
 
+
+
+
     public void nextStep() {
 
     }
+
+
 
     @Override
     public void keyInput(KeyEvent e) {
