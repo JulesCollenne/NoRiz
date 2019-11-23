@@ -250,9 +250,9 @@ public class PlayState extends GameState {
         player.frozen = 0;
     }
 
-    public void monstersTouched(Entity monster){
+    /*public void monstersTouched(Entity monster){
         monster.resetPosition();
-    }
+    }*/
 
     private void playerDie(){
         if(!gsm.isEditorTest)

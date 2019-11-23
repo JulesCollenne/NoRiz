@@ -14,6 +14,7 @@ import Utils.DIRECTION;
 public class Player extends Entity {
 
     private int invulnerable;
+    private int reversed;
 
     /**
      * Constructor
@@ -24,6 +25,8 @@ public class Player extends Entity {
         speed = initialSpeed;
         invulnerable = 0;
         frozen = 0;
+        reversed = 0;
+
 
         nbImgAnim = 2;
         animSpeed = 10;
@@ -53,9 +56,32 @@ public class Player extends Entity {
      * Compute the next position
      */
     public void nextStep() {
+        /**sous l'effet du malus freeze, le joueur ne bouge pas pendant un laps de temps*/
         if(frozen > 0){
             setNextFacing(DIRECTION.STOP);
             frozen --;
+        }
+        /**Si le joueur prend le malus reverse, inverse les commandes de control du perso*/
+        if(reversed > 0){
+            if (nextFacingPossible(nextFacing)) {
+                facing = nextFacing;
+                nextFacing = DIRECTION.STOP;
+            }
+            switch (facing) {
+                case DOWN:
+                    tryMove(0, -speed);
+                    break;
+                case UP:
+                    tryMove(0, speed);
+                    break;
+                case LEFT:
+                    tryMove(speed, 0);
+                    break;
+                case RIGHT:
+                    tryMove(-speed, 0);
+                    break;
+            }
+            reversed--;
         }
         else {
             if (invulnerable > 0) {
@@ -124,5 +150,7 @@ public class Player extends Entity {
     }
 
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
+    public void setReversed(int reversed){this.reversed = reversed;}
+
 
 }
