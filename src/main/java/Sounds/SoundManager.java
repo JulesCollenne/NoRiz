@@ -7,12 +7,16 @@ import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
+import javax.swing.*;
 import java.io.File;
 
 public class SoundManager {
 
     public MediaPlayer backGround;
     public MediaPlayer hurt;
+
+    private int soundEffect;
+    private int soundVolume;
 
     public SoundManager(){
         //loadSounds();
@@ -57,4 +61,18 @@ public class SoundManager {
         ((Group) scene.getRoot()).getChildren().add(hMediaView);
     }
 
+    public void setSoundEffect(int newVal){
+        this.soundEffect = newVal;
+    }
+    public void setSoundVolume(int newVal){
+        this.soundVolume = newVal;
+    }
+
+    public int getSoundEffect(){
+        return soundEffect;
+    }
+
+    public int getSoundVolume(){
+        return soundVolume;
+    }
 }
