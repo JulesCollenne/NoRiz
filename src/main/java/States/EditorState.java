@@ -223,15 +223,6 @@ public class EditorState extends GameState {
         nbSpawnPlayer = 0;
     }
 
-    public void createAnimTimer() {
-        animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-
-            }
-        };
-    }
-
     /**
      * Save the current map in a file
      */

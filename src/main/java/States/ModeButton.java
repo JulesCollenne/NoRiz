@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import static States.GameStateManager.DIF.*;
+import static Utils.Utils.DIF.*;
 
 class ModeButton extends Button {
     private ImageView image;
@@ -55,7 +55,8 @@ class ModeButton extends Button {
                     gsm.changeState(5);
                     break;
                 case "Arcade":
-                    gsm.changeState(6);
+                    gsm.difficulty = ARCADE;
+                    gsm.changeState(1);
                     break;
             }
         });

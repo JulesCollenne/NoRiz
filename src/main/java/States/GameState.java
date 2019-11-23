@@ -27,5 +27,26 @@ public abstract class GameState {
     public abstract void render(GraphicsContext gc);
 
     public abstract void init();
+
+    public void createAnimTimer(GraphicsContext gc) {
+
+        animationTimer = new AnimationTimer() {
+            public void handle(long currentNanoTime) {
+
+                /*
+                long elapsedNanos = currentNanoTime - lastTime ;
+                System.out.println("FPS : " + 1000000000. / elapsedNanos);
+*/
+                // game logic
+                nextStep();
+
+                // render
+                render(gc);
+
+                //lastTime = currentNanoTime;
+            }
+        };
+    }
+
 }
 

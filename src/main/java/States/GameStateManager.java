@@ -37,8 +37,6 @@ public class GameStateManager{
     SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
 
-    public enum DIF {EASY, MEDIUM, HARD}
-
     DIF difficulty = DIF.EASY;
 
     public GameStateManager(Stage theStage){
@@ -58,9 +56,9 @@ public class GameStateManager{
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
         gameStates[OPTIONS] = new OptionsState(this);
-        gameStates[ARCADE] = new ArcadeState(this,ui);
         gameStates[SKIN] = new SkinState(this);
         gameStates[CINEMATIQUE] = new CinematiqueState(this);
+        gameStates[WIN] = new WinState(this);
 
         changeState(START);
     }
@@ -91,7 +89,7 @@ public class GameStateManager{
         //else
             //gameStates[currentState].animationTimer2.stop();
         currentState = newState;
-        if(currentState == PLAY) {
+        if(currentState == PLAY || currentState == ARCADE) {
             world.build(difficulty);
         }
         gameStates[currentState].init();

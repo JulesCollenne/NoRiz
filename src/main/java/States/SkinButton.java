@@ -30,6 +30,7 @@ class SkinButton extends Button {
             cmp = (cmp + 1) % 2;
             currentImage = new Image("Player/nori_droite"+cmp+".png");
             skin = new ImageView(currentImage);
+            //this.getChildren().add(skin);
         });
     }
 }
