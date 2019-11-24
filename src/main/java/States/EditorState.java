@@ -269,12 +269,14 @@ public class EditorState extends GameState {
         for(int i=0; i<Utils.mapSize; i++){
             for(int j=0; j<Utils.mapSize; j++){
 
+                /*
                 if(j > 1 && i < mapSize-1 && buildingMap[i][j] != WALL){
                     if(!checkCorridor(i, j)){
                         alertCorridor(i,j);
                         return false;
                     }
                 }
+                */
 
                 switch(buildingMap[i][j]){
 
