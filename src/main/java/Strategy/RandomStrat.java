@@ -9,6 +9,7 @@ import Utils.DIRECTION;
  *
  */
 
+//TODO peut etre utiliser les nouvelles collisions
 
 public class RandomStrat implements Strategy {
 
