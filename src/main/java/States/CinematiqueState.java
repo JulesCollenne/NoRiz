@@ -114,7 +114,7 @@ public class CinematiqueState extends GameState{
         HBox hbox = new HBox();
         hbox.setLayoutX((30/100.)*Utils.canvasSize);
         hbox.setLayoutY((95/100.)*Utils.canvasSize);
-        Text skipInstructions = new Text("Appuyez sur la touche échape pour passer le dialogue");
+        Text skipInstructions = new Text("Appuyez sur la touche échap pour passer le dialogue");
         skipInstructions.setFont(new Font(15));
         skipInstructions.setFill(Color.BLACK);
         skipInstructions.setStyle("-fx-font-weight: bold;");
@@ -243,7 +243,7 @@ public class CinematiqueState extends GameState{
             switch (temp.substring(0, 2)){
 
                 case "N ":
-                    currentTalker = new Image("monsters/catastrophe_droite0.png");      // Image de noriz a terme
+                    currentTalker = new Image("Player/nori_droite0.png");      // Image de noriz a terme
                     break;
 
                 case "M ":
@@ -256,6 +256,7 @@ public class CinematiqueState extends GameState{
 
             gc.setFill(Color.WHITE);
             gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
+            gc.fillRect(posXTalker, posYTalker, 50, 50); //TODO ce serait mieux de mettre des variabels globales
 
             gc.setFill(Color.BLACK);
             gc.setFont(new Font(20));
