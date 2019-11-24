@@ -65,8 +65,7 @@ public class GameStateManager{
     }
 
     private void createBonuses() {
-       // bonuses[0] = new BstopMonsters();
-       // bonuses[1] = new BcanEatMonsters();
+
         collectableItems[0] = new MreverseControls();
         collectableItems[1] = new MreverseControls();
 
