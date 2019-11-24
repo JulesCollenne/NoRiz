@@ -2,13 +2,11 @@ package Strategy;
 
 import Entity.Monster;
 import Utils.DIRECTION;
-import Utils.Utils;
 
 /**
  * Choisit une nouvelle direction au hasard:
  * La nouvelle direction ne peut être ni a contre sens (il ne peut pas faire demi tour), ni vers un mur
  *
- * TODO: Peut etre ajouter un temps de pause a chaque intersection parce qu'il a tendance a ne pas les prendre car il passe trop vite
  */
 
 

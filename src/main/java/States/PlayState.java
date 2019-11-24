@@ -8,7 +8,6 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import Utils.myGameData;
 import WorldBuilder.worldRender;
-import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +16,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.util.Random;
 
@@ -36,9 +34,7 @@ public class PlayState extends GameState {
     private Player player;
     private Monster monsters[];
 
-    long lastTime = System.nanoTime();
-
-    Random rand = new Random();
+    private Random rand = new Random();
 
     PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
@@ -83,7 +79,7 @@ public class PlayState extends GameState {
         //gsm.sm.backGround.play();
     }
 
-    public void initMyData(){
+    private void initMyData(){
 
         map = Utils.copyMap(gsm.world.map);
         myData = new myGameData(map);
@@ -216,7 +212,7 @@ public class PlayState extends GameState {
 
     }
 
-    public void playerTouched(){
+    private void playerTouched(){
         resetPosition();
         resetFrozen();
         myData.nbLife--;
@@ -224,7 +220,7 @@ public class PlayState extends GameState {
             playerDie();
     }
 
-    public void resetFrozen(){
+    private void resetFrozen(){
         player.frozen = 0;
     }
 

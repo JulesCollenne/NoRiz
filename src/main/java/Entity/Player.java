@@ -1,15 +1,10 @@
 package Entity;
 
 import Collider.Collider;
-import States.GameStateManager;
+import Utils.DIRECTION;
 import Utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import Utils.DIRECTION;
-import javafx.scene.paint.Color;
-
-import static Utils.Utils.caseDimension;
 
 /**
  * The player is the sashimi Nori
@@ -59,12 +54,12 @@ public class Player extends Entity {
      * Compute the next position
      */
     public void nextStep() {
-        /**sous l'effet du malus freeze, le joueur ne bouge pas pendant un laps de temps*/
+        /*sous l'effet du malus freeze, le joueur ne bouge pas pendant un laps de temps*/
         if(frozen > 0){
             setNextFacing(DIRECTION.STOP);
             frozen --;
         }
-        /**Si le joueur prend le malus reverse, inverse les commandes de control du perso*/
+        /*Si le joueur prend le malus reverse, inverse les commandes de control du perso*/
         if(reversed > 0){
             reversed --;
             }

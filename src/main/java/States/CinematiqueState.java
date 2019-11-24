@@ -27,7 +27,6 @@ import java.util.Scanner;
 
 public class CinematiqueState extends GameState{
 
-
     private Image backGroundImage;
     private ArrayList<String> dialogList = new ArrayList<>();
 
@@ -38,6 +37,8 @@ public class CinematiqueState extends GameState{
 
     private double posXTalker;
     private double posYTalker;
+
+    private Color dialogColor = new Color(1,1,1,1);
 
     CinematiqueState(GameStateManager gsm) {
         super(gsm);
@@ -58,66 +59,34 @@ public class CinematiqueState extends GameState{
 
         Pane layout = new Pane();
 
-        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        layout.setBackground(new Background(backgroundImage));
+        setBackground(layout);
 
-        ImageView talker = new ImageView(currentTalker);
-        talker.setX((8/100.)*Utils.canvasSize);
-        talker.setY((70/100.)*Utils.canvasSize);
+        ImageView talker = setTalker();
 
-        Rectangle cadreTalking = new Rectangle();
-        cadreTalking.setX(talker.getX()-5);
-        cadreTalking.setY(talker.getY()-5);
-        cadreTalking.setWidth(currentTalker.getWidth()+10);
-        cadreTalking.setHeight(currentTalker.getHeight()+10);
-        cadreTalking.setFill(Color.WHITE);
+        Rectangle cadreTalking = setCadreTalking(talker);
 
         posXTalker = talker.getX();
         posYTalker = talker.getY();
 
-        Rectangle borderCadreTalking = new Rectangle();
-        borderCadreTalking.setX(cadreTalking.getX()-5);
-        borderCadreTalking.setY(cadreTalking.getY()-5);
-        borderCadreTalking.setWidth(cadreTalking.getWidth()+10);
-        borderCadreTalking.setHeight(cadreTalking.getHeight()+10);
-        borderCadreTalking.setFill(Color.BLACK);
+        Rectangle borderCadreTalking = setBorderCadreTalking(cadreTalking);
 
-        Rectangle cadreDialog = new Rectangle();
-        cadreDialog.setX(cadreTalking.getX()+cadreTalking.getWidth()+5);
-        cadreDialog.setY(cadreTalking.getY());
-        cadreDialog.setWidth((80/100.)*Utils.canvasSize - currentTalker.getWidth());
-        cadreDialog.setHeight(cadreTalking.getHeight());
-        cadreDialog.setFill(Color.WHITE);
+        Rectangle cadreDialog = setCadreDialog(cadreTalking);
 
-        Rectangle borderCadreDialog = new Rectangle();
-        borderCadreDialog.setX(cadreDialog.getX()-5);
-        borderCadreDialog.setY(cadreDialog.getY()-5);
-        borderCadreDialog.setWidth(cadreDialog.getWidth()+10);
-        borderCadreDialog.setHeight(cadreDialog.getHeight()+10);
-        borderCadreDialog.setFill(Color.BLACK);
-
+        Rectangle borderCadreDialog = setBorderCadreDialog(cadreDialog);
 
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         nextDialog(gc);
 
         Image arrow = new Image("cinematiques/arrow.png");
-        Button nextDialogButton = new Button();
-        nextDialogButton.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
-        nextDialogButton.setLayoutX(cadreDialog.getX() + cadreDialog.getWidth() - arrow.getWidth()*1.4);
-        nextDialogButton.setLayoutY(cadreDialog.getY() + cadreDialog.getHeight() - arrow.getHeight());
-        nextDialogButton.setGraphic(new ImageView(arrow));
-        nextDialogButton.setOnAction(e -> nextDialog(gc));
-
+        Button nextDialogButton = setNextDialogButton(cadreDialog, arrow, gc);
 
         HBox hbox = new HBox();
         hbox.setLayoutX((30/100.)*Utils.canvasSize);
         hbox.setLayoutY((95/100.)*Utils.canvasSize);
-        Text skipInstructions = new Text("Appuyez sur la touche échap pour passer le dialogue");
-        skipInstructions.setFont(new Font(15));
-        skipInstructions.setFill(Color.BLACK);
-        skipInstructions.setStyle("-fx-font-weight: bold;");
+
+        Text skipInstructions = setSkipInstructions();
+
         hbox.getChildren().add(skipInstructions);
         hbox.setStyle("-fx-border-color: red; -fx-background-color: white;");
 
@@ -130,6 +99,77 @@ public class CinematiqueState extends GameState{
 
         theScene.setOnKeyPressed(
                 this::keyInput);
+    }
+
+    private Text setSkipInstructions() {
+        Text skipInstructions = new Text("Appuyez sur la touche échap pour passer le dialogue");
+        skipInstructions.setFont(new Font(15));
+        skipInstructions.setFill(Color.BLACK);
+        skipInstructions.setStyle("-fx-font-weight: bold;");
+        return skipInstructions;
+    }
+
+    private Button setNextDialogButton(Rectangle cadreDialog, Image arrow, GraphicsContext gc) {
+        Button nextDialogButton = new Button();
+        nextDialogButton.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
+        nextDialogButton.setLayoutX(cadreDialog.getX() + cadreDialog.getWidth() - arrow.getWidth()*1.4);
+        nextDialogButton.setLayoutY(cadreDialog.getY() + cadreDialog.getHeight() - arrow.getHeight());
+        nextDialogButton.setGraphic(new ImageView(arrow));
+        nextDialogButton.setOnAction(e -> nextDialog(gc));
+        return nextDialogButton;
+    }
+
+    private Rectangle setBorderCadreDialog(Rectangle cadreDialog) {
+        Rectangle borderCadreDialog = new Rectangle();
+        borderCadreDialog.setX(cadreDialog.getX()-5);
+        borderCadreDialog.setY(cadreDialog.getY()-5);
+        borderCadreDialog.setWidth(cadreDialog.getWidth()+10);
+        borderCadreDialog.setHeight(cadreDialog.getHeight()+10);
+        borderCadreDialog.setFill(Color.BLACK);
+        return borderCadreDialog;
+    }
+
+    private Rectangle setCadreDialog(Rectangle cadreTalking) {
+        Rectangle cadreDialog = new Rectangle();
+        cadreDialog.setX(cadreTalking.getX()+cadreTalking.getWidth()+5);
+        cadreDialog.setY(cadreTalking.getY());
+        cadreDialog.setWidth((80/100.)*Utils.canvasSize - currentTalker.getWidth());
+        cadreDialog.setHeight(cadreTalking.getHeight());
+        cadreDialog.setFill(dialogColor);
+        return cadreDialog;
+    }
+
+    private Rectangle setBorderCadreTalking(Rectangle cadreTalking) {
+        Rectangle borderCadreTalking = new Rectangle();
+        borderCadreTalking.setX(cadreTalking.getX()-5);
+        borderCadreTalking.setY(cadreTalking.getY()-5);
+        borderCadreTalking.setWidth(cadreTalking.getWidth()+10);
+        borderCadreTalking.setHeight(cadreTalking.getHeight()+10);
+        borderCadreTalking.setFill(Color.BLACK);
+        return borderCadreTalking;
+    }
+
+    private Rectangle setCadreTalking(ImageView talker) {
+        Rectangle cadreTalking = new Rectangle();
+        cadreTalking.setX(talker.getX()-5);
+        cadreTalking.setY(talker.getY()-5);
+        cadreTalking.setWidth(currentTalker.getWidth()+10);
+        cadreTalking.setHeight(currentTalker.getHeight()+10);
+        cadreTalking.setFill(dialogColor);
+        return cadreTalking;
+    }
+
+    private ImageView setTalker() {
+        ImageView talker = new ImageView(currentTalker);
+        talker.setX((8/100.)*Utils.canvasSize);
+        talker.setY((70/100.)*Utils.canvasSize);
+        return talker;
+    }
+
+    private void setBackground(Pane layout) {
+        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        layout.setBackground(new Background(backgroundImage));
     }
 
     public void init() {
@@ -254,7 +294,7 @@ public class CinematiqueState extends GameState{
 
             String currentDialog = temp.substring(2);
 
-            gc.setFill(Color.WHITE);
+            gc.setFill(dialogColor);
             gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
             gc.fillRect(posXTalker, posYTalker, 50, 50); //TODO ce serait mieux de mettre des variabels globales
 

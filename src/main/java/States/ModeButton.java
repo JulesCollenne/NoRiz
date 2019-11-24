@@ -1,10 +1,10 @@
 package States;
 
-import Utils.myGameData;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import static Utils.Utils.DIF.*;
 
 class ModeButton extends Button {

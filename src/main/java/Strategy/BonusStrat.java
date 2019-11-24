@@ -24,7 +24,7 @@ public class BonusStrat implements Strategy{
         yBonus = coords[1];
     }
 
-    boolean notTaken(int x, int y) {
+    private boolean notTaken(int x, int y) {
         for(int i = 0 ; i < index ; i++){
             if(coordsBonusUsed[i][0] == x && coordsBonusUsed[i][1] == y) {
                 return false;
@@ -33,7 +33,7 @@ public class BonusStrat implements Strategy{
         return true;
     }
 
-    public int[] searchBonus(){
+    private int[] searchBonus(){
         int[] coords = new int[2];
 
         for(int i = 0 ; i < world.map.length ; i++){

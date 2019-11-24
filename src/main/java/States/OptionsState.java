@@ -10,25 +10,25 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import static Utils.WORLDITEM.ROAD;
-
 public class OptionsState extends GameState{
 
 
-    public OptionsState(GameStateManager gsm) {
+    OptionsState(GameStateManager gsm) {
         super(gsm);
         createScene();
         createAnimTimer();
     }
 
-    public void createAnimTimer() {
+    private void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -96,19 +96,9 @@ public class OptionsState extends GameState{
         GridPane.setRowIndex(soundEffect,2);
         GridPane.setColumnIndex(soundEffect,2);
 
-        soundVolume.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number old_val, Number new_val) {
-                gsm.sm.setSoundVolume(new_val.intValue());
-            }
-        });
+        soundVolume.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundVolume(new_val.intValue()));
 
-        soundEffect.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number old_val, Number new_val) {
-                gsm.sm.setSoundEffect(new_val.intValue());
-            }
-        });
+        soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundEffect(new_val.intValue()));
 
         ModeButton retour = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
         retour.setLayoutX(10);

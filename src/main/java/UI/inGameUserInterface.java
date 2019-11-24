@@ -1,21 +1,16 @@
 package UI;
 
-import States.GameStateManager;
 import Utils.Utils;
-import WorldBuilder.matrixWorld;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class inGameUserInterface {
 
-    Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
-    Image UIRiceTemp = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
-    Image UIHeart = new Image("UI/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
-    Image grainDeRiz = new Image("collectable/GrainDeRiz.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+    private Image UITimer = new Image("UI/UITimer.png", 119, Utils.caseDimension * 2, true, false);
+    private Image UIRiceTemp = new Image("UI/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
+    private Image UIHeart = new Image("UI/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+    private Image grainDeRiz = new Image("collectable/GrainDeRiz.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
 
     public inGameUserInterface(){
 

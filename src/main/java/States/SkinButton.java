@@ -1,6 +1,5 @@
 package States;
 
-import Utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

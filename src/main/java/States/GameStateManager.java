@@ -28,10 +28,10 @@ public class GameStateManager{
 
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
-    public CollectableItem[] collectableItems = new CollectableItem[4];
+    CollectableItem[] collectableItems = new CollectableItem[4];
 
 
-    public boolean isEditorTest = false;
+    boolean isEditorTest = false;
     SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
 

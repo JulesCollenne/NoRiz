@@ -1,6 +1,5 @@
 package Strategy;
 
-
 import Entity.Monster;
 import Entity.Player;
 import Utils.DIRECTION;

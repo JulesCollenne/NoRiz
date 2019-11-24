@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
  */
 public class Monster extends Entity{
 
-    public String name;
+    private String name;
 
     private int timerStrat = 0;
     private int timeNextStrat = 10;

@@ -2,12 +2,6 @@ package States;
 
 import Utils.Utils;
 import Utils.WORLDITEM;
-
-import static Utils.Utils.canvasSize;
-import static Utils.Utils.copyMap;
-import static Utils.Utils.mapSize;
-import static Utils.WORLDITEM.*;
-
 import WorldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -24,6 +18,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import static Utils.Utils.copyMap;
+import static Utils.Utils.mapSize;
+import static Utils.WORLDITEM.*;
 
 public class EditorState extends GameState {
 
@@ -273,16 +271,7 @@ public class EditorState extends GameState {
 
                 if(j > 1 && i < mapSize-1 && buildingMap[i][j] != WALL){
                     if(!checkCorridor(i, j)){
-
-                        Alert alert = new Alert(Alert.AlertType.NONE);
-                        alert.setTitle("Erreur");
-                        alert.setHeaderText("Votre carte n'est pas valide");
-                        alert.setContentText("Votre carte ne doit être composé que de couloir !! Ce n'est pas le cas en "+(i+1) +", "+(j-1));
-
-                        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-                        alert.getButtonTypes().addAll(btnOk);
-                        alert.showAndWait();
-
+                        alertCorridor(i,j);
                         return false;
                     }
                 }
@@ -303,71 +292,23 @@ public class EditorState extends GameState {
                         break;
                     default:
                         break;
-
                 }
             }
         }
-
         if(nbRice <= 0){
             alertNbRice();
             return false;
         }
-
         if(nbSpP != 1 || nbSpM != 4){
             alertSpawn();
             return false;
         }
-
         if(!testPossible()){
             alertIncorrectMap();
             return false;
         }
-
         return true;
-
     }
-
-    /**
-     * Show an alert if the map is incorrect : If the player can't take all the rice, or if monsters can't get the player
-     */
-    private void alertIncorrectMap() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Votre carte n'est pas valide");
-        alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !! Il faut aussi que les monstres puissent accéder au joueur !!");
-        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-        alert.getButtonTypes().addAll(btnOk);
-        alert.showAndWait();
-    }
-
-    /**
-     * Show an alert if the spawns on the map are incorrect
-     */
-    private void alertSpawn() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Votre carte n'est pas valide");
-        alert.setContentText("Il doit y avoir un spaw (bleu) pour le joueur, et 4 spawn (rouge) pour les monstres !");
-
-        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-        alert.getButtonTypes().addAll(btnOk);
-        alert.showAndWait();
-    }
-
-    /**
-     * Show an alert if the number of rice in the map is = 0
-     */
-    private void alertNbRice() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Votre carte n'est pas valide");
-        alert.setContentText("Il doit y avoir au moins un grain de riz sur la map!");
-
-        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
-        alert.getButtonTypes().addAll(btnOk);
-        alert.showAndWait();
-    }
-
 
     /**
      *
@@ -419,5 +360,60 @@ public class EditorState extends GameState {
         if(tempMap[(i+1) % mapSize][j] != WALL)
             search(tempMap, (i+1) % mapSize, j);
 
+    }
+
+    /**
+     * Show an alert if the map of the editor is not only corridors
+     */
+    private void alertCorridor(int i, int j) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Votre carte ne doit être composé que de couloir !! Ce n'est pas le cas en "+(i+1) +", "+(j-1));
+
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show an alert if the map is incorrect : If the player can't take all the rice, or if monsters can't get the player
+     */
+    private void alertIncorrectMap() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Le joueur ne peut pas accéder à tout les grains de riz !! Il faut aussi que les monstres puissent accéder au joueur !!");
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show an alert if the spawns on the map are incorrect
+     */
+    private void alertSpawn() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Il doit y avoir un spaw (bleu) pour le joueur, et 4 spawn (rouge) pour les monstres !");
+
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show an alert if the number of rice in the map is = 0
+     */
+    private void alertNbRice() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Votre carte n'est pas valide");
+        alert.setContentText("Il doit y avoir au moins un grain de riz sur la map!");
+
+        ButtonType btnOk = new ButtonType("Je m'excuse ô grand maître");
+        alert.getButtonTypes().addAll(btnOk);
+        alert.showAndWait();
     }
 }

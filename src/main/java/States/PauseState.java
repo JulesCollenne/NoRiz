@@ -9,18 +9,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import Utils.myGameData;
 
 public class PauseState extends GameState {
 
@@ -84,7 +80,7 @@ public class PauseState extends GameState {
         reprendre.setLayoutY((2*Utils.canvasSize)/3.0);
         reprendre.handler(gsm);
 
-        /**
+        /*
          * TODO: Faire le skin des boutons restant et corriger le bouton retour au jeu en cours
          */
 
@@ -116,7 +112,7 @@ public class PauseState extends GameState {
 
     }
 
-    public void createAnimTimer() {
+    private void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {

@@ -5,7 +5,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 
@@ -13,19 +12,15 @@ public class StartMenuState extends GameState{
 
     //boolean firstRender = true;
 
-    private final int START  = 0;
-    private final int PLAY  = 1;
-    private final int PAUSE  = 2;
+    private static Image backGroundImage = new Image("textures/noriz01.jpg");
 
-    static Image backGroundImage = new Image("textures/noriz01.jpg");
-
-    public StartMenuState(GameStateManager gsm) {
+    StartMenuState(GameStateManager gsm) {
         super(gsm);
         createScene();
         createAnimTimer();
     }
 
-    public void createAnimTimer() {
+    private void createAnimTimer() {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {

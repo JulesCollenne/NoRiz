@@ -133,7 +133,7 @@ public abstract class Entity {
         return true;
     }
 
-    /**
+    /*
      * ..................COORDINATES AHEAD
      */
 
