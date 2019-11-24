@@ -10,6 +10,7 @@ public class Utils {
     public static final int caseDimension = 32; // chaque case du labyrinthe fait dimension*dimension pixel
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
+    public static final int UISize = 2;
 
     public static final int START  = 0;
     public static final int PLAY  = 1;
@@ -73,12 +74,29 @@ public class Utils {
         int[] coord = new int[2];
 
         coord[0] = x/caseDimension % mapSize;
-        coord[1] = y/caseDimension % mapSize;
+        coord[1] = y/caseDimension;
+        if(coord[1] >= mapSize)
+            coord[1] = UISize;
 
         if(coord[0] < 0)
             coord[0] = mapSize-1;
-        if(coord[1] < 0)
+        if(coord[1] <= UISize)
             coord[1] = mapSize-1;
+
+        return coord;
+    }
+
+    /**
+     *
+     * @param x coordonnée en pixel
+     * @param y coordonnée en pixel
+     * @return un tableau contenant x,y en coordonnée de la matrice
+     */
+    public static int[] getSquareMouse(int x, int y){
+        int[] coord = new int[2];
+
+        coord[0] = x/caseDimension;
+        coord[1] = y/caseDimension;
 
         return coord;
     }

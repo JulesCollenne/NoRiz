@@ -71,12 +71,14 @@ public abstract class Entity {
         if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
         x = (x + dx) % canvasSize;
-        y = (y + dy) % canvasSize;
+        y = y + dy;
+        if(y >= canvasSize)
+            y = caseDimension * UISize;
 
         if(x < 0)
-            x = canvasSize;
-        if(y < 0)
-            y = canvasSize;
+            x = canvasSize-1;
+        if(y < UISize*caseDimension)
+            y = canvasSize-1;
     }
 
     /**

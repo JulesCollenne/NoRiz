@@ -157,7 +157,7 @@ public class EditorState extends GameState {
         int x = (int) e.getX();
         int y = (int) e.getY();
 
-        int coords[] = Utils.getSquare(x,y);
+        int coords[] = Utils.getSquareMouse(x,y);
 
         if(isCorrect(coords)) {
             if(manageSpawn(coords)) {
