@@ -80,7 +80,7 @@ public class Utils {
 
         if(coord[0] < 0)
             coord[0] = mapSize-1;
-        if(coord[1] <= UISize)
+        if(coord[1] < UISize)
             coord[1] = mapSize-1;
 
         return coord;
