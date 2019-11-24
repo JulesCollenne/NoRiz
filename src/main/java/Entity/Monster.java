@@ -119,7 +119,7 @@ public class Monster extends Entity{
           //  image[direction][i] = new Image("monsters/"+ name +"_" + name + i + ".png");
 
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("monsters/catastrophe_" + name + i + ".png");
+            image[direction][i] = new Image("monsters/"+this.name + name + i + ".png");
     }
 
     public void die() {
