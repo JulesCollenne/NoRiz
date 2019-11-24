@@ -11,6 +11,7 @@ import static Utils.Utils.*;
 
 public abstract class Entity {
 
+
     int x;
     int y;
     int spawnX;
@@ -203,6 +204,29 @@ public abstract class Entity {
             return y;
         return y + getSize() - 1;
     }
+
+    public int[][] getCoords(){
+        int[][] coords = new int[4][2];
+
+        //Haut gauche
+        coords[0][0] = x;
+        coords[0][1] = y;
+
+        //Haut droit
+        coords[1][0] = x + getSize();
+        coords[1][1] = y;
+
+        //Bas gauche
+        coords[2][0] = x;
+        coords[2][1] = y + getSize();
+
+        //Bas droit
+        coords[3][0] = x + getSize();
+        coords[3][1] = y + getSize();
+
+        return coords;
+    }
+
 
     public DIRECTION getFacing(){
         return facing;
