@@ -2,7 +2,8 @@ import States.GameStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Window extends Application
+public class
+Window extends Application
 {
     public static void main(String[] args)
     {
