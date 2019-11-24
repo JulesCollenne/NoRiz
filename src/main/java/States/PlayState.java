@@ -246,16 +246,28 @@ public class PlayState extends GameState {
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
             case Q:
-                player.setNextFacing(LEFT);
+                if(player.getReversed() > 0)
+                    player.setNextFacing(RIGHT);
+                else
+                    player.setNextFacing(LEFT);
                 break;
             case D:
-                player.setNextFacing(RIGHT);
+                if(player.getReversed() > 0)
+                    player.setNextFacing(LEFT);
+                else
+                    player.setNextFacing(RIGHT);
                 break;
             case S:
-                player.setNextFacing(DOWN);
+                if(player.getReversed() > 0)
+                    player.setNextFacing(UP);
+                else
+                    player.setNextFacing(DOWN);
                 break;
             case Z:
-                player.setNextFacing(UP);
+                if(player.getReversed() > 0)
+                    player.setNextFacing(DOWN);
+                else
+                    player.setNextFacing(UP);
                 break;
             case SPACE:
                 if(!gsm.isEditorTest)
