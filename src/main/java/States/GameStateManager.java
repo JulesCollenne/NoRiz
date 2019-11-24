@@ -1,6 +1,7 @@
 package States;
 
 import BONUSITEM.CollectableItem;
+import BONUSITEM.MreverseControls;
 import BONUSITEM.MstopNoriz;
 import Collider.Collider;
 import Entity.Monster;
@@ -68,8 +69,8 @@ public class GameStateManager{
     private void createBonuses() {
        // bonuses[0] = new BstopMonsters();
        // bonuses[1] = new BcanEatMonsters();
-        collectableItems[0] = new MstopNoriz();
-        collectableItems[1] = new MstopNoriz();
+        collectableItems[0] = new MreverseControls();
+        collectableItems[1] = new MreverseControls();
 
     }
 
@@ -141,6 +142,7 @@ public class GameStateManager{
         monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "Cat holik", collider);                                                     //Monstre RandomStrat
         monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "Cat o'dick", collider);                                                //Monstre BonusStrat
         monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "Cat reuh", collider);                               //Monstre Half
+
     }
 }
 

@@ -30,6 +30,8 @@ public class Collider{
         return world.map[coord1[0]][coord1[1]] != WORLDITEM.WALL && world.map[coord2[0]][coord2[1]] != WORLDITEM.WALL;
     }
 
+
+
     /**
      * This function is not working and should not be used anymore
      * @param x point
