@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 class SkinButton extends Button {
     private ImageView skin;
     private String label;
-    public boolean mouseOver = false;
 
     AnimationTimer animationTimer;
     private int nbImgAnim = 2;
@@ -31,7 +30,7 @@ class SkinButton extends Button {
         setMinSize(85,170);
         setMaxSize(85,170);
         setStyle("-fx-background-color: white");
-
+        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
         makeAnimations();
 
         animationTimer = new AnimationTimer() {
@@ -40,6 +39,11 @@ class SkinButton extends Button {
                 //Faire une petite animation quand on survole le bouton
 
                 skin = new ImageView(image2[0][animTime]);
+                //TODO bien l'afficher
+                skin.setLayoutX(0);
+                skin.setLayoutY(0);
+                //skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
+                //skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
                 getChildren().add(skin);
 
                 if(lastAnim == animSpeed) {
@@ -49,8 +53,6 @@ class SkinButton extends Button {
                 lastAnim++;
             }
         };
-        animationTimer.start();
-
     }
 
     /**
@@ -66,10 +68,10 @@ class SkinButton extends Button {
             gsm.changeState(7);
         });
         this.setOnMouseEntered(mouseEvent -> {
-            mouseOver = true;
+            animationTimer.start();
         });
         this.setOnMouseExited(mouseEvent -> {
-            mouseOver = false;
+            animationTimer.stop();
         });
     }
 }
