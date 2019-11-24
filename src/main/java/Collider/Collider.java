@@ -30,7 +30,21 @@ public class Collider{
         return world.map[coord1[0]][coord1[1]] != WORLDITEM.WALL && world.map[coord2[0]][coord2[1]] != WORLDITEM.WALL;
     }
 
+    /**
+     * Return true is the square is in a wall
+     */
+    public boolean collide(int coords[][]){
+        for(int i = 0; i < 4; i++){
+            if(isInWall(coords[i][0], coords[i][1]))
+                return true;
+        }
+        return false;
+    }
 
+    private boolean isInWall(int x, int y){
+        int coord[] = Utils.getSquare(x, y);
+        return world.map[coord[0]][coord[1]] == WORLDITEM.WALL;
+    }
 
     /**
      * This function is not working and should not be used anymore

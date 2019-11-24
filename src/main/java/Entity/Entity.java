@@ -11,7 +11,6 @@ import static Utils.Utils.*;
 
 public abstract class Entity {
 
-
     int x;
     int y;
     int spawnX;
@@ -68,9 +67,15 @@ public abstract class Entity {
      *
      */
     void tryMove(int dx, int dy) {
+
         int[] coords = getCollideCoords();
         if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
+
+
+        //if(collider.collide(getCoords()))
+            //return;
+
         x = (x + dx) % canvasSize;
         y = y + dy;
         if(y >= canvasSize)
@@ -110,12 +115,21 @@ public abstract class Entity {
         DIRECTION tmp = facing;
         facing = nextFacing;
 
+
+        /*
+        if(collider.collide(getCoords())){
+            facing = tmp;
+            return false;
+        }
+*/
+
         int[] coords = getCollideCoords();
 
         if(!collider.isPossible(coords[0] + getFacingX(facing), coords[1] + getFacingY(facing), coords[2] + getFacingX(facing), coords[3] + getFacingY(facing))){
             facing = tmp;
             return false;
         }
+
         return true;
     }
 
@@ -209,20 +223,98 @@ public abstract class Entity {
         int[][] coords = new int[4][2];
 
         //Haut gauche
-        coords[0][0] = x;
-        coords[0][1] = y;
+        coords[0][0] = x+1;
+        coords[0][1] = y+1;
 
         //Haut droit
-        coords[1][0] = x + getSize();
-        coords[1][1] = y;
+        coords[1][0] = x + getSize()-1;
+        coords[1][1] = y+1;
 
         //Bas gauche
-        coords[2][0] = x;
-        coords[2][1] = y + getSize();
+        coords[2][0] = x+1;
+        coords[2][1] = y + getSize()-1;
 
         //Bas droit
-        coords[3][0] = x + getSize();
-        coords[3][1] = y + getSize();
+        coords[3][0] = x + getSize()-1;
+        coords[3][1] = y + getSize()-1;
+
+        return coords;
+    }
+
+    public int[][] getCoords(DIRECTION dir){
+        int[][] coords = new int[4][2];
+
+        if(dir == DIRECTION.UP) {
+            //Haut gauche
+            coords[0][0] = x + 1;
+            coords[0][1] = y + speed + 1;
+
+            //Haut droit
+            coords[1][0] = x + getSize() - 1;
+            coords[1][1] = y + speed + 1;
+
+            //Bas gauche
+            coords[2][0] = x + 1;
+            coords[2][1] = y + getSize() + speed - 1;
+
+            //Bas droit
+            coords[3][0] = x + getSize() - 1;
+            coords[3][1] = y + getSize() + speed - 1;
+        }
+
+        if(dir == DIRECTION.DOWN) {
+            //Haut gauche
+            coords[0][0] = x + 1;
+            coords[0][1] = y - speed + 1;
+
+            //Haut droit
+            coords[1][0] = x + getSize() - 1;
+            coords[1][1] = y - speed + 1;
+
+            //Bas gauche
+            coords[2][0] = x + 1;
+            coords[2][1] = y + getSize() - speed - 1;
+
+            //Bas droit
+            coords[3][0] = x + getSize() - 1;
+            coords[3][1] = y + getSize() - speed - 1;
+        }
+
+        if(dir == DIRECTION.LEFT) {
+            //Haut gauche
+            coords[0][0] = x - speed + 1;
+            coords[0][1] = y + 1;
+
+            //Haut droit
+            coords[1][0] = x + getSize() - speed - 1;
+            coords[1][1] = y + 1;
+
+            //Bas gauche
+            coords[2][0] = x - speed + 1;
+            coords[2][1] = y + getSize() - 1;
+
+            //Bas droit
+            coords[3][0] = x + getSize() - speed - 1;
+            coords[3][1] = y + getSize() - 1;
+        }
+
+        if(dir == DIRECTION.RIGHT) {
+            //Haut gauche
+            coords[0][0] = x + speed + 1;
+            coords[0][1] = y + 1;
+
+            //Haut droit
+            coords[1][0] = x + getSize() + speed - 1;
+            coords[1][1] = y + 1;
+
+            //Bas gauche
+            coords[2][0] = x + speed + 1;
+            coords[2][1] = y + getSize() - 1;
+
+            //Bas droit
+            coords[3][0] = x + getSize() + speed - 1;
+            coords[3][1] = y + getSize() - 1;
+        }
 
         return coords;
     }
