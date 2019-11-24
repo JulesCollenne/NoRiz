@@ -122,50 +122,21 @@ public class PlayState extends GameState {
         gsm.returnToEditor();
     }
 
-    /**
-     *
-     * @param gc
-     */
-    public void createAnimTimer(GraphicsContext gc) {
-
-        animationTimer = new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-
-                /*
-                long elapsedNanos = currentNanoTime - lastTime ;
-                System.out.println("FPS : " + 1000000000. / elapsedNanos);
-*/
-                // game logic
-                nextStep();
-
-                // render
-                render(gc);
-
-                //lastTime = currentNanoTime;
-            }
-        };
-
-        /*
-    animationTimer2 = new Timeline(new KeyFrame(Duration.seconds(1/80.), event -> {
-
-        // game logic
-        nextStep();
-
-        // render
-        render(gc);
-
-    }));
-    */
-
-    //animationTimer2.setCycleCount(Animation.INDEFINITE);
-    }
 
     public void nextStep() {
 
         if(myData.nbLife <= 0)
             return;
+
+        long timer = getTimer();
+
+
+        if(timer <= 0 && !firstRender) {
+            if(!gsm.isEditorTest)
+                gameOver();
+            else
+                gsm.returnToEditor();
+        }
 
         checkCollisions();
 
@@ -218,14 +189,15 @@ public class PlayState extends GameState {
 
 
     /**
-     * TODO
+     * TODO nouveau affichage
      */
     private void win() {
-        Text title = new Text();
-        title.setX((20/100.0)*Utils.canvasSize);
-        title.setY((20/100.0)*Utils.canvasSize);
-        title.setFont(new Font(40));
-        title.setText("bien joué frérot");
+        if(gsm.difficulty == Utils.DIF.ARCADE){
+            gsm.changeState(1);
+        }
+        else{
+            gsm.changeState(9);
+        }
     }
 
     private void takeBonus(int x, int y){ /////////////////////////////////////////////
@@ -323,14 +295,6 @@ public class PlayState extends GameState {
 
         renderEntities(gc);
 
-        long timer = getTimer();
-
-        if(timer <= 0) {
-            if(!gsm.isEditorTest)
-                gameOver();
-            else
-                gsm.returnToEditor();
-        }
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
 

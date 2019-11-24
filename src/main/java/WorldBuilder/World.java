@@ -1,6 +1,5 @@
 package WorldBuilder;
 
-import States.GameStateManager.DIF;
 import Utils.Utils;
 import Utils.WORLDITEM;
 import static Utils.WORLDITEM.*;
@@ -11,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
 
 import static Utils.Utils.mapSize;
@@ -25,6 +25,7 @@ public class World {
 
     private Stage theStage;
     public WORLDITEM[][] map;
+    int nbArcadeMap = 2;
 
     static Image road = new Image("textures/roadTextureLevel1.png");
     static Image wall = new Image("textures/wallTexture.png");
@@ -53,6 +54,14 @@ public class World {
                 road = new Image("textures/roadTexture1.png");
                 wall = new Image("textures/wallTexture.png");
                 map = loadMap("src/main/resources/Maps/worldHard.map");
+                break;
+
+            case ARCADE:
+                Random rand = new Random();
+                road = new Image("textures/roadTextureLevel1.png");
+                wall = new Image("textures/wallTextureLevel1.png");
+                map = loadMap("src/main/resources/Maps/arcade" + rand.nextInt(nbArcadeMap) + ".map");
+                //map = loadMap("src/main/resources/Maps/arcade2.map");
                 break;
 
             default:

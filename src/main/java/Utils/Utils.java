@@ -4,12 +4,14 @@ import static Utils.WORLDITEM.*;
 
 public class Utils {
 
+    public enum DIF {EASY, MEDIUM, HARD, ARCADE}
+
     public static final int mapSize = 25; // labyrinthe de size*size case
     public static final int caseDimension = 32; // chaque case du labyrinthe fait dimension*dimension pixel
     public static final int canvasSize = mapSize * caseDimension;
     public static final int roundDuration = 120; // en seconde
+    public static final int UISize = 2;
 
-    public static int nbStates = 9;
     public static final int START  = 0;
     public static final int PLAY  = 1;
     public static final int PAUSE  = 2;
@@ -19,7 +21,8 @@ public class Utils {
     public static final int ARCADE = 6;
     public static final int SKIN = 7;
     public static final int CINEMATIQUE = 8;
-
+    public static final int WIN = 9;
+    public static int nbStates = 10;
     
     public static int worldItemToInt(WORLDITEM worlditem){
         switch(worlditem){
@@ -68,6 +71,28 @@ public class Utils {
      * @return un tableau contenant x,y en coordonnée de la matrice
      */
     public static int[] getSquare(int x, int y){
+        int[] coord = new int[2];
+
+        coord[0] = x/caseDimension % mapSize;
+        coord[1] = y/caseDimension;
+        if(coord[1] >= mapSize)
+            coord[1] = UISize;
+
+        if(coord[0] < 0)
+            coord[0] = mapSize-1;
+        if(coord[1] < UISize)
+            coord[1] = mapSize-1;
+
+        return coord;
+    }
+
+    /**
+     *
+     * @param x coordonnée en pixel
+     * @param y coordonnée en pixel
+     * @return un tableau contenant x,y en coordonnée de la matrice
+     */
+    public static int[] getSquareMouse(int x, int y){
         int[] coord = new int[2];
 
         coord[0] = x/caseDimension;

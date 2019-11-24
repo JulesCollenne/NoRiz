@@ -3,6 +3,7 @@ package Entity;
 import Collider.Collider;
 import Utils.DIRECTION;
 import javafx.scene.image.Image;
+import static Utils.Utils.*;
 
 /**
  * Entities are the Player and the monsters
@@ -69,8 +70,15 @@ public abstract class Entity {
         int[] coords = getCollideCoords();
         if(!collider.isPossible(coords[0] + dx, coords[1] + dy, coords[2] + dx, coords[3] + dy))
             return;
-        x += dx;
-        y += dy;
+        x = (x + dx) % canvasSize;
+        y = y + dy;
+        if(y >= canvasSize)
+            y = caseDimension * UISize;
+
+        if(x < 0)
+            x = canvasSize-1;
+        if(y < UISize*caseDimension)
+            y = canvasSize-1;
     }
 
     /**
