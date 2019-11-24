@@ -7,6 +7,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import Utils.DIRECTION;
+import javafx.scene.paint.Color;
+
+import static Utils.Utils.caseDimension;
 
 /**
  * The player is the sashimi Nori
@@ -69,16 +72,16 @@ public class Player extends Entity {
             }
             switch (facing) {
                 case DOWN:
-                    tryMove(0, -speed);
+                    tryMoveR(0, -speed);
                     break;
                 case UP:
-                    tryMove(0, speed);
+                    tryMoveR(0, speed);
                     break;
                 case LEFT:
-                    tryMove(speed, 0);
+                    tryMoveR(speed, 0);
                     break;
                 case RIGHT:
-                    tryMove(-speed, 0);
+                    tryMoveR(-speed, 0);
                     break;
             }
             reversed--;
@@ -114,6 +117,7 @@ public class Player extends Entity {
      */
     public void render(GraphicsContext gc)
     {
+
         gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
 
         if(lastAnim == animSpeed) {
@@ -151,6 +155,58 @@ public class Player extends Entity {
 
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
     public void setReversed(int reversed){this.reversed = reversed;}
+
+    private int getCollideX1Reverse(){
+        if(facing == DIRECTION.RIGHT)
+            return x + 1;
+        if(facing == DIRECTION.LEFT)
+            return x + getSize() - 1;
+        return x + 1;
+    }
+
+    private int getCollideX2Reverse(){
+        if(facing == DIRECTION.RIGHT)
+            return x + 1; //
+        if(facing == DIRECTION.LEFT)
+            return x  + getSize() - 1;
+        return x + getSize() - 1;
+    }
+
+    private int getCollideY1Reverse(){
+        if(facing == DIRECTION.DOWN)
+            return y+1; ///
+        if(facing == DIRECTION.UP)
+            return y + getSize() -1; ///
+        return y + 1;
+    }
+
+    private int getCollideY2Reverse(){
+        if(facing == DIRECTION.DOWN)
+            return y+1; ///
+        if(facing == DIRECTION.UP)
+            return y + getSize()-1; ///
+        return y + getSize() -1;
+    }
+
+    void tryMoveR(int dx, int dy) {
+        int[] coords = getCollideCoordsR();
+        if(!collider.isPossible(coords[0]+dx, coords[1]+dy, coords[2]+dx, coords[3]+dy)){
+            return;
+        }
+
+        x += dx;
+        y += dy;
+    }
+    public int[] getCollideCoordsR(){
+        int[] coords = new int[4];
+
+        coords[0] = getCollideX1Reverse();
+        coords[1] = getCollideY1Reverse();
+        coords[2] = getCollideX2Reverse();
+        coords[3] = getCollideY2Reverse();
+
+        return coords;
+    }
 
 
 }
