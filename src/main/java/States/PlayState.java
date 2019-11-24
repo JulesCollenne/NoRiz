@@ -200,13 +200,19 @@ public class PlayState extends GameState {
         }
     }
 
-    private void takeBonus(int x, int y){ /////////////////////////////////////////////
-        map[x][y] = WORLDITEM.ROAD;
-        if(rand.nextBoolean())
-            gsm.collectableItems[1].effect(player);
-        else
-            gsm.collectableItems[1].effect(player);
+    private void takeBonus(int x, int y){
+       //rand.nextInt(max - min + 1) + min;
 
+        map[x][y] = WORLDITEM.ROAD;
+        int r;
+        if(gsm.difficulty == Utils.DIF.EASY)
+            r= rand.nextInt(2); // que les bonus
+        else if (gsm.difficulty == Utils.DIF.MEDIUM)
+            r = rand.nextInt(4); // tout
+        else
+            r = rand.nextInt((3)+1); // 3 dernières cases du tableau : chance de tomber sur 1 bonus et 2 malus
+
+        gsm.collectableItems[r].effect(player,monsters);
 
     }
 

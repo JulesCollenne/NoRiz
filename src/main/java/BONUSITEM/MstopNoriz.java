@@ -18,12 +18,7 @@ public class MstopNoriz implements CollectableItem{
     }
 
     @Override
-    public void effect(Player p) {
+    public void effect(Player p, Monster[] monsters) {
         p.frozen = 300;
-    }
-
-    @Override
-    public void effect(Monster[] monsters) {
-
     }
 }

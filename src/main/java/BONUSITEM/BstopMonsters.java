@@ -16,12 +16,7 @@ public class BstopMonsters implements CollectableItem {
     }
 
     @Override
-    public void effect(Player p) {
-
-    }
-
-    @Override
-    public void effect(Monster[] monsters) {
+    public void effect(Player p, Monster[] monsters) {
         for(int i =0; i< monsters.length; i++){
             monsters[i].frozen = 500;
         }

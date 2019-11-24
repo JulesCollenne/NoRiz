@@ -17,12 +17,8 @@ public class BcanEatMonsters implements CollectableItem {
     }
 
     @Override
-    public void effect(Player p) {
+    public void effect(Player p,Monster[] monsters ) {
         p.setInvulnerable(500);
     }
 
-    @Override
-    public void effect(Monster[] monsters) {
-        //System.out.println("FDFDFDF");
-    }
 }
