@@ -1,8 +1,6 @@
 package States;
 
-import BONUSITEM.CollectableItem;
-import BONUSITEM.MreverseControls;
-import BONUSITEM.MstopNoriz;
+import BONUSITEM.*;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
@@ -30,8 +28,7 @@ public class GameStateManager{
 
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
-    public CollectableItem[] collectableItems = new CollectableItem[2];
-    //public CollectableItem[] maluses = new CollectableItem[2];
+    public CollectableItem[] collectableItems = new CollectableItem[4];
 
 
     public boolean isEditorTest = false;
@@ -48,7 +45,6 @@ public class GameStateManager{
 
         createMonsters();
         createBonuses();
-        //createMaluses();
 
         inGameUserInterface ui = new inGameUserInterface();
         gameStates[START] = new StartMenuState(this);
@@ -66,15 +62,11 @@ public class GameStateManager{
 
     private void createBonuses() {
 
-        collectableItems[0] = new MreverseControls();
-        collectableItems[1] = new MreverseControls();
-
+        collectableItems[0] = new BstopMonsters();
+        collectableItems[1] = new BcanEatMonsters();
+        collectableItems[2] = new MstopNoriz();
+        collectableItems[3] = new MreverseControls();
     }
-
- /*   private void createMaluses(){
-        maluses[0] = new MstopNoriz();
-        maluses[1] = new MstopNoriz();
-    }*/
 
     private void initScene() {
     }
