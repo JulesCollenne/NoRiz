@@ -1,13 +1,5 @@
 # NoRiz
 
-A FAIRE : 
--Faire les IAs restantes
--Graphismes et musique
--Afficher nombres de vie
--Afficher temps
--Afficher score
--Mettre en pause
-
 Pour compiler :
 
 Mettre le dossier java en "source root"
