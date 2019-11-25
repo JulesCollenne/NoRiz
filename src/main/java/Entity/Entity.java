@@ -21,6 +21,7 @@ public abstract class Entity {
     DIRECTION nextFacing = DIRECTION.STOP;
 
     public int frozen;
+    public int ghost;
 
     public Collider collider;
 
@@ -42,6 +43,7 @@ public abstract class Entity {
         spawnX = initialX;
         spawnY = initialY;
         frozen = 0;
+        ghost = 0;
     }
 
     /**
@@ -68,7 +70,7 @@ public abstract class Entity {
      */
     void tryMove(int dx, int dy) {
 
-        if(collider.collide(getNextCoords(dx, dy)))
+        if(collider.collide(getNextCoords(dx, dy)) && ghost == 0)
             return;
 
         x = (x + dx) % canvasSize;
@@ -107,17 +109,7 @@ public abstract class Entity {
             return false;
         }
 
-        DIRECTION tmp = facing;
-        facing = nextFacing;
-
-
-
-        if(collider.collide(getNextCoords(getFacingX(facing), getFacingY(facing)))){
-            facing = tmp;
-            return false;
-        }
-
-        return true;
+        return (!collider.collide(getNextCoords(getFacingX(nextFacing), getFacingY(nextFacing))) || ghost > 0);
     }
 
     /*

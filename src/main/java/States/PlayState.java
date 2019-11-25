@@ -286,6 +286,9 @@ public class PlayState extends GameState {
             case A:
                 System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
                 break;
+            case W:
+                player.ghost = 200;
+                break;
         }
     }
 

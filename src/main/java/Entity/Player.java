@@ -25,7 +25,6 @@ public class Player extends Entity {
         frozen = 0;
         reversed = 0;
 
-
         nbImgAnim = 2;
         animSpeed = 10;
         image = new Image[4][nbImgAnim];
@@ -62,29 +61,32 @@ public class Player extends Entity {
         /*Si le joueur prend le malus reverse, inverse les commandes de control du perso*/
         if(reversed > 0){
             reversed --;
-            }
+        }
 
-            if (invulnerable > 0) {
-                invulnerable--;
-            }
-            if (nextFacingPossible(nextFacing)) {
-                facing = nextFacing;
-                nextFacing = DIRECTION.STOP;
-            }
-            switch (facing) {
-                case DOWN:
-                    tryMove(0, speed);
-                    break;
-                case UP:
-                    tryMove(0, -speed);
-                    break;
-                case LEFT:
-                    tryMove(-speed, 0);
-                    break;
-                case RIGHT:
-                    tryMove(speed, 0);
-                    break;
-            }
+        if (invulnerable > 0) {
+            invulnerable--;
+        }
+        if(ghost > 0)
+            ghost--;
+
+        if (nextFacingPossible(nextFacing)) {
+            facing = nextFacing;
+            nextFacing = DIRECTION.STOP;
+        }
+        switch (facing) {
+            case DOWN:
+                tryMove(0, speed);
+                break;
+            case UP:
+                tryMove(0, -speed);
+                break;
+            case LEFT:
+                tryMove(-speed, 0);
+                break;
+            case RIGHT:
+                tryMove(speed, 0);
+                break;
+        }
 
     }
 
