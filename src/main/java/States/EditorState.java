@@ -276,7 +276,7 @@ public class EditorState extends GameState {
                         return false;
                     }
                 }
-                */m
+                */
 
                 switch(buildingMap[i][j]){
 
