@@ -6,27 +6,27 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="NoRiz" />
-        <module name="NoRiz2" />
-        <module name="NoRiz3" />
-        <module name="NoRiz4" />
-        <module name="NoRizaaa" />
-        <module name="NoRizIZZ" />
-        <module name="NoRizOUIII" />
-        <module name="NoRizPAUSE2" />
-        <module name="NoRizSOUND" />
-        <module name="NoRizV" />
-        <module name="NoRizV10" />
-        <module name="NoRizV11" />
-        <module name="NoRizV12" />
-        <module name="NoRizV15" />
-        <module name="NoRizV19" />
-        <module name="NoRizV21" />
         <module name="NoRizV23" />
-        <module name="NoRizV24" />
+        <module name="NoRizV21" />
+        <module name="NoRizIZZ" />
+        <module name="NoRiz4" />
+        <module name="NoRiz3" />
+        <module name="NoRiz2" />
+        <module name="NoRizSOUND" />
         <module name="NoRizV8" />
+        <module name="NoRizV24" />
+        <module name="NoRizaaa" />
+        <module name="NoRizOUIII" />
+        <module name="NoRizV19" />
+        <module name="NoRizV15" />
+        <module name="NoRiz" />
+        <module name="NoRizV12" />
+        <module name="NoRizV11" />
+        <module name="NoRizV10" />
+        <module name="NoRizV" />
+        <module name="NoRizPAUSE2" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="10" />
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>

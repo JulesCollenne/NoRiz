@@ -58,6 +58,21 @@ class ModeButton extends Button {
                     gsm.difficulty = ARCADE;
                     gsm.changeState(1);
                     break;
+                case "Niveau_Suivant":
+                    if(gsm.difficulty == EASY){
+                        gsm.difficulty = MEDIUM;
+                        gsm.changeState(8);
+                    }
+                    else if(gsm.difficulty == MEDIUM){
+                        gsm.difficulty = HARD;
+                        gsm.changeState(8);
+                    }
+                    else if(gsm.difficulty == HARD){
+                        gsm.difficulty = EASY;
+                        gsm.isEditorTest = false;
+                        gsm.changeState(0);
+                    }
+                    break;
             }
         });
         this.setOnMouseEntered((EventHandler) mouseEvent -> {
