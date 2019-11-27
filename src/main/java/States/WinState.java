@@ -18,7 +18,6 @@ public class WinState extends GameState {
         createAnimTimer();
     }
 
-
     @Override
     public void nextStep() {
 
