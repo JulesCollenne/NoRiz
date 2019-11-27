@@ -15,6 +15,7 @@ public class WinState extends GameState {
     WinState(GameStateManager gsm) {
         super(gsm);
         init();
+        createAnimTimer();
     }
 
 
@@ -41,7 +42,7 @@ public class WinState extends GameState {
 
         Color color;
 
-        Text title = new Text("Pause");
+        Text title = new Text("Victoire !");
         title.setX(Utils.canvasSize/2.0- 75);
         title.setY(90);
         title.setFont(new Font(45));
@@ -51,7 +52,7 @@ public class WinState extends GameState {
 
 
         ModeButton menu = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
-        menu.setLayoutX((36.5/100.0)*Utils.canvasSize);
+        menu.setLayoutX((new Image("Buttons/sign_return_menu.png").getWidth()/2));
         menu.setLayoutY((40/100.0)*Utils.canvasSize);
         menu.handler(gsm);
 
@@ -65,13 +66,14 @@ public class WinState extends GameState {
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
 
-        /*private void createAnimTimer(){
-            animationTimer = new AnimationTimer(){
-                @Override
-                public void handle(long now) {
+    }
 
-                }
-            };
-        }*/
+    private void createAnimTimer() {
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
     }
 }
