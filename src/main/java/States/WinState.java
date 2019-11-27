@@ -42,7 +42,7 @@ public class WinState extends GameState {
         Color color;
 
         Text title = new Text("Victoire !");
-        title.setX(Utils.canvasSize/2.0- 75);
+        title.setX(Utils.canvasSize/2.0 - 100);
         title.setY(90);
         title.setFont(new Font(45));
         color = Color.WHITE;
