@@ -32,8 +32,6 @@ public class StartMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        //layout.setStyle("-fx-background-color: darkslategrey;");
-
         BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
@@ -60,7 +58,7 @@ public class StartMenuState extends GameState{
         skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
         skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
         skin.handler(gsm);
-        skin.setStyle("-fx-background-color: transparent;");
+        //skin.setStyle("-fx-background-color: transparent;");
 
 
         ModeButton arcade = new ModeButton(new Image("Buttons/sign_arcade.png"), "Arcade");
