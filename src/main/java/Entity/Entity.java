@@ -2,6 +2,7 @@ package Entity;
 
 import Collider.Collider;
 import Utils.DIRECTION;
+import Utils.Utils;
 import javafx.scene.image.Image;
 import static Utils.Utils.*;
 
@@ -16,6 +17,7 @@ public abstract class Entity {
     int spawnX;
     int spawnY;
     int speed;
+    int size;
 
     DIRECTION facing = DIRECTION.STOP;
     DIRECTION nextFacing = DIRECTION.STOP;
@@ -31,7 +33,6 @@ public abstract class Entity {
     int lastAnim;
     int animSpeed;
 
-    public abstract int getSize();
     abstract void setImages();
     abstract void makeAnimations(int direction, String name);
 
@@ -44,6 +45,7 @@ public abstract class Entity {
         spawnY = initialY;
         frozen = 0;
         ghost = 0;
+        size = Utils.caseDimension;
     }
 
     /**
@@ -62,6 +64,10 @@ public abstract class Entity {
         spawnY = y;
     }
 
+    public void setSize(int choosenSize){
+        size = choosenSize;
+    }
+
     /**
      * move if it's possible, do nothing otherwise
      * @param dx next x
@@ -73,6 +79,10 @@ public abstract class Entity {
         if(collider.collide(getNextCoords(dx, dy)) && ghost == 0)
             return;
 
+        move(dx, dy);
+    }
+
+    void move(int dx, int dy){
         x = (x + dx) % canvasSize;
         y = y + dy;
         if(y >= canvasSize)
@@ -234,6 +244,9 @@ public abstract class Entity {
 
     public DIRECTION getFacing(){
         return facing;
+    }
+    public int getSize(){
+        return size;
     }
 
 }

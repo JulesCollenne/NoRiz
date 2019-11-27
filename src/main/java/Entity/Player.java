@@ -97,7 +97,7 @@ public class Player extends Entity {
     public void render(GraphicsContext gc)
     {
 
-        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , size, size);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;
@@ -124,10 +124,6 @@ public class Player extends Entity {
             image[direction][i] = new Image("Player/nori_" + name + i + ".png");
     }
 
-
-    public int getSize() {
-        return Utils.caseDimension;
-    }
     public int getInvulnerable(){
         return invulnerable;
     }

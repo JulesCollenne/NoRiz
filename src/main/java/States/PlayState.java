@@ -274,6 +274,12 @@ public abstract class PlayState extends GameState {
             case W:
                 player.ghost = 200;
                 break;
+            case X:
+                player.setSize(player.getSize()/2);
+                break;
+            case C:
+                player.setSize(player.getSize()*2);
+                break;
         }
     }
 

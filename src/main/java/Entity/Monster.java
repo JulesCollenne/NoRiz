@@ -49,7 +49,7 @@ public class Monster extends Entity{
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , Utils.caseDimension, Utils.caseDimension);
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , size, size);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % nbImgAnim;
@@ -124,10 +124,6 @@ public class Monster extends Entity{
 
     public void die() {
         resetPosition();
-    }
-
-    public int getSize() {
-        return Utils.caseDimension;
     }
 
     public void setFacing(DIRECTION dir){
