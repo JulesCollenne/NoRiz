@@ -8,6 +8,7 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import Utils.TypeEffectBonus;
 import Utils.myGameData;
+import WorldBuilder.worldRender;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -44,6 +45,10 @@ public abstract class PlayState extends GameState {
         player = gsm.player;
         monsters = gsm.monsters;
     }
+
+    abstract void win();
+    abstract void playerDie();
+
 
     private void createScene() {
 
@@ -181,9 +186,6 @@ public abstract class PlayState extends GameState {
             win();
     }
 
-
-    abstract void win();
-
     private void takeBonus(int x, int y){
        //rand.nextInt(max - min + 1) + min;
 
@@ -217,8 +219,6 @@ public abstract class PlayState extends GameState {
     /*public void monstersTouched(Entity monster){
         monster.resetPosition();
     }*/
-
-    abstract void playerDie();
 
     private void resetPosition(){
 
@@ -278,7 +278,18 @@ public abstract class PlayState extends GameState {
     }
 
     @Override
-    public abstract void render(GraphicsContext gc);
+    public void render(GraphicsContext gc){
+        if(firstRender){
+            startTimer = System.nanoTime();
+            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
+            firstRender = false;
+            worldRender.renderMap(gc, map, false);
+        }
+        worldRender.renderMap(gc, map, false);
+        //worldRender.renderItems(gc, map, false);
+
+        renderEntities(gc);
+    }
 
     void renderEntities(GraphicsContext gc){
 

@@ -21,16 +21,7 @@ public class StoryPlayState extends PlayState {
 
     public void render(GraphicsContext gc){
 
-        if(firstRender){
-            startTimer = System.nanoTime();
-            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
-            firstRender = false;
-            worldRender.renderMap(gc, map, false);
-        }
-        worldRender.renderMap(gc, map, false);
-        //worldRender.renderItems(gc, map, false);
-
-        renderEntities(gc);
+        super.render(gc);
 
         ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
 
