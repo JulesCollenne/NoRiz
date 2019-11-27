@@ -22,7 +22,7 @@ import java.util.Random;
 
 import static Utils.DIRECTION.*;
 
-public class PlayState extends GameState {
+public abstract class PlayState extends GameState {
 
     private boolean firstRender;
     private inGameUserInterface ui;
@@ -164,7 +164,7 @@ public class PlayState extends GameState {
     }
 
     private void checkSquare(){
-        int coords[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
+        int[] coords = Utils.getSquare(player.getCenterX(), player.getCenterY());
         WORLDITEM item = map[coords[0]][coords[1]];
         if(item == WORLDITEM.RICE)
             takeRice(coords[0], coords[1]);
@@ -176,26 +176,12 @@ public class PlayState extends GameState {
         myData.nbRiz -= 1;
         map[x][y] = WORLDITEM.ROAD;
 
-        if(myData.nbRiz <= 0) {
-            if (!gsm.isEditorTest)
-                win();
-            else
-                gsm.returnToEditor();
-        }
+        if(myData.nbRiz <= 0)
+            win();
     }
 
 
-    /**
-     * TODO nouveau affichage
-     */
-    private void win() {
-        if(gsm.difficulty == Utils.DIF.ARCADE){
-            gsm.changeState(1);
-        }
-        else{
-            gsm.changeState(9);
-        }
-    }
+    abstract void win();
 
     private void takeBonus(int x, int y){
        //rand.nextInt(max - min + 1) + min;
@@ -231,12 +217,7 @@ public class PlayState extends GameState {
         monster.resetPosition();
     }*/
 
-    private void playerDie(){
-        if(!gsm.isEditorTest)
-            gameOver();
-        else
-            gsm.returnToEditor();
-    }
+    abstract void playerDie();
 
     private void resetPosition(){
 
@@ -358,7 +339,7 @@ public class PlayState extends GameState {
         gsm.changeState(2);
     }
 
-    private void gameOver(){
+    void gameOver(){
         gsm.changeState(3);
         //gsm.sm.backGround.stop();
     }

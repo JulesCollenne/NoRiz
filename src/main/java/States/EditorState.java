@@ -19,8 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import static Utils.Utils.copyMap;
-import static Utils.Utils.mapSize;
+import static Utils.Utils.*;
 import static Utils.WORLDITEM.*;
 
 public class EditorState extends GameState {
