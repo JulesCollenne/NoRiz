@@ -2,13 +2,28 @@ package BONUSITEM;
 
 import Entity.Monster;
 import Entity.Player;
+import Utils.TypeEffectBonus;
 
 public class MreverseControls implements CollectableItem {
 
-    public MreverseControls(){}
+    TypeEffectBonus typeEffectBonus;
+
+    public MreverseControls( TypeEffectBonus typeEffectBonus){
+        this.typeEffectBonus = typeEffectBonus;
+    }
 
     @Override
-    public void effect(Player p, Monster[] monsters) {
-            p.setReversed(500);
-        }
+    public void effect(Player player) {
+        player.setReversed(500);
+    }
+
+    @Override
+    public void effect(Monster[] monsters) {
+
+    }
+
+    @Override
+    public TypeEffectBonus getTypeEffectBonus() {
+        return typeEffectBonus;
+    }
 }

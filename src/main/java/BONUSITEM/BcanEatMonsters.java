@@ -2,18 +2,31 @@ package BONUSITEM;
 
 import Entity.Monster;
 import Entity.Player;
+import Utils.TypeEffectBonus;
 
 /**
  * This bonus allow Nori to eat the enemies
  */
 public class BcanEatMonsters implements CollectableItem {
 
-    public BcanEatMonsters(){
+    TypeEffectBonus typeEffectBonus;
+
+    public BcanEatMonsters(TypeEffectBonus typeEffectBonus){
+        this.typeEffectBonus = typeEffectBonus;
     }
 
     @Override
-    public void effect(Player p,Monster[] monsters ) {
-        p.setInvulnerable(500);
+    public void effect(Player player) {
+        player.setInvulnerable(500);
     }
 
+    @Override
+    public void effect(Monster[] monsters) {
+
+    }
+
+    @Override
+    public TypeEffectBonus getTypeEffectBonus() {
+        return typeEffectBonus;
+    }
 }

@@ -6,6 +6,7 @@ import Entity.Player;
 import UI.inGameUserInterface;
 import Utils.Utils;
 import Utils.WORLDITEM;
+import Utils.TypeEffectBonus;
 import Utils.myGameData;
 import WorldBuilder.worldRender;
 import javafx.scene.Group;
@@ -208,8 +209,10 @@ public class PlayState extends GameState {
         else
             r = rand.nextInt((3)+1); // 3 dernières cases du tableau : chance de tomber sur 1 bonus et 2 malus
 
-        gsm.collectableItems[r].effect(player,monsters);
-
+        if(gsm.collectableItems[r].getTypeEffectBonus() == TypeEffectBonus.effectOnNori)
+        gsm.collectableItems[r].effect(player);
+        else
+            gsm.collectableItems[r].effect(monsters);
     }
 
     private void playerTouched(){

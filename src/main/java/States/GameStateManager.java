@@ -10,6 +10,7 @@ import Strategy.BonusStrat;
 import Strategy.HalfRandomStratHalfAngleStrat;
 import Strategy.RandomStrat;
 import UI.inGameUserInterface;
+import Utils.TypeEffectBonus;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.scene.control.Skin;
@@ -62,10 +63,10 @@ public class GameStateManager{
 
     private void createBonuses() {
 
-        collectableItems[0] = new BstopMonsters();
-        collectableItems[1] = new BcanEatMonsters();
-        collectableItems[2] = new MstopNoriz();
-        collectableItems[3] = new MreverseControls();
+        collectableItems[0] = new BstopMonsters(TypeEffectBonus.effectOnMonsters);
+        collectableItems[1] = new BcanEatMonsters(TypeEffectBonus.effectOnNori);
+        collectableItems[2] = new MstopNoriz(TypeEffectBonus.effectOnNori);
+        collectableItems[3] = new MreverseControls(TypeEffectBonus.effectOnNori);
     }
 
     private void initScene() {
