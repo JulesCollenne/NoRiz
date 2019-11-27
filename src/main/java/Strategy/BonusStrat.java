@@ -39,9 +39,9 @@ public class BonusStrat implements Strategy{
     private void searchBonus(){
         for(int i = 0 ; i < world.map.length ; i++){
             for(int j = 0 ; j < world.map[0].length ; j++){
-                if(world.map[i][j] == WORLDITEM.BONUS) {
-                    coordsBonus[index][0] = i*Utils.caseDimension;
-                    coordsBonus[index][1] = j*Utils.caseDimension;
+                if(world.map[j][i] == WORLDITEM.BONUS) {
+                    coordsBonus[index][0] = j*Utils.caseDimension;
+                    coordsBonus[index][1] = i*Utils.caseDimension;
                     index++;
                 }
             }
@@ -108,8 +108,7 @@ public class BonusStrat implements Strategy{
         }
     }
 
-    public void targetNewBonus(){
-        System.out.println("");
+    private void targetNewBonus(){
         if(coordsBonusUsed[(indexBonusUsed - 1)%index][0] == coordsBonus[(indexBonusUsed - 1)%index][0] && coordsBonusUsed[(indexBonusUsed - 1)%index][1] == coordsBonus[(indexBonusUsed - 1)%index][1]) {
             xBonus = coordsBonus[indexBonusUsed%index][0];
             yBonus = coordsBonus[indexBonusUsed%index][1];
@@ -128,8 +127,6 @@ public class BonusStrat implements Strategy{
             int xVector = xBonus - x;
             int yVector = yBonus - y;
 
-            //System.out.println("Bonus " + xBonus + " " + yBonus);
-            //System.out.println("Monster " + x + " " + y + "\n");
 
             double angle = Math.atan2(yVector, xVector);
             double cos, sin;
@@ -137,7 +134,7 @@ public class BonusStrat implements Strategy{
             sin = Math.sin(angle);
 
             DIRECTION currentWay = monster.getFacing();
-            //System.out.println(currentWay);
+            System.out.println(currentWay);
 
             if (currentWay == DIRECTION.UP && !monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1)) {
                 if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
@@ -147,24 +144,24 @@ public class BonusStrat implements Strategy{
                 else
                     return DIRECTION.DOWN;
             } else if (currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1)) {
-                if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
-                    return DIRECTION.LEFT;
-                else if (monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1))
+                if (monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1))
                     return DIRECTION.RIGHT;
+                else if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
+                    return DIRECTION.LEFT;
                 else
                     return DIRECTION.UP;
             } else if (currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1)) {
-                if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
-                    return DIRECTION.UP;
-                else if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
+                if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
                     return DIRECTION.DOWN;
+                else if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
+                    return DIRECTION.UP;
                 else
                     return DIRECTION.RIGHT;
             } else if (currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1)) {
-                if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
-                    return DIRECTION.UP;
-                else if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
+                if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
                     return DIRECTION.DOWN;
+                else if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
+                    return DIRECTION.UP;
                 else
                     return DIRECTION.LEFT;
             }
@@ -217,9 +214,8 @@ public class BonusStrat implements Strategy{
         }
         else {
             targetNewBonus();
-            System.out.println("Bonus Target " + xBonus + " " + yBonus);
-            //System.out.println("STOP");
-            //return DIRECTION.STOP;
+            //System.out.println("Bonus Target " + xBonus + " " + yBonus);
+            return DIRECTION.STOP;
         }
         return DIRECTION.STOP;
     }

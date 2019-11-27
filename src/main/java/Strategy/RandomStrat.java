@@ -23,6 +23,17 @@ public class RandomStrat implements Strategy {
         int coords[];
         DIRECTION facingTmp = monster.getFacing();
 
+        /*switch(facingTmp){
+            case UP:
+                break;
+            case DOWN: break;
+
+            case RIGHT: break;
+
+            case LEFT: break;
+            default:break;
+        }*/
+
         while (impossible) {
             rand = (int) (Math.random() * 4);
             switch (rand) {
