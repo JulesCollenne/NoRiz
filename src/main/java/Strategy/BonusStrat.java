@@ -134,7 +134,7 @@ public class BonusStrat implements Strategy{
             sin = Math.sin(angle);
 
             DIRECTION currentWay = monster.getFacing();
-            System.out.println(currentWay);
+            //System.out.println(currentWay);
 
             if (currentWay == DIRECTION.UP && !monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1)) {
                 if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
