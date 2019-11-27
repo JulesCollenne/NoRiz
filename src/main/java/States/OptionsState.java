@@ -65,7 +65,7 @@ public class OptionsState extends GameState{
 
 
 
-        Label volumeMusique = new Label("Volume");
+        Label volumeMusique = new Label("Musique");
         volumeMusique.setTextFill(color);
         volumeMusique.setStyle("-fx-font-weight: bold");
 

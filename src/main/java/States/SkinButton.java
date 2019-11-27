@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import Utils.Utils;
 
 class SkinButton extends Button {
     private ImageView skin;
@@ -28,10 +29,10 @@ class SkinButton extends Button {
         super.setGraphic(skin);
         setMinSize(85,170);
         setMaxSize(85,170);
-        setStyle("-fx-background-color: white");
-        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
+        setStyle("-fx-background-color: transparent");
         makeAnimations();
 
+        setPrefSize(20,20);
         animationTimer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
 
@@ -39,11 +40,10 @@ class SkinButton extends Button {
 
                 skin = new ImageView(image2[0][animTime]);
                 //TODO bien l'afficher
-                skin.setLayoutX(0);
-                skin.setLayoutY(0);
-                //skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
-                //skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
-                getChildren().add(skin);
+                skin.setLayoutX(20);
+                skin.setLayoutY(60);
+                //getChildren().add(skin);
+                setGraphic(skin);
 
                 if(lastAnim == animSpeed) {
                     animTime = (animTime + 1) % 2;
