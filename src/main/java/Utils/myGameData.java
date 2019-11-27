@@ -6,6 +6,7 @@ public class myGameData {
     public long leftTime;
     public int nbLife;
     public int nbRiz;
+    public int score;
 
     public myGameData(WORLDITEM map[][]){
 
@@ -13,6 +14,7 @@ public class myGameData {
         leftTime = Utils.roundDuration;
         nbLife = 5;
         nbRiz = 0;
+        score = 0;
 
     }
 

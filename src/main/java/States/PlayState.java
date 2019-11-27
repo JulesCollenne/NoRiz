@@ -8,7 +8,6 @@ import Utils.Utils;
 import Utils.WORLDITEM;
 import Utils.TypeEffectBonus;
 import Utils.myGameData;
-import WorldBuilder.worldRender;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -24,18 +23,18 @@ import static Utils.DIRECTION.*;
 
 public abstract class PlayState extends GameState {
 
-    private boolean firstRender;
-    private inGameUserInterface ui;
+    boolean firstRender;
+    inGameUserInterface ui;
 
-    private myGameData myData;
-    private long startTimer;
+    myGameData myData;
+    long startTimer;
 
-    private WORLDITEM[][] map;
+    WORLDITEM[][] map;
 
-    private Player player;
-    private Monster monsters[];
+    Player player;
+    Monster monsters[];
 
-    private Random rand = new Random();
+    Random rand = new Random();
 
     PlayState(GameStateManager gsm, inGameUserInterface ui) {
         super(gsm);
@@ -155,6 +154,7 @@ public abstract class PlayState extends GameState {
             if(gsm.collider.isTouching(player, monster)) {
                 if(player.getInvulnerable() > 0){
                     monster.die();
+                    myData.score += 100;
                 }
                 else{
                     playerTouched();
@@ -175,6 +175,7 @@ public abstract class PlayState extends GameState {
     private void takeRice(int x, int y){
         myData.nbRiz -= 1;
         map[x][y] = WORLDITEM.ROAD;
+        myData.score += 10;
 
         if(myData.nbRiz <= 0)
             win();
@@ -277,31 +278,9 @@ public abstract class PlayState extends GameState {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
+    public abstract void render(GraphicsContext gc);
 
-        if(myData.nbLife <= 0){
-            gc.fillText("Frero t'es dèd la, déso", Utils.canvasSize/2.0, Utils.canvasSize/2.0);
-            return;
-        }
-
-        if(firstRender){
-            startTimer = System.nanoTime();
-            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
-            firstRender = false;
-            worldRender.renderMap(gc, map, false);
-        }
-
-        worldRender.renderMap(gc, map, false);
-        //worldRender.renderItems(gc, map, false);
-
-        renderEntities(gc);
-
-        ui.render(gc, myData.nbLife, myData.nbRiz, getTimer());
-
-
-    }
-
-    private void renderEntities(GraphicsContext gc){
+    void renderEntities(GraphicsContext gc){
 
         /*
         int square[] = Utils.getSquare(player.getCenterX(), player.getCenterY());
@@ -322,7 +301,7 @@ public abstract class PlayState extends GameState {
         }
     }
 
-    private long getTimer(){
+    long getTimer(){
 
         long timer;
         long currentTimer;
