@@ -42,7 +42,8 @@ class SkinButton extends Button {
                 //TODO bien l'afficher
                 skin.setLayoutX(20);
                 skin.setLayoutY(60);
-                getChildren().add(skin);
+                //getChildren().add(skin);
+                setGraphic(skin);
 
                 if(lastAnim == animSpeed) {
                     animTime = (animTime + 1) % 2;
@@ -67,12 +68,9 @@ class SkinButton extends Button {
         });
         this.setOnMouseEntered(mouseEvent -> {
             animationTimer.start();
-            skin.setVisible(false);
-
         });
         this.setOnMouseExited(mouseEvent -> {
             animationTimer.stop();
-            skin.setVisible(true);
         });
     }
 }

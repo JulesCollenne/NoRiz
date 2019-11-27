@@ -62,7 +62,7 @@ public class StartMenuState extends GameState{
 
 
         ModeButton arcade = new ModeButton(new Image("Buttons/sign_arcade.png"), "Arcade");
-        arcade.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
+        arcade.setLayoutX(((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
         arcade.setLayoutY((80/100.0)*Utils.canvasSize);
         arcade.handler(gsm);
 
