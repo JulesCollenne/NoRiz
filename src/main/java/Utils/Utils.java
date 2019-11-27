@@ -13,7 +13,7 @@ public class Utils {
     public static final int UISize = 2;
 
     public static final int START  = 0;
-    public static final int PLAY  = 1;
+    public static final int STORY = 1;
     public static final int PAUSE  = 2;
     public static final int GAMEOVER = 3;
     public static final int EDITOR = 4;
@@ -22,7 +22,8 @@ public class Utils {
     public static final int SKIN = 7;
     public static final int CINEMATIQUE = 8;
     public static final int WIN = 9;
-    public static int nbStates = 10;
+    public static final int EDITORPLAY = 10;
+    public static int nbStates = 11;
     
     public static int worldItemToInt(WORLDITEM worlditem){
         switch(worlditem){

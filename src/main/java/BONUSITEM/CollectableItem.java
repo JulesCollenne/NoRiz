@@ -6,4 +6,5 @@ import Entity.Player;
 public interface CollectableItem {
 
     void effect(Player p, Monster[] monsters);
+
 }

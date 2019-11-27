@@ -12,7 +12,6 @@ import Strategy.RandomStrat;
 import UI.inGameUserInterface;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
-import javafx.scene.control.Skin;
 import javafx.stage.Stage;
 
 import static Utils.Utils.*;
@@ -48,7 +47,7 @@ public class GameStateManager{
 
         inGameUserInterface ui = new inGameUserInterface();
         gameStates[START] = new StartMenuState(this);
-        gameStates[PLAY] = new PlayState(this, ui);
+        gameStates[STORY] = new StoryPlayState(this, ui);
         gameStates[PAUSE] = new PauseState(this);
         gameStates[GAMEOVER] = new GameOverState(this);
         gameStates[EDITOR] = new EditorState(this);
@@ -56,6 +55,8 @@ public class GameStateManager{
         gameStates[SKIN] = new SkinState(this);
         gameStates[CINEMATIQUE] = new CinematiqueState(this);
         gameStates[WIN] = new WinState(this);
+        gameStates[ARCADE] = new ArcadeState(this, ui);
+        gameStates[EDITORPLAY] = new EditorPlayState(this, ui);
 
         changeState(START);
     }
@@ -81,7 +82,7 @@ public class GameStateManager{
         //else
             //gameStates[currentState].animationTimer2.stop();
         currentState = newState;
-        if(currentState == PLAY || currentState == ARCADE) {
+        if(currentState == STORY || currentState == ARCADE) {
             world.build(difficulty);
         }
         gameStates[currentState].init();
@@ -96,7 +97,7 @@ public class GameStateManager{
     void changeToEditorTest(WORLDITEM[][] map){
         isEditorTest = true;
         gameStates[currentState].animationTimer.stop();
-        currentState = PLAY;
+        currentState = EDITORPLAY;
         world.build(map);
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
@@ -114,7 +115,7 @@ public class GameStateManager{
 
     void reprendreJeu(){
         gameStates[currentState].animationTimer.stop();
-        currentState = PLAY;
+        currentState = STORY;
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         gameStates[currentState].animationTimer.start();

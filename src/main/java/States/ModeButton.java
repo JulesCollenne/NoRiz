@@ -1,9 +1,11 @@
 package States;
 
+import Utils.Utils;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import static Utils.Utils.*;
 
 import static Utils.Utils.DIF.*;
 
@@ -26,18 +28,18 @@ class ModeButton extends Button {
             switch(label) {
                 case "Facile":
                     gsm.difficulty = EASY;
-                    gsm.changeState(8);
+                    gsm.changeState(CINEMATIQUE);
                     break;
                 case "Medium":
                     gsm.difficulty = MEDIUM;
-                    gsm.changeState(8);
+                    gsm.changeState(CINEMATIQUE);
                     break;
                 case "Hard":
                     gsm.difficulty = HARD;
-                    gsm.changeState(8);
+                    gsm.changeState(CINEMATIQUE);
                     break;
                 case "Rejouer":
-                    gsm.changeState(1);
+                    gsm.changeState(STORY);
                     break;
                 case "Reprendre":
                     gsm.reprendreJeu();
@@ -46,31 +48,31 @@ class ModeButton extends Button {
                     gsm.difficulty = EASY;
                     //gsm.sm.backGround.stop();
                     gsm.isEditorTest = false;
-                    gsm.changeState(0);
+                    gsm.changeState(START);
                     break;
                 case "Editor":
-                    gsm.changeState(4);
+                    gsm.changeState(EDITOR);
                     break;
                 case "Options":
-                    gsm.changeState(5);
+                    gsm.changeState(OPTIONS);
                     break;
                 case "Arcade":
-                    gsm.difficulty = ARCADE;
-                    gsm.changeState(1);
+                    gsm.difficulty = Utils.DIF.ARCADE;
+                    gsm.changeState(Utils.ARCADE);
                     break;
                 case "Niveau_Suivant":
                     if(gsm.difficulty == EASY){
                         gsm.difficulty = MEDIUM;
-                        gsm.changeState(8);
+                        gsm.changeState(CINEMATIQUE);
                     }
                     else if(gsm.difficulty == MEDIUM){
                         gsm.difficulty = HARD;
-                        gsm.changeState(8);
+                        gsm.changeState(CINEMATIQUE);
                     }
                     else if(gsm.difficulty == HARD){
                         gsm.difficulty = EASY;
                         gsm.isEditorTest = false;
-                        gsm.changeState(0);
+                        gsm.changeState(START);
                     }
                     break;
             }
