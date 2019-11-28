@@ -27,8 +27,8 @@ public class World {
     public WORLDITEM[][] map;
     int nbArcadeMap = 2;
 
-    static Image road = new Image("textures/roadTextureLevel1.png");
-    static Image wall = new Image("textures/wallTexture.png");
+    static Image road = new Image("textures/road1.png");
+    static Image wall = new Image("textures/wall1.png");
     static Image rice = new Image("collectable/GrainDeRiz.png");
 
     /**
@@ -39,34 +39,34 @@ public class World {
     public WORLDITEM[][] build(DIF chosenDifficulty){
         switch(chosenDifficulty){
             case EASY:
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
+                road = new Image("textures/road1.png");
+                wall = new Image("textures/wall1.png");
                 map = loadMap("src/main/resources/Maps/worldEasy.map");
                 break;
 
             case MEDIUM:
-                road = new Image("textures/roadTextureLevel2.png");
-                wall = new Image("textures/wallTextureLevel2.png");
+                road = new Image("textures/road2.png");
+                wall = new Image("textures/wall2.png");
                 map = loadMap("src/main/resources/Maps/worldMedium.map");
                 break;
 
             case HARD:
-                road = new Image("textures/roadTextureLevel3.png");
-                wall = new Image("textures/wallTextureLevel3.png");
+                road = new Image("textures/road3.png");
+                wall = new Image("textures/wall3.png");
                 map = loadMap("src/main/resources/Maps/worldHard.map");
                 break;
 
             case ARCADE:
                 Random rand = new Random();
-                road = new Image("textures/roadTextureLevel1.png");
-                wall = new Image("textures/wallTextureLevel1.png");
+                road = new Image("textures/road1.png");
+                wall = new Image("textures/wall1.png");
                 map = loadMap("src/main/resources/Maps/arcade" + rand.nextInt(nbArcadeMap) + ".map");
                 //map = loadMap("src/main/resources/Maps/arcade2.map");
                 break;
 
             default:
-                road = new Image("textures/roadTexture1.png");
-                wall = new Image("textures/wallTexture.png");
+                road = new Image("textures/road1.png");
+                wall = new Image("textures/wall1.png");
                 map = loadMap("src/main/resources/Maps/worldEasy.map");
                 break;
         }
