@@ -45,7 +45,7 @@ public class World {
                 break;
 
             case MEDIUM:
-                road = new Image("textures/roadTextureLevel2.jpg");
+                road = new Image("textures/roadTextureLevel2.png");
                 wall = new Image("textures/wallTextureLevel2.png");
                 map = loadMap("src/main/resources/Maps/worldMedium.map");
                 break;
