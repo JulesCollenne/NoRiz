@@ -86,7 +86,8 @@ public abstract class PlayState extends GameState {
 
     private void initMyData(){
 
-        map = Utils.copyMap(gsm.world.map);
+        map = gsm.world.map;
+        //map = Utils.copyMap(gsm.world.map);
         myData = new myGameData(map);
 
         int nbRice = 0;
