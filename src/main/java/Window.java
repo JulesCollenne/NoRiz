@@ -1,4 +1,4 @@
-import States.GameStateManager;
+import states.GameStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
