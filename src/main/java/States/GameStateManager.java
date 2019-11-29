@@ -78,10 +78,10 @@ public class GameStateManager{
      * @param newState the new state
      */
     void changeState(int newState){
-        //if(currentState != PLAY)
-        gameStates[currentState].animationTimer.stop();
-        //else
-            //gameStates[currentState].animationTimer2.stop();
+        if(currentState != 1)
+            gameStates[currentState].animationTimer.stop();
+        else
+            gameStates[currentState].animationTimer2.stop();
         currentState = newState;
         if(currentState == STORY || currentState == ARCADE) {
             world.build(difficulty);
@@ -89,10 +89,10 @@ public class GameStateManager{
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
-        //if(currentState != PLAY)
+        if(currentState != 1)
         gameStates[currentState].animationTimer.start();
-        //else
-            //gameStates[currentState].animationTimer2.play();
+        else
+            gameStates[currentState].animationTimer2.play();
     }
 
     void changeToEditorTest(WORLDITEM[][] map){

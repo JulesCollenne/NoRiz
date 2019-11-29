@@ -1,16 +1,16 @@
 package States;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 public abstract class GameState {
     Scene theScene;
     GameStateManager gsm;
     AnimationTimer animationTimer;
-    //Timeline animationTimer2;
+    Timeline animationTimer2;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;
@@ -30,13 +30,15 @@ public abstract class GameState {
 
     public void createAnimTimer(GraphicsContext gc) {
 
+        /*
+
         animationTimer = new AnimationTimer() {
             public void handle(long currentNanoTime) {
 
                 /*
                 long elapsedNanos = currentNanoTime - lastTime ;
                 System.out.println("FPS : " + 1000000000. / elapsedNanos);
-*/
+
                 // game logic
                 nextStep();
 
@@ -46,6 +48,17 @@ public abstract class GameState {
                 //lastTime = currentNanoTime;
             }
         };
+*/
+        animationTimer2 = new Timeline(new KeyFrame(Duration.seconds(1/80.), event -> {
+            // game logic
+            nextStep();
+            // render
+            render(gc);
+        }));
+
+        animationTimer2.setCycleCount(Animation.INDEFINITE);
+        animationTimer2.setRate(1);
+
     }
 
 }
