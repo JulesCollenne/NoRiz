@@ -116,11 +116,13 @@ public class GameStateManager{
 
     void reprendreJeu(){
         gameStates[currentState].animationTimer.stop();
-        currentState = STORY;
+        if(difficulty == DIF.ARCADE)
+            currentState = ARCADE;
+        else
+            currentState = STORY;
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         gameStates[currentState].animationTimer.start();
-
     }
 
     /**

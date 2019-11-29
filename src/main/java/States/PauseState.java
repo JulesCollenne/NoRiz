@@ -53,7 +53,6 @@ public class PauseState extends GameState {
 
         Color color;
 
-
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
         StackPane commandeP = new StackPane();
