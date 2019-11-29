@@ -96,9 +96,9 @@ public class OptionsState extends GameState{
         GridPane.setRowIndex(soundEffect,2);
         GridPane.setColumnIndex(soundEffect,2);
 
-        soundVolume.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundVolume(new_val.intValue()));
+       // soundVolume.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundVolume(new_val.intValue()));
 
-        soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundEffect(new_val.intValue()));
+        // soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundEffect(new_val.intValue()));
 
         ModeButton retour = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
         retour.setLayoutX(10);

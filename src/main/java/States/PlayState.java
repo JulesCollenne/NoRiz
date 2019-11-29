@@ -48,6 +48,7 @@ public abstract class PlayState extends GameState {
 
     abstract void win();
     abstract void playerDie();
+    abstract void manageScore();
 
 
     private void createScene() {
@@ -89,6 +90,8 @@ public abstract class PlayState extends GameState {
         map = gsm.world.map;
         //map = Utils.copyMap(gsm.world.map);
         myData = new myGameData(map);
+
+        manageScore();
 
         int nbRice = 0;
 

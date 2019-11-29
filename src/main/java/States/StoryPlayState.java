@@ -19,6 +19,11 @@ public class StoryPlayState extends PlayState {
         gameOver();
     }
 
+    @Override
+    void manageScore() {
+        return;
+    }
+
     public void render(GraphicsContext gc){
 
         super.render(gc);

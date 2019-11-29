@@ -20,6 +20,11 @@ public class EditorPlayState extends PlayState {
     }
 
     @Override
+    void manageScore() {
+        return;
+    }
+
+    @Override
     public void render(GraphicsContext gc){
 
         if(firstRender){

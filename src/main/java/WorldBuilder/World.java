@@ -60,7 +60,7 @@ public class World {
                 Random rand = new Random();
                 road = new Image("textures/road1.png");
                 wall = new Image("textures/wall1.png");
-                map = loadMap("src/main/resources/Maps/arcade" + rand.nextInt(nbArcadeMap) + ".map");
+                map = loadMap("src/main/resources/Maps/arcade" + rand.nextInt(nbArcadeMap+1) + ".map");
                 //map = loadMap("src/main/resources/Maps/arcade2.map");
                 break;
 

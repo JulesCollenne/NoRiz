@@ -4,7 +4,7 @@ import BONUSITEM.*;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
-import Sounds.SoundManager;
+//import Sounds.SoundManager;
 import Strategy.AngleStrat;
 import Strategy.BonusStrat;
 import Strategy.HalfRandomStratHalfAngleStrat;
@@ -14,6 +14,9 @@ import Utils.TypeEffectBonus;
 import Utils.WORLDITEM;
 import WorldBuilder.World;
 import javafx.stage.Stage;
+
+import java.io.*;
+import java.util.Scanner;
 
 import static Utils.Utils.*;
 
@@ -32,14 +35,30 @@ public class GameStateManager{
 
 
     boolean isEditorTest = false;
-    SoundManager sm = new SoundManager();
+    //SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
 
     DIF difficulty = DIF.EASY;
 
+    public int currentScore;
+
+
+    /*
+    Sauvegarde
+     */
+
+    public int bestScore;
+    public int storyProgress;
+    public int volume_musique;
+    public int volume_effet;
+
+    //
+
     public GameStateManager(Stage theStage){
         this.theStage = theStage;
         initScene();
+
+        manageSaveFile();
 
         world.build(difficulty);
 
@@ -136,5 +155,78 @@ public class GameStateManager{
         monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "cat_bonus_", collider);                                                //Monstre BonusStrat
         monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "cat_50_", collider);                                                 //Monstre RandomStrat
     }
+
+
+    private void manageSaveFile(){
+
+        File saveFile = new File("src/main/resources/save/saveFile");
+
+        try {
+            if(saveFile.createNewFile()){
+
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile)));
+                writer.write("B_S = 0\nP_S = 0\nV_M = 20\nV_E = 20");
+                writer.close();
+
+                bestScore = 0;
+                storyProgress = 0;
+                volume_effet = 20;
+                volume_musique = 20;
+
+            }
+            else{
+
+                getSaveProgress();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void getSaveProgress(){
+
+        try {
+            FileInputStream file = new FileInputStream("src/main/resources/save/saveFile");
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+
+                String line = sc.nextLine();
+
+                switch(line.substring(0, 3)){
+
+                    case "P_S":
+                        storyProgress = Integer.parseInt(line.substring(6));
+                        break;
+
+                    case "B_S":
+                        bestScore = Integer.parseInt(line.substring(6));
+                        break;
+
+                    case "V_M":
+                        volume_musique = Integer.parseInt(line.substring(6));
+                        break;
+
+                    case "V_E":
+                        volume_effet = Integer.parseInt(line.substring(6));
+                        break;
+
+                }
+            }
+
+            sc.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }
 
