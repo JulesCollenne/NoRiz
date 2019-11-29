@@ -4,7 +4,7 @@ import BONUSITEM.*;
 import Collider.Collider;
 import Entity.Monster;
 import Entity.Player;
-//import Sounds.SoundManager;
+import Sounds.SoundManager;
 import Strategy.AngleStrat;
 import Strategy.BonusStrat;
 import Strategy.HalfRandomStratHalfAngleStrat;
@@ -35,7 +35,7 @@ public class GameStateManager{
 
 
     boolean isEditorTest = false;
-    //SoundManager sm = new SoundManager();
+    SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
 
     DIF difficulty = DIF.EASY;

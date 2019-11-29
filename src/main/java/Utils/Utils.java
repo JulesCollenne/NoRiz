@@ -9,7 +9,7 @@ public class Utils {
     public static final int mapSize = 25; // labyrinthe de size*size case
     public static final int caseDimension = 32; // chaque case du labyrinthe fait dimension*dimension pixel
     public static final int canvasSize = mapSize * caseDimension;
-    static final int roundDuration = 120; // en seconde
+    static final int roundDuration = 240; // en seconde
     public static final int UISize = 2;
 
     public static final int START  = 0;
