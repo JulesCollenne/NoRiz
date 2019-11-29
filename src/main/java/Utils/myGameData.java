@@ -12,7 +12,7 @@ public class myGameData {
 
         this.map = map;
         leftTime = Utils.roundDuration;
-        nbLife = 5;
+        nbLife = 1;
         nbRiz = 0;
         score = 0;
 

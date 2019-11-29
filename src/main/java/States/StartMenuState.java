@@ -7,6 +7,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+import java.awt.*;
 
 public class StartMenuState extends GameState{
 
@@ -16,7 +21,7 @@ public class StartMenuState extends GameState{
 
     StartMenuState(GameStateManager gsm) {
         super(gsm);
-        createScene();
+        init();
         createAnimTimer();
     }
 
@@ -66,6 +71,13 @@ public class StartMenuState extends GameState{
         arcade.setLayoutY((80/100.0)*Utils.canvasSize);
         arcade.handler(gsm);
 
+        Text bestScore = new Text();
+        bestScore.setLayoutX(arcade.getLayoutX());
+        bestScore.setLayoutY(arcade.getLayoutY()+120);
+        bestScore.setText("Meilleur score: "+gsm.bestScore);
+        bestScore.setFill(Color.WHITE);
+        bestScore.setFont(new Font(20));
+
         ModeButton editor = new ModeButton(new Image("Buttons/sign_editor.png"), "Editor");
         editor.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
         editor.setLayoutY((80/100.0)*Utils.canvasSize);
@@ -77,13 +89,16 @@ public class StartMenuState extends GameState{
         options.setLayoutY(-15);
         options.handler(gsm);
 
-        layout.getChildren().addAll(options, easy, medium, hard, skin, editor, arcade);
+        layout.getChildren().addAll(options, easy, medium, hard, skin, editor, arcade, bestScore);
 
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
     }
 
     public void init() {
+
+        System.out.println(gsm.bestScore);
+        createScene();
     }
 
     public void nextStep() {
