@@ -80,7 +80,7 @@ public class World {
 
     /**
      *
-     * @return une map sans les murs sauf les contours et l'UI
+     * @return une map sans les murs sauf les contours et l'ui
      */
     public WORLDITEM[][] makeCleanMap(){
         WORLDITEM[][] tempMap = new WORLDITEM[mapSize][mapSize];

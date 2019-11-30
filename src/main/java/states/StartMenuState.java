@@ -46,16 +46,34 @@ public class StartMenuState extends GameState{
         easy.setLayoutY((60/100.0)*Utils.canvasSize);
         easy.handler(gsm);
 
-        Image mediumIm = new Image("Buttons/sign_moyen.png");
-        ModeButton medium = new ModeButton(mediumIm, "Medium");
-        medium.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
-        medium.setLayoutY((60/100.0)*Utils.canvasSize);
-        medium.handler(gsm);
 
-        ModeButton hard = new ModeButton(new Image("Buttons/sign_difficile.png"), "Hard");
-        hard.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
-        hard.setLayoutY((60/100.0)*Utils.canvasSize);
-        hard.handler(gsm);
+        ModeButton medium;
+        if(gsm.storyProgress >= 1) {
+            Image mediumIm = new Image("Buttons/sign_moyen.png");
+            medium = new ModeButton(mediumIm, "Medium");
+            medium.setLayoutX(((((2 * Utils.canvasSize) / 3.) + (Utils.canvasSize / 3.)) / 2) - (tempWidth / 2));
+            medium.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            medium.handler(gsm);
+        }
+        else{
+            Image mediumIm = new Image("Buttons/sign_moyen_lock.png");
+            medium = new ModeButton(mediumIm, "Medium");
+            medium.setLayoutX(((((2 * Utils.canvasSize) / 3.) + (Utils.canvasSize / 3.)) / 2) - (tempWidth / 2));
+            medium.setLayoutY((60 / 100.0) * Utils.canvasSize);
+        }
+
+        ModeButton hard;
+        if(gsm.storyProgress >= 2) {
+            hard = new ModeButton(new Image("Buttons/sign_difficile.png"), "Hard");
+            hard.setLayoutX((((2 * Utils.canvasSize) / 3.) + Utils.canvasSize) / 2 - (tempWidth / 2));
+            hard.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            hard.handler(gsm);
+        }
+        else{
+            hard = new ModeButton(new Image("Buttons/sign_difficile_lock.png"), "Hard");
+            hard.setLayoutX((((2 * Utils.canvasSize) / 3.) + Utils.canvasSize) / 2 - (tempWidth / 2));
+            hard.setLayoutY((60 / 100.0) * Utils.canvasSize);
+        }
 
         SkinButton skin = new SkinButton(new Image("Player/nori_droite0.png"), "Skin");
         skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
@@ -94,7 +112,6 @@ public class StartMenuState extends GameState{
     }
 
     public void init() {
-
         System.out.println(gsm.bestScore);
         createScene();
     }
