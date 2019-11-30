@@ -46,7 +46,7 @@ public class ArcadeState extends PlayState {
 
     void saveBestScore(int score){
 
-        FileInputStream file = null;
+        FileInputStream file;
         try {
             file = new FileInputStream("src/main/resources/save/saveFile");
 

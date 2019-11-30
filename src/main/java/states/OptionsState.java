@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.*;
+import java.util.Scanner;
+
 public class OptionsState extends GameState{
 
 
@@ -94,9 +97,9 @@ public class OptionsState extends GameState{
         GridPane.setRowIndex(soundEffect,2);
         GridPane.setColumnIndex(soundEffect,2);
 
-       // soundVolume.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundVolume(new_val.intValue()));
+        soundVolume.valueProperty().addListener((observableValue, old_val, new_val) -> setMusicVolume(new_val.intValue()));
 
-        // soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> gsm.sm.setSoundEffect(new_val.intValue()));
+        soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> setEffectVolume(new_val.intValue()));
 
         ModeButton retour = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
         retour.setLayoutX(10);
@@ -133,4 +136,101 @@ public class OptionsState extends GameState{
     public void render(GraphicsContext gc) {
 
     }
+
+    void setMusicVolume(int new_val){
+
+        gsm.sm.setSoundVolume(new_val);
+        saveMusicVolume(new_val);
+
+    }
+
+    void saveMusicVolume(int new_val){
+
+        FileInputStream file;
+        try {
+            file = new FileInputStream("src/main/resources/save/saveFile");
+
+            String fileString = "";
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+
+                String line = sc.nextLine();
+
+                if (line.substring(0, 3).equals("V_M")) {
+
+                    fileString += "V_M = "+new_val+"\n";
+
+                }
+                else{
+
+                    fileString += line+"\n";
+
+                }
+            }
+
+            try {
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/resources/save/saveFile"))));
+                writer.write(fileString);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    void setEffectVolume(int new_val){
+
+        gsm.sm.setSoundVolume(new_val);
+        saveEffectVolume(new_val);
+
+    }
+
+    void saveEffectVolume(int new_val){
+
+        FileInputStream file;
+        try {
+            file = new FileInputStream("src/main/resources/save/saveFile");
+
+            String fileString = "";
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+
+                String line = sc.nextLine();
+
+                if (line.substring(0, 3).equals("V_E")) {
+
+                    fileString += "V_E = "+new_val+"\n";
+
+                }
+                else{
+
+                    fileString += line+"\n";
+
+                }
+            }
+
+            try {
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/resources/save/saveFile"))));
+                writer.write(fileString);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 }

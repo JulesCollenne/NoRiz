@@ -36,7 +36,7 @@ public class StoryPlayState extends PlayState {
 
     void saveProgress(){
 
-        FileInputStream file = null;
+        FileInputStream file;
         try {
             file = new FileInputStream("src/main/resources/save/saveFile");
 
