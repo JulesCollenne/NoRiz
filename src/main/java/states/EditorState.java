@@ -207,7 +207,7 @@ public class EditorState extends GameState {
     public void render(GraphicsContext gc) {
 
         worldRender.renderMap(gc, buildingMap, true);
-        Image Header = new Image("UI/headerEditor.png", 800, 64, true, false);
+        Image Header = new Image("ui/headerEditor.png", 800, 64, true, false);
         gc.drawImage(Header, 0, 0);
 
     }
