@@ -37,7 +37,7 @@ public class SkinState extends GameState {
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
+        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
 
         Text title = new Text("Skin");
         title.setX(Utils.canvasSize/2.0- 70);
@@ -48,12 +48,20 @@ public class SkinState extends GameState {
 
         FlowPane container = new FlowPane();
 
-        container.setLayoutX(100);
-        container.setLayoutY(150);
-        container.setPrefSize(600,400);
+        container.setPrefSize(598,398);
         container.setStyle("-fx-background-color: rgba(95, 158, 160, 0.3);");
 
+        ButtonChooseSkin skinNori = new ButtonChooseSkin("nori");
+        skinNori.handler(gsm);
+        container.getChildren().addAll(skinNori);
+
         ScrollPane skinsPane = new ScrollPane();
+        skinsPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        skinsPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        skinsPane.setLayoutX(100);
+        skinsPane.setLayoutY(150);
+        skinsPane.setMaxSize(600,400);
+        skinsPane.setMinSize(600,400);
         skinsPane.setContent(container);
         skinsPane.setPannable(true);
 
@@ -67,11 +75,7 @@ public class SkinState extends GameState {
         valideSkin.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
         valideSkin.setLayoutY((80/100.0)*Utils.canvasSize);
 
-
-
-
-
-        layout.getChildren().addAll(title, container, valideSkin);
+        layout.getChildren().addAll(title, skinsPane, valideSkin);
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
 
