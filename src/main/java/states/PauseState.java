@@ -1,6 +1,7 @@
 package states;
 
 import entity.Monster;
+import javafx.scene.image.ImageView;
 import utils.Utils;
 import worldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
@@ -60,13 +61,17 @@ public class PauseState extends GameState {
         commandeP.relocate(Utils.canvasSize/4.0, Utils.canvasSize/5.0);
         commandeP.setStyle("-fx-background-color: rgba(95, 158, 160, 0.1);");
 
-        Text title = new Text("Pause");
+        /*Text title = new Text("Pause");
         title.setX(Utils.canvasSize/2.0- 75);
         title.setY(90);
         title.setFont(new Font(45));
         color = Color.WHITE;
         title.setFill(color);
-        title.setStyle("-fx-font-weight: bold");
+        title.setStyle("-fx-font-weight: bold");*/
+
+        ImageView pause = new ImageView(new Image("Buttons/title_pause.png"));
+        pause.setX(Utils.canvasSize/2.0- 85);
+        pause.setY(90);
 
         Text commande = new Text("Commandes : ");
         commande.setTextAlignment(TextAlignment.CENTER);
@@ -88,7 +93,7 @@ public class PauseState extends GameState {
         retour.setLayoutY((2*Utils.canvasSize)/3.0);
         retour.handler(gsm);
 
-        root.getChildren().addAll(canvas, title, reprendre, retour, commandeP);
+        root.getChildren().addAll(canvas, pause, reprendre, retour, commandeP);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         worldRender.renderMap(gc, gsm.world.map, false);
