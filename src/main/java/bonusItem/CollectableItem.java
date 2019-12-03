@@ -8,5 +8,6 @@ public interface CollectableItem {
 
     void effect(Player player);
     void effect(Monster[] monsters);
+    void effect(Player player, Monster[] monsters);
     TypeEffectBonus getTypeEffectBonus();
 }

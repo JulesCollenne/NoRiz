@@ -16,6 +16,11 @@ public class BSmall implements CollectableItem {
     }
 
     @Override
+    public void effect(Player player, Monster[] monsters) {
+
+    }
+
+    @Override
     public TypeEffectBonus getTypeEffectBonus() {
         return null;
     }

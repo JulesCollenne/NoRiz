@@ -1,6 +1,7 @@
 package states;
 
 import entity.Monster;
+import javafx.scene.image.ImageView;
 import utils.Utils;
 import worldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
@@ -55,24 +56,20 @@ public class PauseState extends GameState {
 
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
-        StackPane commandeP = new StackPane();
-        commandeP.setPrefSize(Utils.canvasSize/2.0, Utils.canvasSize/3.0);
-        commandeP.relocate(Utils.canvasSize/4.0, Utils.canvasSize/5.0);
-        commandeP.setStyle("-fx-background-color: rgba(95, 158, 160, 0.1);");
 
-        Text title = new Text("Pause");
-        title.setX(Utils.canvasSize/2.0- 75);
-        title.setY(90);
-        title.setFont(new Font(45));
-        color = Color.WHITE;
-        title.setFill(color);
-        title.setStyle("-fx-font-weight: bold");
+        ImageView pause = new ImageView(new Image("Buttons/pause.png"));
+        pause.setX(Utils.canvasSize/2.0- 85);
+        pause.setY(90);
 
-        Text commande = new Text("Commandes : ");
+        ImageView commandes = new ImageView( new Image("Buttons/sign_commandes.png"));
+        commandes.setX(Utils.canvasSize/2.0- 200);
+        commandes.setY(Utils.canvasSize/2.0 - 175);
+
+        /*Text commande = new Text("Commandes : ");
         commande.setTextAlignment(TextAlignment.CENTER);
         StackPane.setAlignment(commande, Pos.TOP_CENTER);
         commande.setFont(new Font(20));
-        commandeP.getChildren().addAll(commande);
+        commandeP.getChildren().addAll(commande);*/
 
         ModeButton reprendre = new ModeButton(new Image("Buttons/sign_reprendre.png"), "Reprendre");
         reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image("Buttons/sign_menu.png").getWidth()/2));
@@ -88,7 +85,7 @@ public class PauseState extends GameState {
         retour.setLayoutY((2*Utils.canvasSize)/3.0);
         retour.handler(gsm);
 
-        root.getChildren().addAll(canvas, title, reprendre, retour, commandeP);
+        root.getChildren().addAll(canvas, pause, commandes, reprendre, retour);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         worldRender.renderMap(gc, gsm.world.map, false);
@@ -100,10 +97,6 @@ public class PauseState extends GameState {
         color = Color.rgb(0,0,0,0.7);
         gc.setFill(color);
         gc.fillRect(0, 0, Utils.canvasSize, Utils.canvasSize + (2*Utils.caseDimension));
-
-        color = Color.DARKGRAY;
-        gc.setFill(color);
-        gc.fillRect(Utils.canvasSize/4.0, Utils.canvasSize/5.0, Utils.canvasSize/2.0, Utils.canvasSize/3.0);
 
 
         theScene.setOnKeyPressed(
