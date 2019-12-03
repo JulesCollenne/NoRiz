@@ -39,7 +39,7 @@ public class StartMenuState extends GameState{
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
 
-        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
+        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
 
         ModeButton easy = new ModeButton(new Image("Buttons/sign_facile.png"), "Facile");
         easy.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
@@ -94,7 +94,7 @@ public class StartMenuState extends GameState{
         bestScore.setFill(Color.WHITE);
         bestScore.setFont(new Font(20));
 
-        ModeButton editor = new ModeButton(new Image("Buttons/sign_editor.png"), "Editor");
+        ModeButton editor = new ModeButton(new Image("Buttons/sign_editeur.png"), "Editor");
         editor.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
         editor.setLayoutY((80/100.0)*Utils.canvasSize);
         editor.handler(gsm);

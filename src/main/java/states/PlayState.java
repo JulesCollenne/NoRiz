@@ -273,7 +273,7 @@ public abstract class PlayState extends GameState {
                     returnToEditor();
                 break;
             case A:
-                System.out.println("OHHHHH !!! Pourquoi tu appuies sur A, mon vieux ?\n On est pas pote de UN, de DEUX, c'est une sorte de point G pour moi, le A... Alors fais un peu plus gaffe la prochaine fois... ;)");
+                System.out.println("Easter_egg_nul.png");
                 break;
             case W:
                 player.ghost = 200;

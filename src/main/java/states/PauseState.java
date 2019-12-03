@@ -75,7 +75,7 @@ public class PauseState extends GameState {
         commandeP.getChildren().addAll(commande);
 
         ModeButton reprendre = new ModeButton(new Image("Buttons/sign_reprendre.png"), "Reprendre");
-        reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
+        reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image("Buttons/sign_menu.png").getWidth()/2));
         reprendre.setLayoutY((2*Utils.canvasSize)/3.0);
         reprendre.handler(gsm);
 
@@ -83,8 +83,8 @@ public class PauseState extends GameState {
          * TODO: Faire le skin des boutons restant et corriger le bouton retour au jeu en cours
          */
 
-        ModeButton retour = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
-        retour.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image("Buttons/sign_return_menu.png").getWidth()/2));
+        ModeButton retour = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
+        retour.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image("Buttons/sign_menu.png").getWidth()/2));
         retour.setLayoutY((2*Utils.canvasSize)/3.0);
         retour.handler(gsm);
 

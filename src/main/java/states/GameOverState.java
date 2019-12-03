@@ -38,7 +38,7 @@ public class GameOverState extends GameState {
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
+        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
 
 
         Text title = new Text("Game Over !");
@@ -54,7 +54,7 @@ public class GameOverState extends GameState {
         rejouer.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
         rejouer.handler(gsm);
 
-        ModeButton menu = new ModeButton(new Image("Buttons/sign_return_menu.png"), "Menu");
+        ModeButton menu = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
         menu.setLayoutX( ((2*Utils.canvasSize) - (Utils.canvasSize/2))/2 - (tempWidth/2));
         menu.setLayoutY(Utils.canvasSize/2);
         menu.handler(gsm);
