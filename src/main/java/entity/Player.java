@@ -13,6 +13,7 @@ public class Player extends Entity {
 
     private int invulnerable;
     private int reversed;
+    private String skin = "nori";
 
     /**
      * Constructor
@@ -110,10 +111,10 @@ public class Player extends Entity {
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche");
     }
 
     /**
@@ -121,7 +122,7 @@ public class Player extends Entity {
      */
     public void makeAnimations(int direction, String name){
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("Player/nori_" + name + i + ".png");
+            image[direction][i] = new Image("Player/"+ getSkin() + name + i + ".png");
     }
 
     public int getInvulnerable(){
@@ -130,8 +131,8 @@ public class Player extends Entity {
     public int getReversed(){
         return reversed;
     }
+    public String getSkin(){return skin;}
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
     public void setReversed(int reversed){this.reversed = reversed;}
-
-
+    public void setSkin(String skin){this.skin = skin;}
 }

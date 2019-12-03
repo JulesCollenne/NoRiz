@@ -40,7 +40,7 @@ public class SkinState extends GameState {
         double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
 
         Text title = new Text("Skin");
-        title.setX(Utils.canvasSize/2.0- 75);
+        title.setX(Utils.canvasSize/2.0- 70);
         title.setY(90);
         title.setFont(new Font(45));
         title.setFill(color);
