@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import ui.ModeButton;
 import utils.Utils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;

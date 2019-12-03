@@ -1,5 +1,7 @@
 package states;
 
+import ui.ModeButton;
+import ui.SkinButton;
 import utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -114,6 +116,7 @@ public class StartMenuState extends GameState{
     public void init() {
         //System.out.println(gsm.bestScore);
         createScene();
+        gsm.sm.backGround.play();
     }
 
     public void nextStep() {

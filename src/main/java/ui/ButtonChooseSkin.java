@@ -1,7 +1,8 @@
-package states;
+package ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import states.GameStateManager;
 
 
 public class ButtonChooseSkin extends Button{
@@ -9,7 +10,7 @@ public class ButtonChooseSkin extends Button{
     private ImageView image;
     String skinName;
 
-    ButtonChooseSkin(String skinName){
+    public ButtonChooseSkin(String skinName){
         this.skinName = skinName;
         this.image = new ImageView("Player/" + this.skinName + "_droite1.png");
         this.getChildren().add(this.image);
@@ -20,7 +21,7 @@ public class ButtonChooseSkin extends Button{
         setStyle("-fx-background-color: transparent");
     }
 
-    void handler(GameStateManager gsm) {
+    public void handler(GameStateManager gsm) {
         this.setOnMousePressed(mouseEvent -> {
             System.out.println("Salut");
             //gsm.player.setSkin(this.skinName);

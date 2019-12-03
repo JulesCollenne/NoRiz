@@ -1,5 +1,6 @@
-package states;
+package ui;
 
+import states.GameStateManager;
 import utils.Utils;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,11 +10,11 @@ import static utils.Utils.*;
 
 import static utils.Utils.DIF.*;
 
-class ModeButton extends Button {
+public class ModeButton extends Button {
     private ImageView image;
     private String label;
 
-    ModeButton(Image image, String label){
+    public ModeButton(Image image, String label){
         this.image = new ImageView(image);
         this.getChildren().add(this.image);
         this.label = label;
@@ -23,7 +24,7 @@ class ModeButton extends Button {
         setStyle("-fx-background-color: transparent");
     }
 
-    void handler(GameStateManager gsm) {
+    public void handler(GameStateManager gsm) {
         this.setOnMousePressed(mouseEvent -> {
             switch(label) {
                 case "Facile":

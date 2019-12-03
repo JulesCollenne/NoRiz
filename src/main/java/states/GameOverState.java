@@ -1,5 +1,6 @@
 package states;
 
+import ui.ModeButton;
 import utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;

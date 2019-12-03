@@ -34,11 +34,11 @@ public class GameStateManager{
     CollectableItem[] collectableItems = new CollectableItem[4];
 
 
-    boolean isEditorTest = false;
+    public boolean isEditorTest = false;
     SoundManager sm = new SoundManager();
     Monster[] monsters = new Monster[4];
 
-    DIF difficulty = DIF.EASY;
+    public DIF difficulty = DIF.EASY;
 
     public int currentScore;
 
@@ -96,7 +96,7 @@ public class GameStateManager{
      * Change the currentState
      * @param newState the new state
      */
-    void changeState(int newState){
+    public void changeState(int newState){
         //if(currentState != PLAY)
         gameStates[currentState].animationTimer.stop();
         //else
@@ -133,7 +133,7 @@ public class GameStateManager{
         gameStates[currentState].animationTimer.start();
     }
 
-    void reprendreJeu(){
+    public void reprendreJeu(){
         gameStates[currentState].animationTimer.stop();
         if(difficulty == DIF.ARCADE)
             currentState = ARCADE;

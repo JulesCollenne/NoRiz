@@ -2,10 +2,10 @@ package states;
 
 import entity.Monster;
 import javafx.scene.image.ImageView;
+import ui.ModeButton;
 import utils.Utils;
 import worldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -13,11 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 public class PauseState extends GameState {
 

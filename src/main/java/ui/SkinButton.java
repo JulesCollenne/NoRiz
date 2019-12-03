@@ -1,11 +1,12 @@
-package states;
+package ui;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import states.GameStateManager;
 
-class SkinButton extends Button {
+public class SkinButton extends Button {
     private ImageView skin;
     private String label;
 
@@ -16,7 +17,7 @@ class SkinButton extends Button {
     private int animSpeed;
     private Image[][] image2 = new Image[1][2];
 
-    SkinButton(Image image, String label){
+    public SkinButton(Image image, String label){
 
         nbImgAnim = 2;
         animSpeed = 10;
@@ -61,7 +62,7 @@ class SkinButton extends Button {
             image2[0][i] = new Image("Player/nori_" + "droite" + i + ".png");
     }
 
-    void handler(GameStateManager gsm) {
+    public void handler(GameStateManager gsm) {
         this.setOnMousePressed(mouseEvent -> {
             gsm.changeState(7);
         });
