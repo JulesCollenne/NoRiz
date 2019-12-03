@@ -26,6 +26,11 @@ public class BcanEatMonsters implements CollectableItem {
     }
 
     @Override
+    public void effect(Player player, Monster[] monsters) {
+
+    }
+
+    @Override
     public TypeEffectBonus getTypeEffectBonus() {
         return typeEffectBonus;
     }

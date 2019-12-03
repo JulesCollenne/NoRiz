@@ -26,6 +26,11 @@ public class MstopNoriz implements CollectableItem{
     }
 
     @Override
+    public void effect(Player player, Monster[] monsters) {
+
+    }
+
+    @Override
     public TypeEffectBonus getTypeEffectBonus() {
         return typeEffectBonus;
     }
