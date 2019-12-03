@@ -14,6 +14,8 @@ public class Player extends Entity {
     private int invulnerable;
     private int reversed;
     private String skin = "nori";
+    public boolean leaveWall;
+    private int[] closestRoad = new int[2];
 
     /**
      * Constructor
@@ -45,6 +47,7 @@ public class Player extends Entity {
         animTime = 0;
         lastAnim = 0;
         invulnerable = 0;
+        leaveWall = false;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
     }
@@ -67,8 +70,35 @@ public class Player extends Entity {
         if (invulnerable > 0) {
             invulnerable--;
         }
+
+        if(ghost == 1) {
+            leaveWall = true;
+        }
         if(ghost > 0)
             ghost--;
+
+        if(leaveWall){
+            int coords[][] = getCoords();
+            int squareToGo[];
+            int nextX = 0, nextY = 0;
+            if(collider.collide(coords)){
+                squareToGo = Utils.getCanvasCoords(collider.closestRoad(getCenterX(), getCenterY()));
+                if(squareToGo[0] > getCenterX())
+                    nextX = speed;
+                if(squareToGo[0] < getCenterX())
+                    nextX = -speed;
+                if(squareToGo[1] > getCenterY())
+                    nextY = speed;
+                if(squareToGo[1] < getCenterY())
+                    nextY = -speed;
+
+                move(nextX, nextY);
+                return;
+            }
+            else{
+                leaveWall = false;
+            }
+        }
 
         if (nextFacingPossible(nextFacing)) {
             facing = nextFacing;

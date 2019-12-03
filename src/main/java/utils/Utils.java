@@ -139,5 +139,31 @@ public class Utils {
             System.arraycopy(map[i], 0, tempMap[i], 0, map[0].length);
         return tempMap;
     }
+
+    public static int[] getMinIndex(double[][] distances) {
+        int coords[] = new int[2];
+
+        double min = 999;
+
+        for(int i=0; i < distances.length; i++) {
+            for (int j = 0; j < distances[i].length; j++) {
+                if(distances[i][j] < min){
+                    min = distances[i][j];
+                    coords[0] = i;
+                    coords[1] = j;
+                }
+            }
+        }
+        return coords;
+    }
+
+    public static int[] getCanvasCoords(int[] coords){
+        int[] newCoords = new int[2];
+
+        newCoords[0] = coords[0] * Utils.caseDimension + Utils.caseDimension/2;
+        newCoords[1] = coords[1] * Utils.caseDimension + Utils.caseDimension/2;
+
+        return newCoords;
+    }
 }
 

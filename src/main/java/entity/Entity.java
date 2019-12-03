@@ -162,6 +162,7 @@ public abstract class Entity {
     }
 
     /**
+     * DEPRECATED
      * The hitbox of the entity is a line : the side of its box that it's facing
      * @return the coordinates of the line
      */
@@ -208,7 +209,11 @@ public abstract class Entity {
         return y + getSize() - 1;
     }
 
-    private int[][] getCoords(){
+    /**
+     * Get the square hitbox of the entity
+     * @return the hitbox
+     */
+    public int[][] getCoords(){
         int[][] coords = new int[4][2];
 
         //Haut gauche

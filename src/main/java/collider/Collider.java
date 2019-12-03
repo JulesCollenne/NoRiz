@@ -67,4 +67,26 @@ public class Collider{
         return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
     }
 
+    public int[] closestRoad(int x, int y){
+
+        int[] playerCoords = Utils.getSquare(x,y);
+
+        int coords[] = new int[2];
+
+        double[][] distances = new double[Utils.mapSize][Utils.mapSize];
+
+        for(int i = 0; i < Utils.mapSize; i++){
+            for(int j = 0; j < Utils.mapSize; j++){
+                if(world.map[i][j] != WORLDITEM.WALL && world.map[i][j] != WORLDITEM.UI)
+                    distances[i][j] = Utils.distance(playerCoords[0], playerCoords[1], i, j);
+                else
+                    distances[i][j] = 999;
+            }
+        }
+
+        coords = Utils.getMinIndex(distances);
+
+        return coords;
+    }
+
 }
