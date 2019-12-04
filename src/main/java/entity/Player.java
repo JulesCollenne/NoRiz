@@ -81,10 +81,9 @@ public class Player extends Entity {
         }
 
         if(isGhost > 0) {
-            leaveWall = true;
             isGhost--;
             if(isGhost == 0)
-                leaveWall = false;
+                leaveWall = true;
         }
 
         if(leaveWall){
@@ -105,6 +104,8 @@ public class Player extends Entity {
                 move(nextX, nextY);
                 return;
             }
+            else
+                leaveWall = false;
         }
 
         if (nextFacingPossible(nextFacing)) {
