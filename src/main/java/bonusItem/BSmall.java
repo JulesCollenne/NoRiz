@@ -5,6 +5,13 @@ import entity.Player;
 import utils.TypeEffectBonus;
 
 public class BSmall implements CollectableItem {
+
+    TypeEffectBonus typeEffectBonus;
+
+    public BSmall(TypeEffectBonus typeEffectBonus) {
+        this.typeEffectBonus = typeEffectBonus;
+    }
+
     @Override
     public void effect(Player player) {
         player.setSize(player.getSize()/2);

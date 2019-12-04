@@ -31,7 +31,7 @@ public class GameStateManager{
 
     Collider collider = new Collider(world);
     public Player player = new Player(collider, caseDimension,caseDimension*3,1);
-    CollectableItem[] collectableItems = new CollectableItem[4];
+    CollectableItem[] collectableItems = new CollectableItem[6];
 
 
     public boolean isEditorTest = false;
@@ -87,6 +87,8 @@ public class GameStateManager{
         collectableItems[1] = new BcanEatMonsters(TypeEffectBonus.effectOnNori);
         collectableItems[2] = new MstopNoriz(TypeEffectBonus.effectOnNori);
         collectableItems[3] = new MreverseControls(TypeEffectBonus.effectOnNori);
+        collectableItems[4] = new BSmall(TypeEffectBonus.effectOnNori);
+        collectableItems[5] = new BGhost();
     }
 
     private void initScene() {

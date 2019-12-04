@@ -124,6 +124,7 @@ public class Monster extends Entity{
 
     public void die() {
         resetPosition();
+        frozen = 500;
     }
 
     public void setFacing(DIRECTION dir){
