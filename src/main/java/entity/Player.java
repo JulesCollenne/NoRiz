@@ -14,7 +14,7 @@ public class Player extends Entity {
     private int invulnerable;
     private int reversed;
     private int isSmall;
-    private int isGhost;
+    private int timeGhosted;
     private String skin = "nori";
     public boolean leaveWall;
     private int[] closestRoad = new int[2];
@@ -80,10 +80,13 @@ public class Player extends Entity {
             invulnerable--;
         }
 
-        if(isGhost > 0) {
-            isGhost--;
-            if(isGhost == 0)
+        if(timeGhosted > 0) {
+            ghost = 1;
+            timeGhosted--;
+            if(timeGhosted == 0) {
                 leaveWall = true;
+                ghost = 0;
+            }
         }
 
         if(leaveWall){
@@ -175,5 +178,5 @@ public class Player extends Entity {
     public void setReversed(int reversed){this.reversed = reversed;}
     public void setSkin(String skin){this.skin = skin;}
     public void setIsSmall(int isSmall){this.isSmall = isSmall;}
-    public void setIsGhost(int isGhost){this.isGhost = isGhost;}
+    public void setTimeGhosted(int timeGhosted){this.timeGhosted = timeGhosted;}
 }
