@@ -62,9 +62,8 @@ public class worldRender {
                 break;
 
             case BONUS:
-                Random rand = new Random();
                 gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.drawImage(World.bonus, posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
+                gc.drawImage(World.bonus[(posY > (mapSize/2) ? 0 : 1)], posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
                 break;
 
             case UI:

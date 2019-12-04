@@ -30,7 +30,12 @@ public class World {
     static Image road = new Image("textures/road1.png");
     static Image wall = new Image("textures/wall1.png");
     static Image rice = new Image("collectable/GrainDeRiz.png");
-    static Image bonus = new Image("collectable/bonus0.png");
+    static Image[] bonus = new Image[2];
+
+    public World(){
+        bonus[0] = new Image("collectable/bonus0.png");
+        bonus[1] = new Image("collectable/bonus1.png");
+    }
 
     /**
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
@@ -38,9 +43,6 @@ public class World {
      * @return la matrice crée
      */
     public WORLDITEM[][] build(DIF chosenDifficulty){
-
-        Random rand = new Random();
-        bonus = new Image("collectable/bonus" + rand.nextInt(2) + ".png");
 
         switch(chosenDifficulty){
             case EASY:
