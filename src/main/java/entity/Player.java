@@ -14,6 +14,7 @@ public class Player extends Entity {
     private int invulnerable;
     private int reversed;
     private int isSmall;
+    private int isGhost;
     private String skin = "nori";
     public boolean leaveWall;
     private int[] closestRoad = new int[2];
@@ -79,32 +80,30 @@ public class Player extends Entity {
             invulnerable--;
         }
 
-        if(ghost == 1) {
+        if(isGhost > 0) {
             leaveWall = true;
+            isGhost--;
+            if(isGhost == 0)
+                leaveWall = false;
         }
-        if(ghost > 0)
-            ghost--;
 
         if(leaveWall){
             int coords[][] = getCoords();
             int squareToGo[];
             int nextX = 0, nextY = 0;
-            if(collider.collide(coords)){
+            if(collider.collide(coords)) {
                 squareToGo = Utils.getCanvasCoords(collider.closestRoad(getCenterX(), getCenterY()));
-                if(squareToGo[0] > getCenterX())
+                if (squareToGo[0] > getCenterX())
                     nextX = speed;
-                if(squareToGo[0] < getCenterX())
+                if (squareToGo[0] < getCenterX())
                     nextX = -speed;
-                if(squareToGo[1] > getCenterY())
+                if (squareToGo[1] > getCenterY())
                     nextY = speed;
-                if(squareToGo[1] < getCenterY())
+                if (squareToGo[1] < getCenterY())
                     nextY = -speed;
 
                 move(nextX, nextY);
                 return;
-            }
-            else{
-                leaveWall = false;
             }
         }
 
@@ -169,12 +168,11 @@ public class Player extends Entity {
     public int getReversed(){
         return reversed;
     }
-    public  int getIsSmall(){
-        return isSmall;
-    }
+
     public String getSkin(){return skin;}
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
     public void setReversed(int reversed){this.reversed = reversed;}
     public void setSkin(String skin){this.skin = skin;}
     public void setIsSmall(int isSmall){this.isSmall = isSmall;}
+    public void setIsGhost(int isGhost){this.isGhost = isGhost;}
 }

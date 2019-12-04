@@ -83,12 +83,12 @@ public class GameStateManager{
 
     private void createBonuses() {
 
-        collectableItems[0] = new BSmall(TypeEffectBonus.effectOnNori); //BstopMonsters(TypeEffectBonus.effectOnMonsters);
-        collectableItems[1] = new BSmall(TypeEffectBonus.effectOnNori); //BcanEatMonsters(TypeEffectBonus.effectOnNori);
-        collectableItems[2] = new BSmall(TypeEffectBonus.effectOnNori); //MstopNoriz(TypeEffectBonus.effectOnNori);
-        collectableItems[3] = new BSmall(TypeEffectBonus.effectOnNori); //MreverseControls(TypeEffectBonus.effectOnNori);
-        collectableItems[4] = new BSmall(TypeEffectBonus.effectOnNori);
-        collectableItems[5] = new BSmall(TypeEffectBonus.effectOnNori); //BGhost(TypeEffectBonus.effectOnNori);
+        collectableItems[0] = new BGhost(TypeEffectBonus.effectOnNori); //BstopMonsters(TypeEffectBonus.effectOnMonsters);
+        collectableItems[1] = new BGhost(TypeEffectBonus.effectOnNori); //BcanEatMonsters(TypeEffectBonus.effectOnNori);
+        collectableItems[2] = new BGhost(TypeEffectBonus.effectOnNori);; //MstopNoriz(TypeEffectBonus.effectOnNori);
+        collectableItems[3] = new BGhost(TypeEffectBonus.effectOnNori); //MreverseControls(TypeEffectBonus.effectOnNori);
+        collectableItems[4] = new BGhost(TypeEffectBonus.effectOnNori); //Bsmall(TypeEffectBonus.effectOnNori);
+        collectableItems[5] = new BGhost(TypeEffectBonus.effectOnNori);
     }
 
     private void initScene() {

@@ -14,7 +14,7 @@ public class BGhost implements CollectableItem {
 
     @Override
     public void effect(Player player) {
-
+        player.setIsGhost(500);
     }
 
     @Override
