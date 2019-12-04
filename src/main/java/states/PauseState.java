@@ -85,7 +85,7 @@ public class PauseState extends GameState {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         worldRender.renderMap(gc, gsm.world.map, false);
-        gsm.player.render(gc);
+        gsm.noriz.render(gc);
         for (Monster monster : gsm.monsters) {
             monster.render(gc);
         }

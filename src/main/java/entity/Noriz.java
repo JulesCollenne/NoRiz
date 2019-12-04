@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 /**
  * The player is the sashimi Nori
  */
-public class Player extends Entity {
+public class Noriz extends Entity {
 
     private int invulnerable;
     private int reversed;
@@ -22,7 +22,7 @@ public class Player extends Entity {
     /**
      * Constructor
      */
-    public Player(Collider collider, int initialX, int initialY, int initialSpeed){
+    public Noriz(Collider collider, int initialX, int initialY, int initialSpeed){
         super(collider, initialX, initialY);
 
         speed = initialSpeed;

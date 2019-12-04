@@ -3,7 +3,7 @@ package states;
 import bonusItem.*;
 import collider.Collider;
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import sounds.SoundManager;
 import strategy.AngleStrat;
 import strategy.BonusStrat;
@@ -30,7 +30,7 @@ public class GameStateManager{
     World world = new World();
 
     Collider collider = new Collider(world);
-    public Player player = new Player(collider, caseDimension,caseDimension*3,1);
+    public Noriz noriz = new Noriz(collider, caseDimension,caseDimension*3,1);
     CollectableItem[] collectableItems = new CollectableItem[6];
 
 
@@ -83,12 +83,13 @@ public class GameStateManager{
 
     private void createBonuses() {
 
-        collectableItems[0] = new BGhost(TypeEffectBonus.effectOnNori); //BstopMonsters(TypeEffectBonus.effectOnMonsters);
-        collectableItems[1] = new BGhost(TypeEffectBonus.effectOnNori); //BcanEatMonsters(TypeEffectBonus.effectOnNori);
-        collectableItems[2] = new BGhost(TypeEffectBonus.effectOnNori);; //MstopNoriz(TypeEffectBonus.effectOnNori);
-        collectableItems[3] = new BGhost(TypeEffectBonus.effectOnNori); //MreverseControls(TypeEffectBonus.effectOnNori);
-        collectableItems[4] = new BGhost(TypeEffectBonus.effectOnNori); //Bsmall(TypeEffectBonus.effectOnNori);
-        collectableItems[5] = new BGhost(TypeEffectBonus.effectOnNori);
+        collectableItems[0] = new BstopMonsters(TypeEffectBonus.effectOnMonsters);
+        collectableItems[1] = new BcanEatMonsters(TypeEffectBonus.effectOnNori);
+        collectableItems[2] = new BSmall(TypeEffectBonus.effectOnNori);
+        collectableItems[3] = new BGhost(TypeEffectBonus.effectOnNori);
+        collectableItems[4] = new MstopNoriz(TypeEffectBonus.effectOnNori);
+        collectableItems[5] = new MreverseControls(TypeEffectBonus.effectOnNori);
+
     }
 
     private void initScene() {
@@ -152,10 +153,10 @@ public class GameStateManager{
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
 
-        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(player), "cat_follow_", collider);                                              //Monstre AngleStrat
-        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "cat_random_", collider);                                                     //Monstre RandomStrat
-        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "cat_bonus_", collider);                                                //Monstre BonusStrat
-        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(player), "cat_50_", collider);                                                 //Monstre RandomStrat
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(noriz), "cat_follow_", collider,2000);                                              //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "cat_random_", collider,500);                                                     //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "cat_bonus_", collider,1000);                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider,1500);                                                 //Monstre RandomStrat
     }
 
 

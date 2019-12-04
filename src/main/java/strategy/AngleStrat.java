@@ -1,7 +1,7 @@
 package strategy;
 
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import utils.DIRECTION;
 import utils.Utils;
 
@@ -28,16 +28,16 @@ import utils.Utils;
  */
 public class AngleStrat implements Strategy {
 
-    private Player player;
+    private Noriz noriz;
 
-    public AngleStrat(Player player){
-        this.player = player;
+    public AngleStrat(Noriz noriz){
+        this.noriz = noriz;
     }
 
     public DIRECTION nextWay(Monster monster) {
 
-        int vectorX = player.getX() - monster.getX();
-        int vectorY = player.getY() - monster.getY();
+        int vectorX = noriz.getX() - monster.getX();
+        int vectorY = noriz.getY() - monster.getY();
 
         int x = monster.getX();
         int y = monster.getY();

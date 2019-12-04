@@ -2,7 +2,7 @@ package states;
 
 import entity.Entity;
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import ui.inGameUserInterface;
 import utils.Utils;
 import utils.WORLDITEM;
@@ -32,7 +32,7 @@ public abstract class PlayState extends GameState {
 
     WORLDITEM[][] map;
 
-    Player player;
+    Noriz noriz;
     Monster monsters[];
 
     Random rand = new Random();
@@ -42,7 +42,7 @@ public abstract class PlayState extends GameState {
         firstRender = true;
         this.ui = ui;
         createScene();
-        player = gsm.player;
+        noriz = gsm.noriz;
         monsters = gsm.monsters;
     }
 
@@ -76,7 +76,7 @@ public abstract class PlayState extends GameState {
     public void init(){
         firstRender = true;
         initMyData();
-        player.init();
+        noriz.init();
         for (Monster monster :
                 monsters) {
             monster.init();
@@ -100,7 +100,7 @@ public abstract class PlayState extends GameState {
                 if(myData.map[i][j] == WORLDITEM.RICE)
                     nbRice++;
                 if(myData.map[i][j] == WORLDITEM.SPAWN_PLAYER) {
-                    gsm.player.setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
+                    gsm.noriz.setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
                 }
             }
         }
@@ -145,7 +145,7 @@ public abstract class PlayState extends GameState {
 
         checkCollisions();
 
-        player.nextStep();
+        noriz.nextStep();
         for (Monster monster : monsters) {
             monster.nextStep();
             //if(monster.getFacing() == STOP)
@@ -160,8 +160,8 @@ public abstract class PlayState extends GameState {
 
     private void checkEntityCollisions() {
         for (Monster monster : monsters) {
-            if(gsm.collider.isTouching(player, monster)) {
-                if(player.getInvulnerable() > 0){
+            if(gsm.collider.isTouching(noriz, monster)) {
+                if(noriz.getInvulnerable() > 0){
                     monster.die();
                     myData.score += 100;
                 }
@@ -173,7 +173,7 @@ public abstract class PlayState extends GameState {
     }
 
     private void checkSquare(){
-        int[] coords = Utils.getSquare(player.getCenterX(), player.getCenterY());
+        int[] coords = Utils.getSquare(noriz.getCenterX(), noriz.getCenterY());
         WORLDITEM item = map[coords[0]][coords[1]];
         if(item == WORLDITEM.RICE)
             takeRice(coords[0], coords[1]);
@@ -196,14 +196,14 @@ public abstract class PlayState extends GameState {
         map[x][y] = WORLDITEM.ROAD;
         int r;
         if(gsm.difficulty == Utils.DIF.EASY)
-            r= rand.nextInt(2); // que les bonus
+            r= rand.nextInt(4); // que les bonus de 0 à 4
         else if (gsm.difficulty == Utils.DIF.MEDIUM)
-            r = rand.nextInt(4); // tout
+            r = rand.nextInt(5); // tout sauf dernier malus
         else
-            r = rand.nextInt((3)+1); // 3 dernières cases du tableau : chance de tomber sur 1 bonus et 2 malus
+            r = rand.nextInt(6); // tout
 
         if(gsm.collectableItems[r].getTypeEffectBonus() == TypeEffectBonus.effectOnNori)
-        gsm.collectableItems[r].effect(player);
+        gsm.collectableItems[r].effect(noriz);
         else
             gsm.collectableItems[r].effect(monsters);
     }
@@ -217,7 +217,7 @@ public abstract class PlayState extends GameState {
     }
 
     private void resetFrozen(){
-        player.frozen = 0;
+        noriz.frozen = 0;
     }
 
     /*public void monstersTouched(Entity monster){
@@ -226,7 +226,7 @@ public abstract class PlayState extends GameState {
 
     private void resetPosition(){
 
-        player.resetPosition();
+        noriz.resetPosition();
         for (Entity monster : monsters) {
             monster.resetPosition();
         }
@@ -237,28 +237,28 @@ public abstract class PlayState extends GameState {
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
             case Q:
-                if(player.getReversed() > 0)
-                    player.setNextFacing(RIGHT);
+                if(noriz.getReversed() > 0)
+                    noriz.setNextFacing(RIGHT);
                 else
-                    player.setNextFacing(LEFT);
+                    noriz.setNextFacing(LEFT);
                 break;
             case D:
-                if(player.getReversed() > 0)
-                    player.setNextFacing(LEFT);
+                if(noriz.getReversed() > 0)
+                    noriz.setNextFacing(LEFT);
                 else
-                    player.setNextFacing(RIGHT);
+                    noriz.setNextFacing(RIGHT);
                 break;
             case S:
-                if(player.getReversed() > 0)
-                    player.setNextFacing(UP);
+                if(noriz.getReversed() > 0)
+                    noriz.setNextFacing(UP);
                 else
-                    player.setNextFacing(DOWN);
+                    noriz.setNextFacing(DOWN);
                 break;
             case Z:
-                if(player.getReversed() > 0)
-                    player.setNextFacing(DOWN);
+                if(noriz.getReversed() > 0)
+                    noriz.setNextFacing(DOWN);
                 else
-                    player.setNextFacing(UP);
+                    noriz.setNextFacing(UP);
                 break;
             case SPACE:
                 if(!gsm.isEditorTest)
@@ -276,13 +276,13 @@ public abstract class PlayState extends GameState {
                 System.out.println("Easter_egg_nul.png");
                 break;
             case W:
-                player.ghost = 200;
+                noriz.ghost = 200;
                 break;
             case X:
-                player.setSize(player.getSize()/2);
+                noriz.setSize(noriz.getSize()/2);
                 break;
             case C:
-                player.setSize(player.getSize()*2);
+                noriz.setSize(noriz.getSize()*2);
                 break;
         }
     }
@@ -309,7 +309,7 @@ public abstract class PlayState extends GameState {
         square = Utils.getSquare(player.getCenterX()-player.getFacingX(player.getFacing()), player.getCenterY()-player.getFacingY(player.getFacing()));
         worldRender.renderSquare(gc, map, square[0], square[1]);
         */
-        player.render(gc);
+        noriz.render(gc);
 
         for(Monster monster : monsters){
             /*

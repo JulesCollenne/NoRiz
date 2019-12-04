@@ -1,7 +1,7 @@
 package bonusItem;
 
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import utils.TypeEffectBonus;
 
 /**
@@ -16,7 +16,7 @@ public class BstopMonsters implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player) {
+    public void effect(Noriz noriz) {
 
     }
 
@@ -28,7 +28,7 @@ public class BstopMonsters implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player, Monster[] monsters) {
+    public void effect(Noriz noriz, Monster[] monsters) {
 
     }
 

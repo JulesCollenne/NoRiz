@@ -1,7 +1,7 @@
 package strategy;
 
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import utils.DIRECTION;
 import utils.Utils;
 
@@ -10,11 +10,11 @@ import utils.Utils;
  */
 
 public class HalfRandomStratHalfAngleStrat implements Strategy {
-    private Player player;
+    private Noriz noriz;
     private static double taux = 0.7; //
 
-    public HalfRandomStratHalfAngleStrat(Player player) {
-        this.player = player;
+    public HalfRandomStratHalfAngleStrat(Noriz noriz) {
+        this.noriz = noriz;
     }
 
     public DIRECTION nextWay(Monster monster) {
@@ -83,8 +83,8 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
             return nextWay;
         }
         else{ //AngleStrat
-            int vectorX = player.getX() - x;
-            int vectorY = player.getY() - y;
+            int vectorX = noriz.getX() - x;
+            int vectorY = noriz.getY() - y;
 
             double angle = Math.atan2(vectorY,vectorX);
             double cos,sin;

@@ -1,7 +1,7 @@
 package bonusItem;
 
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import utils.TypeEffectBonus;
 
 public class BSmall implements CollectableItem {
@@ -13,9 +13,9 @@ public class BSmall implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player) {
-        player.setIsSmall(500);
-        player.setSize(player.getSize()/2);
+    public void effect(Noriz noriz) {
+        noriz.setIsSmall(500);
+        noriz.setSize(noriz.getSize()/2);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class BSmall implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player, Monster[] monsters) {
+    public void effect(Noriz noriz, Monster[] monsters) {
 
     }
 

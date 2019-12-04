@@ -1,7 +1,7 @@
 package bonusItem;
 
 import entity.Monster;
-import entity.Player;
+import entity.Noriz;
 import utils.TypeEffectBonus;
 
 public class BGhost implements CollectableItem {
@@ -13,8 +13,8 @@ public class BGhost implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player) {
-        player.setTimeGhosted(500);
+    public void effect(Noriz noriz) {
+        noriz.setTimeGhosted(500);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class BGhost implements CollectableItem {
     }
 
     @Override
-    public void effect(Player player, Monster[] monsters) {
+    public void effect(Noriz noriz, Monster[] monsters) {
 
     }
 
