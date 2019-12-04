@@ -10,6 +10,7 @@ public abstract class GameState {
     GameStateManager gsm;
     AnimationTimer animationTimer;
     //Timeline animationTimer2;
+    int timer = 0;
 
     GameState(GameStateManager gsm){
         this.gsm = gsm;
@@ -36,6 +37,10 @@ public abstract class GameState {
                 long elapsedNanos = currentNanoTime - lastTime ;
                 System.out.println("FPS : " + 1000000000. / elapsedNanos);
 */
+                if(timer % 2 == 0){
+                    timer++;
+                    return;
+                }
                 // game logic
                 nextStep();
 
@@ -43,6 +48,7 @@ public abstract class GameState {
                 render(gc);
 
                 //lastTime = currentNanoTime;
+                timer++;
             }
         };
     }
