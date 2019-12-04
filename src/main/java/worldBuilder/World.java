@@ -25,11 +25,12 @@ public class World {
 
     private Stage theStage;
     public WORLDITEM[][] map;
-    int nbArcadeMap = 2;
+    int nbArcadeMap = 3;
 
     static Image road = new Image("textures/road1.png");
     static Image wall = new Image("textures/wall1.png");
     static Image rice = new Image("collectable/GrainDeRiz.png");
+    static Image bonus = new Image("collectable/bonus0.png");
 
     /**
      * Crée la matrice représentant la map (pour le moment: récupère celle de base selon le niveau)
@@ -37,6 +38,10 @@ public class World {
      * @return la matrice crée
      */
     public WORLDITEM[][] build(DIF chosenDifficulty){
+
+        Random rand = new Random();
+        bonus = new Image("collectable/bonus" + rand.nextInt(2) + ".png");
+
         switch(chosenDifficulty){
             case EASY:
                 road = new Image("textures/road1.png");
@@ -57,10 +62,10 @@ public class World {
                 break;
 
             case ARCADE:
-                Random rand = new Random();
+                Random rand2 = new Random();
                 road = new Image("textures/road1.png");
                 wall = new Image("textures/wall1.png");
-                map = loadMap("src/main/resources/Maps/arcade" + rand.nextInt(nbArcadeMap+1) + ".map");
+                map = loadMap("src/main/resources/Maps/arcade" + rand2.nextInt(nbArcadeMap) + ".map");
                 //map = loadMap("src/main/resources/Maps/arcade2.map");
                 break;
 

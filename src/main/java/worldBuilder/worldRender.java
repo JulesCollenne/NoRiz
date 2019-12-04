@@ -1,8 +1,11 @@
 package worldBuilder;
 
+import javafx.scene.image.Image;
 import utils.WORLDITEM;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.util.Random;
 
 import static utils.Utils.*;
 import static utils.WORLDITEM.*;
@@ -59,9 +62,9 @@ public class worldRender {
                 break;
 
             case BONUS:
+                Random rand = new Random();
                 gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.setFill(Color.GREEN);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                gc.drawImage(World.bonus, posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
                 break;
 
             case UI:
