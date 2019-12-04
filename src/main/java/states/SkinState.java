@@ -38,7 +38,7 @@ public class SkinState extends GameState {
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_return_menu.png").getWidth();
+        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
 
         Text title = new Text("Skin");
         title.setX(Utils.canvasSize/2.0- 70);
@@ -52,7 +52,7 @@ public class SkinState extends GameState {
         container.setPrefSize(598,398);
         container.setStyle("-fx-background-color: rgba(95, 158, 160, 0.3);");
 
-        ButtonChooseSkin skinNori = new ButtonChooseSkin("nori");
+        ButtonChooseSkin skinNori = new ButtonChooseSkin("skin");
         skinNori.handler(gsm);
         container.getChildren().addAll(skinNori);
 
