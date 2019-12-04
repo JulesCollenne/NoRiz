@@ -27,8 +27,8 @@ public class SoundManager {
     private void loadSounds(){
         try {
             String musicFile = "src/main/resources/sounds/music.mp3";
-            Media sound = new Media(new File(musicFile).toURI().toString());
-            backGround = new MediaPlayer(sound);
+            //Media sound = new Media(new File(musicFile).toURI().toString());
+            //backGround = new MediaPlayer(sound);
             //Media hurtSound = new Media(new File("src/main/resources/sounds/hooo.mp3").toURI().toString());
             //hurt = new MediaPlayer(hurtSound);
             //hurt.setStopTime(new Duration(1000));

@@ -105,7 +105,7 @@ public abstract class PlayState extends GameState {
             }
         }
 
-        myData.nbRiz = nbRice;
+        myData.nbRiz = 5;
 
         int k = 0;
         while(k<monsters.length){

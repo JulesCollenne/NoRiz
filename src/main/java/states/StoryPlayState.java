@@ -14,6 +14,7 @@ public class StoryPlayState extends PlayState {
 
     void win() {
         gsm.changeState(9);
+        saveProgress();
     }
 
     void playerDie(){
