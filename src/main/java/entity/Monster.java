@@ -19,13 +19,12 @@ public class Monster extends Entity{
 
     private Strategy strat;
 
-    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider, int frozen){
+    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
         super(collider, initialX, initialY);
 
         speed = initialSpeed;
         this.strat = strat;
         this.name = name;
-        this.frozen = frozen;
 
         nbImgAnim = 1;
         image = new Image[4][nbImgAnim];
