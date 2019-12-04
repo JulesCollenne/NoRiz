@@ -3,6 +3,8 @@ package ui;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import states.GameStateManager;
+import utils.DIRECTION;
+import utils.Utils;
 
 
 public class ButtonChooseSkin extends Button{
@@ -12,7 +14,7 @@ public class ButtonChooseSkin extends Button{
 
     public ButtonChooseSkin(String skinName){
         this.skinName = skinName;
-        this.image = new ImageView("Player/" + this.skinName + "_droite1.png");
+        this.image = new ImageView("skinNoriz/" + this.skinName + "_droite0.png");
         this.getChildren().add(this.image);
         super.setGraphic(this.image);
 
@@ -22,9 +24,10 @@ public class ButtonChooseSkin extends Button{
     }
 
     public void handler(GameStateManager gsm) {
-        this.setOnMousePressed(mouseEvent -> {
-            System.out.println("Salut");
-            //gsm.player.setSkin(this.skinName);
+        this.setOnMousePressed(mouseEvent -> {gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche", "skinNoriz/");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite", "skinNoriz/");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "skinNoriz/");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "skinNoriz/");;
         });
     }
 }

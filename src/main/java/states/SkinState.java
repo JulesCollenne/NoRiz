@@ -52,7 +52,7 @@ public class SkinState extends GameState {
         container.setPrefSize(598,398);
         container.setStyle("-fx-background-color: rgba(95, 158, 160, 0.3);");
 
-        ButtonChooseSkin skinNori = new ButtonChooseSkin("skin");
+        ButtonChooseSkin skinNori = new ButtonChooseSkin("nori");
         skinNori.handler(gsm);
         container.getChildren().addAll(skinNori);
 

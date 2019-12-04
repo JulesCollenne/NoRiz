@@ -155,18 +155,18 @@ public class Noriz extends Entity {
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche","Player/");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite","Player/");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "Player/");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "Player/");
     }
 
     /**
      * Puts the images at the right place in the variable "image"
      */
-    public void makeAnimations(int direction, String name){
+    public void makeAnimations(int direction, String name, String path){
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("Player/"+ getSkin() + name + i + ".png");
+            image[direction][i] = new Image(path+ getSkin() + name + i + ".png");
     }
 
     public int getInvulnerable(){

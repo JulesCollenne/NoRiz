@@ -34,7 +34,7 @@ public abstract class Entity {
     int animSpeed;
 
     abstract void setImages();
-    abstract void makeAnimations(int direction, String name);
+    abstract void makeAnimations(int direction, String name, String path);
 
     /**
      * Constructor

@@ -105,21 +105,21 @@ public class Monster extends Entity{
     }
 
     public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche", "monsters/");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite", "monsters/");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche", "monsters/");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche", "monsters/");
     }
 
     /**
      * Puts the images at the right place in the variable "image"
      */
-    public void makeAnimations(int direction, String name){
+    public void makeAnimations(int direction, String name, String path){
         //for(int i = 0; i < nbImgAnim; i++)
           //  image[direction][i] = new Image("monsters/"+ name +"_" + name + i + ".png");
 
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image("monsters/"+this.name + name + i + ".png");
+            image[direction][i] = new Image(path+this.name + name + i + ".png");
     }
 
     public void die() {
