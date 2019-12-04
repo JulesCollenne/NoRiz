@@ -60,11 +60,15 @@ public class EditorState extends GameState {
 
 
         Image im = new Image("Buttons/sign_test.png");
+        ImageView imV = new ImageView(im);
+        imV.setFitHeight(50);
+        imV.setFitWidth(100);
         Button test = new Button();
         test.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
-        test.setLayoutX(Utils.canvasSize - im.getWidth()- 20);
+        test.setLayoutX(Utils.canvasSize - im.getWidth()+40);
         test.setLayoutY(Utils.caseDimension+10);
-        test.setGraphic(new ImageView(im));
+        test.setGraphic(imV);
+
         test.setOnAction(e -> playOnCurrentMap());
 
 
