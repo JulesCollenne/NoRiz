@@ -33,6 +33,7 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
             int rand;
             boolean impossible = true;
 
+            int nbEssai = 0;
             while (impossible) {
                 rand = (int) (Math.random() * 4);
 
@@ -78,6 +79,11 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
                         nextWay = DIRECTION.STOP;
                         break;
 
+                }
+                nbEssai++;
+                if(nbEssai == 10){
+                    nextWay = Utils.inverse(currentWay);
+                    impossible = false;
                 }
             }
             return nextWay;

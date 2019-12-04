@@ -276,7 +276,7 @@ public abstract class PlayState extends GameState {
                 System.out.println("Easter_egg_nul.png");
                 break;
             case W:
-                noriz.ghost = 200;
+                noriz.setTimeGhosted(200);
                 break;
             case X:
                 noriz.setSize(noriz.getSize()/2);

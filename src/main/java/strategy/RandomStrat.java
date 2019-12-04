@@ -2,6 +2,7 @@ package strategy;
 
 import entity.Monster;
 import utils.DIRECTION;
+import utils.Utils;
 
 /**
  * Choisit une nouvelle direction au hasard:
@@ -33,6 +34,8 @@ public class RandomStrat implements Strategy {
             case LEFT: break;
             default:break;
         }*/
+
+        int nbEssai = 0;
 
         while (impossible) {
             rand = (int) (Math.random() * 4);
@@ -78,6 +81,11 @@ public class RandomStrat implements Strategy {
                     nextWay = DIRECTION.STOP;
                     break;
 
+            }
+            nbEssai++;
+            if(nbEssai == 10){
+                nextWay = Utils.inverse(currentWay);
+                impossible = false;
             }
         }
         return nextWay;

@@ -1,5 +1,6 @@
 package utils;
 
+import static utils.DIRECTION.*;
 import static utils.WORLDITEM.*;
 
 public class Utils {
@@ -85,6 +86,20 @@ public class Utils {
             coord[1] = mapSize-1;
 
         return coord;
+    }
+
+    public static DIRECTION inverse(DIRECTION dir){
+        switch(dir){
+            case DOWN:
+                return UP;
+            case UP:
+                return DOWN;
+            case RIGHT:
+                return LEFT;
+            case LEFT:
+                return RIGHT;
+        }
+        return null;
     }
 
     /**
