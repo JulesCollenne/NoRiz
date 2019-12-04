@@ -279,6 +279,8 @@ public abstract class PlayState extends GameState {
                 noriz.setTimeGhosted(200);
                 break;
             case X:
+                noriz.setIsSmall(50);
+                noriz.speed++;
                 noriz.setSize(noriz.getSize()/2);
                 break;
             case C:

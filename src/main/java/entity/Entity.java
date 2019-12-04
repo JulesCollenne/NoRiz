@@ -16,7 +16,7 @@ public abstract class Entity {
     int y;
     int spawnX;
     int spawnY;
-    int speed;
+    public int speed;
     int size;
 
     DIRECTION facing = DIRECTION.STOP;

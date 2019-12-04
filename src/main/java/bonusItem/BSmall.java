@@ -16,6 +16,7 @@ public class BSmall implements CollectableItem {
     public void effect(Noriz noriz) {
         noriz.setIsSmall(500);
         noriz.setSize(noriz.getSize()/2);
+        noriz.speed++;
     }
 
     @Override

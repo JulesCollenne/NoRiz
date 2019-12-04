@@ -72,8 +72,11 @@ public class Noriz extends Entity {
 
         if(isSmall > 0){
             isSmall --;
-            if(isSmall == 0)
-                setSize(this.getSize()*2);
+            if(isSmall == 0) {
+                setSize(this.getSize() * 2);
+                speed--;
+                leaveWall = true;
+            }
         }
 
         if (invulnerable > 0) {
