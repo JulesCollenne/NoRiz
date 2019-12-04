@@ -148,7 +148,7 @@ public class GameStateManager{
     }
 
     /**
-     * Create 4 monsters
+     * Create 4 monsters.
      */
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
