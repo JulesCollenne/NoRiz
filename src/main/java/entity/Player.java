@@ -13,6 +13,7 @@ public class Player extends Entity {
 
     private int invulnerable;
     private int reversed;
+    private int isSmall;
     private String skin = "nori";
     public boolean leaveWall;
     private int[] closestRoad = new int[2];
@@ -27,6 +28,7 @@ public class Player extends Entity {
         invulnerable = 0;
         frozen = 0;
         reversed = 0;
+        isSmall = 0;
 
         nbImgAnim = 2;
         animSpeed = 10;
@@ -65,6 +67,12 @@ public class Player extends Entity {
         /*Si le joueur prend le malus reverse, inverse les commandes de control du perso*/
         if(reversed > 0){
             reversed --;
+        }
+
+        if(isSmall > 0){
+            isSmall --;
+            if(isSmall == 0)
+                setSize(this.getSize()*2);
         }
 
         if (invulnerable > 0) {
@@ -161,8 +169,12 @@ public class Player extends Entity {
     public int getReversed(){
         return reversed;
     }
+    public  int getIsSmall(){
+        return isSmall;
+    }
     public String getSkin(){return skin;}
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}
     public void setReversed(int reversed){this.reversed = reversed;}
     public void setSkin(String skin){this.skin = skin;}
+    public void setIsSmall(int isSmall){this.isSmall = isSmall;}
 }

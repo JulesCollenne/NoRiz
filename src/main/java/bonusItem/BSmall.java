@@ -14,6 +14,7 @@ public class BSmall implements CollectableItem {
 
     @Override
     public void effect(Player player) {
+        player.setIsSmall(500);
         player.setSize(player.getSize()/2);
     }
 
@@ -29,6 +30,6 @@ public class BSmall implements CollectableItem {
 
     @Override
     public TypeEffectBonus getTypeEffectBonus() {
-        return null;
+        return typeEffectBonus;
     }
 }

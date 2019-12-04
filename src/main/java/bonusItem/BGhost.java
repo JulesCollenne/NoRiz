@@ -5,6 +5,13 @@ import entity.Player;
 import utils.TypeEffectBonus;
 
 public class BGhost implements CollectableItem {
+
+    TypeEffectBonus typeEffectBonus;
+
+    public BGhost(TypeEffectBonus typeEffectBonus) {
+        this.typeEffectBonus = typeEffectBonus;
+    }
+
     @Override
     public void effect(Player player) {
 
@@ -22,6 +29,6 @@ public class BGhost implements CollectableItem {
 
     @Override
     public TypeEffectBonus getTypeEffectBonus() {
-        return null;
+        return typeEffectBonus;
     }
 }
