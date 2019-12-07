@@ -19,7 +19,7 @@ public class SoundManager {
     private int soundVolume;
 
     public SoundManager(){
-        //loadSounds();
+        loadSounds();
     }
 
     /**

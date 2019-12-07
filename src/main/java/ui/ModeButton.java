@@ -78,7 +78,7 @@ public class ModeButton extends Button {
                     break;
             }
         });
-        this.setOnMouseEntered((EventHandler) mouseEvent -> {
+        this.setOnMouseEntered((EventHandler<javafx.event.Event>) mouseEvent -> {
             //Faire une petite animation quand on survole le bouton
         });
     }
