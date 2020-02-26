@@ -5,10 +5,7 @@ import collider.Collider;
 import entity.Monster;
 import entity.Noriz;
 import sounds.SoundManager;
-import strategy.AngleStrat;
-import strategy.BonusStrat;
-import strategy.HalfRandomStratHalfAngleStrat;
-import strategy.RandomStrat;
+import strategy.*;
 import ui.inGameUserInterface;
 import utils.TypeEffectBonus;
 import utils.WORLDITEM;
@@ -153,10 +150,18 @@ public class GameStateManager{
     private void createMonsters(){
         //Coordonnée de départ dans le cas de notre map test: Faire en sorte que les coordonnés de départ correspondent au niveaux dans lequel on est
 
+        //monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
+
+        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new PlayerStrat(), "cat_follow_", collider);                                              //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new PlayerStrat(), "cat_random_", collider);                                                     //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new PlayerStrat(), "cat_bonus_", collider);                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new PlayerStrat(), "cat_50_", collider);                                                 //Monstre RandomStrat
+        /*
         monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
         monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), 1, new RandomStrat(), "cat_random_", collider);                                                     //Monstre RandomStrat
         monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new BonusStrat(world), "cat_bonus_", collider);                                                //Monstre BonusStrat
         monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), 1, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider);                                                 //Monstre RandomStrat
+    */
     }
 
 

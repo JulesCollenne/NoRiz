@@ -59,34 +59,17 @@ public class Monster extends Entity{
     }
 
     public void nextStep() {
-        if(frozen > 0){
-            setNextFacing(DIRECTION.STOP);
-            frozen --;
-        }
-        else {
-            if (timerStrat > timeNextStrat) {
-                timerStrat = 0;
-
-                switch (strat.nextWay(this)) {
-                    case DOWN:
-                        setNextFacing(DIRECTION.DOWN);
-                        break;
-                    case UP:
-                        setNextFacing(DIRECTION.UP);
-                        break;
-                    case LEFT:
-                        setNextFacing(DIRECTION.LEFT);
-                        break;
-                    case RIGHT:
-                        setNextFacing(DIRECTION.RIGHT);
-                        break;
-                }
+        //if(name.equals("cat_follow_")){
+        if(true){
+            if(frozen > 0){
+                setNextFacing(DIRECTION.STOP);
+                frozen --;
             }
             if (nextFacingPossible(nextFacing)) {
                 facing = nextFacing;
                 nextFacing = DIRECTION.STOP;
             }
-            switch(facing){
+            switch (facing) {
                 case DOWN:
                     tryMove(0, speed);
                     break;
@@ -100,8 +83,55 @@ public class Monster extends Entity{
                     tryMove(speed, 0);
                     break;
             }
-            timerStrat++;
         }
+        else {
+            if (frozen > 0) {
+                setNextFacing(DIRECTION.STOP);
+                frozen--;
+            } else {
+                if (timerStrat > timeNextStrat) {
+                    timerStrat = 0;
+
+                    switch (strat.nextWay(this)) {
+                        case DOWN:
+                            setNextFacing(DIRECTION.DOWN);
+                            break;
+                        case UP:
+                            setNextFacing(DIRECTION.UP);
+                            break;
+                        case LEFT:
+                            setNextFacing(DIRECTION.LEFT);
+                            break;
+                        case RIGHT:
+                            setNextFacing(DIRECTION.RIGHT);
+                            break;
+                    }
+                }
+                if (nextFacingPossible(nextFacing)) {
+                    facing = nextFacing;
+                    nextFacing = DIRECTION.STOP;
+                }
+                switch (facing) {
+                    case DOWN:
+                        tryMove(0, speed);
+                        break;
+                    case UP:
+                        tryMove(0, -speed);
+                        break;
+                    case LEFT:
+                        tryMove(-speed, 0);
+                        break;
+                    case RIGHT:
+                        tryMove(speed, 0);
+                        break;
+                }
+                timerStrat++;
+            }
+        }
+    }
+
+    public DIRECTION getNextFacing(){
+        return nextFacing;
     }
 
     public void setImages(){

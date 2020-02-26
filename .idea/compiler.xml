@@ -39,6 +39,7 @@
         <module name="NoRizVF" />
         <module name="NoRizVFF" />
         <module name="NoRizz" />
+        <module name="NR" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="10" />
