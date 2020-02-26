@@ -287,16 +287,20 @@ public abstract class PlayState extends GameState {
                 noriz.setSize(noriz.getSize()*2);
                 break;
             case UP:
-                monsters[0].setNextFacing(UP);
+                for(int i=0;i<4;i++)
+                    monsters[i].setNextFacing(UP);
                 break;
             case DOWN:
-                monsters[0].setNextFacing(DOWN);
+                for(int i=0;i<4;i++)
+                    monsters[i].setNextFacing(DOWN);
                 break;
             case LEFT:
-                monsters[0].setNextFacing(LEFT);
+                for(int i=0;i<4;i++)
+                    monsters[i].setNextFacing(LEFT);
                 break;
             case RIGHT:
-                monsters[0].setNextFacing(RIGHT);
+                for(int i=0;i<4;i++)
+                    monsters[i].setNextFacing(RIGHT);
                 break;
         }
     }
