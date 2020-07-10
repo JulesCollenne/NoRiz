@@ -105,7 +105,7 @@ public class Monster extends Entity{
                 facing = nextFacing;
                 nextFacing = DIRECTION.STOP;
             }
-            //test
+            //test0
 
             switch (facing) {
                 case DOWN -> tryMove(0, speed);
