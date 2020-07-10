@@ -1,0 +1,72 @@
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"NoRiz\" />\r\n        <module name=\"NoRiz2\" />\r\n        <module name=\"NoRiz3\" />\r\n        <module name=\"NoRiz333\" />\r\n        <module name=\"NoRiz4\" />\r\n        <module name=\"NoRiz454\" />\r\n        <module name=\"NoRiz52\" />\r\n        <module name=\"NoRiz77\" />\r\n        <module name=\"NoRiz99\" />\r\n        <module name=\"NoRizaaa\" />\r\n        <module name=\"NoRizdd\" />\r\n        <module name=\"NoRizIZZ\" />\r\n        <module name=\"NoRizJules\" />\r\n        <module name=\"NoRizOUIII\" />\r\n        <module name=\"NoRizPAUSE2\" />\r\n        <module name=\"NoRizSKIN\" />\r\n        <module name=\"NoRizSkinChange\" />\r\n        <module name=\"NoRizSOUND\" />\r\n        <module name=\"NoRizV\" />\r\n        <module name=\"NoRizV10\" />\r\n        <module name=\"NoRizV11\" />\r\n        <module name=\"NoRizV12\" />\r\n        <module name=\"NoRizV15\" />\r\n        <module name=\"NoRizV19\" />\r\n        <module name=\"NoRizV21\" />\r\n        <module name=\"NoRizV23\" />\r\n        <module name=\"NoRizV24\" />\r\n        <module name=\"NoRizV28\" />\r\n        <module name=\"NoRizV31\" />\r\n        <module name=\"NoRizV8\" />\r\n        <module name=\"NoRizVF\" />\r\n        <module name=\"NoRizVFF\" />\r\n        <module name=\"NoRizz\" />\r\n        <module name=\"NR\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n    <bytecodeTargetLevel target=\"10\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(revision e05bfb83e319a638617acf82304c8ee1150fdd4e)
++++ .idea/compiler.xml	(date 1594386156371)
+@@ -6,40 +6,40 @@
+         <sourceOutputDir name="target/generated-sources/annotations" />
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
+-        <module name="NoRiz" />
++        <module name="NoRizJules" />
++        <module name="NoRizaaa" />
++        <module name="NoRiz4" />
++        <module name="NoRiz3" />
+         <module name="NoRiz2" />
+-        <module name="NoRiz3" />
++        <module name="NoRizSKIN" />
++        <module name="NoRizz" />
+         <module name="NoRiz333" />
+-        <module name="NoRiz4" />
+         <module name="NoRiz454" />
+-        <module name="NoRiz52" />
+-        <module name="NoRiz77" />
+-        <module name="NoRiz99" />
+-        <module name="NoRizaaa" />
+-        <module name="NoRizdd" />
+-        <module name="NoRizIZZ" />
+-        <module name="NoRizJules" />
++        <module name="NoRizV11" />
++        <module name="NoRizV10" />
+         <module name="NoRizOUIII" />
+-        <module name="NoRizPAUSE2" />
+-        <module name="NoRizSKIN" />
++        <module name="NR" />
+         <module name="NoRizSkinChange" />
++        <module name="NoRizV19" />
+         <module name="NoRizSOUND" />
++        <module name="NoRizV8" />
++        <module name="NoRiz52" />
+         <module name="NoRizV" />
+-        <module name="NoRizV10" />
+-        <module name="NoRizV11" />
++        <module name="NoRiz" />
++        <module name="NoRizPAUSE2" />
+         <module name="NoRizV12" />
++        <module name="NoRiz77" />
+         <module name="NoRizV15" />
+-        <module name="NoRizV19" />
+-        <module name="NoRizV21" />
+-        <module name="NoRizV23" />
+-        <module name="NoRizV24" />
+-        <module name="NoRizV28" />
+         <module name="NoRizV31" />
+-        <module name="NoRizV8" />
+         <module name="NoRizVF" />
++        <module name="NoRizV28" />
++        <module name="NoRizIZZ" />
++        <module name="NoRizV24" />
++        <module name="NoRizV23" />
++        <module name="NoRizV21" />
++        <module name="NoRiz99" />
++        <module name="NoRizdd" />
+         <module name="NoRizVFF" />
+-        <module name="NoRizz" />
+-        <module name="NR" />
+       </profile>
+     </annotationProcessing>
+     <bytecodeTargetLevel target="10" />
