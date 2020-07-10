@@ -60,6 +60,7 @@ public class Monster extends Entity{
 
     public void nextStep() {
         //if(name.equals("cat_follow_")){
+        /* 2 joueurs
         if(true){
             if(frozen > 0){
                 setNextFacing(DIRECTION.STOP);
@@ -84,49 +85,34 @@ public class Monster extends Entity{
                     break;
             }
         }
+        */
+        if (frozen > 0) {
+            setNextFacing(DIRECTION.STOP);
+            frozen--;
+        }
         else {
-            if (frozen > 0) {
-                setNextFacing(DIRECTION.STOP);
-                frozen--;
-            } else {
-                if (timerStrat > timeNextStrat) {
-                    timerStrat = 0;
+            if (timerStrat > timeNextStrat) {
+                timerStrat = 0;
 
-                    switch (strat.nextWay(this)) {
-                        case DOWN:
-                            setNextFacing(DIRECTION.DOWN);
-                            break;
-                        case UP:
-                            setNextFacing(DIRECTION.UP);
-                            break;
-                        case LEFT:
-                            setNextFacing(DIRECTION.LEFT);
-                            break;
-                        case RIGHT:
-                            setNextFacing(DIRECTION.RIGHT);
-                            break;
-                    }
+                switch (strat.nextWay(this)) {
+                    case DOWN -> setNextFacing(DIRECTION.DOWN);
+                    case UP -> setNextFacing(DIRECTION.UP);
+                    case LEFT -> setNextFacing(DIRECTION.LEFT);
+                    case RIGHT -> setNextFacing(DIRECTION.RIGHT);
                 }
-                if (nextFacingPossible(nextFacing)) {
-                    facing = nextFacing;
-                    nextFacing = DIRECTION.STOP;
                 }
-                switch (facing) {
-                    case DOWN:
-                        tryMove(0, speed);
-                        break;
-                    case UP:
-                        tryMove(0, -speed);
-                        break;
-                    case LEFT:
-                        tryMove(-speed, 0);
-                        break;
-                    case RIGHT:
-                        tryMove(speed, 0);
-                        break;
-                }
-                timerStrat++;
+            if (nextFacingPossible(nextFacing)) {
+                facing = nextFacing;
+                nextFacing = DIRECTION.STOP;
             }
+
+            switch (facing) {
+                case DOWN -> tryMove(0, speed);
+                case UP -> tryMove(0, -speed);
+                case LEFT -> tryMove(-speed, 0);
+                case RIGHT -> tryMove(speed, 0);
+            }
+            timerStrat++;
         }
     }
 

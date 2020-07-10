@@ -38,7 +38,7 @@ public abstract class GameState {
                 System.out.println("FPS : " + 1000000000. / elapsedNanos);
 */
                 if(timer % 455 == 0){
-                    timer = 1;
+                    timer ++;
                     return;
                 }
                 // game logic

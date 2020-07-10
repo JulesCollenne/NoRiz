@@ -33,7 +33,7 @@ public abstract class PlayState extends GameState {
     WORLDITEM[][] map;
 
     Noriz noriz;
-    Monster monsters[];
+    Monster[] monsters;
 
     Random rand = new Random();
 
@@ -82,7 +82,7 @@ public abstract class PlayState extends GameState {
             monster.init();
         }
 
-        //gsm.sm.backGround.play();
+        gsm.sm.backGround.play();
     }
 
     private void initMyData(){
@@ -286,7 +286,8 @@ public abstract class PlayState extends GameState {
             case C:
                 noriz.setSize(noriz.getSize()*2);
                 break;
-            case UP:
+                /*
+                            case UP:
                 for(int i=0;i<4;i++)
                     monsters[i].setNextFacing(UP);
                 break;
@@ -302,6 +303,7 @@ public abstract class PlayState extends GameState {
                 for(int i=0;i<4;i++)
                     monsters[i].setNextFacing(RIGHT);
                 break;
+                 */
         }
     }
 
