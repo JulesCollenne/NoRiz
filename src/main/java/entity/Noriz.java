@@ -5,6 +5,7 @@ import utils.DIRECTION;
 import utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import worldBuilder.World;
 
 /**
  * The player is the sashimi Nori
@@ -166,7 +167,7 @@ public class Noriz extends Entity {
      */
     public void makeAnimations(int direction, String name, String path){
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image(path+ getSkin() + name + i + ".png");
+            image[direction][i] = new Image(World.class.getResource("/"+path+ getSkin() + name + i + ".png").toString());
     }
 
     public int getInvulnerable(){

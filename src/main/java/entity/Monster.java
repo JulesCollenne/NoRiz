@@ -6,6 +6,7 @@ import utils.DIRECTION;
 import utils.Utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import worldBuilder.World;
 
 /**
  * Monsters are the cat trying to eat the player
@@ -136,7 +137,7 @@ public class Monster extends Entity{
           //  image[direction][i] = new Image("monsters/"+ name +"_" + name + i + ".png");
 
         for(int i = 0; i < nbImgAnim; i++)
-            image[direction][i] = new Image(path+this.name + name + i + ".png");
+            image[direction][i] = new Image(World.class.getResource("/"+path+this.name + name + i + ".png").toString());
     }
 
     public void die() {

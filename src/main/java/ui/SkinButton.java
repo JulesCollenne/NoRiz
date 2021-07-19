@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import states.GameStateManager;
+import worldBuilder.World;
 
 public class SkinButton extends Button {
     private ImageView skin;
@@ -59,7 +60,7 @@ public class SkinButton extends Button {
      */
     private void makeAnimations(){
         for(int i = 0; i < nbImgAnim; i++)
-            image2[0][i] = new Image("Player/nori_" + "droite" + i + ".png");
+            image2[0][i] = new Image(World.class.getResource("/Player/nori_" + "droite" + i + ".png").toString());
     }
 
     public void handler(GameStateManager gsm) {

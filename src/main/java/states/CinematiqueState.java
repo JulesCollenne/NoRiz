@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import worldBuilder.World;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,7 +32,8 @@ public class CinematiqueState extends GameState{
     private Image backGroundImage;
     private ArrayList<String> dialogList = new ArrayList<>();
 
-    private Image currentTalker = new Image("monsters/catastrophe_droite0.png");
+    private Image currentTalker = new Image(World.class.getResource("/monsters/catastrophe_droite0.png").toString());
+
 
     private double posXDialog;
     private double posYDialog;
@@ -78,7 +81,7 @@ public class CinematiqueState extends GameState{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         nextDialog(gc);
 
-        Image arrow = new Image("cinematiques/arrow.png");
+        Image arrow = new Image(World.class.getResource("/cinematiques/arrow.png").toString());
         Button nextDialogButton = setNextDialogButton(cadreDialog, arrow, gc);
 
         HBox hbox = new HBox();
@@ -199,23 +202,11 @@ public class CinematiqueState extends GameState{
      */
     private void getBackgroundImage(){
 
-        switch(gsm.difficulty){
-
-            case EASY:
-                backGroundImage = new Image("cinematiques/background_EASY.jpg");
-                break;
-
-            case MEDIUM:
-                backGroundImage = new Image("cinematiques/background_MEDIUM.jpg");
-                break;
-
-            case HARD:
-                backGroundImage = new Image("cinematiques/background_HARD.jpg");
-                break;
-
-            default:
-                gsm.changeState(1);
-                break;
+        switch (gsm.difficulty) {
+            case EASY -> backGroundImage = new Image(World.class.getResource("/cinematiques/background_EASY.jpg").toString());
+            case MEDIUM -> backGroundImage = new Image(World.class.getResource("/cinematiques/background_MEDIUM.jpg").toString());
+            case HARD -> backGroundImage = new Image(World.class.getResource("/cinematiques/background_HARD.jpg").toString());
+            default -> gsm.changeState(1);
         }
 
     }
@@ -235,23 +226,13 @@ public class CinematiqueState extends GameState{
         try {
             FileInputStream file;
             switch (gsm.difficulty) {
-
-                case EASY:
-                    file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
-                    break;
-
-                case MEDIUM:
-                    file = new FileInputStream("src/main/resources/cinematiques/dialog_MEDIUM.txt");
-                    break;
-
-                case HARD:
-                    file = new FileInputStream("src/main/resources/cinematiques/dialog_HARD.txt");
-                    break;
-
-                default:
+                case EASY -> file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
+                case MEDIUM -> file = new FileInputStream("src/main/resources/cinematiques/dialog_MEDIUM.txt");
+                case HARD -> file = new FileInputStream("src/main/resources/cinematiques/dialog_HARD.txt");
+                default -> {
                     file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
                     gsm.changeState(1);
-                    break;
+                }
             }
 
             Scanner sc = new Scanner(file);
@@ -283,11 +264,11 @@ public class CinematiqueState extends GameState{
             switch (temp.substring(0, 2)){
 
                 case "N ":
-                    currentTalker = new Image("Player/nori_droite0.png");      // Image de noriz a terme
+                    currentTalker = new Image(World.class.getResource("/Player/nori_droite0.png").toString());      // Image de noriz a terme
                     break;
 
                 case "M ":
-                    currentTalker = new Image("monsters/catastrophe_gauche0.png");      // Meilleur image de monstre a terme
+                    currentTalker = new Image(World.class.getResource("/monsters/catastrophe_gauche0.png").toString());      // Meilleur image de monstre a terme
                     break;
 
             }

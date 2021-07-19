@@ -4,6 +4,7 @@ import entity.Monster;
 import javafx.scene.image.ImageView;
 import ui.ModeButton;
 import utils.Utils;
+import worldBuilder.World;
 import worldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -53,11 +54,11 @@ public class PauseState extends GameState {
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
 
 
-        ImageView pause = new ImageView(new Image("Buttons/pause.png"));
+        ImageView pause = new ImageView(new Image(World.class.getResource("/Buttons/pause.png").toString()));
         pause.setX(Utils.canvasSize/2.0- 85);
         pause.setY(90);
 
-        ImageView commandes = new ImageView( new Image("Buttons/sign_commandes.png"));
+        ImageView commandes = new ImageView(new Image(World.class.getResource("/Buttons/sign_commandes.png").toString()));
         commandes.setX(Utils.canvasSize/2.0- 200);
         commandes.setY(Utils.canvasSize/2.0 - 175);
 
@@ -67,8 +68,8 @@ public class PauseState extends GameState {
         commande.setFont(new Font(20));
         commandeP.getChildren().addAll(commande);*/
 
-        ModeButton reprendre = new ModeButton(new Image("Buttons/sign_reprendre.png"), "Reprendre");
-        reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image("Buttons/sign_menu.png").getWidth()/2));
+        ModeButton reprendre = new ModeButton(new Image(World.class.getResource("/Buttons/sign_reprendre.png").toString()), "Reprendre");
+        reprendre.setLayoutX(((Utils.canvasSize/3.0)/2) - (new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth()/2));
         reprendre.setLayoutY((2*Utils.canvasSize)/3.0);
         reprendre.handler(gsm);
 
@@ -76,8 +77,8 @@ public class PauseState extends GameState {
          * TODO: Faire le skin des boutons restant et corriger le bouton retour au jeu en cours
          */
 
-        ModeButton retour = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
-        retour.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image("Buttons/sign_menu.png").getWidth()/2));
+        ModeButton retour = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
+        retour.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth()/2));
         retour.setLayoutY((2*Utils.canvasSize)/3.0);
         retour.handler(gsm);
 

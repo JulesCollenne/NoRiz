@@ -5,13 +5,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import worldBuilder.World;
 
 public class inGameUserInterface {
 
-    private Image UITimer = new Image("ui/UITimer.png", 119, Utils.caseDimension * 2, true, false);
-    private Image UIRiceTemp = new Image("ui/UIRiceTemp.png", 119, Utils.caseDimension * 2, true, false);
-    private Image UIHeart = new Image("ui/UIHeart.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
-    private Image grainDeRiz = new Image("collectable/GrainDeRiz.png", 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+    private final Image UITimer = new Image(World .class.getResource("/ui/UITimer.png").toString(), 119, Utils.caseDimension * 2, true, false);
+    private final Image UIRiceTemp = new Image(World .class.getResource("/ui/UIRiceTemp.png").toString(), 119, Utils.caseDimension * 2, true, false);
+    private final Image UIHeart = new Image(World .class.getResource("/ui/UIHeart.png").toString(), 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
+    private final Image grainDeRiz = new Image(World .class.getResource("/collectable/GrainDeRiz.png").toString(), 52.7, Utils.caseDimension + (Utils.caseDimension/2.0), true, false);
 
     public inGameUserInterface(){
 

@@ -2,6 +2,7 @@ package states;
 
 import utils.Utils;
 import utils.WORLDITEM;
+import worldBuilder.World;
 import worldBuilder.worldRender;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -59,7 +60,7 @@ public class EditorState extends GameState {
         gc.setLineWidth(1);
 
 
-        Image im = new Image("Buttons/sign_test.png");
+        Image im = new Image(World.class.getResource("/Buttons/sign_test.png").toString());
         ImageView imV = new ImageView(im);
         imV.setFitHeight(50);
         imV.setFitWidth(100);
@@ -211,7 +212,7 @@ public class EditorState extends GameState {
     public void render(GraphicsContext gc) {
 
         worldRender.renderMap(gc, buildingMap, true);
-        Image Header = new Image("ui/headerEditor.png", 800, 64, true, false);
+        Image Header = new Image(World.class.getResource("/ui/headerEditor.png").toString(), 800, 64, true, false);
         gc.drawImage(Header, 0, 0);
 
     }

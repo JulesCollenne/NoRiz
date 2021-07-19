@@ -1,10 +1,12 @@
 package ui;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import states.GameStateManager;
 import utils.DIRECTION;
 import utils.Utils;
+import worldBuilder.World;
 
 
 public class ButtonChooseSkin extends Button{
@@ -14,7 +16,8 @@ public class ButtonChooseSkin extends Button{
 
     public ButtonChooseSkin(String skinName){
         this.skinName = skinName;
-        this.image = new ImageView("skinNoriz/" + this.skinName + "_droite0.png");
+        //this.image = new ImageView("skinNoriz/" + this.skinName + "_droite0.png");
+        this.image = new ImageView(World.class.getResource("/skinNoriz/" + this.skinName + "_droite0.png").toString());
         this.getChildren().add(this.image);
         super.setGraphic(this.image);
 

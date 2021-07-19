@@ -17,6 +17,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import worldBuilder.World;
 
 import java.io.*;
 import java.util.Scanner;
@@ -44,7 +45,7 @@ public class OptionsState extends GameState{
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
+        double tempWidth = new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth();
 
         Text title = new Text("Option");
         title.setX(Utils.canvasSize/2.0- 75);
@@ -102,7 +103,7 @@ public class OptionsState extends GameState{
 
         soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> setEffectVolume(new_val.intValue()));
 
-        ModeButton retour = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
+        ModeButton retour = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
         retour.setLayoutX(10);
         retour.setLayoutY(10);
         retour.handler(gsm);
