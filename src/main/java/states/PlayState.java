@@ -82,7 +82,7 @@ public abstract class PlayState extends GameState {
             monster.init();
         }
 
-        gsm.sm.backGround.play();
+        //gsm.sm.backGround.play();
     }
 
     private void initMyData(){

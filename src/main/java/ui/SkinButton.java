@@ -59,7 +59,7 @@ public class SkinButton extends Button {
      */
     private void makeAnimations(){
         for(int i = 0; i < nbImgAnim; i++)
-            image2[0][i] = new Image("Player/nori_" + "droite" + i + ".png");
+            image2[0][i] = new Image("nori_" + "droite" + i + ".png");
     }
 
     public void handler(GameStateManager gsm) {

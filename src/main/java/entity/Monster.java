@@ -122,10 +122,10 @@ public class Monster extends Entity{
     }
 
     public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche", "monsters/");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite", "monsters/");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche", "monsters/");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche", "monsters/");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"gauche", "");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"droite", "");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"gauche", "");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"gauche", "");
     }
 
     /**

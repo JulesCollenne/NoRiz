@@ -155,10 +155,10 @@ public class Noriz extends Entity {
      * Met en places les images permettant les animations
      */
     public void setImages(){
-        makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche","Player/");
-        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite","Player/");
-        makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "Player/");
-        makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "Player/");
+        makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche","");
+        makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite","");
+        makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "");
+        makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "");
     }
 
     /**

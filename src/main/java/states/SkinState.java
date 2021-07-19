@@ -38,7 +38,7 @@ public class SkinState extends GameState {
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
+        double tempWidth = new Image("sign_menu.png").getWidth();
 
         Text title = new Text("Skin");
         title.setX(Utils.canvasSize/2.0- 70);

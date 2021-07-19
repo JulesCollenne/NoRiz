@@ -59,7 +59,7 @@ public class EditorState extends GameState {
         gc.setLineWidth(1);
 
 
-        Image im = new Image("Buttons/sign_test.png");
+        Image im = new Image("sign_test.png");
         ImageView imV = new ImageView(im);
         imV.setFitHeight(50);
         imV.setFitWidth(100);

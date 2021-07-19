@@ -30,7 +30,7 @@ public class CinematiqueState extends GameState{
     private Image backGroundImage;
     private ArrayList<String> dialogList = new ArrayList<>();
 
-    private Image currentTalker = new Image("monsters/catastrophe_droite0.png");
+    private Image currentTalker = new Image("catastrophe_droite0.png");
 
     private double posXDialog;
     private double posYDialog;
@@ -78,7 +78,7 @@ public class CinematiqueState extends GameState{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         nextDialog(gc);
 
-        Image arrow = new Image("cinematiques/arrow.png");
+        Image arrow = new Image("arrow.png");
         Button nextDialogButton = setNextDialogButton(cadreDialog, arrow, gc);
 
         HBox hbox = new HBox();
@@ -202,15 +202,15 @@ public class CinematiqueState extends GameState{
         switch(gsm.difficulty){
 
             case EASY:
-                backGroundImage = new Image("cinematiques/background_EASY.jpg");
+                backGroundImage = new Image("background_EASY.jpg");
                 break;
 
             case MEDIUM:
-                backGroundImage = new Image("cinematiques/background_MEDIUM.jpg");
+                backGroundImage = new Image("background_MEDIUM.jpg");
                 break;
 
             case HARD:
-                backGroundImage = new Image("cinematiques/background_HARD.jpg");
+                backGroundImage = new Image("background_HARD.jpg");
                 break;
 
             default:
@@ -283,11 +283,11 @@ public class CinematiqueState extends GameState{
             switch (temp.substring(0, 2)){
 
                 case "N ":
-                    currentTalker = new Image("Player/nori_droite0.png");      // Image de noriz a terme
+                    currentTalker = new Image("nori_droite0.png");      // Image de noriz a terme
                     break;
 
                 case "M ":
-                    currentTalker = new Image("monsters/catastrophe_gauche0.png");      // Meilleur image de monstre a terme
+                    currentTalker = new Image("catastrophe_gauche0.png");      // Meilleur image de monstre a terme
                     break;
 
             }

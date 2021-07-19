@@ -14,7 +14,7 @@ public class ButtonChooseSkin extends Button{
 
     public ButtonChooseSkin(String skinName){
         this.skinName = skinName;
-        this.image = new ImageView("skinNoriz/" + this.skinName + "_droite0.png");
+        this.image = new ImageView("" + this.skinName + "_droite0.png");
         this.getChildren().add(this.image);
         super.setGraphic(this.image);
 
@@ -24,10 +24,10 @@ public class ButtonChooseSkin extends Button{
     }
 
     public void handler(GameStateManager gsm) {
-        this.setOnMousePressed(mouseEvent -> {gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche", "skinNoriz/");
-            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite", "skinNoriz/");
-            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "skinNoriz/");
-            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "skinNoriz/");;
+        this.setOnMousePressed(mouseEvent -> {gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.LEFT),"_gauche", "");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.RIGHT),"_droite", "");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.DOWN),"_gauche", "");
+            gsm.noriz.makeAnimations(Utils.toInt(DIRECTION.UP),"_gauche", "");;
         });
     }
 }

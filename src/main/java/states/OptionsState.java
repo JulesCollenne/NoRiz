@@ -44,7 +44,7 @@ public class OptionsState extends GameState{
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
+        double tempWidth = new Image("sign_menu.png").getWidth();
 
         Text title = new Text("Option");
         title.setX(Utils.canvasSize/2.0- 75);
@@ -102,7 +102,7 @@ public class OptionsState extends GameState{
 
         soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> setEffectVolume(new_val.intValue()));
 
-        ModeButton retour = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
+        ModeButton retour = new ModeButton(new Image("sign_menu.png"), "Menu");
         retour.setLayoutX(10);
         retour.setLayoutY(10);
         retour.handler(gsm);
