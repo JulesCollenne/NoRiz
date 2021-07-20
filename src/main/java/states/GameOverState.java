@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import worldBuilder.World;
 
 public class GameOverState extends GameState {
 
@@ -39,7 +40,7 @@ public class GameOverState extends GameState {
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image("Buttons/sign_menu.png").getWidth();
+        double tempWidth = new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth();
 
 
         Text title = new Text("Game Over !");
@@ -49,13 +50,13 @@ public class GameOverState extends GameState {
         title.setFill(color);
         title.setStyle("-fx-font-weight: bold");
 
-        ModeButton rejouer = new ModeButton(new Image("Buttons/sign_rejouer.png"), "Rejouer");
+        ModeButton rejouer = new ModeButton(new Image(World.class.getResource("/Buttons/sign_rejouer.png").toString()), "Rejouer");
         rejouer.setLayoutX(((Utils.canvasSize/2)/2) - (tempWidth/2));
         rejouer.setLayoutY(Utils.canvasSize/2);
         rejouer.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
         rejouer.handler(gsm);
 
-        ModeButton menu = new ModeButton(new Image("Buttons/sign_menu.png"), "Menu");
+        ModeButton menu = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
         menu.setLayoutX( ((2*Utils.canvasSize) - (Utils.canvasSize/2))/2 - (tempWidth/2));
         menu.setLayoutY(Utils.canvasSize/2);
         menu.handler(gsm);

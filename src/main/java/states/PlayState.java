@@ -74,6 +74,7 @@ public abstract class PlayState extends GameState {
     }
 
     public void init(){
+        gsm.sm.menu.stop();
         firstRender = true;
         initMyData();
         noriz.init();
@@ -82,7 +83,7 @@ public abstract class PlayState extends GameState {
             monster.init();
         }
 
-        //gsm.sm.backGround.play();
+        gsm.sm.backGround.play();
     }
 
     private void initMyData(){
@@ -361,7 +362,7 @@ public abstract class PlayState extends GameState {
 
     void gameOver(){
         gsm.changeState(3);
-        //gsm.sm.backGround.stop();
+        gsm.sm.backGround.stop();
     }
 
 }

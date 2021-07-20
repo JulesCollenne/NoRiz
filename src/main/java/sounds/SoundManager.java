@@ -14,6 +14,7 @@ import java.io.File;
 public class SoundManager {
 
     public MediaPlayer backGround;
+    public MediaPlayer menu;
     public MediaPlayer hurt;
 
     private int soundEffect;
@@ -28,14 +29,17 @@ public class SoundManager {
      */
     private void loadSounds(){
         try {
-            //String musicFile = "/sounds/music.mp3";
-            String musicFile = "src/main/resources/sounds/music.mp3";
-            //Media sound = new Media(World.class.getResource(musicFile).toString());
-            Media sound = new Media(new File(musicFile).toURI().toString());
+
+            Media sound = new Media(new File("src/main/resources/sounds/space callithrix jacchus.mp3").toURI().toString());
             backGround = new MediaPlayer(sound);
-            Media hurtSound = new Media(new File("src/main/resources/sounds/music.mp3").toURI().toString());
+
+            Media hurtSound = new Media(new File("src/main/resources/sounds/jam.mp3").toURI().toString());
             hurt = new MediaPlayer(hurtSound);
             hurt.setStopTime(new Duration(1000));
+
+            Media menuMedia = new Media(new File("src/main/resources/sounds/Nouveau son.mp3").toURI().toString());
+            menu = new MediaPlayer(menuMedia);
+
         }catch (MediaException e){
             e.printStackTrace();
             System.out.println("Ce son n'existe pas !");

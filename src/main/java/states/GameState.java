@@ -37,10 +37,10 @@ public abstract class GameState {
                 long elapsedNanos = currentNanoTime - lastTime ;
                 System.out.println("FPS : " + 1000000000. / elapsedNanos);
 */
-                if(timer % 455 == 0){
-                    timer ++;
-                    return;
-                }
+                //if(timer % 2 == 0){
+                  //  timer ++;
+                    //return;
+                //}
                 // game logic
                 nextStep();
 
