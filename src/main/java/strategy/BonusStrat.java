@@ -4,6 +4,7 @@ import entity.Monster;
 import utils.*;
 import worldBuilder.World;
 
+import static java.lang.Math.abs;
 
 
 /**
@@ -16,13 +17,12 @@ public class BonusStrat implements Strategy{
     private World world;
     private static int xBonus,yBonus;
     private static int[][] coordsBonus = new int[10][2];
-    private static int[][] coordsBonusUsed = new int[10][2];
-    private static int index,indexBonusUsed;
+    private static int nb_bonus,current_bonus;
 
     public BonusStrat(World world) {
         this.world = world;
-        index = 0;
-        indexBonusUsed = 0;
+        nb_bonus = 0;
+        current_bonus = 0;
         searchBonus();
         xBonus = coordsBonus[0][0];
         yBonus = coordsBonus[0][1];
@@ -31,18 +31,23 @@ public class BonusStrat implements Strategy{
     }
 
     private void setBonusUsed(){
+        /*
         coordsBonusUsed[indexBonusUsed][0] = xBonus;
         coordsBonusUsed[indexBonusUsed][1] = yBonus;
         indexBonusUsed++;
+         */
     }
 
     private void searchBonus(){
         for(int i = 0 ; i < world.map.length ; i++){
             for(int j = 0 ; j < world.map[0].length ; j++){
                 if(world.map[j][i] == WORLDITEM.BONUS) {
-                    coordsBonus[index][0] = j*Utils.caseDimension;
-                    coordsBonus[index][1] = i*Utils.caseDimension;
-                    index++;
+                    int[] coords = new int[2];
+                    coords[0] = j;
+                    coords[1] = i;
+                    coordsBonus[nb_bonus] = Utils.getCanvasCoords(coords);
+                    //coordsBonus[nb_bonus][1] = i*Utils.caseDimension;
+                    nb_bonus++;
                 }
             }
         }
@@ -59,61 +64,66 @@ public class BonusStrat implements Strategy{
 
         while(nbCases != Utils.mapSize*Utils.mapSize){
             if(world.map[i][j - k] == WORLDITEM.BONUS && j-k > 0){
-                coordsBonus[index][0] = i * Utils.caseDimension;
-                coordsBonus[index][1] = (j-k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i + k][j - k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j-k > 0){
-                coordsBonus[index][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[index][1] = (j-k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i + k][j] == WORLDITEM.BONUS && i+k < Utils.mapSize){
-                coordsBonus[index][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[index][1] = j * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i + k][j + k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j+k < Utils.mapSize){
-                coordsBonus[index][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[index][1] = (j+k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i][j + k] == WORLDITEM.BONUS){
-                coordsBonus[index][0] = i * Utils.caseDimension;
-                coordsBonus[index][1] = (j+k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i - k][j + k] == WORLDITEM.BONUS && i-k > 0 && j+k < Utils.mapSize){
-                coordsBonus[index][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[index][1] = (j+k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i-k][j] == WORLDITEM.BONUS && i-k > 0){
-                coordsBonus[index][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[index][1] = j * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
+                nb_bonus++;
             }
             else if(world.map[i - k][j - k] == WORLDITEM.BONUS && i-k > 0 && j-k > 0){
-                coordsBonus[index][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[index][1] = (j-k) * Utils.caseDimension;
-                index++;
+                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+                nb_bonus++;
             }
             nbCases++;
         }
     }
 
     private static void affiche(){
-        for(int i = 0 ; i < index ; i++){
+        for(int i = 0; i < nb_bonus; i++){
             System.out.println(coordsBonus[i][0] + " " + coordsBonus[i][1]);
         }
     }
 
     private void targetNewBonus(){
-        if(coordsBonusUsed[(indexBonusUsed - 1)%index][0] == coordsBonus[(indexBonusUsed - 1)%index][0] && coordsBonusUsed[(indexBonusUsed - 1)%index][1] == coordsBonus[(indexBonusUsed - 1)%index][1]) {
-            xBonus = coordsBonus[indexBonusUsed%index][0];
-            yBonus = coordsBonus[indexBonusUsed%index][1];
+        /*
+        if(coordsBonusUsed[(indexBonusUsed - 1)% nb_bonus][0] == coordsBonus[(indexBonusUsed - 1)% nb_bonus][0] && coordsBonusUsed[(indexBonusUsed - 1)% nb_bonus][1] == coordsBonus[(indexBonusUsed - 1)% nb_bonus][1]) {
+            xBonus = coordsBonus[indexBonusUsed% nb_bonus][0];
+            yBonus = coordsBonus[indexBonusUsed% nb_bonus][1];
             setBonusUsed();
         }
+         */
+        current_bonus = (current_bonus + 1) % nb_bonus;
+        xBonus = coordsBonus[current_bonus][0];
+        yBonus = coordsBonus[current_bonus][1];
     }
 
     public DIRECTION nextWay(Monster monster) {
@@ -122,8 +132,11 @@ public class BonusStrat implements Strategy{
         y = monster.getY();
 
         //searchBonusSpirale();
+        //System.out.println(monster.getSize());
+        //System.out.println("X : "+x +  " " + xBonus);
+        //System.out.println("Y : "+y +  " " + yBonus);
 
-        if(x != xBonus && y != yBonus){
+        if(abs(x - xBonus) > monster.getSize() || abs(y - yBonus) > monster.getSize()){
             int xVector = xBonus - x;
             int yVector = yBonus - y;
 

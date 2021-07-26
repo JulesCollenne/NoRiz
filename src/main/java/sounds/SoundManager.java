@@ -28,8 +28,8 @@ public class SoundManager {
      * Load the sounds we'll be using
      */
     private void loadSounds(){
+        String sample_song = "/sounds/music.mp3";
         try {
-
             Media sound = new Media(new File("src/main/resources/sounds/space callithrix jacchus.mp3").toURI().toString());
             backGround = new MediaPlayer(sound);
 
@@ -42,7 +42,7 @@ public class SoundManager {
 
         }catch (MediaException e){
             e.printStackTrace();
-            System.out.println("Ce son n'existe pas !");
+            //System.out.println("Ce son n'existe pas !");
         }
     }
 

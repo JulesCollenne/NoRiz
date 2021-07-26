@@ -120,7 +120,7 @@ public class StartMenuState extends GameState{
     public void init() {
         //System.out.println(gsm.bestScore);
         createScene();
-        gsm.sm.menu.play();
+        //gsm.sm.menu.play();
     }
 
     public void nextStep() {

@@ -74,7 +74,7 @@ public abstract class PlayState extends GameState {
     }
 
     public void init(){
-        gsm.sm.menu.stop();
+        //gsm.sm.menu.stop();
         firstRender = true;
         initMyData();
         noriz.init();
@@ -83,7 +83,7 @@ public abstract class PlayState extends GameState {
             monster.init();
         }
 
-        gsm.sm.backGround.play();
+        //gsm.sm.backGround.play();
     }
 
     private void initMyData(){
@@ -135,7 +135,6 @@ public abstract class PlayState extends GameState {
             return;
 
         long timer = getTimer();
-
 
         if(timer <= 0 && !firstRender) {
             if(!gsm.isEditorTest)
