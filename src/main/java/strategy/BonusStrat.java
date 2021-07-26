@@ -145,7 +145,7 @@ public class BonusStrat implements Strategy{
         //System.out.println("X : "+x +  " " + xBonus);
         //System.out.println("Y : "+y +  " " + yBonus);
         long current_time_milli = System.currentTimeMillis();
-        System.out.println(current_time_milli/1000. - bonus_timer/1000.);
+        //System.out.println(current_time_milli/1000. - bonus_timer/1000.);
 
         if ((abs(x - xBonus) < monster.getSize() && abs(y - yBonus) < monster.getSize()) || current_time_milli/1000. - bonus_timer/1000. > 15.) {
             targetNewBonus();
