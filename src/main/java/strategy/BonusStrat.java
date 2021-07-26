@@ -4,11 +4,18 @@ import entity.Monster;
 import utils.*;
 import worldBuilder.World;
 
+import java.util.Timer;
+
 import static java.lang.Math.abs;
 
 
 /**
  * Calcule l'angle entre le monstre et le bonus le plus proche, choisit le chemin possible le plus proche de l'angle.
+ *
+ * Parfois, le chat reste bloqué à un endroit car l'usage de l'angle comme seule indication pour lé direction à prendre
+ * n'est pas bon.
+ * Correctif temporaire : Utiliser un timer qui change de bonus à cibler au bout d'un certain temps
+ * Ce qu'il faut changer : Utiliser Dijkstra ou autre méthode qui prend en compte les chemins
  */
 
 
@@ -18,6 +25,7 @@ public class BonusStrat implements Strategy{
     private static int xBonus,yBonus;
     private static int[][] coordsBonus = new int[10][2];
     private static int nb_bonus,current_bonus;
+    private static long bonus_timer = 0;
 
     public BonusStrat(World world) {
         this.world = world;
@@ -26,6 +34,7 @@ public class BonusStrat implements Strategy{
         searchBonus();
         xBonus = coordsBonus[0][0];
         yBonus = coordsBonus[0][1];
+        bonus_timer = System.currentTimeMillis();
         setBonusUsed();
         //affiche();
     }
@@ -135,8 +144,16 @@ public class BonusStrat implements Strategy{
         //System.out.println(monster.getSize());
         //System.out.println("X : "+x +  " " + xBonus);
         //System.out.println("Y : "+y +  " " + yBonus);
+        long current_time_milli = System.currentTimeMillis();
+        System.out.println(current_time_milli/1000. - bonus_timer/1000.);
 
-        if(abs(x - xBonus) > monster.getSize() || abs(y - yBonus) > monster.getSize()){
+        if ((abs(x - xBonus) < monster.getSize() && abs(y - yBonus) < monster.getSize()) || current_time_milli/1000. - bonus_timer/1000. > 15.) {
+            targetNewBonus();
+            //System.out.println("Bonus Target " + xBonus + " " + yBonus);
+            bonus_timer = current_time_milli;
+            return DIRECTION.STOP;
+        }
+        else {
             int xVector = xBonus - x;
             int yVector = yBonus - y;
 
@@ -224,11 +241,6 @@ public class BonusStrat implements Strategy{
                     }
                 }
             }
-        }
-        else {
-            targetNewBonus();
-            //System.out.println("Bonus Target " + xBonus + " " + yBonus);
-            return DIRECTION.STOP;
         }
         return DIRECTION.STOP;
     }
