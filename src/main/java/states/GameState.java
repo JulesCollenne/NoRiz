@@ -17,7 +17,7 @@ public abstract class GameState {
         this.gsm = gsm;
     }
 
-    public abstract void nextStep();
+    public abstract void nextStep(double deltaTime);
 
     /**
      * Gere les entrées au clavier lorsqu'une touche est appuyée
@@ -36,13 +36,15 @@ public abstract class GameState {
 
                 long elapsedNanos = currentNanoTime - lastTime ;
                 //System.out.println("FPS : " + 1000000000. / elapsedNanos);
+                // System.out.println(elapsedNanos / 1000000000.);
+                double deltaTime = elapsedNanos / 10000000.;
 
                 //if(timer % 2 == 0){
                   //  timer ++;
                     //return;
                 //}
                 // game logic
-                nextStep();
+                nextStep(deltaTime);
 
                 // render
                 render(gc);

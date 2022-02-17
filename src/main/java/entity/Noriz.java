@@ -60,7 +60,8 @@ public class Noriz extends Entity {
     /**
      * Compute the next position
      */
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
+        int deltaMove = (int) Math.round(deltaTime * speed);
         /*sous l'effet du malus freeze, le joueur ne bouge pas pendant un laps de temps*/
         if(frozen > 0){
             setNextFacing(DIRECTION.STOP);
@@ -121,16 +122,16 @@ public class Noriz extends Entity {
         }
         switch (facing) {
             case DOWN:
-                tryMove(0, speed);
+                tryMove(0, deltaMove);
                 break;
             case UP:
-                tryMove(0, -speed);
+                tryMove(0, -deltaMove);
                 break;
             case LEFT:
-                tryMove(-speed, 0);
+                tryMove(-deltaMove, 0);
                 break;
             case RIGHT:
-                tryMove(speed, 0);
+                tryMove(deltaMove, 0);
                 break;
         }
 

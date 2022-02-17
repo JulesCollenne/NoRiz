@@ -123,7 +123,7 @@ public class StartMenuState extends GameState{
         //gsm.sm.menu.play();
     }
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

@@ -88,5 +88,4 @@ public class Collider{
 
         return coords;
     }
-
 }

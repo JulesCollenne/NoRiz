@@ -80,7 +80,9 @@ public class EditorState extends GameState {
             public void handle(long currentNanoTime)
             {
                 // game logic
-                nextStep();
+                long elapsedNanos = currentNanoTime - lastTime ;
+                double deltaTime = elapsedNanos / 10000000.;
+                nextStep(deltaTime);
                 // render
                 render(gc);
             }
@@ -97,7 +99,7 @@ public class EditorState extends GameState {
     }
 
     @Override
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

@@ -121,7 +121,7 @@ public class OptionsState extends GameState{
     public void init() {
     }
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

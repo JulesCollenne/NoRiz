@@ -24,7 +24,7 @@ public class PauseState extends GameState {
         createAnimTimer();
     }
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

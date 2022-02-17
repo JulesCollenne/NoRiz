@@ -59,7 +59,8 @@ public class Monster extends Entity{
         lastAnim++;
     }
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
+        int deltaMove = (int) Math.round(deltaTime * speed);
         //if(name.equals("cat_follow_")){
         /* 2 joueurs
         if(true){
@@ -106,13 +107,12 @@ public class Monster extends Entity{
                 facing = nextFacing;
                 nextFacing = DIRECTION.STOP;
             }
-            //test002114
 
             switch (facing) {
-                case DOWN -> tryMove(0, speed);
-                case UP -> tryMove(0, -speed);
-                case LEFT -> tryMove(-speed, 0);
-                case RIGHT -> tryMove(speed, 0);
+                case DOWN -> tryMove(0, deltaMove);
+                case UP -> tryMove(0, -deltaMove);
+                case LEFT -> tryMove(-deltaMove, 0);
+                case RIGHT -> tryMove(deltaMove, 0);
             }
             timerStrat++;
         }

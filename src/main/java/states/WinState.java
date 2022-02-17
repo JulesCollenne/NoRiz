@@ -21,7 +21,7 @@ public class WinState extends GameState {
     }
 
     @Override
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

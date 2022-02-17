@@ -129,7 +129,7 @@ public abstract class PlayState extends GameState {
     }
 
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
         if(myData.nbLife <= 0)
             return;
@@ -145,9 +145,9 @@ public abstract class PlayState extends GameState {
 
         checkCollisions();
 
-        noriz.nextStep();
+        noriz.nextStep(deltaTime);
         for (Monster monster : monsters) {
-            monster.nextStep();
+            monster.nextStep(deltaTime);
             //if(monster.getFacing() == STOP)
                 //System.out.println(monster.name + " : " + monster.getFacing());
         }
@@ -285,6 +285,12 @@ public abstract class PlayState extends GameState {
                 break;
             case C:
                 noriz.setSize(noriz.getSize()*2);
+                break;
+            case V:
+                noriz.speed++;
+                break;
+            case B:
+                noriz.speed--;
                 break;
                 /*
                             case UP:

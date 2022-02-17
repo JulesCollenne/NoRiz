@@ -295,7 +295,7 @@ public class CinematiqueState extends GameState{
 
 
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 

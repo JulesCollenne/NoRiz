@@ -68,6 +68,30 @@ public abstract class Entity {
         size = choosenSize;
     }
 
+    public int[] findPossibleMove(int dx, int dy) {
+        int[] possibleCoords = new int[2];
+        int sigx = (int) -Math.signum(dx);
+        int sigy = (int) -Math.signum(dy);
+        int[][] nextCoords;
+        for(int i = dx; i != 0; i+=sigx){
+            nextCoords = getNextCoords(i, dy);
+            if (!collider.collide(nextCoords)){
+                possibleCoords[0] = i;
+                possibleCoords[1] = dy;
+                return possibleCoords;
+            }
+        }
+        for(int i = dy; i != 0; i+=sigy){
+            nextCoords = getNextCoords(dx, i);
+            if (!collider.collide(nextCoords)){
+                possibleCoords[0] = dx;
+                possibleCoords[1] = i;
+                return possibleCoords;
+            }
+        }
+        return null;
+    }
+
     /**
      * move if it's possible, do nothing otherwise
      * @param dx next x
@@ -75,10 +99,15 @@ public abstract class Entity {
      *
      */
     void tryMove(int dx, int dy) {
-
-        if(collider.collide(getNextCoords(dx, dy)) && ghost == 0)
+        int[][] nextCoords = getNextCoords(dx, dy);
+        int[] newDeltas;
+        if(collider.collide(nextCoords) && ghost == 0) {
+            newDeltas = findPossibleMove(dx, dy);
+            if (newDeltas == null)
+                return;
+            move(newDeltas[0], newDeltas[1]);
             return;
-
+        }
         move(dx, dy);
     }
 

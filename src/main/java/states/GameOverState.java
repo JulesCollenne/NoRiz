@@ -20,7 +20,7 @@ public class GameOverState extends GameState {
         createAnimTimer();
     }
 
-    public void nextStep() {
+    public void nextStep(double deltaTime) {
 
     }
 
