@@ -93,6 +93,12 @@ public class StartMenuState extends GameState{
         arcade.setLayoutY((80/100.0)*Utils.canvasSize);
         arcade.handler(gsm);
 
+        ModeButton multi = new ModeButton(
+                new Image(World.class.getResource("/Buttons/sign_multi.png").toString()), "Multi");
+        multi.setLayoutX(XPositionForlayouts);
+        multi.setLayoutY((60 / 100.0) * Utils.canvasSize);
+        multi.handler(gsm);
+
         Text bestScore = new Text();
         bestScore.setLayoutX(arcade.getLayoutX());
         bestScore.setLayoutY(arcade.getLayoutY()+120);
@@ -111,7 +117,7 @@ public class StartMenuState extends GameState{
         options.setLayoutY(-15);
         options.handler(gsm);
 
-        layout.getChildren().addAll(options, easy, medium, hard, skin, editor, arcade, bestScore);
+        layout.getChildren().addAll(options, easy, medium, hard, multi, skin, editor, arcade, bestScore);
 
 
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
