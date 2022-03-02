@@ -42,7 +42,7 @@ public class SoundManager {
 
         }catch (MediaException e){
             e.printStackTrace();
-            //System.out.println("Ce son n'existe pas !");
+            System.out.println("Il y a un problème avec le son !");
         }
     }
 
