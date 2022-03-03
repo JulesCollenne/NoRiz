@@ -17,6 +17,7 @@ public abstract class Entity {
     int spawnX;
     int spawnY;
     public int speed;
+    int initialSpeed;
     int size;
 
     DIRECTION facing = DIRECTION.STOP;
@@ -54,6 +55,12 @@ public abstract class Entity {
     public void resetPosition(){
         x = spawnX;
         y = spawnY;
+    }
+
+    public void init(){
+        frozen = 0;
+        ghost = 0;
+        size = Utils.caseDimension;
     }
 
     /**

@@ -27,10 +27,11 @@ public class Noriz extends Entity {
         super(collider, initialX, initialY);
 
         speed = initialSpeed;
-        invulnerable = 0;
-        frozen = 0;
-        reversed = 0;
-        isSmall = 0;
+        this.initialSpeed = initialSpeed;
+//        invulnerable = 0;
+//        frozen = 0;
+//        reversed = 0;
+//        isSmall = 0;
 
         nbImgAnim = 2;
         animSpeed = 10;
@@ -45,6 +46,7 @@ public class Noriz extends Entity {
      * Initialise les variables. Used when the game starts
      */
     public void init(){
+        super.init();
         x = spawnX;
         y = spawnY;
 
@@ -52,6 +54,10 @@ public class Noriz extends Entity {
         lastAnim = 0;
         invulnerable = 0;
         leaveWall = false;
+        frozen = 0;
+        reversed = 0;
+        isSmall = 0;
+        speed = initialSpeed;
         nextFacing = DIRECTION.STOP;
         facing = DIRECTION.STOP;
     }

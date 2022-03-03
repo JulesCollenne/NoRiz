@@ -141,6 +141,7 @@ public class GameStateManager{
             currentState = STORY;
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
+        gameStates[currentState].lastTime = System.nanoTime();
         gameStates[currentState].animationTimer.start();
     }
 

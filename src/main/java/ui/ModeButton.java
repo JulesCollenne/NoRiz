@@ -49,6 +49,7 @@ public class ModeButton extends Button {
                     gsm.difficulty = EASY;
                     //gsm.sm.backGround.stop();
                     gsm.isEditorTest = false;
+                    gsm.noriz.init();
                     gsm.changeState(START);
                     break;
                 case "Editor":
