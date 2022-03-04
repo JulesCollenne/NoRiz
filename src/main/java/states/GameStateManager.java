@@ -33,7 +33,7 @@ public class GameStateManager{
 
     public boolean isEditorTest = false;
     SoundManager sm = new SoundManager();
-    Monster[] monsters = new Monster[4];
+    public Monster[] monsters = new Monster[4];
 
     public DIF difficulty = DIF.EASY;
 
@@ -109,6 +109,7 @@ public class GameStateManager{
         theStage.setScene(gameStates[currentState].theScene);
         theStage.show();
         //if(currentState != PLAY)
+        gameStates[currentState].lastTime = System.nanoTime();
         gameStates[currentState].animationTimer.start();
         //else
             //gameStates[currentState].animationTimer2.play();
@@ -216,6 +217,12 @@ public class GameStateManager{
         }
 
 
+    }
+
+    public void initMonsters(){
+        for (Monster monster : monsters){
+            monster.init();
+        }
     }
 
 

@@ -50,6 +50,7 @@ public class ModeButton extends Button {
                     //gsm.sm.backGround.stop();
                     gsm.isEditorTest = false;
                     gsm.noriz.init();
+                    gsm.initMonsters();
                     gsm.changeState(START);
                     break;
                 case "Editor":
