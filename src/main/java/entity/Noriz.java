@@ -183,6 +183,9 @@ public class Noriz extends Entity {
     public int getReversed(){
         return reversed;
     }
+    public int getIsSmall(){
+        return isSmall;
+    }
 
     public String getSkin(){return skin;}
     public void setInvulnerable(int invulnerable){this.invulnerable = invulnerable;}

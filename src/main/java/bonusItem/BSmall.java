@@ -14,15 +14,18 @@ public class BSmall implements CollectableItem {
 
     @Override
     public void effect(Noriz noriz) {
-        noriz.setIsSmall(500);
-        noriz.setSize(noriz.getSize()/2);
-        noriz.speed++;
+        noriz.setIsSmall(noriz.getIsSmall()+500);
+        if (noriz.getIsSmall() == 500) {
+            noriz.setSize(noriz.getSize() / 2);
+            noriz.speed++;
+        }
     }
 
     @Override
     public void effect(Monster[] monsters) {
 
     }
+
 
     @Override
     public void effect(Noriz noriz, Monster[] monsters) {
