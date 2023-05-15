@@ -94,7 +94,7 @@ public class StartMenuState extends GameState{
         arcade.handler(gsm);
 
         ModeButton multi = new ModeButton(
-                new Image(World.class.getResource("/Buttons/sign_multi.png").toString()), "Multi");
+                new Image(World.class.getResource("/Buttons/sign_arcade.png").toString()), "Multi");
         multi.setLayoutX(XPositionForlayouts);
         multi.setLayoutY((60 / 100.0) * Utils.canvasSize);
         multi.handler(gsm);
@@ -126,7 +126,7 @@ public class StartMenuState extends GameState{
     public void init() {
         //System.out.println(gsm.bestScore);
         createScene();
-        //gsm.sm.menu.play();
+        gsm.sm.menu.play();
     }
 
     public void nextStep(double deltaTime) {

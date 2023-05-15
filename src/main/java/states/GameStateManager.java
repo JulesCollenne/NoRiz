@@ -32,7 +32,7 @@ public class GameStateManager{
 
 
     public boolean isEditorTest = false;
-    SoundManager sm = new SoundManager();
+    public SoundManager sm = new SoundManager();
     public Monster[] monsters = new Monster[4];
 
     public DIF difficulty = DIF.EASY;

@@ -19,3 +19,6 @@ Window extends Application
         new GameStateManager(theStage);
     }
 }
+
+//TODO Bug : quand on prend 2 bonus, il y a des effets nul. Genre 2 bonus petit faiut que l'oin est bloqué en forme petite
+// TODO Bug : le mode arcade reprend le dernier thème de graphiquem utilisé (un peu cheloiu, ça devrait pas etre le cas)

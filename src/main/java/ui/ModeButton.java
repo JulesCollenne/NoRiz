@@ -46,6 +46,7 @@ public class ModeButton extends Button {
                     gsm.reprendreJeu();
                     break;
                 case "Menu":
+                    gsm.sm.backGround.stop();
                     gsm.difficulty = EASY;
                     //gsm.sm.backGround.stop();
                     gsm.isEditorTest = false;
