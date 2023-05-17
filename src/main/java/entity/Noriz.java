@@ -149,7 +149,6 @@ public class Noriz extends Entity {
      */
     public void render(GraphicsContext gc)
     {
-
         gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , size, size);
 
         if(lastAnim == animSpeed) {

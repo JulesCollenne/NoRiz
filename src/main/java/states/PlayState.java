@@ -209,6 +209,7 @@ public abstract class PlayState extends GameState {
     }
 
     private void playerTouched(){
+        gsm.sm.hurt.play();
         resetPosition();
         resetFrozen();
         myData.nbLife--;
