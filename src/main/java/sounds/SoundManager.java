@@ -30,15 +30,15 @@ public class SoundManager {
     private void loadSounds(){
         String sample_song = "/sounds/music.mp3";
         try {
-            Media sound = new Media(new File("src/main/resources/sounds/space callithrix jacchus.mp3").toURI().toString());
+            Media sound = new Media(getClass().getResource("/sounds/space callithrix jacchus.mp3").toString());
             backGround = new MediaPlayer(sound);
             backGround.setCycleCount(MediaPlayer.INDEFINITE);
 
-            Media hurtSound = new Media(new File("src/main/resources/sounds/jam.mp3").toURI().toString());
+            Media hurtSound = new Media(getClass().getResource("/sounds/jam.mp3").toString());
             hurt = new MediaPlayer(hurtSound);
             hurt.setStopTime(new Duration(1000));
 
-            Media menuMedia = new Media(new File("src/main/resources/sounds/Nouveau son.mp3").toURI().toString());
+            Media menuMedia = new Media(getClass().getResource("/sounds/Nouveau son.mp3").toString());
             menu = new MediaPlayer(menuMedia);
             menu.setCycleCount(MediaPlayer.INDEFINITE);
 
