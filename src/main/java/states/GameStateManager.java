@@ -13,6 +13,7 @@ import worldBuilder.World;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 import static utils.Utils.*;
@@ -164,29 +165,29 @@ public class GameStateManager{
 
     private void manageSaveFile(){
 
-        File saveFile = new File("src/main/resources/save/saveFile");
-
         try {
+//            File saveFile = new File(getClass().getResource("/save/saveFile").toURI());
+            File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+            File saveFile = new File(jarFile.getParent(), "saveFile");
+//            InputStream in = getClass().getClassLoader().getResourceAsStream("/save/saveFile");
+//            InputStream saveFile = getClass().getResourceAsStream("/save/saveFile");
             if(saveFile.createNewFile()){
-
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(saveFile)));
                 writer.write("B_S = 0\nP_S = 0\nV_M = 20\nV_E = 20");
                 writer.close();
-
                 bestScore = 0;
                 storyProgress = 0;
                 volume_effet = 20;
                 volume_musique = 20;
-
             }
             else{
-
                 getSaveProgress();
-
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -194,9 +195,18 @@ public class GameStateManager{
     private void getSaveProgress(){
 
         try {
-            FileInputStream file = new FileInputStream("src/main/resources/save/saveFile");
+            File file = new File("saveFile");
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                    System.out.println("File created: " + file.getAbsolutePath());
+                } catch (IOException e) {
+                    System.err.println("Error creating the file: " + e.getMessage());
+                }
+            }
+            FileInputStream fileInputStream = new FileInputStream("saveFile");
 
-            Scanner sc = new Scanner(file);
+            Scanner sc = new Scanner(fileInputStream);
 
             while (sc.hasNextLine()) {
 

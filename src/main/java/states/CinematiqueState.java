@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import worldBuilder.World;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -186,7 +187,7 @@ public class CinematiqueState extends GameState{
      * Permet d'initialiser la cinématique selon le niveau actuel
      *
      */
-    private void getCinematiqueData(){
+    private void getCinematiqueData() {
 
         getBackgroundImage();
 
@@ -223,29 +224,32 @@ public class CinematiqueState extends GameState{
 
         dialogList.clear();
 
-        try {
-            FileInputStream file;
-            switch (gsm.difficulty) {
-                case EASY -> file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
-                case MEDIUM -> file = new FileInputStream("src/main/resources/cinematiques/dialog_MEDIUM.txt");
-                case HARD -> file = new FileInputStream("src/main/resources/cinematiques/dialog_HARD.txt");
-                default -> {
-                    file = new FileInputStream("src/main/resources/cinematiques/dialog_EASY.txt");
-                    gsm.changeState(1);
-                }
+        String fileName;
+
+        switch (gsm.difficulty) {
+            case EASY -> fileName = "/cinematiques/dialog_EASY.txt";
+            case MEDIUM -> fileName = "/cinematiques/dialog_MEDIUM.txt";
+            case HARD -> fileName = "/cinematiques/dialog_HARD.txt";
+            default -> {
+                fileName = "/cinematiques/dialog_EASY.txt";
+                gsm.changeState(1);
             }
+        }
 
+        InputStream inputStream = getClass().getResourceAsStream(fileName);
+
+        if (inputStream != null) {
+            BufferedReader file = new BufferedReader(new InputStreamReader(inputStream));
             Scanner sc = new Scanner(file);
-
             while (sc.hasNextLine()) {
                 String temp = sc.nextLine();
                 //System.out.println(temp);
                 dialogList.add(temp);
             }
-
             sc.close();
+        } else {
+            System.err.println("Resource '"+fileName+"' not found");
         }
-        catch(IOException e) { e.printStackTrace(); }
 
     }
 

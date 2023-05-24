@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import worldBuilder.World;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class OptionsState extends GameState{
@@ -150,7 +151,7 @@ public class OptionsState extends GameState{
 
         FileInputStream file;
         try {
-            file = new FileInputStream("src/main/resources/save/saveFile");
+            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
 
             String fileString = "";
 
@@ -160,20 +161,18 @@ public class OptionsState extends GameState{
 
                 String line = sc.nextLine();
 
-                if (line.substring(0, 3).equals("V_M")) {
+                if (line.startsWith("V_M")) {
 
                     fileString += "V_M = "+new_val+"\n";
 
                 }
                 else{
-
                     fileString += line+"\n";
-
                 }
             }
 
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/resources/save/saveFile"))));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
                 writer.write(fileString);
                 writer.close();
             } catch (IOException e) {
@@ -182,6 +181,8 @@ public class OptionsState extends GameState{
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -197,7 +198,7 @@ public class OptionsState extends GameState{
 
         FileInputStream file;
         try {
-            file = new FileInputStream("src/main/resources/save/saveFile");
+            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
 
             String fileString = "";
 
@@ -207,7 +208,7 @@ public class OptionsState extends GameState{
 
                 String line = sc.nextLine();
 
-                if (line.substring(0, 3).equals("V_E")) {
+                if (line.startsWith("V_E")) {
 
                     fileString += "V_E = "+new_val+"\n";
 
@@ -220,7 +221,7 @@ public class OptionsState extends GameState{
             }
 
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/resources/save/saveFile"))));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
                 writer.write(fileString);
                 writer.close();
             } catch (IOException e) {
@@ -229,6 +230,8 @@ public class OptionsState extends GameState{
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
     }

@@ -4,6 +4,7 @@ import ui.inGameUserInterface;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 
@@ -39,7 +40,7 @@ public class StoryPlayState extends PlayState {
 
         FileInputStream file;
         try {
-            file = new FileInputStream("src/main/resources/save/saveFile");
+            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
 
             String fileString = "";
 
@@ -49,7 +50,7 @@ public class StoryPlayState extends PlayState {
 
                 String line = sc.nextLine();
 
-                if (line.substring(0, 3).equals("P_S")) {
+                if (line.startsWith("P_S")) {
                         switch (gsm.difficulty){
 
                             case EASY:
@@ -74,7 +75,7 @@ public class StoryPlayState extends PlayState {
             }
 
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/resources/save/saveFile"))));
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
                 writer.write(fileString);
                 writer.close();
             } catch (IOException e) {
@@ -83,6 +84,8 @@ public class StoryPlayState extends PlayState {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
     }
