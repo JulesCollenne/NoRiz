@@ -49,29 +49,29 @@ public class World {
             case EASY -> {
                 road = new Image(World.class.getResource("/textures/road1.png").toString());
                 wall = new Image(World.class.getResource("/textures/wall1.png").toString());
-                map = loadMap("src/main/resources/Maps/worldEasy.map");
+                map = loadMap("/Maps/worldEasy.map");
             }
             case MEDIUM -> {
                 road = new Image(World.class.getResource("/textures/road2.png").toString());
                 wall = new Image(World.class.getResource("/textures/wall2.png").toString());
-                map = loadMap("src/main/resources/Maps/worldMedium.map");
+                map = loadMap("/Maps/worldMedium.map");
             }
             case HARD -> {
                 road = new Image(World.class.getResource("/textures/road3.png").toString());
                 wall = new Image(World.class.getResource("/textures/wall3.png").toString());
-                map = loadMap("src/main/resources/Maps/worldHard.map");
+                map = loadMap("/Maps/worldHard.map");
             }
             case ARCADE -> {
                 Random rand2 = new Random();
                 road = new Image(World.class.getResource("/textures/road1.png").toString());
                 wall = new Image(World.class.getResource("/textures/wall1.png").toString());
-                map = loadMap("src/main/resources/Maps/arcade" + rand2.nextInt(nbArcadeMap) + ".map");
+                map = loadMap("/Maps/arcade" + rand2.nextInt(nbArcadeMap) + ".map");
             }
             //map = loadMap("src/main/resources/Maps/arcade2.map");
             default -> {
                 road = new Image("textures/road1.png");
                 wall = new Image("textures/wall1.png");
-                map = loadMap("src/main/resources/Maps/worldEasy.map");
+                map = loadMap("/Maps/worldEasy.map");
             }
         }
         return map;
@@ -170,21 +170,16 @@ public class World {
 
     public WORLDITEM[][] loadMap(String path) {
         WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
-        File file = new File(path);
-        if (file != null) {
-            Scanner scanner;
-            try {
-                scanner = new Scanner(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return null;
-            }
-            for (int i = 0; i < Utils.mapSize; i++){
-                for (int j = 0; j < Utils.mapSize; j++){ //
-                    tempMap[i][j] = intToWorldItem(scanner.nextInt());
-                }
+        Scanner scanner;
+        InputStream inputStream = getClass().getResourceAsStream(path);
+        assert inputStream != null;
+        scanner = new Scanner(inputStream);
+        for (int i = 0; i < Utils.mapSize; i++){
+            for (int j = 0; j < Utils.mapSize; j++){
+                tempMap[i][j] = intToWorldItem(scanner.nextInt());
             }
         }
+        scanner.close();
         return tempMap;
     }
 }
