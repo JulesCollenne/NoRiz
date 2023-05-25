@@ -65,7 +65,7 @@ public class ModeButton extends Button {
                     gsm.changeState(Utils.ARCADE);
                     break;
                 case "Multi":
-                    gsm.changeState(Utils.ARCADE); // TODO Créer un state
+                    gsm.changeState(MULTIMENU);
                     break;
                 case "Niveau_Suivant":
                     if(gsm.difficulty == EASY){
