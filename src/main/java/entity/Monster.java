@@ -20,7 +20,7 @@ public class Monster extends Entity{
 
     private Strategy strat;
 
-    public Monster(int initialX, int initialY, int initialSpeed, Strategy strat, String name, Collider collider){
+    public Monster(int initialX, int initialY, float initialSpeed, Strategy strat, String name, Collider collider){
         super(collider, initialX, initialY);
 
         speed = initialSpeed;

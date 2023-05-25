@@ -1,8 +1,6 @@
 package states;
 
-import utils.Utils;
 import javafx.animation.AnimationTimer;
-
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,11 +13,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import utils.Utils;
 import worldBuilder.World;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -33,7 +34,7 @@ public class CinematiqueState extends GameState{
     private Image backGroundImage;
     private ArrayList<String> dialogList = new ArrayList<>();
 
-    private Image currentTalker = new Image(World.class.getResource("/monsters/catastrophe_droite0.png").toString());
+    private Image currentTalker = new Image(Objects.requireNonNull(World.class.getResource("/monsters/catastrophe_droite0.png")).toString());
 
 
     private double posXDialog;
@@ -41,13 +42,21 @@ public class CinematiqueState extends GameState{
 
     private double posXTalker;
     private double posYTalker;
+    private double sizeTalker;
 
     private Color dialogColor = new Color(1,1,1,1);
+//    private Color dialogColor = Color.rgb(0, 0, 255, 0.5);
 
     CinematiqueState(GameStateManager gsm) {
         super(gsm);
         init();
         createAnimTimer();
+        posXDialog = (20/100.)*Utils.canvasSize;
+        posYDialog = (70/100.)*Utils.canvasSize;
+
+        posXTalker = (1/100.)*Utils.canvasSize;
+        posYTalker = (60/100.)*Utils.canvasSize;
+        sizeTalker = 200;
     }
 
     private void createAnimTimer() {
@@ -62,47 +71,65 @@ public class CinematiqueState extends GameState{
     private void createScene() {
 
         Pane layout = new Pane();
-
         setBackground(layout);
-
         ImageView talker = setTalker();
-
         Rectangle cadreTalking = setCadreTalking(talker);
-
-        posXTalker = talker.getX();
-        posYTalker = talker.getY();
-
+//        posXTalker = talker.getX();
+//        posYTalker = talker.getY();
         Rectangle borderCadreTalking = setBorderCadreTalking(cadreTalking);
-
         Rectangle cadreDialog = setCadreDialog(cadreTalking);
-
         Rectangle borderCadreDialog = setBorderCadreDialog(cadreDialog);
-
         Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         nextDialog(gc);
-
         Image arrow = new Image(World.class.getResource("/cinematiques/arrow.png").toString());
         Button nextDialogButton = setNextDialogButton(cadreDialog, arrow, gc);
-
         HBox hbox = new HBox();
         hbox.setLayoutX((30/100.)*Utils.canvasSize);
         hbox.setLayoutY((95/100.)*Utils.canvasSize);
-
         Text skipInstructions = setSkipInstructions();
-
         hbox.getChildren().add(skipInstructions);
         hbox.setStyle("-fx-border-color: red; -fx-background-color: white;");
-
         posXDialog = cadreDialog.getX() + 30;
         posYDialog = cadreDialog.getY() + 28;
-
         theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
-        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, hbox, canvas, nextDialogButton);
-
+//        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, hbox, canvas, nextDialogButton);
+        layout.getChildren().addAll(cadreDialog, hbox, canvas, nextDialogButton);
 
         theScene.setOnKeyPressed(
                 this::keyInput);
+    }
+
+    /**
+     * Affiche le prochain dialogue
+     */
+    private void nextDialog(GraphicsContext gc){
+        if(!dialogList.isEmpty()) {
+            String temp = dialogList.get(0);
+            dialogList.remove(0);
+
+            switch (temp.substring(0, 2)) {
+                case "N " ->
+                        currentTalker = new Image(World.class.getResource("/Player/nori_droite0.png").toString());      // Image de noriz a terme
+                case "M " ->
+                        currentTalker = new Image(World.class.getResource("/monsters/catastrophe_gauche0.png").toString());      // Meilleur image de monstre a terme
+            }
+
+            String currentDialog = temp.substring(2);
+
+            gc.setFill(dialogColor);
+            gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
+//            gc.fillRect(posXTalker, posYTalker, 50, 50); //TODO ce serait mieux de mettre des variabels globales
+
+            gc.setFill(Color.BLACK);
+            gc.setFont(javafx.scene.text.Font.font("Arial", 20));
+            gc.fillText(currentDialog, posXDialog, posYDialog);
+
+            gc.drawImage(currentTalker, posXTalker, posYTalker, sizeTalker, sizeTalker);
+        }
+        else{
+            gsm.changeState(1);
+        }
     }
 
     private Text setSkipInstructions() {
@@ -188,11 +215,8 @@ public class CinematiqueState extends GameState{
      *
      */
     private void getCinematiqueData() {
-
         getBackgroundImage();
-
         getDialog();
-
     }
 
 
@@ -202,7 +226,6 @@ public class CinematiqueState extends GameState{
      *
      */
     private void getBackgroundImage(){
-
         switch (gsm.difficulty) {
             case EASY -> backGroundImage = new Image(World.class.getResource("/cinematiques/background_EASY.jpg").toString());
             case MEDIUM -> backGroundImage = new Image(World.class.getResource("/cinematiques/background_MEDIUM.jpg").toString());
@@ -252,51 +275,6 @@ public class CinematiqueState extends GameState{
         }
 
     }
-
-
-    /**
-     *
-     * Affiche le prochain dialogue
-     *
-     */
-    private void nextDialog(GraphicsContext gc){
-
-        if(!dialogList.isEmpty()) {
-            String temp = dialogList.get(0);
-            dialogList.remove(0);
-
-            switch (temp.substring(0, 2)){
-
-                case "N ":
-                    currentTalker = new Image(World.class.getResource("/Player/nori_droite0.png").toString());      // Image de noriz a terme
-                    break;
-
-                case "M ":
-                    currentTalker = new Image(World.class.getResource("/monsters/catastrophe_gauche0.png").toString());      // Meilleur image de monstre a terme
-                    break;
-
-            }
-
-            String currentDialog = temp.substring(2);
-
-            gc.setFill(dialogColor);
-            gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
-            gc.fillRect(posXTalker, posYTalker, 50, 50); //TODO ce serait mieux de mettre des variabels globales
-
-            gc.setFill(Color.BLACK);
-            gc.setFont(new Font(20));
-            gc.fillText(currentDialog,posXDialog, posYDialog);
-
-            gc.drawImage(currentTalker, posXTalker, posYTalker);
-
-        }
-        else{
-            gsm.changeState(1);
-        }
-
-    }
-
-
 
 
     public void nextStep(double deltaTime) {

@@ -21,6 +21,7 @@ import worldBuilder.World;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class OptionsState extends GameState{
@@ -46,7 +47,7 @@ public class OptionsState extends GameState{
         Color color = Color.WHITE;
         layout.setStyle("-fx-background-color: darkslategrey;");
 
-        double tempWidth = new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth();
+        double tempWidth = new Image(Objects.requireNonNull(World.class.getResource("/Buttons/sign_menu.png")).toString()).getWidth();
 
         Text title = new Text("Option");
         title.setX(Utils.canvasSize/2.0- 75);
@@ -104,7 +105,7 @@ public class OptionsState extends GameState{
 
         soundEffect.valueProperty().addListener((observableValue, old_val, new_val) -> setEffectVolume(new_val.intValue()));
 
-        ModeButton retour = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
+        ModeButton retour = new ModeButton(new Image(Objects.requireNonNull(World.class.getResource("/Buttons/sign_menu.png")).toString()), "Menu");
         retour.setLayoutX(10);
         retour.setLayoutY(10);
         retour.handler(gsm);
@@ -129,9 +130,7 @@ public class OptionsState extends GameState{
     @Override
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
-            case ESCAPE:
-                gsm.changeState(0);
-                break;
+            case ESCAPE -> gsm.changeState(0);
         }
     }
 
@@ -151,9 +150,9 @@ public class OptionsState extends GameState{
 
         FileInputStream file;
         try {
-            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
+            file = new FileInputStream(Objects.requireNonNull(getClass().getResource("./saveFile")).toURI().getPath());
 
-            String fileString = "";
+            StringBuilder fileString = new StringBuilder();
 
             Scanner sc = new Scanner(file);
 
@@ -163,17 +162,17 @@ public class OptionsState extends GameState{
 
                 if (line.startsWith("V_M")) {
 
-                    fileString += "V_M = "+new_val+"\n";
+                    fileString.append("V_M = ").append(new_val).append("\n");
 
                 }
                 else{
-                    fileString += line+"\n";
+                    fileString.append(line).append("\n");
                 }
             }
 
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
-                writer.write(fileString);
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./saveFile")));
+                writer.write(fileString.toString());
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -188,41 +187,33 @@ public class OptionsState extends GameState{
     }
 
     void setEffectVolume(int new_val){
-
         gsm.sm.setSoundVolume(new_val);
         saveEffectVolume(new_val);
-
     }
 
     void saveEffectVolume(int new_val){
 
         FileInputStream file;
         try {
-            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
+            file = new FileInputStream(Objects.requireNonNull(getClass().getResource("./saveFile")).toURI().getPath());
 
-            String fileString = "";
+            StringBuilder fileString = new StringBuilder();
 
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
-
                 String line = sc.nextLine();
-
                 if (line.startsWith("V_E")) {
-
-                    fileString += "V_E = "+new_val+"\n";
-
+                    fileString.append("V_E = ").append(new_val).append("\n");
                 }
                 else{
-
-                    fileString += line+"\n";
-
+                    fileString.append(line).append("\n");
                 }
             }
 
             try {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
-                writer.write(fileString);
+                writer.write(fileString.toString());
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();

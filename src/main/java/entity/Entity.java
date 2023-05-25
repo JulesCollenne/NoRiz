@@ -16,8 +16,8 @@ public abstract class Entity {
     int y;
     int spawnX;
     int spawnY;
-    public int speed;
-    int initialSpeed;
+    public float speed;
+    float initialSpeed;
     int size;
 
     DIRECTION facing = DIRECTION.STOP;

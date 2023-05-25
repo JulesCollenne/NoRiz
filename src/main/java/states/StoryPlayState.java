@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -25,7 +26,6 @@ public class StoryPlayState extends PlayState {
 
     @Override
     void manageScore() {
-        return;
     }
 
     public void render(GraphicsContext gc){
@@ -40,9 +40,9 @@ public class StoryPlayState extends PlayState {
 
         FileInputStream file;
         try {
-            file = new FileInputStream(getClass().getResource("/save/saveFile").toURI().getPath());
+            file = new FileInputStream(Objects.requireNonNull(getClass().getResource("./saveFile")).toURI().getPath());
 
-            String fileString = "";
+            StringBuilder fileString = new StringBuilder();
 
             Scanner sc = new Scanner(file);
 
@@ -51,32 +51,22 @@ public class StoryPlayState extends PlayState {
                 String line = sc.nextLine();
 
                 if (line.startsWith("P_S")) {
-                        switch (gsm.difficulty){
-
-                            case EASY:
-                                fileString += "P_S = 0\n";
-                                break;
-
-                            case MEDIUM:
-                                fileString += "P_S = 1\n";
-                                break;
-
-                            case HARD:
-                                fileString += "P_S = 2\n";
-                                break;
-
-                        }
+                    switch (gsm.difficulty) {
+                        case EASY -> fileString.append("P_S = 0\n");
+                        case MEDIUM -> fileString.append("P_S = 1\n");
+                        case HARD -> fileString.append("P_S = 2\n");
+                    }
                 }
                 else{
 
-                    fileString += line+"\n";
+                    fileString.append(line).append("\n");
 
                 }
             }
 
             try {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("/save/saveFile"))));
-                writer.write(fileString);
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./saveFile")));
+                writer.write(fileString.toString());
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -23,7 +23,7 @@ public class Noriz extends Entity {
     /**
      * Constructor
      */
-    public Noriz(Collider collider, int initialX, int initialY, int initialSpeed){
+    public Noriz(Collider collider, int initialX, int initialY, float initialSpeed){
         super(collider, initialX, initialY);
 
         speed = initialSpeed;
@@ -107,13 +107,13 @@ public class Noriz extends Entity {
             if(collider.collide(coords)) {
                 squareToGo = Utils.getCanvasCoords(collider.closestRoad(getCenterX(), getCenterY()));
                 if (squareToGo[0] > getCenterX())
-                    nextX = speed;
+                    nextX = Math.round(speed);
                 if (squareToGo[0] < getCenterX())
-                    nextX = -speed;
+                    nextX = -Math.round(speed);
                 if (squareToGo[1] > getCenterY())
-                    nextY = speed;
+                    nextY = Math.round(speed);
                 if (squareToGo[1] < getCenterY())
-                    nextY = -speed;
+                    nextY = -Math.round(speed);
 
                 move(nextX, nextY);
                 return;
@@ -127,18 +127,10 @@ public class Noriz extends Entity {
             nextFacing = DIRECTION.STOP;
         }
         switch (facing) {
-            case DOWN:
-                tryMove(0, deltaMove);
-                break;
-            case UP:
-                tryMove(0, -deltaMove);
-                break;
-            case LEFT:
-                tryMove(-deltaMove, 0);
-                break;
-            case RIGHT:
-                tryMove(deltaMove, 0);
-                break;
+            case DOWN -> tryMove(0, deltaMove);
+            case UP -> tryMove(0, -deltaMove);
+            case LEFT -> tryMove(-deltaMove, 0);
+            case RIGHT -> tryMove(deltaMove, 0);
         }
 
     }
