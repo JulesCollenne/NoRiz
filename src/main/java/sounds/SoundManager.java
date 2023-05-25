@@ -7,9 +7,8 @@ import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-import worldBuilder.World;
 
-import java.io.File;
+import java.util.Objects;
 
 public class SoundManager {
 
@@ -28,17 +27,17 @@ public class SoundManager {
      * Load the sounds we'll be using
      */
     private void loadSounds(){
-        String sample_song = "/sounds/music.mp3";
+//        String sample_song = "/sounds/music.mp3";
         try {
-            Media sound = new Media(getClass().getResource("/sounds/space callithrix jacchus.mp3").toString());
+            Media sound = new Media(Objects.requireNonNull(getClass().getResource("/sounds/space callithrix jacchus.mp3")).toString());
             backGround = new MediaPlayer(sound);
             backGround.setCycleCount(MediaPlayer.INDEFINITE);
 
-            Media hurtSound = new Media(getClass().getResource("/sounds/jam.mp3").toString());
+            Media hurtSound = new Media(Objects.requireNonNull(getClass().getResource("/sounds/jam.mp3")).toString());
             hurt = new MediaPlayer(hurtSound);
             hurt.setStopTime(new Duration(1000));
 
-            Media menuMedia = new Media(getClass().getResource("/sounds/Nouveau son.mp3").toString());
+            Media menuMedia = new Media(Objects.requireNonNull(getClass().getResource("/sounds/Nouveau son.mp3")).toString());
             menu = new MediaPlayer(menuMedia);
             menu.setCycleCount(MediaPlayer.INDEFINITE);
 

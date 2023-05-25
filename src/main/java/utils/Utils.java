@@ -25,7 +25,7 @@ public class Utils {
     public static final int WIN = 9;
     public static final int EDITORPLAY = 10;
     public static final int MULTIMENU = 11;
-    public static int nbStates = 11;
+    public static int nbStates = 12;
     
     public static int worldItemToInt(WORLDITEM worlditem){
         switch(worlditem){
