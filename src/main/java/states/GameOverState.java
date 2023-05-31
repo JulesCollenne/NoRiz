@@ -44,28 +44,28 @@ public class GameOverState extends GameState {
 
 
         Text title = new Text("Game Over !");
-        title.setX(Utils.canvasSize/2.0- 175);
-        title.setY(Utils.canvasSize/3);
+        title.setX(Utils.canvasWidth/2.0- 175);
+        title.setY(Utils.canvasHeight/3.0);
         title.setFont(new Font(45));
         title.setFill(color);
         title.setStyle("-fx-font-weight: bold");
 
         ModeButton rejouer = new ModeButton(new Image(World.class.getResource("/Buttons/sign_rejouer.png").toString()), "Rejouer");
-        rejouer.setLayoutX(((Utils.canvasSize/2)/2) - (tempWidth/2));
-        rejouer.setLayoutY(Utils.canvasSize/2);
-        rejouer.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
+        rejouer.setLayoutX(((Utils.canvasWidth/2)/2.) - (tempWidth/2));
+        rejouer.setLayoutY(Utils.canvasHeight/2.);
+        rejouer.setMaxSize((20 /100.0)*Utils.canvasWidth,(10 /100.0)*Utils.canvasHeight);
         rejouer.handler(gsm);
 
         ModeButton menu = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
-        menu.setLayoutX( ((2*Utils.canvasSize) - (Utils.canvasSize/2))/2 - (tempWidth/2));
-        menu.setLayoutY(Utils.canvasSize/2);
+        menu.setLayoutX( ((2*Utils.canvasWidth) - (Utils.canvasWidth/2))/2. - (tempWidth/2));
+        menu.setLayoutY(Utils.canvasHeight/2.);
         menu.handler(gsm);
 
 
 
         layout.getChildren().addAll(rejouer, menu, title);
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
     }
 
     private void createAnimTimer() {

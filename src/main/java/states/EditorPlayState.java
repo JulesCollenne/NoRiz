@@ -29,7 +29,7 @@ public class EditorPlayState extends PlayState {
 
         if(firstRender){
             startTimer = System.nanoTime();
-            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
+            gc.clearRect(0,0,Utils.canvasWidth,Utils.canvasHeight);
             firstRender = false;
             worldRender.renderMap(gc, map, false);
         }

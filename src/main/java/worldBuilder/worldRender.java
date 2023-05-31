@@ -46,51 +46,39 @@ public class worldRender {
      */
     public static void renderItem(int posX, int posY, WORLDITEM item, GraphicsContext gc, boolean isEditor) {
 
-        switch(item){
-
-            case ROAD:
-                gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                break;
-
-            case WALL:
-                gc.drawImage(World.wall, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                break;
-
-            case RICE:
-                gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.drawImage(World.rice, posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
-                break;
-
-            case BONUS:
-                gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                gc.drawImage(World.bonus[(posY > (mapSize/2) ? 0 : 1)], posX*caseDimension + caseDimension/3.0, posY*caseDimension + caseDimension/3.0, caseDimension/2.,caseDimension/2.);
-                break;
-
-            case UI:
+        switch (item) {
+            case ROAD ->
+                    gc.drawImage(World.road, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+            case WALL ->
+                    gc.drawImage(World.wall, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+            case RICE -> {
+                gc.drawImage(World.road, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+                gc.drawImage(World.rice, posX * caseWidth + caseWidth / 3.0, posY * caseHeight + caseHeight / 3.0, caseWidth / 2., caseHeight / 2.);
+            }
+            case BONUS -> {
+                gc.drawImage(World.road, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+                gc.drawImage(World.bonus[(posY > (mapHeight / 2) ? 0 : 1)], posX * caseWidth + caseWidth / 3.0, posY * caseHeight + caseHeight / 3.0, caseWidth / 2., caseHeight / 2.);
+            }
+            case UI -> {
                 gc.setFill(Color.DARKGRAY);
-                gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
-                break;
-
-            case SPAWN_MONSTER:
-                if(isEditor){
+                gc.fillRect(posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+            }
+            case SPAWN_MONSTER -> {
+                if (isEditor) {
                     gc.setFill(Color.RED);
-                    gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                    gc.fillRect(posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+                } else {
+                    gc.drawImage(World.road, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
                 }
-                else{
-                    gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                }
-                break;
-
-            case SPAWN_PLAYER:
-                if(isEditor){
+            }
+            case SPAWN_PLAYER -> {
+                if (isEditor) {
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(posX*caseDimension, posY*caseDimension, caseDimension,caseDimension);
+                    gc.fillRect(posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
+                } else {
+                    gc.drawImage(World.road, posX * caseWidth, posY * caseHeight, caseWidth, caseHeight);
                 }
-                else{
-                    gc.drawImage(World.road, posX*caseDimension, posY*caseDimension, caseDimension, caseDimension);
-                }
-                break;
-
+            }
         }
     }
 

@@ -47,7 +47,7 @@ public class EditorState extends GameState {
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
 
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+        Canvas canvas = new Canvas(canvasWidth, canvasHeight);
 
         root.getChildren().addAll(canvas);
 
@@ -66,8 +66,8 @@ public class EditorState extends GameState {
         imV.setFitWidth(100);
         Button test = new Button();
         test.setStyle("-fx-border-width: 0; -fx-background-color: transparent; -fx-border-color: transparent; -fx-background-radius: 0");
-        test.setLayoutX(Utils.canvasSize - im.getWidth()+40);
-        test.setLayoutY(Utils.caseDimension+10);
+        test.setLayoutX(canvasWidth - im.getWidth()+40);
+        test.setLayoutY(caseHeight+10);
         test.setGraphic(imV);
 
         test.setOnAction(e -> playOnCurrentMap());
@@ -106,35 +106,19 @@ public class EditorState extends GameState {
     @Override
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
-            case A:
-                setPosingBlock(ROAD);
-                break;
-            case Z:
-                setPosingBlock(WALL);
-                break;
-            case E:
-                setPosingBlock(BONUS);
-                break;
-            case R:
-                setPosingBlock(RICE);
-                break;
-            case P:
-                setPosingBlock(SPAWN_PLAYER);
-                break;
-            case M:
-                setPosingBlock(SPAWN_MONSTER);
-                break;
-            case S:
-                saveMap();
-                break;
-            case L:
+            case A -> setPosingBlock(ROAD);
+            case Z -> setPosingBlock(WALL);
+            case E -> setPosingBlock(BONUS);
+            case R -> setPosingBlock(RICE);
+            case P -> setPosingBlock(SPAWN_PLAYER);
+            case M -> setPosingBlock(SPAWN_MONSTER);
+            case S -> saveMap();
+            case L -> {
                 loadMap();
                 nbSpawnMonster = 4;
                 nbSpawnPlayer = 1;
-                break;
-            case ESCAPE:
-                gsm.changeState(0);
-                break;
+            }
+            case ESCAPE -> gsm.changeState(0);
         }
     }
 
@@ -161,7 +145,7 @@ public class EditorState extends GameState {
         int x = (int) e.getX();
         int y = (int) e.getY();
 
-        int coords[] = Utils.getSquareMouse(x,y);
+        int[] coords = Utils.getSquareMouse(x,y);
 
         if(isCorrect(coords)) {
             if(manageSpawn(coords)) {
@@ -174,7 +158,7 @@ public class EditorState extends GameState {
      * Check if the coords of the mouse are not outside the window
      */
     private boolean isCorrect(int[] coords) {
-        return coords[0] >= 0 && coords[1] >= 2 && coords[0] < Utils.mapSize && coords[1] < Utils.mapSize;
+        return coords[0] >= 0 && coords[1] >= 2 && coords[0] < Utils.mapWidth && coords[1] < Utils.mapHeight;
     }
 
 
@@ -272,8 +256,8 @@ public class EditorState extends GameState {
         int nbSpP = 0;
         int nbSpM = 0;
 
-        for(int i=0; i<Utils.mapSize; i++){
-            for(int j=0; j<Utils.mapSize; j++){
+        for(int i=0; i<Utils.mapWidth; i++){
+            for(int j=0; j<Utils.mapHeight; j++){
 
                 /*
                 if(j > 1 && i < mapSize-1 && buildingMap[i][j] != WALL){
@@ -329,8 +313,8 @@ public class EditorState extends GameState {
 
         WORLDITEM[][] tempMap = copyMap(buildingMap);
 
-        for(int i=0; i<Utils.mapSize; i++) {
-            for (int j = 0; j < Utils.mapSize; j++) {
+        for(int i=0; i<Utils.mapWidth; i++) {
+            for (int j = 0; j < mapHeight; j++) {
 
                 if(tempMap[i][j] == SPAWN_PLAYER){
 
@@ -339,8 +323,8 @@ public class EditorState extends GameState {
             }
         }
 
-        for(int i=0; i<Utils.mapSize; i++) {
-            for (int j = 0; j < Utils.mapSize; j++) {
+        for(int i=0; i<Utils.mapWidth; i++) {
+            for (int j = 0; j < Utils.mapHeight; j++) {
                 if(tempMap[i][j] == RICE || tempMap[i][j] == SPAWN_MONSTER){
                     return false;
                 }
@@ -359,14 +343,14 @@ public class EditorState extends GameState {
 
         tempMap[i][j] = WALL;
 
-        if(tempMap[i][(j+1) % mapSize] != WALL)
-            search(tempMap, i, (j+1) % mapSize);
-        if(tempMap[i][(((j-1) % mapSize) + mapSize) % mapSize] != WALL)
-            search(tempMap, i, (((j-1) % mapSize) + mapSize) % mapSize);
-        if(tempMap[(((i-1) % mapSize) + mapSize) % mapSize][j] != WALL)
-            search(tempMap, (((i-1) % mapSize) + mapSize) % mapSize, j);
-        if(tempMap[(i+1) % mapSize][j] != WALL)
-            search(tempMap, (i+1) % mapSize, j);
+        if(tempMap[i][(j+1) % mapHeight] != WALL)
+            search(tempMap, i, (j+1) % mapHeight);
+        if(tempMap[i][(((j-1) % mapHeight) + mapHeight) % mapHeight] != WALL)
+            search(tempMap, i, (((j-1) % mapHeight) + mapHeight) % mapHeight);
+        if(tempMap[(((i-1) % mapWidth) + mapWidth) % mapWidth][j] != WALL)
+            search(tempMap, (((i-1) % mapWidth) + mapWidth) % mapWidth, j);
+        if(tempMap[(i+1) % mapWidth][j] != WALL)
+            search(tempMap, (i+1) % mapWidth, j);
 
     }
 

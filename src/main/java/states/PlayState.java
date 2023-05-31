@@ -56,7 +56,7 @@ public abstract class PlayState extends GameState {
         Group root = new Group();
         theScene = new Scene( root );
         root.setStyle("-fx-background-color: darkslategrey;");
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+        Canvas canvas = new Canvas(Utils.canvasWidth, Utils.canvasHeight);
 
         root.getChildren().addAll(canvas);
 
@@ -96,12 +96,12 @@ public abstract class PlayState extends GameState {
 
         int nbRice = 0;
 
-        for (int i = 0; i < Utils.mapSize; i++){
-            for (int j = 0; j < Utils.mapSize; j++){ //
+        for (int i = 0; i < Utils.mapWidth; i++){
+            for (int j = 0; j < Utils.mapHeight; j++){ //
                 if(myData.map[i][j] == WORLDITEM.RICE)
                     nbRice++;
                 if(myData.map[i][j] == WORLDITEM.SPAWN_PLAYER) {
-                    gsm.noriz.setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
+                    gsm.noriz.setSpawn(i*Utils.caseWidth, j*Utils.caseHeight);
                 }
             }
         }
@@ -110,10 +110,10 @@ public abstract class PlayState extends GameState {
 
         int k = 0;
         while(k<monsters.length){
-            for (int i = 0; i < Utils.mapSize; i++) {
-                for (int j = 0; j < Utils.mapSize; j++) { //
+            for (int i = 0; i < Utils.mapWidth; i++) {
+                for (int j = 0; j < Utils.mapHeight; j++) { //
                     if (myData.map[i][j] == WORLDITEM.SPAWN_MONSTER) {
-                        gsm.monsters[k].setSpawn(i*Utils.caseDimension, j*Utils.caseDimension);
+                        gsm.monsters[k].setSpawn(i*Utils.caseWidth, j*Utils.caseHeight);
                         k++;
                     }
                 }
@@ -125,6 +125,7 @@ public abstract class PlayState extends GameState {
     }
 
     private void returnToEditor(){
+        gsm.sm.backGround.stop();
         gsm.returnToEditor();
     }
 
@@ -237,62 +238,57 @@ public abstract class PlayState extends GameState {
     @Override
     public void keyInput(KeyEvent e) {
         switch (e.getCode()) {
-            case Q:
-                if(noriz.getReversed() > 0)
+            case Q -> {
+                if (noriz.getReversed() > 0)
                     noriz.setNextFacing(RIGHT);
                 else
                     noriz.setNextFacing(LEFT);
-                break;
-            case D:
-                if(noriz.getReversed() > 0)
+            }
+            case D -> {
+                if (noriz.getReversed() > 0)
                     noriz.setNextFacing(LEFT);
                 else
                     noriz.setNextFacing(RIGHT);
-                break;
-            case S:
-                if(noriz.getReversed() > 0)
+            }
+            case S -> {
+                if (noriz.getReversed() > 0)
                     noriz.setNextFacing(UP);
                 else
                     noriz.setNextFacing(DOWN);
-                break;
-            case Z:
-                if(noriz.getReversed() > 0)
+            }
+            case Z -> {
+                if (noriz.getReversed() > 0)
                     noriz.setNextFacing(DOWN);
                 else
                     noriz.setNextFacing(UP);
-                break;
-            case SPACE:
-                if(!gsm.isEditorTest)
+            }
+            case SPACE -> {
+                if (!gsm.isEditorTest)
                     pause();
                 else
                     returnToEditor();
-                break;
-            case ESCAPE:
-                if(!gsm.isEditorTest)
+            }
+            case ESCAPE -> {
+                if (!gsm.isEditorTest)
                     pause();
                 else
                     returnToEditor();
-                break;
-            case A:
-                System.out.println("Easter_egg_nul.png");
-                break;
-            case W:
-                noriz.setTimeGhosted(200);
-                break;
-            case X:
+            }
+            case A -> System.out.println("Easter_egg_nul.png");
+            case W -> noriz.setTimeGhosted(200);
+            case X -> {
                 noriz.setIsSmall(50);
                 noriz.speed++;
-                noriz.setSize(noriz.getSize()/2);
-                break;
-            case C:
-                noriz.setSize(noriz.getSize()*2);
-                break;
-            case V:
-                noriz.speed++;
-                break;
-            case B:
-                noriz.speed--;
-                break;
+                noriz.setWidth(noriz.getWidth() / 2);
+                noriz.setHeight(noriz.getHeight() / 2);
+            }
+            case C -> {
+                noriz.setWidth(noriz.getWidth() * 2);
+                noriz.setHeight(noriz.getHeight() * 2);
+            }
+            case V -> noriz.speed++;
+            case B -> noriz.speed--;
+
                 /*
                             case UP:
                 for(int i=0;i<4;i++)
@@ -318,7 +314,7 @@ public abstract class PlayState extends GameState {
     public void render(GraphicsContext gc){
         if(firstRender){
             startTimer = System.nanoTime();
-            gc.clearRect(0,0,Utils.canvasSize,Utils.canvasSize);
+            gc.clearRect(0,0,Utils.canvasWidth,Utils.canvasHeight);
             firstRender = false;
             worldRender.renderMap(gc, map, false);
         }

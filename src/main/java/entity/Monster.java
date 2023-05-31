@@ -20,8 +20,8 @@ public class Monster extends Entity{
 
     private Strategy strat;
 
-    public Monster(int initialX, int initialY, float initialSpeed, Strategy strat, String name, Collider collider){
-        super(collider, initialX, initialY);
+    public Monster(int initialX, int initialY, float initialSpeed, Strategy strat, String name, Collider collider, String chosenName){
+        super(collider, initialX, initialY, chosenName);
 
         speed = initialSpeed;
         this.strat = strat;
@@ -50,7 +50,7 @@ public class Monster extends Entity{
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , size, size);
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , width, height);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % nbImgAnim;

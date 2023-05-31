@@ -44,7 +44,7 @@ public class WinState extends GameState {
         Color color;
 
         Text title = new Text("Victoire !");
-        title.setX(Utils.canvasSize/2.0 - 100);
+        title.setX(Utils.canvasWidth/2.0 - 100);
         title.setY(90);
         title.setFont(new Font(45));
         color = Color.WHITE;
@@ -54,18 +54,18 @@ public class WinState extends GameState {
 
         ModeButton menu = new ModeButton(new Image(World.class.getResource("/Buttons/sign_menu.png").toString()), "Menu");
         menu.setLayoutX((new Image(World.class.getResource("/Buttons/sign_return_menu.png").toString()).getWidth()/2));
-        menu.setLayoutY((40/100.0)*Utils.canvasSize);
+        menu.setLayoutY((40/100.0)*Utils.canvasHeight);
         menu.handler(gsm);
 
         ModeButton niveau_suivant = new ModeButton(new Image(World.class.getResource("/Buttons/sign_niveau_suivant.png").toString()), "Niveau_Suivant");
-        niveau_suivant.setLayoutX( (((2*Utils.canvasSize)/3.0) + Utils.canvasSize)/2 - (new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth()/2));
-        niveau_suivant.setLayoutY((40/100.0)*Utils.canvasSize);
-        niveau_suivant.setMaxSize((20 /100.0)*Utils.canvasSize,(10 /100.0)*Utils.canvasSize);
+        niveau_suivant.setLayoutX( (((2*Utils.canvasWidth)/3.0) + Utils.canvasWidth)/2 - (new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth()/2));
+        niveau_suivant.setLayoutY((40/100.0)*Utils.canvasHeight);
+        niveau_suivant.setMaxSize((20 /100.0)*Utils.canvasWidth,(10 /100.0)*Utils.canvasHeight);
         niveau_suivant.handler(gsm);
 
         layout.getChildren().addAll(niveau_suivant, menu, title);
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
 
     }
 

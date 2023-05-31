@@ -2,6 +2,7 @@ package states;
 
 import ui.inGameUserInterface;
 import javafx.scene.canvas.GraphicsContext;
+import worldBuilder.World;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -40,7 +41,7 @@ public class StoryPlayState extends PlayState {
 
         FileInputStream file;
         try {
-            file = new FileInputStream(Objects.requireNonNull(getClass().getResource("./saveFile")).toURI().getPath());
+            file = new FileInputStream(Objects.requireNonNull(getClass().getResource("/saveFile")).toURI().getPath());
 
             StringBuilder fileString = new StringBuilder();
 

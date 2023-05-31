@@ -23,8 +23,8 @@ public class Noriz extends Entity {
     /**
      * Constructor
      */
-    public Noriz(Collider collider, int initialX, int initialY, float initialSpeed){
-        super(collider, initialX, initialY);
+    public Noriz(Collider collider, int initialX, int initialY, float initialSpeed, String chosenName){
+        super(collider, initialX, initialY, chosenName);
 
         speed = initialSpeed;
         this.initialSpeed = initialSpeed;
@@ -81,7 +81,8 @@ public class Noriz extends Entity {
         if(isSmall > 0){
             isSmall --;
             if(isSmall == 0) {
-                setSize(this.getSize() * 2);
+                setWidth(this.getWidth() * 2);
+                setHeight(this.getHeight() * 2);
                 speed--;
                 leaveWall = true;
             }
@@ -101,8 +102,8 @@ public class Noriz extends Entity {
         }
 
         if(leaveWall){
-            int coords[][] = getCoords();
-            int squareToGo[];
+            int[][] coords = getCoords();
+            int[] squareToGo;
             int nextX = 0, nextY = 0;
             if(collider.collide(coords)) {
                 squareToGo = Utils.getCanvasCoords(collider.closestRoad(getCenterX(), getCenterY()));
@@ -141,7 +142,7 @@ public class Noriz extends Entity {
      */
     public void render(GraphicsContext gc)
     {
-        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , size, size);
+        gc.drawImage( image[Utils.toInt(facing)][animTime], x, y , width, height);
 
         if(lastAnim == animSpeed) {
             animTime = (animTime + 1) % 2;

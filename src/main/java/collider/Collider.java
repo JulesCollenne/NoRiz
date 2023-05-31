@@ -10,7 +10,7 @@ import worldBuilder.World;
  */
 public class Collider{
 
-    private World world;
+    private final World world;
 
     public Collider(World world) {
         this.world = world;
@@ -33,7 +33,7 @@ public class Collider{
     /**
      * Return true is the square is in a wall
      */
-    public boolean collide(int coords[][]){
+    public boolean collide(int[][] coords){
         for(int i = 0; i < 4; i++){
             if(isInWall(coords[i][0], coords[i][1]))
                 return true;
@@ -42,7 +42,7 @@ public class Collider{
     }
 
     private boolean isInWall(int x, int y){
-        int coord[] = Utils.getSquare(x, y);
+        int[] coord = Utils.getSquare(x, y);
         return world.map[coord[0]][coord[1]] == WORLDITEM.WALL;
     }
 
@@ -53,7 +53,7 @@ public class Collider{
      * @return true if x,y is in a wall
      */
     public boolean isPossible(int x, int y) {
-        int coords[] = Utils.getSquare(x,y);
+        int[] coords = Utils.getSquare(x,y);
         return world.map[coords[0]][coords[1]] != WORLDITEM.WALL;
     }
 
@@ -64,19 +64,23 @@ public class Collider{
      * @return true if e1 and e2 touch, false otherwise
      */
     public boolean isTouching(Entity e1, Entity e2){
-        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getSize()/3 + e2.getSize()/3;
+        if (Utils.distance(e1.getCenterX(), e1.getCenterY(), e2.getCenterX(), e2.getCenterY()) <= e1.getHitCircle() / 3. + e2.getHitCircle() / 3.){
+            System.out.println(e1.getName());
+            System.out.println(e2.getName());
+        }
+        return Utils.distance(e1.getCenterX(),e1.getCenterY(),e2.getCenterX(),e2.getCenterY()) <= e1.getHitCircle()/3. + e2.getHitCircle()/3.;
     }
 
     public int[] closestRoad(int x, int y){
 
         int[] playerCoords = Utils.getSquare(x,y);
 
-        int coords[] = new int[2];
+        int[] coords;
 
-        double[][] distances = new double[Utils.mapSize][Utils.mapSize];
+        double[][] distances = new double[Utils.mapWidth][Utils.mapHeight];
 
-        for(int i = 0; i < Utils.mapSize; i++){
-            for(int j = 0; j < Utils.mapSize; j++){
+        for(int i = 0; i < Utils.mapWidth; i++){
+            for(int j = 0; j < Utils.mapHeight; j++){
                 if(world.map[i][j] != WORLDITEM.WALL && world.map[i][j] != WORLDITEM.UI)
                     distances[i][j] = Utils.distance(playerCoords[0], playerCoords[1], i, j);
                 else

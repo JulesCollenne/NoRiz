@@ -4,6 +4,7 @@ import bonusItem.*;
 import collider.Collider;
 import entity.Monster;
 import entity.Noriz;
+import javafx.scene.image.Image;
 import sounds.SoundManager;
 import strategy.*;
 import ui.inGameUserInterface;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static utils.Utils.*;
@@ -28,7 +30,7 @@ public class GameStateManager{
     World world = new World();
 
     Collider collider = new Collider(world);
-    public Noriz noriz = new Noriz(collider, caseDimension,caseDimension*3,1.5F);
+    public Noriz noriz = new Noriz(collider, caseWidth,caseHeight*3,playerSpeed, "NoRiz");
     CollectableItem[] collectableItems = new CollectableItem[6];
 
 
@@ -50,6 +52,8 @@ public class GameStateManager{
     public int volume_musique;
     public int volume_effet;
 
+    Image icon;
+
     //
 
     public GameStateManager(Stage theStage){
@@ -63,6 +67,8 @@ public class GameStateManager{
         createMonsters();
         createBonuses();
 
+        icon = new Image(Objects.requireNonNull(getClass().getResource("/noriz.png")).toString());
+
         inGameUserInterface ui = new inGameUserInterface();
         gameStates[START] = new StartMenuState(this);
         gameStates[STORY] = new StoryPlayState(this, ui);
@@ -75,6 +81,7 @@ public class GameStateManager{
         gameStates[WIN] = new WinState(this);
         gameStates[ARCADE] = new ArcadeState(this, ui);
         gameStates[EDITORPLAY] = new EditorPlayState(this, ui);
+        gameStates[MULTIMENU] = new MultiMenuState(this);
 
         changeState(START);
     }
@@ -108,6 +115,9 @@ public class GameStateManager{
         }
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         //if(currentState != PLAY)
         gameStates[currentState].lastTime = System.nanoTime();
@@ -123,14 +133,21 @@ public class GameStateManager{
         world.build(map);
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].animationTimer.start();
     }
     void returnToEditor(){
         isEditorTest = false;
         gameStates[currentState].animationTimer.stop();
+
         currentState = EDITOR;
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].animationTimer.start();
     }
@@ -142,6 +159,9 @@ public class GameStateManager{
         else
             currentState = STORY;
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].lastTime = System.nanoTime();
         gameStates[currentState].animationTimer.start();
@@ -155,12 +175,11 @@ public class GameStateManager{
 
         //monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
         //Monstre RandomStrat
-        float monstersSpeed = 1.5F;
 
-        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), monstersSpeed, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
-        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), monstersSpeed, new RandomStrat(), "cat_random_", collider);                                                     //Monstre RandomStrat
-        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), monstersSpeed, new BonusStrat(world), "cat_bonus_", collider);                                                //Monstre BonusStrat
-        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), monstersSpeed, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider);                                                 //Monstre RandomStrat
+        monsters[0] = new Monster(10 * caseWidth, 10 * caseHeight + (2*caseHeight), monsterSpeed, new AngleStrat(noriz), "cat_follow_", collider, "Cat1");                                              //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseWidth, 11 * caseHeight + (2*caseHeight), monsterSpeed, new RandomStrat(), "cat_random_", collider, "Cat2");                                                     //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseWidth, 10 * caseHeight + (2*caseHeight), monsterSpeed, new BonusStrat(world), "cat_bonus_", collider, "Cat3");                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseWidth, 10* caseHeight + (2*caseHeight), monsterSpeed, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider, "Cat3");                                                 //Monstre RandomStrat
     }
 
 

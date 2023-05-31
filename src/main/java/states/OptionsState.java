@@ -50,7 +50,7 @@ public class OptionsState extends GameState{
         double tempWidth = new Image(Objects.requireNonNull(World.class.getResource("/Buttons/sign_menu.png")).toString()).getWidth();
 
         Text title = new Text("Option");
-        title.setX(Utils.canvasSize/2.0- 75);
+        title.setX(Utils.canvasWidth/2.0- 75);
         title.setY(90);
         title.setFont(new Font(45));
         title.setFill(color);
@@ -114,7 +114,7 @@ public class OptionsState extends GameState{
 
         layout.getChildren().addAll(sound, title, retour);
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
 
         theScene.setOnKeyPressed(
                 this::keyInput);

@@ -51,11 +51,11 @@ public class CinematiqueState extends GameState{
         super(gsm);
         init();
         createAnimTimer();
-        posXDialog = (20/100.)*Utils.canvasSize;
-        posYDialog = (70/100.)*Utils.canvasSize;
+        posXDialog = (20/100.)*Utils.canvasWidth;
+        posYDialog = (70/100.)*Utils.canvasHeight;
 
-        posXTalker = (1/100.)*Utils.canvasSize;
-        posYTalker = (60/100.)*Utils.canvasSize;
+        posXTalker = (1/100.)*Utils.canvasWidth;
+        posYTalker = (60/100.)*Utils.canvasHeight;
         sizeTalker = 200;
     }
 
@@ -79,20 +79,20 @@ public class CinematiqueState extends GameState{
         Rectangle borderCadreTalking = setBorderCadreTalking(cadreTalking);
         Rectangle cadreDialog = setCadreDialog(cadreTalking);
         Rectangle borderCadreDialog = setBorderCadreDialog(cadreDialog);
-        Canvas canvas = new Canvas(Utils.canvasSize, Utils.canvasSize);
+        Canvas canvas = new Canvas(Utils.canvasWidth, Utils.canvasHeight);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         nextDialog(gc);
         Image arrow = new Image(World.class.getResource("/cinematiques/arrow.png").toString());
         Button nextDialogButton = setNextDialogButton(cadreDialog, arrow, gc);
         HBox hbox = new HBox();
-        hbox.setLayoutX((30/100.)*Utils.canvasSize);
-        hbox.setLayoutY((95/100.)*Utils.canvasSize);
+        hbox.setLayoutX((30/100.)*Utils.canvasWidth);
+        hbox.setLayoutY((95/100.)*Utils.canvasHeight);
         Text skipInstructions = setSkipInstructions();
         hbox.getChildren().add(skipInstructions);
         hbox.setStyle("-fx-border-color: red; -fx-background-color: white;");
         posXDialog = cadreDialog.getX() + 30;
         posYDialog = cadreDialog.getY() + 28;
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
 //        layout.getChildren().addAll(borderCadreTalking, cadreTalking, borderCadreDialog, cadreDialog, hbox, canvas, nextDialogButton);
         layout.getChildren().addAll(cadreDialog, hbox, canvas, nextDialogButton);
 
@@ -118,7 +118,7 @@ public class CinematiqueState extends GameState{
             String currentDialog = temp.substring(2);
 
             gc.setFill(dialogColor);
-            gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasSize, 30);
+            gc.fillRect(posXDialog, posYDialog-25, (70/100.)*Utils.canvasWidth, 30);
 //            gc.fillRect(posXTalker, posYTalker, 50, 50); //TODO ce serait mieux de mettre des variabels globales
 
             gc.setFill(Color.BLACK);
@@ -164,7 +164,7 @@ public class CinematiqueState extends GameState{
         Rectangle cadreDialog = new Rectangle();
         cadreDialog.setX(cadreTalking.getX()+cadreTalking.getWidth()+5);
         cadreDialog.setY(cadreTalking.getY());
-        cadreDialog.setWidth((80/100.)*Utils.canvasSize - currentTalker.getWidth());
+        cadreDialog.setWidth((80/100.)*Utils.canvasWidth - currentTalker.getWidth());
         cadreDialog.setHeight(cadreTalking.getHeight());
         cadreDialog.setFill(dialogColor);
         return cadreDialog;
@@ -192,13 +192,13 @@ public class CinematiqueState extends GameState{
 
     private ImageView setTalker() {
         ImageView talker = new ImageView(currentTalker);
-        talker.setX((8/100.)*Utils.canvasSize);
-        talker.setY((70/100.)*Utils.canvasSize);
+        talker.setX((8/100.)*Utils.canvasWidth);
+        talker.setY((70/100.)*Utils.canvasHeight);
         return talker;
     }
 
     private void setBackground(Pane layout) {
-        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasWidth, Utils.canvasHeight, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
     }

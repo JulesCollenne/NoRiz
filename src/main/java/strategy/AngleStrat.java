@@ -36,8 +36,9 @@ public class AngleStrat implements Strategy {
 
     public DIRECTION nextWay(Monster monster) {
 
-        int vectorX = noriz.getX() - monster.getX();
-        int vectorY = noriz.getY() - monster.getY();
+
+        int vectorX = noriz.getCenterX() - monster.getCenterX();
+        int vectorY = noriz.getCenterY() - monster.getCenterY();
 
         int x = monster.getX();
         int y = monster.getY();
@@ -49,42 +50,40 @@ public class AngleStrat implements Strategy {
 
         DIRECTION currentWay = monster.getFacing();
 
-        if(currentWay == DIRECTION.UP && !monster.collider.isPossible(x+1, y - Utils.caseDimension+1)){
-            if(monster.collider.isPossible(x - Utils.caseDimension+1, y+1))
-                return DIRECTION.LEFT;
-            else if(monster.collider.isPossible(x + Utils.caseDimension+1, y+1))
-                return DIRECTION.RIGHT;
-            else
-                return DIRECTION.DOWN;
-        }
-        else if(currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x+1, y + Utils.caseDimension+1)){
-            if(monster.collider.isPossible(x - Utils.caseDimension+1, y+1))
-                return DIRECTION.LEFT;
-            else if(monster.collider.isPossible(x + Utils.caseDimension+1, y+1))
-                return DIRECTION.RIGHT;
-            else
-                return DIRECTION.UP;
-        }
-        else if(currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseDimension+1, y+1)){
-            if(monster.collider.isPossible(x+1, y - Utils.caseDimension+1))
-                return DIRECTION.UP;
-            else if(monster.collider.isPossible(x+1, y + Utils.caseDimension+1))
-                return DIRECTION.DOWN;
-            else
-                return DIRECTION.RIGHT;
-        }
-        else if(currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseDimension+1, y+1)){
-            if(monster.collider.isPossible(x+1, y - Utils.caseDimension+1))
-                return DIRECTION.UP;
-            else if(monster.collider.isPossible(x+1, y + Utils.caseDimension+1))
-                return DIRECTION.DOWN;
-            else
-                return DIRECTION.LEFT;
-        }
-
-
-
-        if(-0.5 < cos && cos < 0.5) {
+//        if(currentWay == DIRECTION.UP && !monster.collider.isPossible(x+1, y - Utils.caseHeight+1)){
+//            if(monster.collider.isPossible(x - Utils.caseWidth+1, y+1))
+//                return DIRECTION.LEFT;
+//            else if(monster.collider.isPossible(x + Utils.caseWidth+1, y+1))
+//                return DIRECTION.RIGHT;
+//            else
+//                return DIRECTION.DOWN;
+//        }
+//        else if(currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x+1, y + Utils.caseHeight+1)){
+//            if(monster.collider.isPossible(x - Utils.caseWidth+1, y+1))
+//                return DIRECTION.LEFT;
+//            else if(monster.collider.isPossible(x + Utils.caseWidth+1, y+1))
+//                return DIRECTION.RIGHT;
+//            else
+//                return DIRECTION.UP;
+//        }
+//        else if(currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseWidth+1, y+1)){
+//            if(monster.collider.isPossible(x+1, y - Utils.caseHeight+1))
+//                return DIRECTION.UP;
+//            else if(monster.collider.isPossible(x+1, y + Utils.caseHeight+1))
+//                return DIRECTION.DOWN;
+//            else
+//                return DIRECTION.RIGHT;
+//        }
+//        else if(currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseWidth+1, y+1)){
+//            if(monster.collider.isPossible(x+1, y - Utils.caseHeight+1))
+//                return DIRECTION.UP;
+//            else if(monster.collider.isPossible(x+1, y + Utils.caseHeight+1))
+//                return DIRECTION.DOWN;
+//            else
+//                return DIRECTION.LEFT;
+//        }
+        
+        if(-Math.PI/4 < cos && cos < Math.PI/4) {
             if(sin < 0){
                 return DIRECTION.UP;                                                    // Haut
             }
@@ -93,7 +92,7 @@ public class AngleStrat implements Strategy {
             }
 
         }
-        else if(-0.5 < sin && sin < 0.5){
+        else if(-Math.PI/4 < sin && sin < Math.PI/4){
             if(cos < 0) {
                 return DIRECTION.LEFT;                                                  // Gauche
             }
@@ -101,8 +100,8 @@ public class AngleStrat implements Strategy {
                 return DIRECTION.RIGHT;                                                 // Droite
             }
         }
-        else if(cos >= 0.5){
-            if(sin >= 0.5) {
+        else if(cos >= Math.PI/4){
+            if(sin >= Math.PI/4) {
                 if (sin > cos) {
                     return DIRECTION.DOWN;                                              // Bas
                 }
@@ -110,7 +109,7 @@ public class AngleStrat implements Strategy {
                     return DIRECTION.RIGHT;                                             // Droite
                 }
             }
-            else if(sin <= -0.5){
+            else if(sin <= -Math.PI/4){
                 sin = -sin;
                 if (sin > cos) {
                     return DIRECTION.UP;                                                // Haut
@@ -120,9 +119,9 @@ public class AngleStrat implements Strategy {
                 }
             }
         }
-        else if(cos <= -0.5){
+        else if(cos <= -Math.PI/4){
             cos = -cos;
-            if(sin >= 0.5){
+            if(sin >= Math.PI/4){
                 if(sin > cos) {
                     return DIRECTION.DOWN;                                              // Bas
                 }
@@ -130,7 +129,7 @@ public class AngleStrat implements Strategy {
                     return DIRECTION.LEFT;                                              // Gauche
                 }
             }
-            else if(sin <= -0.5){
+            else if(sin <= -Math.PI/4){
                 sin = -sin;
                 if(sin > cos) {
                     return DIRECTION.UP;                                                 // Haut

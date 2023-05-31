@@ -38,7 +38,7 @@ public class StartMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasWidth, Utils.canvasHeight, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
 
@@ -47,56 +47,56 @@ public class StartMenuState extends GameState{
 
         ModeButton easy = new ModeButton(
                 new Image(World.class.getResource("/Buttons/sign_facile.png").toString()), "Facile");
-        easy.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
-        easy.setLayoutY((60/100.0)*Utils.canvasSize);
+        easy.setLayoutX(((Utils.canvasWidth/3.0)/2) - (tempWidth/2));
+        easy.setLayoutY((60/100.0)*Utils.canvasHeight);
         easy.handler(gsm);
 
 
         ModeButton medium;
-        double XPositionForlayouts = ((((2 * Utils.canvasSize) / 3.) + (Utils.canvasSize / 3.)) / 2) - (tempWidth / 2);
+        double XPositionForlayouts = ((((2 * Utils.canvasWidth) / 3.) + (Utils.canvasWidth / 3.)) / 2) - (tempWidth / 2);
         if(gsm.storyProgress >= 1) {
             Image mediumIm = new Image(World.class.getResource("/Buttons/sign_moyen.png").toString());
             medium = new ModeButton(mediumIm, "Medium");
             medium.setLayoutX(XPositionForlayouts);
-            medium.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            medium.setLayoutY((60 / 100.0) * Utils.canvasHeight);
             medium.handler(gsm);
         }
         else{
             Image mediumIm = new Image(World.class.getResource("/Buttons/sign_moyen_lock.png").toString());
             medium = new ModeButton(mediumIm, "Medium");
             medium.setLayoutX(XPositionForlayouts);
-            medium.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            medium.setLayoutY((60 / 100.0) * Utils.canvasHeight);
         }
 
         ModeButton hard;
         if(gsm.storyProgress >= 2) {
             hard = new ModeButton(new Image(World.class.getResource("/Buttons/sign_difficile.png").toString()), "Hard");
-            hard.setLayoutX((((2 * Utils.canvasSize) / 3.) + Utils.canvasSize) / 2 - (tempWidth / 2));
-            hard.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            hard.setLayoutX((((2 * Utils.canvasWidth) / 3.) + Utils.canvasWidth) / 2 - (tempWidth / 2));
+            hard.setLayoutY((60 / 100.0) * Utils.canvasHeight);
             hard.handler(gsm);
         }
         else{
             hard = new ModeButton(new Image(World.class.getResource("/Buttons/sign_difficile_lock.png").toString()), "Hard");
-            hard.setLayoutX((((2 * Utils.canvasSize) / 3.) + Utils.canvasSize) / 2 - (tempWidth / 2));
-            hard.setLayoutY((60 / 100.0) * Utils.canvasSize);
+            hard.setLayoutX((((2 * Utils.canvasWidth) / 3.) + Utils.canvasWidth) / 2 - (tempWidth / 2));
+            hard.setLayoutY((60 / 100.0) * Utils.canvasHeight);
         }
 
         SkinButton skin = new SkinButton(new Image(World.class.getResource("/Player/nori_droite0.png").toString()), "Skin");
-        skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
-        skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
+        skin.setLayoutX(((Utils.canvasWidth/3.0)/2) - (tempWidth/2));
+        skin.setLayoutY((80/100.0)*Utils.canvasHeight - 45);
         skin.handler(gsm);
         //skin.setStyle("-fx-background-color: transparent;");
 
 
         ModeButton arcade = new ModeButton(new Image(World.class.getResource("/Buttons/sign_arcade.png").toString()), "Arcade");
         arcade.setLayoutX(XPositionForlayouts);
-        arcade.setLayoutY((80/100.0)*Utils.canvasSize);
+        arcade.setLayoutY((80/100.0)*Utils.canvasHeight);
         arcade.handler(gsm);
 
         ModeButton multi = new ModeButton(
                 new Image(World.class.getResource("/Buttons/sign_arcade.png").toString()), "Multi");
         multi.setLayoutX(XPositionForlayouts);
-        multi.setLayoutY((60 / 100.0) * Utils.canvasSize);
+        multi.setLayoutY((60 / 100.0) * Utils.canvasHeight);
         multi.handler(gsm);
 
         Text bestScore = new Text();
@@ -107,20 +107,20 @@ public class StartMenuState extends GameState{
         bestScore.setFont(new Font(20));
 
         ModeButton editor = new ModeButton(new Image(World.class.getResource("/Buttons/sign_editeur.png").toString()), "Editor");
-        editor.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
-        editor.setLayoutY((80/100.0)*Utils.canvasSize);
+        editor.setLayoutX( (((2*Utils.canvasWidth)/3.) + Utils.canvasWidth)/2 - (tempWidth/2));
+        editor.setLayoutY((80/100.0)*Utils.canvasHeight);
         editor.handler(gsm);
 
 
         ModeButton options = new ModeButton(new Image(World.class.getResource("/Buttons/sign_options.png").toString()), "Options");
-        options.setLayoutX(Utils.canvasSize - 2.4*(new Image(World.class.getResource("/Buttons/sign_options.png").toString()).getWidth()));
+        options.setLayoutX(Utils.canvasWidth - 2.4*(new Image(World.class.getResource("/Buttons/sign_options.png").toString()).getWidth()));
         options.setLayoutY(-15);
         options.handler(gsm);
 
         layout.getChildren().addAll(options, easy, medium, hard, multi, skin, editor, arcade, bestScore);
 
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
     }
 
     public void init() {

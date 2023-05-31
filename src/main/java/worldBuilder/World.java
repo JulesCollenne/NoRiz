@@ -13,8 +13,6 @@ import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
-import static utils.Utils.mapSize;
-
 /**
  * Cette classe permet de créer les niveaux
  * Les niveaux sont des matrices d'entiers dont les valeurs signifie la présence de vide (0), murs (1) ou consommables (2)
@@ -87,27 +85,26 @@ public class World {
      * @return une map sans les murs sauf les contours et l'ui
      */
     public WORLDITEM[][] makeCleanMap(){
-        WORLDITEM[][] tempMap = new WORLDITEM[mapSize][mapSize];
+        WORLDITEM[][] tempMap = new WORLDITEM[mapWidth][mapHeight];
 
-        for(int i=0; i< mapSize; i++){
-            for(int j=0; j < mapSize; j++){
+        for(int i=0; i< mapWidth; i++){
+            for(int j=0; j < mapHeight; j++){
                 tempMap[i][j] = RICE;
             }
         }
 
-        for(int i = 0; i<mapSize; i++){
+        for(int i = 0; i<mapWidth; i++){
             tempMap[i][2] = WALL;
-            tempMap[i][mapSize-1] = WALL;
+            tempMap[i][mapHeight-1] = WALL;
             tempMap[0][i] = WORLDITEM.WALL;
-            tempMap[mapSize-1][i] = WALL;
+            tempMap[mapWidth-1][i] = WALL;
         }
 
-        for(int i=0; i <mapSize; i++) {
+        for(int i=0; i < mapWidth; i++) {
             for (int j = 0; j < 2; j++) {
                 tempMap[i][j] = UI;
             }
         }
-
         return tempMap;
     }
 
@@ -143,7 +140,7 @@ public class World {
     }
 
     public WORLDITEM[][] loadMap() {
-        WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
+        WORLDITEM[][] tempMap = new WORLDITEM[mapWidth][mapHeight];
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory( new File("/Maps"));
         fileChooser.setTitle("Ouvrir un niveau");
@@ -158,8 +155,8 @@ public class World {
                 e.printStackTrace();
                 return null;
             }
-            for (int i = 0; i < Utils.mapSize; i++){
-                for (int j = 0; j < Utils.mapSize; j++){ //
+            for (int i = 0; i < mapWidth; i++){
+                for (int j = 0; j < mapHeight; j++){ //
                     tempMap[i][j] = intToWorldItem(scanner.nextInt());
                 }
             }
@@ -169,13 +166,13 @@ public class World {
     }
 
     public WORLDITEM[][] loadMap(String path) {
-        WORLDITEM[][] tempMap = new WORLDITEM[Utils.mapSize][Utils.mapSize];
+        WORLDITEM[][] tempMap = new WORLDITEM[mapWidth][mapHeight];
         Scanner scanner;
         InputStream inputStream = getClass().getResourceAsStream(path);
         assert inputStream != null;
         scanner = new Scanner(inputStream);
-        for (int i = 0; i < Utils.mapSize; i++){
-            for (int j = 0; j < Utils.mapSize; j++){
+        for (int i = 0; i < mapWidth; i++){
+            for (int j = 0; j < mapHeight; j++){
                 tempMap[i][j] = intToWorldItem(scanner.nextInt());
             }
         }
