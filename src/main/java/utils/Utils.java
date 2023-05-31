@@ -9,11 +9,16 @@ public class Utils {
 
     public static final int mapWidth = 25; // labyrinthe de size*size case
     public static final int mapHeight = 25; // labyrinthe de size*size case
-    public static final int caseWidth = 16*4; // chaque case du labyrinthe fait dimension*dimension pixel
-    public static final int caseHeight = 9*4; // chaque case du labyrinthe fait dimension*dimension pixel
+//    public static final int caseWidth = 16*4; // chaque case du labyrinthe fait dimension*dimension pixel
+//    public static final int caseHeight = 9*4; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int caseWidth = 30; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int caseHeight = 30; // chaque case du labyrinthe fait dimension*dimension pixel
+
     public static final int canvasWidth = mapWidth * caseWidth;
     public static final int canvasHeight = mapHeight * caseHeight;
     static final int roundDuration = 500; // en seconde
+
+    public static final boolean fullscreen = false;
 
     public static final float playerSpeed = canvasWidth/800F;
     public static final float monsterSpeed = canvasWidth/800F;

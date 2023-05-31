@@ -137,8 +137,8 @@ public class BonusStrat implements Strategy{
 
     public DIRECTION nextWay(Monster monster) {
         int x,y;
-        x = monster.getX();
-        y = monster.getY();
+        x = monster.getCenterX();
+        y = monster.getCenterY();
 
         //searchBonusSpirale();
         //System.out.println(monster.getSize());

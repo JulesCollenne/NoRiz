@@ -4,6 +4,7 @@ import bonusItem.*;
 import collider.Collider;
 import entity.Monster;
 import entity.Noriz;
+import javafx.scene.image.Image;
 import sounds.SoundManager;
 import strategy.*;
 import ui.inGameUserInterface;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static utils.Utils.*;
@@ -50,6 +52,8 @@ public class GameStateManager{
     public int volume_musique;
     public int volume_effet;
 
+    Image icon;
+
     //
 
     public GameStateManager(Stage theStage){
@@ -62,6 +66,8 @@ public class GameStateManager{
 
         createMonsters();
         createBonuses();
+
+        icon = new Image(Objects.requireNonNull(getClass().getResource("/noriz.png")).toString());
 
         inGameUserInterface ui = new inGameUserInterface();
         gameStates[START] = new StartMenuState(this);
@@ -109,6 +115,9 @@ public class GameStateManager{
         }
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         //if(currentState != PLAY)
         gameStates[currentState].lastTime = System.nanoTime();
@@ -124,14 +133,21 @@ public class GameStateManager{
         world.build(map);
         gameStates[currentState].init();
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].animationTimer.start();
     }
     void returnToEditor(){
         isEditorTest = false;
         gameStates[currentState].animationTimer.stop();
+
         currentState = EDITOR;
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].animationTimer.start();
     }
@@ -143,6 +159,9 @@ public class GameStateManager{
         else
             currentState = STORY;
         theStage.setScene(gameStates[currentState].theScene);
+        theStage.getIcons().add(icon);
+        if (fullscreen)
+            theStage.setFullScreen(true);
         theStage.show();
         gameStates[currentState].lastTime = System.nanoTime();
         gameStates[currentState].animationTimer.start();

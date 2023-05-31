@@ -125,6 +125,7 @@ public abstract class PlayState extends GameState {
     }
 
     private void returnToEditor(){
+        gsm.sm.backGround.stop();
         gsm.returnToEditor();
     }
 
