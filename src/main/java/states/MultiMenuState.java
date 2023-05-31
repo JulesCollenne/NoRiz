@@ -36,29 +36,29 @@ public class MultiMenuState extends GameState{
     private void createScene() {
         Pane layout = new Pane();
 
-        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasSize, Utils.canvasSize, true, true, true, false);
+        BackgroundSize backgroundSize = new BackgroundSize(Utils.canvasWidth, Utils.canvasHeight, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(backGroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         layout.setBackground(new Background(backgroundImage));
 
         double tempWidth = new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth();
 
         SkinButton skin = new SkinButton(new Image(World.class.getResource("/Player/nori_droite0.png").toString()), "Skin");
-        skin.setLayoutX(((Utils.canvasSize/3.0)/2) - (tempWidth/2));
-        skin.setLayoutY((80/100.0)*Utils.canvasSize - 45);
+        skin.setLayoutX(((Utils.canvasWidth/3.0)/2) - (tempWidth/2));
+        skin.setLayoutY((80/100.0)*Utils.canvasHeight - 45);
         skin.handler(gsm);
         //skin.setStyle("-fx-background-color: transparent;");
 
-        double XPositionForlayouts = ((((2 * Utils.canvasSize) / 3.) + (Utils.canvasSize / 3.)) / 2) - (tempWidth / 2);
+        double XPositionForlayouts = ((((2 * Utils.canvasWidth) / 3.) + (Utils.canvasWidth / 3.)) / 2) - (tempWidth / 2);
 
         ModeButton arcade = new ModeButton(new Image(World.class.getResource("/Buttons/sign_arcade.png").toString()), "Arcade");
         arcade.setLayoutX(XPositionForlayouts);
-        arcade.setLayoutY((80/100.0)*Utils.canvasSize);
+        arcade.setLayoutY((80/100.0)*Utils.canvasHeight);
         arcade.handler(gsm);
 
         ModeButton multi = new ModeButton(
-                new Image(World.class.getResource("/Buttons/sign_multi.png").toString()), "Multi");
+                new Image(World.class.getResource("/Buttons/sign_moyen.png").toString()), "Multi");
         multi.setLayoutX(XPositionForlayouts);
-        multi.setLayoutY((60 / 100.0) * Utils.canvasSize);
+        multi.setLayoutY((60 / 100.0) * Utils.canvasHeight);
         multi.handler(gsm);
 
         Text bestScore = new Text();
@@ -69,20 +69,20 @@ public class MultiMenuState extends GameState{
         bestScore.setFont(new Font(20));
 
         ModeButton editor = new ModeButton(new Image(World.class.getResource("/Buttons/sign_editeur.png").toString()), "Editor");
-        editor.setLayoutX( (((2*Utils.canvasSize)/3.) + Utils.canvasSize)/2 - (tempWidth/2));
-        editor.setLayoutY((80/100.0)*Utils.canvasSize);
+        editor.setLayoutX( (((2*Utils.canvasWidth)/3.) + Utils.canvasWidth)/2 - (tempWidth/2));
+        editor.setLayoutY((80/100.0)*Utils.canvasHeight);
         editor.handler(gsm);
 
 
         ModeButton options = new ModeButton(new Image(World.class.getResource("/Buttons/sign_options.png").toString()), "Options");
-        options.setLayoutX(Utils.canvasSize - 2.4*(new Image(World.class.getResource("/Buttons/sign_options.png").toString()).getWidth()));
+        options.setLayoutX(Utils.canvasWidth - 2.4*(new Image(World.class.getResource("/Buttons/sign_options.png").toString()).getWidth()));
         options.setLayoutY(-15);
         options.handler(gsm);
 
         layout.getChildren().addAll(options, multi, skin, editor, arcade, bestScore);
 
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
     }
 
     public void init() {

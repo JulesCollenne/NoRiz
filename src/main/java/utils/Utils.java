@@ -7,10 +7,17 @@ public class Utils {
 
     public enum DIF {EASY, MEDIUM, HARD, ARCADE}
 
-    public static final int mapSize = 25; // labyrinthe de size*size case
-    public static final int caseDimension = 32; // chaque case du labyrinthe fait dimension*dimension pixel
-    public static final int canvasSize = mapSize * caseDimension;
+    public static final int mapWidth = 25; // labyrinthe de size*size case
+    public static final int mapHeight = 25; // labyrinthe de size*size case
+    public static final int caseWidth = 16*4; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int caseHeight = 9*4; // chaque case du labyrinthe fait dimension*dimension pixel
+    public static final int canvasWidth = mapWidth * caseWidth;
+    public static final int canvasHeight = mapHeight * caseHeight;
     static final int roundDuration = 500; // en seconde
+
+    public static final float playerSpeed = canvasWidth/800F;
+    public static final float monsterSpeed = canvasWidth/800F;
+
     public static final int UISize = 2;
 
     public static final int START  = 0;
@@ -28,43 +35,28 @@ public class Utils {
     public static int nbStates = 12;
     
     public static int worldItemToInt(WORLDITEM worlditem){
-        switch(worlditem){
-            case ROAD:
-                return 0;
-            case WALL:
-                return 1;
-            case RICE:
-                return 2;
-            case BONUS:
-                return 3;
-            case UI:
-                return 4;
-            case SPAWN_PLAYER:
-                return 5;
-            case SPAWN_MONSTER:
-                return 6;
-        }
-        return -1;
+        return switch (worlditem) {
+            case ROAD -> 0;
+            case WALL -> 1;
+            case RICE -> 2;
+            case BONUS -> 3;
+            case UI -> 4;
+            case SPAWN_PLAYER -> 5;
+            case SPAWN_MONSTER -> 6;
+        };
     }
 
     public static WORLDITEM intToWorldItem(int item){
-        switch(item){
-            case 0:
-                return ROAD;
-            case 1:
-                return WALL;
-            case 2:
-                return RICE;
-            case 3:
-                return BONUS;
-            case 4:
-                return UI;
-            case 5:
-                return SPAWN_PLAYER;
-            case 6:
-                return SPAWN_MONSTER;
-        }
-        return ROAD;
+        return switch (item) {
+            case 0 -> ROAD;
+            case 1 -> WALL;
+            case 2 -> RICE;
+            case 3 -> BONUS;
+            case 4 -> UI;
+            case 5 -> SPAWN_PLAYER;
+            case 6 -> SPAWN_MONSTER;
+            default -> ROAD;
+        };
     }
 
     /**
@@ -76,31 +68,27 @@ public class Utils {
     public static int[] getSquare(int x, int y){
         int[] coord = new int[2];
 
-        coord[0] = x/caseDimension % mapSize;
-        coord[1] = y/caseDimension;
-        if(coord[1] >= mapSize)
+        coord[0] = x/caseWidth % mapWidth;
+        coord[1] = y/caseHeight;
+        if(coord[1] >= mapHeight)
             coord[1] = UISize;
 
         if(coord[0] < 0)
-            coord[0] = mapSize-1;
+            coord[0] = mapWidth-1;
         if(coord[1] < UISize)
-            coord[1] = mapSize-1;
+            coord[1] = mapHeight-1;
 
         return coord;
     }
 
     public static DIRECTION inverse(DIRECTION dir){
-        switch(dir){
-            case DOWN:
-                return UP;
-            case UP:
-                return DOWN;
-            case RIGHT:
-                return LEFT;
-            case LEFT:
-                return RIGHT;
-        }
-        return null;
+        return switch (dir) {
+            case DOWN -> UP;
+            case UP -> DOWN;
+            case RIGHT -> LEFT;
+            case LEFT -> RIGHT;
+            default -> null;
+        };
     }
 
     /**
@@ -112,8 +100,8 @@ public class Utils {
     public static int[] getSquareMouse(int x, int y){
         int[] coord = new int[2];
 
-        coord[0] = x/caseDimension;
-        coord[1] = y/caseDimension;
+        coord[0] = x/caseWidth;
+        coord[1] = y/caseHeight;
 
         return coord;
     }
@@ -131,17 +119,13 @@ public class Utils {
     }
 
     public static int toInt(DIRECTION dir){
-        switch (dir) {
-            case DOWN:
-                return 0;
-            case UP:
-                return 1;
-            case LEFT:
-                return 2;
-            case RIGHT:
-                return 3;
-        }
-        return 0;
+        return switch (dir) {
+            case DOWN -> 0;
+            case UP -> 1;
+            case LEFT -> 2;
+            case RIGHT -> 3;
+            default -> 0;
+        };
     }
 
     /**
@@ -157,7 +141,7 @@ public class Utils {
     }
 
     public static int[] getMinIndex(double[][] distances) {
-        int coords[] = new int[2];
+        int[] coords = new int[2];
 
         double min = 999;
 
@@ -176,8 +160,8 @@ public class Utils {
     public static int[] getCanvasCoords(int[] coords){
         int[] newCoords = new int[2];
 
-        newCoords[0] = coords[0] * Utils.caseDimension + Utils.caseDimension/2;
-        newCoords[1] = coords[1] * Utils.caseDimension + Utils.caseDimension/2;
+        newCoords[0] = coords[0] * Utils.caseWidth + Utils.caseHeight/2;
+        newCoords[1] = coords[1] * Utils.caseWidth + Utils.caseHeight/2;
 
         return newCoords;
     }

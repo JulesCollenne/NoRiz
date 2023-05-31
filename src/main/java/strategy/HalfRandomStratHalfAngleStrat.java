@@ -97,34 +97,34 @@ public class HalfRandomStratHalfAngleStrat implements Strategy {
             cos = Math.cos(angle);
             sin = Math.sin(angle);
 
-            if(currentWay == DIRECTION.UP && !monster.collider.isPossible(x+1, y - Utils.caseDimension+1)){
-                if(monster.collider.isPossible(x - Utils.caseDimension+1, y+1))
+            if(currentWay == DIRECTION.UP && !monster.collider.isPossible(x+1, y - Utils.caseHeight+1)){
+                if(monster.collider.isPossible(x - Utils.caseWidth+1, y+1))
                     return DIRECTION.LEFT;
-                else if(monster.collider.isPossible(x + Utils.caseDimension+1, y+1))
+                else if(monster.collider.isPossible(x + Utils.caseWidth+1, y+1))
                     return DIRECTION.RIGHT;
                 else
                     return DIRECTION.DOWN;
             }
-            else if(currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x+1, y + Utils.caseDimension+1)){
-                if(monster.collider.isPossible(x - Utils.caseDimension+1, y+1))
+            else if(currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x+1, y + Utils.caseHeight+1)){
+                if(monster.collider.isPossible(x - Utils.caseWidth+1, y+1))
                     return DIRECTION.LEFT;
-                else if(monster.collider.isPossible(x + Utils.caseDimension+1, y+1))
+                else if(monster.collider.isPossible(x + Utils.caseWidth+1, y+1))
                     return DIRECTION.RIGHT;
                 else
                     return DIRECTION.UP;
             }
-            else if(currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseDimension+1, y+1)){
-                if(monster.collider.isPossible(x+1, y - Utils.caseDimension+1))
+            else if(currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseWidth+1, y+1)){
+                if(monster.collider.isPossible(x+1, y - Utils.caseHeight+1))
                     return DIRECTION.UP;
-                else if(monster.collider.isPossible(x+1, y + Utils.caseDimension+1))
+                else if(monster.collider.isPossible(x+1, y + Utils.caseHeight+1))
                     return DIRECTION.DOWN;
                 else
                     return DIRECTION.RIGHT;
             }
-            else if(currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseDimension+1, y+1)){
-                if(monster.collider.isPossible(x+1, y - Utils.caseDimension+1))
+            else if(currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseWidth+1, y+1)){
+                if(monster.collider.isPossible(x+1, y - Utils.caseHeight+1))
                     return DIRECTION.UP;
-                else if(monster.collider.isPossible(x+1, y + Utils.caseDimension+1))
+                else if(monster.collider.isPossible(x+1, y + Utils.caseHeight+1))
                     return DIRECTION.DOWN;
                 else
                     return DIRECTION.LEFT;

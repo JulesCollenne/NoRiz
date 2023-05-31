@@ -28,7 +28,7 @@ public class GameStateManager{
     World world = new World();
 
     Collider collider = new Collider(world);
-    public Noriz noriz = new Noriz(collider, caseDimension,caseDimension*3,1.5F);
+    public Noriz noriz = new Noriz(collider, caseWidth,caseHeight*3,playerSpeed, "NoRiz");
     CollectableItem[] collectableItems = new CollectableItem[6];
 
 
@@ -75,6 +75,7 @@ public class GameStateManager{
         gameStates[WIN] = new WinState(this);
         gameStates[ARCADE] = new ArcadeState(this, ui);
         gameStates[EDITORPLAY] = new EditorPlayState(this, ui);
+        gameStates[MULTIMENU] = new MultiMenuState(this);
 
         changeState(START);
     }
@@ -155,12 +156,11 @@ public class GameStateManager{
 
         //monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), 1, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
         //Monstre RandomStrat
-        float monstersSpeed = 1.5F;
 
-        monsters[0] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), monstersSpeed, new AngleStrat(noriz), "cat_follow_", collider);                                              //Monstre AngleStrat
-        monsters[1] = new Monster(10 * caseDimension, 11 * caseDimension + (2*caseDimension), monstersSpeed, new RandomStrat(), "cat_random_", collider);                                                     //Monstre RandomStrat
-        monsters[2] = new Monster(10 * caseDimension, 10 * caseDimension + (2*caseDimension), monstersSpeed, new BonusStrat(world), "cat_bonus_", collider);                                                //Monstre BonusStrat
-        monsters[3] = new Monster(10 * caseDimension, 10* caseDimension + (2*caseDimension), monstersSpeed, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider);                                                 //Monstre RandomStrat
+        monsters[0] = new Monster(10 * caseWidth, 10 * caseHeight + (2*caseHeight), monsterSpeed, new AngleStrat(noriz), "cat_follow_", collider, "Cat1");                                              //Monstre AngleStrat
+        monsters[1] = new Monster(10 * caseWidth, 11 * caseHeight + (2*caseHeight), monsterSpeed, new RandomStrat(), "cat_random_", collider, "Cat2");                                                     //Monstre RandomStrat
+        monsters[2] = new Monster(10 * caseWidth, 10 * caseHeight + (2*caseHeight), monsterSpeed, new BonusStrat(world), "cat_bonus_", collider, "Cat3");                                                //Monstre BonusStrat
+        monsters[3] = new Monster(10 * caseWidth, 10* caseHeight + (2*caseHeight), monsterSpeed, new HalfRandomStratHalfAngleStrat(noriz), "cat_50_", collider, "Cat3");                                                 //Monstre RandomStrat
     }
 
 

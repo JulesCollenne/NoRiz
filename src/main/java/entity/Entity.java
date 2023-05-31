@@ -1,9 +1,10 @@
 package entity;
 
 import collider.Collider;
-import utils.DIRECTION;
-import utils.Utils;
 import javafx.scene.image.Image;
+import utils.DIRECTION;
+
+import static java.lang.Math.min;
 import static utils.Utils.*;
 
 /**
@@ -18,7 +19,12 @@ public abstract class Entity {
     int spawnY;
     public float speed;
     float initialSpeed;
-    int size;
+//    int size;
+    int width;
+    int height;
+    int hitCircle;
+
+    String name;
 
     DIRECTION facing = DIRECTION.STOP;
     DIRECTION nextFacing = DIRECTION.STOP;
@@ -40,13 +46,16 @@ public abstract class Entity {
     /**
      * Constructor
      */
-    public Entity(Collider collider, int initialX, int initialY){
+    public Entity(Collider collider, int initialX, int initialY, String chosenName){
         this.collider = collider;
         spawnX = initialX;
         spawnY = initialY;
         frozen = 0;
         ghost = 0;
-        size = Utils.caseDimension;
+//        size = caseWidth;
+        width = caseWidth;
+        height = caseHeight;
+        name = chosenName;
     }
 
     /**
@@ -60,7 +69,10 @@ public abstract class Entity {
     public void init(){
         frozen = 0;
         ghost = 0;
-        size = Utils.caseDimension;
+//        size = Utils.caseDimension;
+        width = caseWidth;
+        height = caseHeight;
+        hitCircle = min(width, height);
     }
 
     /**
@@ -71,8 +83,12 @@ public abstract class Entity {
         spawnY = y;
     }
 
-    public void setSize(int choosenSize){
-        size = choosenSize;
+    public void setWidth(int choosenWidth){
+        width = choosenWidth;
+    }
+
+    public void setHeight(int choosenHeight){
+        height = choosenHeight;
     }
 
     public int[] findPossibleMove(int dx, int dy) {
@@ -119,15 +135,15 @@ public abstract class Entity {
     }
 
     void move(int dx, int dy){
-        x = (x + dx) % canvasSize;
+        x = (x + dx) % canvasWidth;
         y = y + dy;
-        if(y >= canvasSize)
-            y = caseDimension * UISize;
+        if(y >= canvasHeight)
+            y = caseHeight * UISize;
 
         if(x < 0)
-            x = canvasSize-1;
-        if(y < UISize*caseDimension)
-            y = canvasSize-1;
+            x = canvasWidth-1;
+        if(y < UISize*caseHeight)
+            y = canvasHeight-1;
     }
 
     /**
@@ -177,24 +193,24 @@ public abstract class Entity {
         if(facing == DIRECTION.UP || facing == DIRECTION.DOWN)
             return 0;
         if(facing == DIRECTION.RIGHT)
-            return getSize()/2;
-        return -getSize()/2;
+            return getWidth()/2;
+        return -getWidth()/2;
     }
 
     private int getFacingY(DIRECTION facing) {
         if(facing == DIRECTION.RIGHT || facing == DIRECTION.LEFT)
             return 0;
         if(facing == DIRECTION.DOWN)
-            return getSize()/2;
-        return -getSize()/2;
+            return getHeight()/2;
+        return -getHeight()/2;
     }
 
     public int getCenterX() {
-        return x + getSize()/2;
+        return x + getWidth()/2;
     }
 
     public int getCenterY() {
-        return y + getSize()/2;
+        return y + getHeight()/2;
     }
 
     /**
@@ -215,7 +231,7 @@ public abstract class Entity {
 
     private int getCollideX1(){
         if(facing == DIRECTION.RIGHT)
-            return x + getSize();
+            return x + getWidth();
         if(facing == DIRECTION.LEFT)
             return x;
         return x + 1;
@@ -223,15 +239,15 @@ public abstract class Entity {
 
     private int getCollideX2(){
         if(facing == DIRECTION.RIGHT)
-            return x + getSize();
+            return x + getWidth();
         if(facing == DIRECTION.LEFT)
             return x;
-        return x + getSize() - 1;
+        return x + getWidth() - 1;
     }
 
     private int getCollideY1(){
         if(facing == DIRECTION.DOWN)
-            return y + getSize();
+            return y + getHeight();
         if(facing == DIRECTION.UP)
             return y;
         return y + 1;
@@ -239,10 +255,10 @@ public abstract class Entity {
 
     private int getCollideY2(){
         if(facing == DIRECTION.DOWN)
-            return y + getSize();
+            return y + getHeight();
         if(facing == DIRECTION.UP)
             return y;
-        return y + getSize() - 1;
+        return y + getHeight() - 1;
     }
 
     /**
@@ -257,16 +273,16 @@ public abstract class Entity {
         coords[0][1] = y+1;
 
         //Haut droit
-        coords[1][0] = x + getSize()-1;
+        coords[1][0] = x + getWidth()-1;
         coords[1][1] = y+1;
 
         //Bas gauche
         coords[2][0] = x+1;
-        coords[2][1] = y + getSize()-1;
+        coords[2][1] = y + getHeight()-1;
 
         //Bas droit
-        coords[3][0] = x + getSize()-1;
-        coords[3][1] = y + getSize()-1;
+        coords[3][0] = x + getWidth()-1;
+        coords[3][1] = y + getHeight()-1;
 
         return coords;
     }
@@ -286,8 +302,25 @@ public abstract class Entity {
     public DIRECTION getFacing(){
         return facing;
     }
-    public int getSize(){
-        return size;
+
+    public int getWidth(){
+        return width;
     }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public int getHitCircle(){
+        return hitCircle;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+//    public int getSize(){
+//        return size;
+//    }
 
 }

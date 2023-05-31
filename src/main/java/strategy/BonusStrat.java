@@ -71,49 +71,49 @@ public class BonusStrat implements Strategy{
         int nbCases = 0;
         int k = 1;
 
-        while(nbCases != Utils.mapSize*Utils.mapSize){
-            if(world.map[i][j - k] == WORLDITEM.BONUS && j-k > 0){
-                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i + k][j - k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j-k > 0){
-                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i + k][j] == WORLDITEM.BONUS && i+k < Utils.mapSize){
-                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i + k][j + k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j+k < Utils.mapSize){
-                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i][j + k] == WORLDITEM.BONUS){
-                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i - k][j + k] == WORLDITEM.BONUS && i-k > 0 && j+k < Utils.mapSize){
-                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i-k][j] == WORLDITEM.BONUS && i-k > 0){
-                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
-                nb_bonus++;
-            }
-            else if(world.map[i - k][j - k] == WORLDITEM.BONUS && i-k > 0 && j-k > 0){
-                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
-                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
-                nb_bonus++;
-            }
-            nbCases++;
-        }
+//        while(nbCases != Utils.mapWidth*Utils.mapHeight){
+//            if(world.map[i][j - k] == WORLDITEM.BONUS && j-k > 0){
+//                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i + k][j - k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j-k > 0){
+//                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i + k][j] == WORLDITEM.BONUS && i+k < Utils.mapSize){
+//                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i + k][j + k] == WORLDITEM.BONUS && i+k < Utils.mapSize && j+k < Utils.mapSize){
+//                coordsBonus[nb_bonus][0] = (i+k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i][j + k] == WORLDITEM.BONUS){
+//                coordsBonus[nb_bonus][0] = i * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i - k][j + k] == WORLDITEM.BONUS && i-k > 0 && j+k < Utils.mapSize){
+//                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j+k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i-k][j] == WORLDITEM.BONUS && i-k > 0){
+//                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = j * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            else if(world.map[i - k][j - k] == WORLDITEM.BONUS && i-k > 0 && j-k > 0){
+//                coordsBonus[nb_bonus][0] = (i-k) * Utils.caseDimension;
+//                coordsBonus[nb_bonus][1] = (j-k) * Utils.caseDimension;
+//                nb_bonus++;
+//            }
+//            nbCases++;
+//        }
     }
 
     private static void affiche(){
@@ -147,7 +147,7 @@ public class BonusStrat implements Strategy{
         long current_time_milli = System.currentTimeMillis();
         //System.out.println(current_time_milli/1000. - bonus_timer/1000.);
 
-        if ((abs(x - xBonus) < monster.getSize() && abs(y - yBonus) < monster.getSize()) || current_time_milli/1000. - bonus_timer/1000. > 15.) {
+        if ((abs(x - xBonus) < monster.getWidth() && abs(y - yBonus) < monster.getHeight()) || current_time_milli/1000. - bonus_timer/1000. > 15.) {
             targetNewBonus();
             //System.out.println("Bonus Target " + xBonus + " " + yBonus);
             bonus_timer = current_time_milli;
@@ -166,31 +166,31 @@ public class BonusStrat implements Strategy{
             DIRECTION currentWay = monster.getFacing();
             //System.out.println(currentWay);
 
-            if (currentWay == DIRECTION.UP && !monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1)) {
-                if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
+            if (currentWay == DIRECTION.UP && !monster.collider.isPossible(x + 1, y - Utils.caseHeight + 1)) {
+                if (monster.collider.isPossible(x - Utils.caseWidth + 1, y + 1))
                     return DIRECTION.LEFT;
-                else if (monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1))
+                else if (monster.collider.isPossible(x + Utils.caseWidth + 1, y + 1))
                     return DIRECTION.RIGHT;
                 else
                     return DIRECTION.DOWN;
-            } else if (currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1)) {
-                if (monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1))
+            } else if (currentWay == DIRECTION.DOWN && !monster.collider.isPossible(x + 1, y + Utils.caseHeight + 1)) {
+                if (monster.collider.isPossible(x + Utils.caseWidth + 1, y + 1))
                     return DIRECTION.RIGHT;
-                else if (monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1))
+                else if (monster.collider.isPossible(x - Utils.caseWidth + 1, y + 1))
                     return DIRECTION.LEFT;
                 else
                     return DIRECTION.UP;
-            } else if (currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseDimension + 1, y + 1)) {
-                if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
+            } else if (currentWay == DIRECTION.LEFT && !monster.collider.isPossible(x - Utils.caseWidth + 1, y + 1)) {
+                if (monster.collider.isPossible(x + 1, y + Utils.caseHeight + 1))
                     return DIRECTION.DOWN;
-                else if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
+                else if (monster.collider.isPossible(x + 1, y - Utils.caseHeight + 1))
                     return DIRECTION.UP;
                 else
                     return DIRECTION.RIGHT;
-            } else if (currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseDimension + 1, y + 1)) {
-                if (monster.collider.isPossible(x + 1, y + Utils.caseDimension + 1))
+            } else if (currentWay == DIRECTION.RIGHT && !monster.collider.isPossible(x + Utils.caseWidth + 1, y + 1)) {
+                if (monster.collider.isPossible(x + 1, y + Utils.caseHeight + 1))
                     return DIRECTION.DOWN;
-                else if (monster.collider.isPossible(x + 1, y - Utils.caseDimension + 1))
+                else if (monster.collider.isPossible(x + 1, y - Utils.caseHeight + 1))
                     return DIRECTION.UP;
                 else
                     return DIRECTION.LEFT;

@@ -1,5 +1,6 @@
 package states;
 
+import javafx.scene.input.KeyCode;
 import ui.ButtonChooseSkin;
 import utils.Utils;
 import javafx.animation.AnimationTimer;
@@ -14,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import worldBuilder.World;
+
+import java.util.Objects;
 
 
 public class SkinState extends GameState {
@@ -42,7 +45,7 @@ public class SkinState extends GameState {
         double tempWidth = new Image(World.class.getResource("/Buttons/sign_menu.png").toString()).getWidth();
 
         Text title = new Text("Skin");
-        title.setX(Utils.canvasSize/2.0- 70);
+        title.setX(Utils.canvasWidth/2.0- 70);
         title.setY(90);
         title.setFont(new Font(45));
         title.setFill(color);
@@ -74,12 +77,12 @@ public class SkinState extends GameState {
                 " -fx-font-weight: bold;");
 
         valideSkin.setPrefSize(175,80);
-        valideSkin.setLayoutX( ((((2*Utils.canvasSize)/3.) + (Utils.canvasSize/3.))/2) - (tempWidth/2));
-        valideSkin.setLayoutY((80/100.0)*Utils.canvasSize);
+        valideSkin.setLayoutX( ((((2*Utils.canvasWidth)/3.) + (Utils.canvasWidth/3.))/2) - (tempWidth/2));
+        valideSkin.setLayoutY((80/100.0)*Utils.canvasHeight);
 
         layout.getChildren().addAll(title, skinsPane, valideSkin);
 
-        theScene = new Scene(layout, Utils.canvasSize, Utils.canvasSize);
+        theScene = new Scene(layout, Utils.canvasWidth, Utils.canvasHeight);
 
         theScene.setOnKeyPressed(
                 this::keyInput);
@@ -92,10 +95,8 @@ public class SkinState extends GameState {
 
     @Override
     public void keyInput(KeyEvent e) {
-        switch (e.getCode()) {
-            case ESCAPE:
-                gsm.changeState(0);
-                break;
+        if (Objects.requireNonNull(e.getCode()) == KeyCode.ESCAPE) {
+            gsm.changeState(0);
         }
     }
 
